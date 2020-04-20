@@ -1,0 +1,117 @@
+### DONE ### -----------------------------------------------------------------------------------------------------------
+
+
+### NOW ### ------------------------------------------------------------------------------------------------------------
+add more instructions
+
+write the logic for loading modules:
+    application will load modules with unresolved classes
+    at the very end, application will resolve the classes
+    after the resolve, it will create instructions for functions
+
+create new project with github repository called MgLanguage
+
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
+think about mg collections
+    they should definitely be distinguished as readable or writeable or both
+
+there should be strictly distingushed code sugar and actual language entities
+    needs to think a lot about their purpose
+    for example function call with expression as parameter could be one, but also dont have to be!
+
+think about static variables, we might want these to supply enums
+    those will be stored in the runtime classes, right?
+
+think of possible scheduler
+    also think if current architecture is good
+    maybe I will postpone schedulers for later ... or now will just make simple round robin one!
+    schedulers can schedule:
+        for each core a bunch of threads
+        a bunch of threads for bunch of cores
+        ... the question there is, if scheduler should be inside of core or application ?
+
+mg parser/builder
+    write mg parser -- I mean, move it here from previous project
+    write mg builder -- this one can also move mostly from previous project
+
+    An interesting idea for parser !!!
+        there is a problem with syntax for INPUT, OUTPUT, IS and other inner lists of definitions
+            maybe, just maybe, it could be as there are inside objects specified either
+                with keyword - INPUT objects of a function for example
+                without keyword - commands of a function for example
+            and then there will be a rule, that keyword objects can be appended to definition line!
+            would this be easy to implement?
+            would this be intuitive?
+
+    how to deal with objects being in separate files?
+        1) they can have a target parent specified
+            how to resolve the target though? -- there is no context yet!
+        2) classical tree structure - parents will have list of children
+            each module will have a list of files or locations/directories
+
+        default target location will be root location of default module
+
+
+### LATER ### ----------------------------------------------------------------------------------------------------------
+c entities
+    add global variable element (dont forget modifiers)
+    add thread local modifier
+    add extern modifier
+    add (c language specific) static modifier
+    differentiate c number and text and character literals ???
+
+write mg to c converter
+
+function pointers - might need to add function type
+how to trace origin? might use optional setter, that shall be set for all newly created objects
+    origin will be taken from one of the input objects
+        ... shouldnt a stack trace be enough? implying we have a tree of entities
+add entity assertation class with entity assertation exception
+
+
+### IDEAS ### ----------------------------------------------------------------------------------------------------------
+very interesting idea
+    contextual methods
+        entities can have different methods based on current context
+            ie CStructure in c to java converter context will have different methods than in c to php converter context
+    these can also support overriding
+    in each file, we might need to specify context, or specify it in some other way?
+    this might also be accomplished by special "inheritance"
+        mg will have more types of inheritance: IS <-, LIKE >-<, AS <->, VIEW ->
+
+limit file size parameter
+limit file location to project folder only ?
+aliases for modules in mgapplication ?
+
+object model
+    pointer to its class definition
+    list of data storages - each data storage belongs to certain class in inheritance
+    class definition contains list of functions
+
+    objects should be able to be aliased
+        aliases are two way exchangable
+        aliases can have aditional methods, but not aditional data
+        maybe those methods can even be overriden
+
+mg language - required and/or optional input and output (probably with stamps)
+transparent work with collections and (non-nullable / nullable) objects - if possible
+be it only a library yet, ie no project file, for simplicity
+optimize operator writer tasks to not always include brackets
+
+add compiler parameters for cproject ?
+ideas mg groups - classes can belong to one or more groups
+    something like multiple inheritance
+
+do not allow escape sequences or anythign like that
+    use special buildin constants or functions
+    this will simplify literal handling A LOT
+
+ALL mg paths to be completely relative, or absolute being relative to module
+
+find out how to mimic contextual methods in java?
+    maybe we are overreacting now, lets make one simple implementation for our case
+    and then we can take care of the remaining scenarios!
+    keep this java implementation as simple as possible!
+
+    also, think about difference between dependency injection and contextual methods

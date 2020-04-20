@@ -1,0 +1,42 @@
+possible path rules: (pick in order first one that is valid) ... solve
+    if field and named, then use object name
+    if field, then use field name (or use object type name)
+    if collection and named, then use object name
+    if collection, then use field name and order number (or type name and order number)
+
+Do not use static methods
+    using tasks helps saving the execution tree and inspect it more closely when debugging
+
+Do not use public fields
+    entities can and should add basic validation for their input when setting the value
+    the way data is saved can vary, entities could put it directly in database or store it in c memory allocation
+
+ensure good naming
+    logic a -> logic b = converter
+
+    code -> logic = ???
+    logic -> code = ???
+
+    page -> code = reader
+    code -> page = writer
+
+    string -> page = parser
+    page -> string = formatter
+
+resolve should be done during runtime
+    when loading compile entities, actual objects are temporarily represented by unresolved objects
+
+during resolution, these objects are examined:
+    1) the current/parent entity
+    2) the current location
+    3) the current context
+    then all results are gathered and if there is more than one, then throw an exception - ambiguous entity/object
+
+consider the problem of the time of resolve of names
+    compile time - resolve entities during compilation - very limited
+    startup time - resolve entities at application startup - slightly limited
+    runtime - load and resolve entities at runtime - unlimited! -- I will use this one
+
+collection polymorphism problem
+    ReadableList<Child> can be passed as ReadableList<Parent>
+    WriteableList<Child> cannot be passed as WritableList<Parent> !!!
