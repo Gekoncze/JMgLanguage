@@ -1,25 +1,25 @@
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.compiler.entities.logic.c.CSourceCode;
-import cz.mg.compiler.entities.logic.c.commands.CForCommand;
-import cz.mg.compiler.entities.logic.c.elements.directives.CInclude;
-import cz.mg.compiler.entities.logic.c.elements.statements.declarations.CFunctionForwardDeclaration;
-import cz.mg.compiler.entities.logic.c.elements.statements.declarations.CStructureForwardDeclaration;
-import cz.mg.compiler.entities.logic.c.elements.statements.definitions.CFunctionDefinition;
-import cz.mg.compiler.entities.logic.c.elements.statements.definitions.CStructureDefinition;
-import cz.mg.compiler.entities.logic.c.parts.*;
-import cz.mg.compiler.entities.logic.c.commands.CBreakCommand;
-import cz.mg.compiler.entities.logic.c.commands.CContinueCommand;
-import cz.mg.compiler.entities.logic.c.commands.CWhileCommand;
-import cz.mg.compiler.entities.logic.c.parts.expressions.CDeclaration;
-import cz.mg.compiler.entities.logic.c.parts.expressions.CExpression;
-import cz.mg.compiler.entities.logic.c.parts.expressions.calls.CBinaryOperatorCall;
-import cz.mg.compiler.entities.logic.c.parts.expressions.calls.CFunctionCall;
-import cz.mg.compiler.entities.logic.c.parts.expressions.calls.CUnaryLeftOperatorCall;
-import cz.mg.compiler.entities.logic.c.parts.expressions.calls.CUnaryRightOperatorCall;
-import cz.mg.compiler.entities.logic.c.parts.expressions.values.CLiteral;
-import cz.mg.compiler.entities.logic.c.parts.expressions.values.CName;
-import cz.mg.compiler.entities.text.Page;
-import cz.mg.compiler.tasks.writers.c.CSourceCodeWriterTask;
+import cz.mg.language.entities.logic.c.CSourceCode;
+import cz.mg.language.entities.logic.c.commands.CForCommand;
+import cz.mg.language.entities.logic.c.elements.directives.CInclude;
+import cz.mg.language.entities.logic.c.elements.statements.declarations.CFunctionForwardDeclaration;
+import cz.mg.language.entities.logic.c.elements.statements.declarations.CStructureForwardDeclaration;
+import cz.mg.language.entities.logic.c.elements.statements.definitions.CFunctionDefinition;
+import cz.mg.language.entities.logic.c.elements.statements.definitions.CStructureDefinition;
+import cz.mg.language.entities.logic.c.parts.*;
+import cz.mg.language.entities.logic.c.commands.CBreakCommand;
+import cz.mg.language.entities.logic.c.commands.CContinueCommand;
+import cz.mg.language.entities.logic.c.commands.CWhileCommand;
+import cz.mg.language.entities.logic.c.parts.expressions.CDeclaration;
+import cz.mg.language.entities.logic.c.parts.expressions.CExpression;
+import cz.mg.language.entities.logic.c.parts.expressions.calls.CBinaryOperatorCall;
+import cz.mg.language.entities.logic.c.parts.expressions.calls.CFunctionCall;
+import cz.mg.language.entities.logic.c.parts.expressions.calls.CUnaryLeftOperatorCall;
+import cz.mg.language.entities.logic.c.parts.expressions.calls.CUnaryRightOperatorCall;
+import cz.mg.language.entities.logic.c.parts.expressions.values.CLiteral;
+import cz.mg.language.entities.logic.c.parts.expressions.values.CName;
+import cz.mg.language.entities.text.common.Page;
+import cz.mg.language.tasks.writers.c.CSourceCodeWriterTask;
 
 
 public class MgToCTest {

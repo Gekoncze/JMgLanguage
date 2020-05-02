@@ -1,22 +1,25 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
+rewritten text entities
+added more mg tokens
+added mg parser
+some other minor changes
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 add more instructions
+... is application instance of module?
 
 write the logic for loading modules:
     application will load modules with unresolved classes
     at the very end, application will resolve the classes
     after the resolve, it will create instructions for functions
 
-create new project with github repository called MgLanguage
-
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 think about mg collections
     they should definitely be distinguished as readable or writeable or both
 
-there should be strictly distingushed code sugar and actual language entities
+there should be strictly distingushed examples sugar and actual language entities
     needs to think a lot about their purpose
     for example function call with expression as parameter could be one, but also dont have to be!
 

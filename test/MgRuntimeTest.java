@@ -1,29 +1,23 @@
-import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.compiler.entities.logic.mg.architecture.MgApplication;
-import cz.mg.compiler.entities.logic.mg.architecture.MgModule;
-import cz.mg.compiler.entities.logic.mg.architecture.MgThread;
-import cz.mg.compiler.entities.logic.mg.definitions.MgFunction;
-import cz.mg.compiler.entities.logic.mg.definitions.MgVariable;
-import cz.mg.compiler.entities.logic.mg.instructions.datatype.integer.MgIntegerPlusIntegerInstruction;
-import cz.mg.compiler.entities.logic.mg.instructions.test.MgPrintIntegerInstruction;
-import cz.mg.compiler.entities.logic.mg.objects.MgFunctionObject;
-import cz.mg.compiler.entities.logic.mg.objects.elementary.MgIntegerObject;
+import cz.mg.language.entities.logic.mg.architecture.MgApplication;
+import cz.mg.language.entities.logic.mg.architecture.MgModule;
+import cz.mg.language.entities.logic.mg.architecture.MgThread;
+import cz.mg.language.entities.logic.mg.definitions.MgFunction;
+import cz.mg.language.entities.logic.mg.definitions.MgVariable;
+import cz.mg.language.entities.logic.mg.instructions.datatype.integer.MgIntegerPlusIntegerInstruction;
+import cz.mg.language.entities.logic.mg.instructions.test.MgPrintIntegerInstruction;
+import cz.mg.language.entities.logic.mg.objects.MgFunctionObject;
+import cz.mg.language.entities.logic.mg.objects.elementary.MgIntegerObject;
 
 
 public class MgRuntimeTest {
     public static void main(String[] args) {
-        MgApplication application = new MgApplication(new ReadonlyText("Test Application"));
+        MgApplication application = new MgApplication(new ReadonlyText("application"));
 
-        MgModule module = new MgModule(new ReadonlyText("test"), new List<>(
-                new ReadonlyText("cz"),
-                new ReadonlyText("mg"),
-                new ReadonlyText("compiler"),
-                new ReadonlyText("test")
-        ));
+        MgModule module = new MgModule(new ReadonlyText("module"));
         application.getModules().addLast(module);
 
-        MgFunction functionDefinition = new MgFunction(new ReadonlyText("testFunction"));
+        MgFunction functionDefinition = new MgFunction(new ReadonlyText("function"));
         functionDefinition.getVariables().addLast(new MgVariable(new ReadonlyText("a"), null));
         functionDefinition.getVariables().addLast(new MgVariable(new ReadonlyText("b"), null));
         functionDefinition.getVariables().addLast(new MgVariable(new ReadonlyText("c"), null));

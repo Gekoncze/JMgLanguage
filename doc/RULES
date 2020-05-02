@@ -14,11 +14,11 @@ Do not use public fields
 ensure good naming
     logic a -> logic b = converter
 
-    code -> logic = ???
-    logic -> code = ???
+    examples -> logic = ???
+    logic -> examples = ???
 
-    page -> code = reader
-    code -> page = writer
+    page -> examples = reader
+    examples -> page = writer
 
     string -> page = parser
     page -> string = formatter
