@@ -1,11 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-rewritten text entities
-added more mg tokens
-added mg parser
-some other minor changes
+parser test
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+problem with text - trim does not work as expected!!!
+    i THINK THE problem is because it stops too soon, when it reaches first space after a word
+
+mg text entities to mg entites
+    block builder
+    other entity builders
+
 add more instructions
 ... is application instance of module?
 

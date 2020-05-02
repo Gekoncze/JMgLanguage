@@ -145,6 +145,7 @@ public class MgParseLineTask extends MgParseTask {
         if(token == null) token = MgBracket.parse(reader.sliceChar(), false);
         if(token == null) token = MgSeparator.parse(reader.sliceChar(), false);
         if(token == null) token = MgOperator.parse(reader.sliceChar(), false);
+        if(token == null) token = MgModifier.parse(reader.sliceChar(), false);
         if(token == null) throw new LanguageException("Illegal character " + reader.sliceChar() + " (" + (int)reader.sliceChar().get(0) + ").");
         return token;
     }
