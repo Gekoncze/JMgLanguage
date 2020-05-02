@@ -86,7 +86,7 @@ public class MgParseLineTask extends MgParseTask {
             char ch = reader.read();
             if(!isAllowedCommentCharacter(ch)) throw new LanguageException("Illegal character '" + reader.sliceChar() + "' (" + (int)ch + ") in comment.");
         }
-        return new MgComment(reader.slice().trim());
+        return new MgComment(reader.slice(1, 0).trim());
     }
 
     protected MgValue parseValue(char boundary){

@@ -1,11 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-parser test
+fixed comment parsing
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-problem with text - trim does not work as expected!!!
-    i THINK THE problem is because it stops too soon, when it reaches first space after a word
-
 mg text entities to mg entites
     block builder
     other entity builders
