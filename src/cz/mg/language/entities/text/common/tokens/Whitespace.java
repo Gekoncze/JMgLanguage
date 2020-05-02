@@ -4,8 +4,8 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.text.common.Token;
 
 
-public class Comment extends Token {
-    public Comment(ReadableText text) {
+public class Whitespace extends Token {
+    public Whitespace(ReadableText text) {
         super(text);
     }
 }

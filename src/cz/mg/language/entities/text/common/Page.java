@@ -4,10 +4,9 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.text.TextEntity;
 
 
-public class Page extends TextEntity {
+public class Page extends CommonTextEntity {
     @Part
     private final List<Line> lines;
 

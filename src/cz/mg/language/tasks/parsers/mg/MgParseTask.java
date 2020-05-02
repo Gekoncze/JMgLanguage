@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers;
+package cz.mg.language.tasks.parsers.mg;
 
 import cz.mg.language.tasks.Task;
 

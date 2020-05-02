@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers;
+package cz.mg.language.tasks.parsers.mg;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
@@ -6,8 +6,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.common.Line;
 import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.Space;
-import cz.mg.language.entities.text.mg.tokens.*;
+import cz.mg.language.entities.text.common.tokens.*;
 
 
 public class MgParseLineTask extends MgParseTask {
@@ -44,19 +43,23 @@ public class MgParseLineTask extends MgParseTask {
     }
 
     private static boolean isLowerCharacter(char ch){
-        return (ch >= 'a' && ch <= 'z');
+        return ch >= 'a' && ch <= 'z';
     }
 
     private static boolean isUpperCharacter(char ch){
-        return (ch >= 'A' && ch <= 'Z');
+        return ch >= 'A' && ch <= 'Z';
     }
 
     private static boolean isAllowedLiteralCharacter(char ch){
-        return (ch >= ' ' && ch <= '~');
+        return ch >= ' ' && ch <= '~';
     }
 
     private static boolean isAllowedCommentCharacter(char ch){
-        return (ch >= ' ' && ch <= '~');
+        return ch >= ' ' && ch <= '~';
+    }
+
+    private static boolean isSymbol(char ch){
+        return ch >= '!' && ch <= '~';
     }
 
     @Override
@@ -68,32 +71,34 @@ public class MgParseLineTask extends MgParseTask {
             reader.setMark();
             char ch = reader.read();
             if(ch == ' '){
-                line.getTokens().addLast(Space.SPACE);
+                line.getTokens().addLast(new Space(reader.slice()));
             } else if(isComment(ch)){
                 line.getTokens().addLast(parseComment());
             } else if(isValue(ch)){
                 line.getTokens().addLast(parseValue(ch));
             } else if(isWord(ch)){
                 line.getTokens().addLast(parseWord());
+            } else if(isSymbol(ch)) {
+                line.getTokens().addLast(new Symbol(reader.slice()));
             } else {
-                line.getTokens().addLast(parseSymbol());
+                throw new LanguageException("Illegal character " + reader.sliceChar() + " (" + (int)reader.sliceChar().get(0) + ").");
             }
         }
     }
 
-    protected MgComment parseComment(){
+    protected Comment parseComment(){
         while(reader.canRead()){
             char ch = reader.read();
             if(!isAllowedCommentCharacter(ch)) throw new LanguageException("Illegal character '" + reader.sliceChar() + "' (" + (int)ch + ") in comment.");
         }
-        return new MgComment(reader.slice(1, 0).trim());
+        return new Comment(reader.slice(1, 0).trim());
     }
 
-    protected MgValue parseValue(char boundary){
+    protected Value parseValue(char boundary){
         while(reader.canRead()){
             char ch = reader.read();
             if(ch == boundary){
-                return new MgValue(reader.slice());
+                return new Value(reader.slice());
             } else if(isAllowedLiteralCharacter(ch)) {
                 continue;
             } else {
@@ -134,20 +139,10 @@ public class MgParseLineTask extends MgParseTask {
         }
 
         if(hasUnderscore) throw new LanguageException("Underscore in names is currently not supported.");
-        if(hasLower) return new MgName(reader.slice());
-        if(!hasNumber) return MgKeyword.parse(reader.slice(), true);
+        if(hasLower) return new Name(reader.slice());
+        if(!hasNumber && hasUpper && !hasLower) return new Keyword(reader.slice());
 
         throw new LanguageException("Unsupported word '" + reader.slice() + "'.");
-    }
-
-    protected Token parseSymbol(){
-        Token token = null;
-        if(token == null) token = MgBracket.parse(reader.sliceChar(), false);
-        if(token == null) token = MgSeparator.parse(reader.sliceChar(), false);
-        if(token == null) token = MgOperator.parse(reader.sliceChar(), false);
-        if(token == null) token = MgModifier.parse(reader.sliceChar(), false);
-        if(token == null) throw new LanguageException("Illegal character " + reader.sliceChar() + " (" + (int)reader.sliceChar().get(0) + ").");
-        return token;
     }
 
     private static class CharReader extends ArrayReader<Character> {

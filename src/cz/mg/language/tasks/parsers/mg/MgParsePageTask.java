@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers;
+package cz.mg.language.tasks.parsers.mg;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
@@ -6,7 +6,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.text.mg.MgPage;
+import cz.mg.language.entities.text.common.Page;
 
 
 public class MgParsePageTask extends MgParseTask {
@@ -14,7 +14,7 @@ public class MgParsePageTask extends MgParseTask {
     private final ReadableText text;
 
     @Output
-    private MgPage page = null;
+    private Page page = null;
 
     @Subtask
     private final List<MgParseLineTask> lineParserTasks = new List<>();
@@ -23,13 +23,13 @@ public class MgParsePageTask extends MgParseTask {
         this.text = text;
     }
 
-    public MgPage getPage() {
+    public Page getPage() {
         return page;
     }
 
     @Override
     protected void onRun() {
-        page = new MgPage();
+        page = new Page();
         Array<ReadableText> rawLines = text.splitByEach("\n");
         for(ReadableText rawLine : rawLines){
             lineParserTasks.addLast(new MgParseLineTask(rawLine));

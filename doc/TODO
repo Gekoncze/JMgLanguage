@@ -1,11 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed comment parsing
+completed block builder task
+rewritten bunch of classes and stuff, especially tokens
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 mg text entities to mg entites
-    block builder
-    other entity builders
+    mg structured text entity builders
+        block builder ... done
+        expression builder ... todo
+
+remove c tokens
 
 add more instructions
 ... is application instance of module?
@@ -64,6 +68,11 @@ c entities
     add extern modifier
     add (c language specific) static modifier
     differentiate c number and text and character literals ???
+
+    bad design detected
+        lines should own tokens as a part
+        but actually, with static final variables, they cant own them, they just reference them
+        the right thing to do is to always create a new token instance!
 
 write mg to c converter
 

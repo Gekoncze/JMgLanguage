@@ -5,9 +5,11 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.parts.CVariable;
-import cz.mg.language.entities.text.c.tokens.CIdentifierToken;
-import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.Space;
+import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
+import cz.mg.language.entities.text.common.Token;
+import cz.mg.language.entities.text.common.tokens.Whitespace;
+import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
 
 
 public class CVariableWriterTask extends CPartWriterTask {
@@ -32,7 +34,7 @@ public class CVariableWriterTask extends CPartWriterTask {
     @Override
     protected void onRun() {
         writeType();
-        tokens.addLast(Space.SPACE);
+        tokens.addLast(new CSpaceToken());
         writeName();
     }
 

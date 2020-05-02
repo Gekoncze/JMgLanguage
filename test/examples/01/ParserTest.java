@@ -1,9 +1,11 @@
 import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.text.common.Line;
+import cz.mg.language.entities.text.common.Page;
 import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.mg.MgPage;
-import cz.mg.language.tasks.parsers.MgParsePageTask;
+import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.tasks.parsers.mg.MgBuildBlocksTask;
+import cz.mg.language.tasks.parsers.mg.MgParsePageTask;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,11 +16,24 @@ public class ParserTest {
     public static void main(String[] args) {
         MgParsePageTask parsePageTask = new MgParsePageTask(loadCode());
         parsePageTask.run();
-        MgPage page = parsePageTask.getPage();
+        Page page = parsePageTask.getPage();
 
-        System.out.println(loadCode());
-        System.out.println();
+        MgBuildBlocksTask buildBlocksTask = new MgBuildBlocksTask(page);
+        buildBlocksTask.run();
+        Block root = buildBlocksTask.getRoot();
 
+        printBlocks(root, 0);
+    }
+
+    private static void printBlocks(Block block, int level){
+        for(int i = 0; i < level; i++) System.out.print("    ");
+        System.out.println(block.getTokens().toText("[", "][", "]"));
+        for(Block child : block.getBlocks()){
+            printBlocks(child, level + 1);
+        }
+    }
+
+    private static void printPage(Page page){
         for(Line line : page.getLines()){
             for(Token token : line.getTokens()){
                 System.out.println(token.getClass().getSimpleName() + ": " + token.getText());

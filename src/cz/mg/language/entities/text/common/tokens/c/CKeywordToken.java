@@ -1,12 +1,11 @@
-package cz.mg.language.entities.text.c.tokens;
+package cz.mg.language.entities.text.common.tokens.c;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.Keyword;
 
 
-public class CKeywordToken extends Token implements Keyword {
+public class CKeywordToken extends Keyword {
     public static final CKeywordToken TYPEDEF = new CKeywordToken(new ReadonlyText("typedef"));
     public static final CKeywordToken STRUCT = new CKeywordToken(new ReadonlyText("struct"));
     public static final CKeywordToken VOID = new CKeywordToken(new ReadonlyText("void"));

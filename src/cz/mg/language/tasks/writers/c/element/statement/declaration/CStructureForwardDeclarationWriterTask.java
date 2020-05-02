@@ -4,11 +4,12 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.logic.c.elements.statements.declarations.CStructureForwardDeclaration;
-import cz.mg.language.entities.text.c.tokens.CIdentifierToken;
+import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.c.tokens.CKeywordToken;
-import cz.mg.language.entities.text.c.tokens.CSeparatorToken;
-import cz.mg.language.entities.text.common.tokens.Space;
+import cz.mg.language.entities.text.common.tokens.c.CKeywordToken;
+import cz.mg.language.entities.text.common.tokens.c.CSeparatorToken;
+import cz.mg.language.entities.text.common.tokens.Whitespace;
+import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
 
 
 public class CStructureForwardDeclarationWriterTask extends CForwardDeclarationWriterTask {
@@ -31,7 +32,7 @@ public class CStructureForwardDeclarationWriterTask extends CForwardDeclarationW
     protected void onRun() {
         Line line = new Line();
         line.getTokens().addLast(CKeywordToken.STRUCT);
-        line.getTokens().addLast(Space.SPACE);
+        line.getTokens().addLast(new CSpaceToken());
         line.getTokens().addLast(new CIdentifierToken(structureDeclaration.getName()));
         line.getTokens().addLast(CSeparatorToken.SEMICOLON);
         lines.addLast(line);

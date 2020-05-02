@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.logic.c.parts.expressions.values.CName;
-import cz.mg.language.entities.text.c.tokens.CIdentifierToken;
+import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
 import cz.mg.language.entities.text.common.Token;
 
 

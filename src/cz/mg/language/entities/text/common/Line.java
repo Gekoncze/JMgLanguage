@@ -4,10 +4,9 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.text.TextEntity;
 
 
-public class Line extends TextEntity {
+public class Line extends CommonTextEntity {
     public static Line EMPTY_LINE = new Line();
 
     @Part

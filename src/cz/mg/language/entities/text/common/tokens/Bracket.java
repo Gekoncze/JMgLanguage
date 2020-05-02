@@ -1,4 +1,10 @@
 package cz.mg.language.entities.text.common.tokens;
 
-public interface Bracket extends Symbol {
+import cz.mg.collections.text.ReadableText;
+
+
+public class Bracket extends Symbol {
+    public Bracket(ReadableText text) {
+        super(text);
+    }
 }

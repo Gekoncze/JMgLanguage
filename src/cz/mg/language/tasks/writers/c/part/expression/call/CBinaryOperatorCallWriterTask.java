@@ -7,7 +7,7 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.parts.expressions.CExpression;
 import cz.mg.language.entities.logic.c.parts.expressions.calls.CBinaryOperatorCall;
 import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.c.tokens.COperatorToken;
+import cz.mg.language.entities.text.common.tokens.c.COperatorToken;
 import cz.mg.language.tasks.writers.c.part.expression.CExpressionWriterTask;
 
 

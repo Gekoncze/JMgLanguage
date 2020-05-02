@@ -5,8 +5,8 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.logic.c.commands.CContinueCommand;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.c.tokens.CKeywordToken;
-import cz.mg.language.entities.text.c.tokens.CSeparatorToken;
+import cz.mg.language.entities.text.common.tokens.c.CKeywordToken;
+import cz.mg.language.entities.text.common.tokens.c.CSeparatorToken;
 
 
 public class CContinueCommandWriterTask extends CCommandWriterTask {

@@ -6,9 +6,9 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.elements.statements.definitions.CStructureDefinition;
 import cz.mg.language.entities.logic.c.parts.CModifier;
-import cz.mg.language.entities.text.c.tokens.*;
+import cz.mg.language.entities.text.common.tokens.c.*;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.tokens.Space;
+import cz.mg.language.entities.text.common.tokens.Whitespace;
 import cz.mg.language.tasks.writers.c.CVariableBlockWriterTask;
 
 import static cz.mg.language.tasks.writers.c.Utilities.indent;
@@ -43,7 +43,7 @@ public class CStructureDefinitionWriterTask extends CDefinitionWriterTask {
     private void writeHeader(){
         Line line = new Line();
         line.getTokens().addLast(CKeywordToken.STRUCT);
-        line.getTokens().addLast(Space.SPACE);
+        line.getTokens().addLast(new CSpaceToken());
         line.getTokens().addLast(new CIdentifierToken(structureDefinition.getName()));
         line.getTokens().addLast(CBracketToken.CURLY_LEFT);
         lines.addLast(line);

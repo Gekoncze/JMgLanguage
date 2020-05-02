@@ -1,4 +1,10 @@
 package cz.mg.language.entities.text.common.tokens;
 
-public interface Operator extends Symbol {
+import cz.mg.collections.text.ReadableText;
+
+
+public class Operator extends Symbol {
+    public Operator(ReadableText text) {
+        super(text);
+    }
 }

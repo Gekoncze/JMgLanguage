@@ -1,12 +1,11 @@
-package cz.mg.language.entities.text.c.tokens;
+package cz.mg.language.entities.text.common.tokens.c;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.Separator;
 
 
-public class CSeparatorToken extends Token implements Separator {
+public class CSeparatorToken extends Separator {
     public static final CSeparatorToken COLON = new CSeparatorToken(new ReadonlyText(":"));
     public static final CSeparatorToken SEMICOLON = new CSeparatorToken(new ReadonlyText(";"));
     public static final CSeparatorToken COMMA = new CSeparatorToken(new ReadonlyText(","));

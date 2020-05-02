@@ -1,4 +1,4 @@
-package cz.mg.language.entities.text.c.tokens.preprocessor;
+package cz.mg.language.entities.text.common.tokens.c.preprocessor;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;

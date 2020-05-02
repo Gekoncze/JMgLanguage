@@ -1,13 +1,12 @@
-package cz.mg.language.entities.text.c.tokens;
+package cz.mg.language.entities.text.common.tokens.c;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
-import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.Operator;
 
 
-public class COperatorToken extends Token implements Operator {
+public class COperatorToken extends Operator {
     protected COperatorToken(ReadableText text) {
         super(text);
     }

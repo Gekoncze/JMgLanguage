@@ -3,8 +3,10 @@ package cz.mg.language.tasks.writers.c;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.tokens.Space;
+import cz.mg.language.entities.text.common.tokens.Whitespace;
+import cz.mg.language.entities.text.common.tokens.c.CTabToken;
 
 
 public class Utilities {
@@ -45,7 +47,7 @@ public class Utilities {
 
     public static List<Line> indent(List<Line> lines){
         for(Line line : lines){
-            line.getTokens().addFirst(Space.INDENT);
+            line.getTokens().addFirst(new CTabToken());
         }
         return lines;
     }

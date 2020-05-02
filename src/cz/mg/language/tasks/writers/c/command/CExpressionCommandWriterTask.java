@@ -6,7 +6,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.commands.CExpressionCommand;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.c.tokens.CSeparatorToken;
+import cz.mg.language.entities.text.common.tokens.c.CSeparatorToken;
 import cz.mg.language.tasks.writers.c.part.expression.CExpressionWriterTask;
 
 
