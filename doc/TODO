@@ -1,13 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-completed block builder task
-rewritten bunch of classes and stuff, especially tokens
+added structured text entities
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 mg text entities to mg entites
     mg structured text entity builders
-        block builder ... done
-        expression builder ... todo
+        part builder ... todo
 
 remove c tokens
 
@@ -128,3 +126,5 @@ find out how to mimic contextual methods in java?
     keep this java implementation as simple as possible!
 
     also, think about difference between dependency injection and contextual methods
+
+if, then, and, or operators ?

@@ -3,6 +3,7 @@ package cz.mg.language.entities.text.structured;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.entities.text.common.Token;
+import cz.mg.language.entities.text.structured.parts.Part;
 
 
 public class Block extends StructuredTextEntity {

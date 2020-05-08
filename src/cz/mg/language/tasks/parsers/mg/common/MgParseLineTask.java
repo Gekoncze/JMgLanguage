@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers.mg;
+package cz.mg.language.tasks.parsers.mg.common;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
@@ -7,6 +7,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.common.Line;
 import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.*;
+import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 
 public class MgParseLineTask extends MgParseTask {

@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers.mg;
+package cz.mg.language.tasks.parsers.mg.common;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
@@ -7,6 +7,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.common.Page;
+import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 
 public class MgParsePageTask extends MgParseTask {

@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers.mg;
+package cz.mg.language.tasks.parsers.mg.structured;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
@@ -11,6 +11,7 @@ import cz.mg.language.entities.text.common.tokens.Comment;
 import cz.mg.language.entities.text.common.tokens.Space;
 import cz.mg.language.entities.text.common.tokens.Whitespace;
 import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 
 public class MgBuildBlocksTask extends MgParseTask {

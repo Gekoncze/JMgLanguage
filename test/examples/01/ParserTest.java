@@ -4,8 +4,8 @@ import cz.mg.language.entities.text.common.Line;
 import cz.mg.language.entities.text.common.Page;
 import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.tasks.parsers.mg.MgBuildBlocksTask;
-import cz.mg.language.tasks.parsers.mg.MgParsePageTask;
+import cz.mg.language.tasks.parsers.mg.structured.MgBuildBlocksTask;
+import cz.mg.language.tasks.parsers.mg.common.MgParsePageTask;
 
 import java.io.BufferedReader;
 import java.io.File;
