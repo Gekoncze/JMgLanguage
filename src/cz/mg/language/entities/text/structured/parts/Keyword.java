@@ -1,15 +1,14 @@
-package cz.mg.language.entities.text.structured.parts.leaves;
+package cz.mg.language.entities.text.structured.parts;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.text.structured.parts.CommonPart;
 
 
-public abstract class Leaf extends CommonPart {
+public class Keyword extends Part {
     @Value
     private final ReadableText text;
 
-    public Leaf(ReadableText text) {
+    public Keyword(ReadableText text) {
         this.text = text;
     }
 

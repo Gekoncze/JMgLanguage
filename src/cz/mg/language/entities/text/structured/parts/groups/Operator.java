@@ -2,7 +2,7 @@ package cz.mg.language.entities.text.structured.parts.groups;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.entities.text.structured.parts.CommonPart;
 
 
 public class Operator extends Group {
@@ -13,7 +13,7 @@ public class Operator extends Group {
         this(text, null, null);
     }
 
-    public Operator(ReadableText text, Part left, Part right) {
+    public Operator(ReadableText text, CommonPart left, CommonPart right) {
         this.text = text;
         getParts().addFirst(left);
         getParts().addLast(right);
@@ -23,19 +23,19 @@ public class Operator extends Group {
         return text;
     }
 
-    public Part getLeft() {
+    public CommonPart getLeft() {
         return getParts().getFirst();
     }
 
-    public void setLeft(Part left) {
+    public void setLeft(CommonPart left) {
         getParts().getFirstItem().setData(left);
     }
 
-    public Part getRight() {
+    public CommonPart getRight() {
         return getParts().getLast();
     }
 
-    public void setRight(Part right) {
+    public void setRight(CommonPart right) {
         getParts().getLastItem().setData(right);
     }
 }

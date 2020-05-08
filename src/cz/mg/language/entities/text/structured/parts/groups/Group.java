@@ -1,17 +1,18 @@
 package cz.mg.language.entities.text.structured.parts.groups;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.entities.text.structured.parts.CommonPart;
 
 
-public abstract class Group extends Part {
-    @cz.mg.language.annotations.entity.Part
-    protected final List<Part> parts = new List<>();
+public abstract class Group extends CommonPart {
+    @Part
+    protected final List<CommonPart> parts = new List<>();
 
     public Group() {
     }
 
-    public List<Part> getParts() {
+    public List<CommonPart> getParts() {
         return parts;
     }
 }

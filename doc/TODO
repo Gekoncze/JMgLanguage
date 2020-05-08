@@ -1,11 +1,18 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added structured text entities
+minor improvements of parts
+base for build parts task
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 mg text entities to mg entites
     mg structured text entity builders
         part builder ... todo
+            operator merger - merge symbols that are close to each other and are not brackets or stamps
+            stamp builder
+            bracket builder
+            chain builder
+            operator builder
+            keyword grouper - keywords can be only toplevel, not inside groups
 
 remove c tokens
 
