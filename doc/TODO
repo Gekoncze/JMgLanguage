@@ -1,6 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-parser improvements + architectural changes, part #2
-
+todo cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -9,8 +8,21 @@ all mg entities should implement MgEntity
 all c entities should implement CEntity
 
 currently working on MgRootContextParser
+    add more context parsers
+        function context parser
+            input context parser
+            output context parser
+        class context parser
+        some more ...
 
-mg text entities to mg entites
+mg structured text entity parser
+    part builder
+        operator merger - merge symbols that are close to each other and are not brackets or stamps
+        bracket builder
+        chain builder
+        operator builder
+        keyword grouper - keywords can be only toplevel, not inside groups
+
     ... an interesting idea
         there are groups of keywords following each other, always at the beginning, for example DEFINE CLASS
             then follows no keywords, for example DEFINE CLASS FooBar
@@ -31,22 +43,18 @@ mg text entities to mg entites
 
             this could be part of sweep page task or the result of sweep task would be passed to another method
 
-    mg structured text entity builders
-        part builder ... todo
-            maybe change the way how builders work
-                it would be better, if there was input as begin and end
-                    begin - the first item from which to start scanning
-                    end - the last item that include in scanning
-                        NEED TO TAKE CARE THOUGH! cuz one could simply call get next on end and get out of bounds
-                            this could be handled by some kind of builder wrapper
+mg parser/builder
+    how to deal with objects being in separate files?
+        1) they can have a target parent specified
+            how to resolve the target though? -- there is no context yet!
+        2) classical tree structure - parents will have list of children
+            each module will have a list of files or locations/directories
 
-            operator merger - merge symbols that are close to each other and are not brackets or stamps
-            bracket builder
-            chain builder
-            operator builder
-            keyword grouper - keywords can be only toplevel, not inside groups
+        default target location will be root location of default module
 
-remove c tokens
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
+mg text entities to mg entites
 
 add more instructions
 ... is application instance of module?
@@ -56,12 +64,10 @@ write the logic for loading modules:
     at the very end, application will resolve the classes
     after the resolve, it will create instructions for functions
 
-
-### SOON ### -----------------------------------------------------------------------------------------------------------
 think about mg collections
-    they should definitely be distinguished as readable or writeable or both
+    they should definitely be distinguished as readable or writeable or both somehow
 
-there should be strictly distingushed examples sugar and actual language entities
+there should be strictly distinguished sugar and actual language entities
     needs to think a lot about their purpose
     for example function call with expression as parameter could be one, but also dont have to be!
 
@@ -75,27 +81,6 @@ think of possible scheduler
         for each core a bunch of threads
         a bunch of threads for bunch of cores
         ... the question there is, if scheduler should be inside of core or application ?
-
-mg parser/builder
-    write mg parser -- I mean, move it here from previous project
-    write mg builder -- this one can also move mostly from previous project
-
-    An interesting idea for parser !!!
-        there is a problem with syntax for INPUT, OUTPUT, IS and other inner lists of definitions
-            maybe, just maybe, it could be as there are inside objects specified either
-                with keyword - INPUT objects of a function for example
-                without keyword - commands of a function for example
-            and then there will be a rule, that keyword objects can be appended to definition line!
-            would this be easy to implement?
-            would this be intuitive?
-
-    how to deal with objects being in separate files?
-        1) they can have a target parent specified
-            how to resolve the target though? -- there is no context yet!
-        2) classical tree structure - parents will have list of children
-            each module will have a list of files or locations/directories
-
-        default target location will be root location of default module
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
