@@ -1,12 +1,12 @@
 package cz.mg.language.entities.logic.mg.definitions;
 
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.logic.mg.MgNamed;
 import cz.mg.language.entities.logic.mg.other.MgType;
 
 
-public class MgVariable extends MgDefinition implements MgNamed {
+public class MgVariable extends MgDefinition implements Named {
     @Value
     private final ReadableText name;
 

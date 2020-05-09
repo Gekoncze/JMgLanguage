@@ -5,14 +5,14 @@ import cz.mg.language.entities.text.TextEntity;
 import cz.mg.language.entities.text.structured.parts.Part;
 
 
-public abstract class Block implements TextEntity {
+public abstract class Block<T extends Block> implements TextEntity {
     @cz.mg.language.annotations.entity.Part
-    private final List<Block> blocks = new List<>();
+    private final List<T> blocks = new List<>();
 
     @cz.mg.language.annotations.entity.Part
     private final List<Part> parts = new List<>();
 
-    public List<Block> getBlocks() {
+    public List<T> getBlocks() {
         return blocks;
     }
 

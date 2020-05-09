@@ -9,6 +9,7 @@ import cz.mg.language.entities.text.linear.Token;
 import cz.mg.language.entities.text.linear.tokens.c.CSpaceToken;
 import cz.mg.language.entities.text.linear.tokens.c.preprocessor.CDirective;
 import cz.mg.language.entities.text.linear.tokens.c.preprocessor.CDirectiveSign;
+import cz.mg.language.entities.text.linear.tokens.c.preprocessor.CPathToken;
 
 
 public class CIncludeWriterTask extends CDirectiveWriterTask {
@@ -40,7 +41,7 @@ public class CIncludeWriterTask extends CDirectiveWriterTask {
             line.getTokens().addLast(CDirectiveSign.INCLUDE_STANDARD_LEFT);
         }
 
-        line.getTokens().addLast(new Token(include.getPath()));
+        line.getTokens().addLast(new CPathToken(include.getPath()));
 
         if(include.isLocal()){
             line.getTokens().addLast(CDirectiveSign.INCLUDE_LOCAL_RIGHT);

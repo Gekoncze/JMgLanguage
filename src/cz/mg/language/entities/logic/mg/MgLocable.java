@@ -1,4 +1,7 @@
 package cz.mg.language.entities.logic.mg;
 
-public interface MgLocable extends MgNamed {
+import cz.mg.language.Named;
+
+
+public interface MgLocable extends Named {
 }

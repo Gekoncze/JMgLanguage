@@ -3,10 +3,10 @@ package cz.mg.language.entities.logic.mg.definitions.context;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.logic.mg.MgEntity;
+import cz.mg.language.entities.logic.mg.MgLogicalEntity;
 
 
-public class MgUsing extends MgEntity {
+public class MgUsing extends MgLogicalEntity {
     @Value
     private final List<ReadableText> path;
 

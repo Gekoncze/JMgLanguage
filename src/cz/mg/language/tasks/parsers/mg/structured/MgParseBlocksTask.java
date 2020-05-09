@@ -1,6 +1,8 @@
 package cz.mg.language.tasks.parsers.mg.structured;
 
 import cz.mg.collections.list.List;
+import cz.mg.collections.list.ReadableList;
+import cz.mg.collections.map.Map;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
@@ -10,9 +12,11 @@ import cz.mg.language.entities.text.linear.Token;
 import cz.mg.language.entities.text.linear.tokens.mg.MgComment;
 import cz.mg.language.entities.text.linear.tokens.mg.MgSpace;
 import cz.mg.language.entities.text.linear.tokens.mg.MgWhitespace;
-import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.entities.text.structured.blocks.mg.MgBlock;
 import cz.mg.language.entities.text.structured.blocks.mg.MgRootBlock;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
+import cz.mg.language.tasks.parsers.mg.structured.context.MgContextParser;
+import cz.mg.language.tasks.parsers.mg.structured.context.MgRootContextParser;
 
 
 public class MgParseBlocksTask extends MgParseTask {
@@ -24,6 +28,8 @@ public class MgParseBlocksTask extends MgParseTask {
     @Output
     private MgRootBlock root = null;
 
+    private Map<MgBlock, MgContextParser> map = new Map<>();
+
     public MgParseBlocksTask(Page page) {
         this.page = page;
     }
@@ -34,14 +40,22 @@ public class MgParseBlocksTask extends MgParseTask {
 
     @Override
     protected void onRun() {
-        root = new MgRootBlock();
+        root = (MgRootBlock) createBlock(new List<>(), new MgRootContextParser());
+
         List<Line> lines = sweepPage(page);
         for(Line line : lines){
             int lineIndentation = countLineIndentation(line);
-            Block targetBlock = getTargetBlock(root, lineIndentation);
+            MgBlock targetBlock = getTargetBlock(root, lineIndentation);
             List<Token> tokens = sweepLine(line);
-            targetBlock.getBlocks().addLast(new Block(tokens));
+            MgContextParser parser = map.get(targetBlock);
+            targetBlock.getBlocks().addLast(createBlock(tokens, parser));
         }
+    }
+
+    private MgBlock createBlock(ReadableList<Token> tokens, MgContextParser parser){
+        MgBlock block = parser.createBlock(tokens);
+        map.set(block, parser);
+        return block;
     }
 
     private List<Line> sweepPage(Page page){
@@ -85,8 +99,8 @@ public class MgParseBlocksTask extends MgParseTask {
         return spaces / INDENTATION_SIZE;
     }
 
-    private static Block getTargetBlock(Block root, int targetBlockIndentation){
-        Block currentBlock = root;
+    private static MgBlock getTargetBlock(MgBlock root, int targetBlockIndentation){
+        MgBlock currentBlock = root;
         int currentBlockIndentation = 0;
         while(currentBlock != null){
             if(currentBlockIndentation == targetBlockIndentation){

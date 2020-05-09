@@ -2,15 +2,15 @@ package cz.mg.language.entities.logic.mg.architecture;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.logic.mg.MgNamed;
 import cz.mg.language.entities.logic.mg.objects.MgClassObject;
 import cz.mg.language.entities.logic.mg.objects.MgFunctionObject;
 
 
-public class MgThread extends MgArchitectureEntity implements MgNamed, Runnable {
+public class MgThread extends MgArchitectureEntity implements Named, Runnable {
     @Value
     private final ReadableText name;
 

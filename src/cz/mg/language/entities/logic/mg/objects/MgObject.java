@@ -1,7 +1,7 @@
 package cz.mg.language.entities.logic.mg.objects;
 
-import cz.mg.language.entities.logic.mg.MgEntity;
+import cz.mg.language.entities.logic.mg.MgLogicalEntity;
 
 
-public abstract class MgObject extends MgEntity {
+public abstract class MgObject extends MgLogicalEntity {
 }

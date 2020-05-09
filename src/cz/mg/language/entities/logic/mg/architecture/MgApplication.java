@@ -4,11 +4,10 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.logic.mg.MgNamed;
 import cz.mg.language.entities.logic.mg.schedulers.MgScheduler;
 
 
-public class MgApplication extends MgArchitectureEntity implements MgNamed {
+public class MgApplication extends MgArchitectureEntity {
     @Value
     private final ReadableText name;
 

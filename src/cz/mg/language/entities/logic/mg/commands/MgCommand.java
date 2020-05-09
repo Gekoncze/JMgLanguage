@@ -1,7 +1,7 @@
 package cz.mg.language.entities.logic.mg.commands;
 
-import cz.mg.language.entities.logic.mg.MgEntity;
+import cz.mg.language.entities.logic.mg.MgLogicalEntity;
 
 
-public abstract class MgCommand extends MgEntity {
+public abstract class MgCommand extends MgLogicalEntity {
 }

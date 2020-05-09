@@ -2,10 +2,10 @@ package cz.mg.language.entities.logic.mg.definitions;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.logic.mg.MgEntity;
-import cz.mg.language.entities.logic.mg.MgNamed;
+import cz.mg.language.entities.logic.mg.MgLogicalEntity;
 import cz.mg.language.entities.logic.mg.other.MgType;
 
 
@@ -21,7 +21,7 @@ public class MgCollection extends MgClass {
         return parameters;
     }
 
-    public static class MgParameter extends MgEntity implements MgNamed {
+    public static class MgParameter extends MgLogicalEntity implements Named {
         @Value
         private final ReadableText name;
 

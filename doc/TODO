@@ -1,13 +1,14 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-significant architectural changes, part #1
-changed many abstract classes into interfaces
-work in progress ...
+parser improvements + architectural changes, part #2
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 see rules for possible architectural changes
 all mg entities should implement MgEntity
 all c entities should implement CEntity
+
+currently working on MgRootContextParser
 
 mg text entities to mg entites
     ... an interesting idea
@@ -27,6 +28,8 @@ mg text entities to mg entites
             so, there would be two steps in between
                 keyword block arrangement
                 stamp block arrangement
+
+            this could be part of sweep page task or the result of sweep task would be passed to another method
 
     mg structured text entity builders
         part builder ... todo

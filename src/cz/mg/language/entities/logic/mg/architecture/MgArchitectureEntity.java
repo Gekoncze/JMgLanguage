@@ -1,8 +1,8 @@
 package cz.mg.language.entities.logic.mg.architecture;
 
-import cz.mg.language.entities.logic.mg.MgEntity;
-import cz.mg.language.entities.logic.mg.MgNamed;
+import cz.mg.language.Named;
+import cz.mg.language.entities.logic.mg.MgLogicalEntity;
 
 
-public abstract class MgArchitectureEntity extends MgEntity implements MgNamed {
+public abstract class MgArchitectureEntity extends MgLogicalEntity implements Named {
 }

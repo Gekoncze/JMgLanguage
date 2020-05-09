@@ -22,16 +22,16 @@ public class ParserTest {
         buildBlocksTask.run();
         Block root = buildBlocksTask.getRoot();
 
-        printBlocks(root, 0);
+//        printBlocks(root, 0);
     }
 
-    private static void printBlocks(Block block, int level){
-        for(int i = 0; i < level; i++) System.out.print("    ");
-        System.out.println(block.getTokens().toText("[", "][", "]"));
-        for(Block child : block.getBlocks()){
-            printBlocks(child, level + 1);
-        }
-    }
+//    private static void printBlocks(Block block, int level){
+//        for(int i = 0; i < level; i++) System.out.print("    ");
+//        System.out.println(block.getTokens().toText("[", "][", "]"));
+//        for(Block child : block.getBlocks()){
+//            printBlocks(child, level + 1);
+//        }
+//    }
 
     private static void printPage(Page page){
         for(Line line : page.getLines()){
