@@ -6,7 +6,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.commands.CCommand;
-import cz.mg.language.entities.text.common.Line;
+import cz.mg.language.entities.text.linear.Line;
 import cz.mg.language.tasks.writers.LineWriterTask;
 import cz.mg.language.tasks.writers.c.command.CCommandWriterTask;
 

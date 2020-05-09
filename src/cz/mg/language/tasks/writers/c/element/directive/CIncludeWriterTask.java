@@ -4,11 +4,11 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.logic.c.elements.directives.CInclude;
-import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
-import cz.mg.language.entities.text.common.tokens.c.preprocessor.CDirective;
-import cz.mg.language.entities.text.common.tokens.c.preprocessor.CDirectiveSign;
+import cz.mg.language.entities.text.linear.Line;
+import cz.mg.language.entities.text.linear.Token;
+import cz.mg.language.entities.text.linear.tokens.c.CSpaceToken;
+import cz.mg.language.entities.text.linear.tokens.c.preprocessor.CDirective;
+import cz.mg.language.entities.text.linear.tokens.c.preprocessor.CDirectiveSign;
 
 
 public class CIncludeWriterTask extends CDirectiveWriterTask {

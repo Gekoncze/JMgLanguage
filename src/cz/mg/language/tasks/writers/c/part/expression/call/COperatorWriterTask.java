@@ -4,7 +4,7 @@ import cz.mg.language.entities.logic.c.parts.expressions.CDeclaration;
 import cz.mg.language.entities.logic.c.parts.expressions.CExpression;
 import cz.mg.language.entities.logic.c.parts.expressions.calls.CFunctionCall;
 import cz.mg.language.entities.logic.c.parts.expressions.values.CValue;
-import cz.mg.language.entities.text.common.tokens.c.CBracketToken;
+import cz.mg.language.entities.text.linear.tokens.c.CBracketToken;
 
 
 public abstract class COperatorWriterTask extends CCallWriterTask {

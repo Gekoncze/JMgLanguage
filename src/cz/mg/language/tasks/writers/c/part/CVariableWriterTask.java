@@ -5,9 +5,9 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.parts.CVariable;
-import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
-import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
+import cz.mg.language.entities.text.linear.tokens.c.CIdentifierToken;
+import cz.mg.language.entities.text.linear.Token;
+import cz.mg.language.entities.text.linear.tokens.c.CSpaceToken;
 
 
 public class CVariableWriterTask extends CPartWriterTask {

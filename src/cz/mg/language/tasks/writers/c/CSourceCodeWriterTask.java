@@ -8,7 +8,7 @@ import cz.mg.language.entities.logic.c.CSourceCode;
 import cz.mg.language.entities.logic.c.elements.directives.CInclude;
 import cz.mg.language.entities.logic.c.elements.statements.declarations.*;
 import cz.mg.language.entities.logic.c.elements.statements.definitions.*;
-import cz.mg.language.entities.text.common.Line;
+import cz.mg.language.entities.text.linear.Line;
 import cz.mg.language.tasks.writers.LineWriterTask;
 import cz.mg.language.tasks.writers.c.element.CElementWriterTask;
 import cz.mg.language.tasks.writers.c.element.directive.CIncludeWriterTask;

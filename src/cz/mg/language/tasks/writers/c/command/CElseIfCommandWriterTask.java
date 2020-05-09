@@ -5,9 +5,9 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.commands.CElseIfCommand;
-import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.tokens.c.CBracketToken;
-import cz.mg.language.entities.text.common.tokens.c.CKeywordToken;
+import cz.mg.language.entities.text.linear.Line;
+import cz.mg.language.entities.text.linear.tokens.c.CBracketToken;
+import cz.mg.language.entities.text.linear.tokens.c.CKeywordToken;
 import cz.mg.language.tasks.writers.c.CCommandBlockWriterTask;
 import cz.mg.language.tasks.writers.c.part.expression.CExpressionWriterTask;
 

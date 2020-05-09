@@ -6,8 +6,8 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.parts.expressions.CExpression;
 import cz.mg.language.entities.logic.c.parts.expressions.calls.CUnaryRightOperatorCall;
-import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.c.COperatorToken;
+import cz.mg.language.entities.text.linear.Token;
+import cz.mg.language.entities.text.linear.tokens.c.COperatorToken;
 import cz.mg.language.tasks.writers.c.part.expression.CExpressionWriterTask;
 
 

@@ -6,7 +6,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.text.common.Page;
+import cz.mg.language.entities.text.linear.Page;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 

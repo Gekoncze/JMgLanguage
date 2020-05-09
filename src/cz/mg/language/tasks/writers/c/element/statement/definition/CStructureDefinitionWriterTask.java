@@ -6,8 +6,8 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.elements.statements.definitions.CStructureDefinition;
 import cz.mg.language.entities.logic.c.parts.CModifier;
-import cz.mg.language.entities.text.common.tokens.c.*;
-import cz.mg.language.entities.text.common.Line;
+import cz.mg.language.entities.text.linear.Line;
+import cz.mg.language.entities.text.linear.tokens.c.*;
 import cz.mg.language.tasks.writers.c.CVariableBlockWriterTask;
 
 import static cz.mg.language.tasks.writers.c.Utilities.indent;

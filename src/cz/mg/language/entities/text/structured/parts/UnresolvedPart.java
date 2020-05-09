@@ -1,7 +1,7 @@
 package cz.mg.language.entities.text.structured.parts;
 
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.text.common.Token;
+import cz.mg.language.entities.text.linear.Token;
 
 
 public class UnresolvedPart extends CommonPart {

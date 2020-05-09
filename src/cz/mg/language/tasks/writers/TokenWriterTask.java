@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.writers;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.entities.text.common.Token;
+import cz.mg.language.entities.text.linear.Token;
 
 
 public interface TokenWriterTask {

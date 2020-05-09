@@ -3,8 +3,8 @@ package cz.mg.language.tasks.writers.c;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.tokens.c.CTabToken;
+import cz.mg.language.entities.text.linear.Line;
+import cz.mg.language.entities.text.linear.tokens.c.CTabToken;
 
 
 public class Utilities {

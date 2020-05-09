@@ -1,8 +1,29 @@
+because of a bad design of the java programming language, some classes need prefixes in their names
+    I read a discussion about this on stackoverflow and it seems such feature will never be added
+    some say it could be sign of a bad design but it isn't, it was nicely explained in the comments
+        in short, the use case is when we have two distinct models and we are transforming one into another
+            in our case, it is the languages being the distinct models
+
+all mg entities should implement MgEntity
+all c entities should implement CEntity
+
 possible path rules: (pick in order first one that is valid) ... solve
     if field and named, then use object name
     if field, then use field name (or use object type name)
     if collection and named, then use object name
     if collection, then use field name and order number (or type name and order number)
+
+modules should never depend on something outside of their location
+    (ie something stored in some parent or sibling location)
+    unless it is explicitly marked as dependency
+    I think modules should be able to map to certain locations
+        there might be some sort of re-mapping at the application level
+        and each module could have something like a hint, a default location if not explicitly specified
+        all of this might need some change in design
+            I think the right thing to do is to have modules contain what they really contain
+            and then the locations would just have links to the objects in the modules!
+            by the way, this is very similar to how package management works in operating systems!
+
 
 Do not use static methods
     using tasks helps saving the execution tree and inspect it more closely when debugging

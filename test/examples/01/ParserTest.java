@@ -1,10 +1,10 @@
 import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.Page;
-import cz.mg.language.entities.text.common.Token;
+import cz.mg.language.entities.text.linear.Line;
+import cz.mg.language.entities.text.linear.Page;
+import cz.mg.language.entities.text.linear.Token;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.tasks.parsers.mg.structured.MgBuildBlocksTask;
+import cz.mg.language.tasks.parsers.mg.structured.MgParseBlocksTask;
 import cz.mg.language.tasks.parsers.mg.common.MgParsePageTask;
 
 import java.io.BufferedReader;
@@ -18,7 +18,7 @@ public class ParserTest {
         parsePageTask.run();
         Page page = parsePageTask.getPage();
 
-        MgBuildBlocksTask buildBlocksTask = new MgBuildBlocksTask(page);
+        MgParseBlocksTask buildBlocksTask = new MgParseBlocksTask(page);
         buildBlocksTask.run();
         Block root = buildBlocksTask.getRoot();
 

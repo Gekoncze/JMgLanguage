@@ -1,11 +1,14 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-parser improvements
-some refactoring
-some changes in syntax rules
-stamps are now handled on common parser level
+significant architectural changes, part #1
+changed many abstract classes into interfaces
+work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+see rules for possible architectural changes
+all mg entities should implement MgEntity
+all c entities should implement CEntity
+
 mg text entities to mg entites
     ... an interesting idea
         there are groups of keywords following each other, always at the beginning, for example DEFINE CLASS

@@ -6,11 +6,11 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.elements.statements.declarations.CFunctionForwardDeclaration;
 import cz.mg.language.entities.logic.c.parts.CVariable;
-import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
-import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.c.CBracketToken;
-import cz.mg.language.entities.text.common.tokens.c.CSeparatorToken;
-import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
+import cz.mg.language.entities.text.linear.tokens.c.CIdentifierToken;
+import cz.mg.language.entities.text.linear.Token;
+import cz.mg.language.entities.text.linear.tokens.c.CBracketToken;
+import cz.mg.language.entities.text.linear.tokens.c.CSeparatorToken;
+import cz.mg.language.entities.text.linear.tokens.c.CSpaceToken;
 
 
 public class CFunctionSignatureWriterTask extends CPartWriterTask {

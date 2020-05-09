@@ -18,7 +18,7 @@ import cz.mg.language.entities.logic.c.parts.expressions.calls.CUnaryLeftOperato
 import cz.mg.language.entities.logic.c.parts.expressions.calls.CUnaryRightOperatorCall;
 import cz.mg.language.entities.logic.c.parts.expressions.values.CLiteral;
 import cz.mg.language.entities.logic.c.parts.expressions.values.CName;
-import cz.mg.language.entities.text.common.Page;
+import cz.mg.language.entities.text.linear.Page;
 import cz.mg.language.tasks.writers.c.CSourceCodeWriterTask;
 
 
