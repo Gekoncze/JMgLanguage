@@ -1,14 +1,40 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-minor improvements of parts
-base for build parts task
+parser improvements
+some refactoring
+some changes in syntax rules
+stamps are now handled on common parser level
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 mg text entities to mg entites
+    ... an interesting idea
+        there are groups of keywords following each other, always at the beginning, for example DEFINE CLASS
+            then follows no keywords, for example DEFINE CLASS FooBar
+                but jsut in case keyword follows, it is interpreted as if it was a child block, for example:
+                    DEFINE CLASS FooBar IS Bar
+                    is the same as
+                    DEFINE CLASS FooBar
+                        IS Bar
+            the same could be with stamps, for example:
+                @public DEFINE CLASS FooBar
+                is the same as
+                @public
+                DEFINE CLASS FooBar
+
+            so, there would be two steps in between
+                keyword block arrangement
+                stamp block arrangement
+
     mg structured text entity builders
         part builder ... todo
+            maybe change the way how builders work
+                it would be better, if there was input as begin and end
+                    begin - the first item from which to start scanning
+                    end - the last item that include in scanning
+                        NEED TO TAKE CARE THOUGH! cuz one could simply call get next on end and get out of bounds
+                            this could be handled by some kind of builder wrapper
+
             operator merger - merge symbols that are close to each other and are not brackets or stamps
-            stamp builder
             bracket builder
             chain builder
             operator builder

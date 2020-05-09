@@ -2,7 +2,7 @@ package cz.mg.language.entities.text.common.tokens.c;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.text.common.tokens.Separator;
+import cz.mg.language.entities.text.common.tokens.mg.Separator;
 
 
 public class CSeparatorToken extends Separator {

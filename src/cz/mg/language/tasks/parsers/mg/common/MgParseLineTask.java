@@ -5,8 +5,8 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.*;
+import cz.mg.language.entities.text.common.tokens.mg.*;
+import cz.mg.language.entities.text.common.tokens.mg.Number;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 
@@ -27,19 +27,19 @@ public class MgParseLineTask extends MgParseTask {
         return line;
     }
 
-    private static boolean isComment(char ch){
+    private static boolean isCommentSign(char ch){
         return ch == '#';
     }
 
-    private static boolean isValue(char ch){
+    private static boolean isValueSign(char ch){
         return ch == '"' || ch == '\'';
     }
 
-    private static boolean isWord(char ch){
-        return isLowerCharacter(ch) || isUpperCharacter(ch) || isNumber(ch) || ch == '_';
+    private static boolean isStampSign(char ch){
+        return ch == '@';
     }
 
-    private static boolean isNumber(char ch){
+    private static boolean isNumberCharacter(char ch){
         return ch >= '0' && ch <= '9';
     }
 
@@ -51,6 +51,14 @@ public class MgParseLineTask extends MgParseTask {
         return ch >= 'A' && ch <= 'Z';
     }
 
+    private static boolean isWordCharacter(char ch){
+        return isLowerCharacter(ch) || isUpperCharacter(ch) || isNumberCharacter(ch);
+    }
+
+    private static boolean isStampNameCharacter(char ch){
+        return isLowerCharacter(ch);
+    }
+
     private static boolean isAllowedLiteralCharacter(char ch){
         return ch >= ' ' && ch <= '~';
     }
@@ -59,7 +67,7 @@ public class MgParseLineTask extends MgParseTask {
         return ch >= ' ' && ch <= '~';
     }
 
-    private static boolean isSymbol(char ch){
+    private static boolean isAllowedSymbol(char ch){
         return ch >= '!' && ch <= '~';
     }
 
@@ -73,13 +81,15 @@ public class MgParseLineTask extends MgParseTask {
             char ch = reader.read();
             if(ch == ' '){
                 line.getTokens().addLast(new Space(reader.slice()));
-            } else if(isComment(ch)){
+            } else if(isCommentSign(ch)){
                 line.getTokens().addLast(parseComment());
-            } else if(isValue(ch)){
+            } else if(isValueSign(ch)){
                 line.getTokens().addLast(parseValue(ch));
-            } else if(isWord(ch)){
+            } else if(isWordCharacter(ch)){
                 line.getTokens().addLast(parseWord());
-            } else if(isSymbol(ch)) {
+            } else if(isStampSign(ch)){
+                line.getTokens().addLast(parseStamp());
+            } else if(isAllowedSymbol(ch)) {
                 line.getTokens().addLast(new Symbol(reader.slice()));
             } else {
                 throw new LanguageException("Illegal character " + reader.sliceChar() + " (" + (int)reader.sliceChar().get(0) + ").");
@@ -109,131 +119,42 @@ public class MgParseLineTask extends MgParseTask {
         throw new LanguageException("Missing closing character " + boundary + " for value.");
     }
 
-    protected Token parseWord(){
+    protected Word parseWord(){
         reader.back();
-
-        boolean firstChar = true;
 
         boolean hasLower = false;
         boolean hasUpper = false;
         boolean hasNumber = false;
-        boolean hasUpperFirst = false;
-        boolean hasUnderscore = false;
 
         while(reader.canRead()){
             char ch = reader.read();
             if(isLowerCharacter(ch)){
                 hasLower = true;
-                firstChar = false;
             } else if(isUpperCharacter(ch)){
-                if(firstChar) hasUpperFirst = true;
                 hasUpper = true;
-                firstChar = false;
-            } else if(isNumber(ch)){
+            } else if(isNumberCharacter(ch)){
                 hasNumber = true;
-            } else if(ch == '_'){
-                hasUnderscore = true;
             } else {
                 reader.back();
                 break;
             }
         }
 
-        if(hasUnderscore) throw new LanguageException("Underscore in names is currently not supported.");
         if(hasLower) return new Name(reader.slice());
-        if(!hasNumber && hasUpper && !hasLower) return new Keyword(reader.slice());
+        if(hasUpper) return new Keyword(reader.slice());
+        if(hasNumber) return new Number(reader.slice());
 
         throw new LanguageException("Unsupported word '" + reader.slice() + "'.");
     }
 
-    private static class CharReader extends ArrayReader<Character> {
-        private final ReadableText text;
-
-        public CharReader(ReadableText text) {
-            this.text = text;
-        }
-
-        public ReadableText slice(){
-            return text.slice(getMark(), getPosition());
-        }
-
-        public ReadableText slice(int deltaBegin, int deltaEnd){
-            return text.slice(getMark() + deltaBegin, getPosition() + deltaEnd);
-        }
-
-        public ReadableText sliceChar(){
-            return text.slice(getPosition()-1, getPosition());
-        }
-
-        @Override
-        protected int count() {
-            return text.count();
-        }
-
-        @Override
-        protected Character get(int i) {
-            return text.get(i);
-        }
-
-        public boolean hasNext(char ch) {
-            if(!canRead()) return false;
-            return text.get(getPosition() + 1) == ch;
-        }
-
-        @Override
-        protected LanguageException outOfBoundsException() {
-            if(getPosition() < 0) {
-                return new LanguageException("Missing character at the start of line.");
-            } else {
-                return new LanguageException("Missing character at the end of line.");
+    protected Stamp parseStamp(){
+        while(reader.canRead()){
+            char ch = reader.read();
+            if(!isLowerCharacter(ch)){
+                reader.back();
+                break;
             }
         }
-    }
-
-    private static abstract class ArrayReader<T> {
-        private int position = 0;
-        private int mark;
-
-        public T read() {
-            if(!canRead()) throw outOfBoundsException();
-            return get(position++);
-        }
-
-        public T readOptional() {
-            if(!canRead()) return null;
-            return get(position++);
-        }
-
-        public void back() {
-            position--;
-        }
-
-        public boolean canRead(){
-            return position >= 0 && position < count();
-        }
-
-        private boolean canRead(int position){
-            return position >= 0 && position < count();
-        }
-
-        public int getPosition() {
-            return position;
-        }
-
-        public void setPosition(int position) {
-            this.position = position;
-        }
-
-        public int getMark() {
-            return mark;
-        }
-
-        public void setMark() {
-            mark = getPosition();
-        }
-
-        protected abstract int count();
-        protected abstract T get(int i);
-        protected abstract LanguageException outOfBoundsException();
+        return new Stamp(reader.slice());
     }
 }

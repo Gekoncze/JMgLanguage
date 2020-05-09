@@ -4,6 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.UnresolvedPart;
@@ -17,6 +18,9 @@ public class MgBuildPartsTask extends MgParseTask {
     @Output
     private List<Part> parts = null;
 
+    @Subtask
+    private MgBuildStampsTask buildStampsTask = null;
+
     public MgBuildPartsTask(ReadableList<Token> tokens) {
         this.tokens = tokens;
     }
@@ -29,9 +33,10 @@ public class MgBuildPartsTask extends MgParseTask {
     protected void onRun() {
         parts = new List<>();
         for(Token token : tokens){
-            parts.addLast(new UnresolvedPart(token.getText()));
+            parts.addLast(new UnresolvedPart(token));
         }
 
-        todo;
+        (buildStampsTask = new MgBuildStampsTask(parts)).run();
+
     }
 }

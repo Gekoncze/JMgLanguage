@@ -9,7 +9,6 @@ import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
 import cz.mg.language.entities.text.common.tokens.c.preprocessor.CDirective;
 import cz.mg.language.entities.text.common.tokens.c.preprocessor.CDirectiveSign;
-import cz.mg.language.entities.text.common.tokens.Whitespace;
 
 
 public class CIncludeWriterTask extends CDirectiveWriterTask {

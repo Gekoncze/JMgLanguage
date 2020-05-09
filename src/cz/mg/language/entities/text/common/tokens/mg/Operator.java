@@ -1,4 +1,4 @@
-package cz.mg.language.entities.text.common.tokens;
+package cz.mg.language.entities.text.common.tokens.mg;
 
 import cz.mg.collections.text.ReadableText;
 

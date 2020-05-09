@@ -1,18 +1,18 @@
 package cz.mg.language.entities.text.structured.parts;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.entities.text.common.Token;
 
 
 public class UnresolvedPart extends CommonPart {
     @Value
-    private final ReadableText text;
+    private final Token token;
 
-    public UnresolvedPart(ReadableText text) {
-        this.text = text;
+    public UnresolvedPart(Token token) {
+        this.token = token;
     }
 
-    public ReadableText getText() {
-        return text;
+    public Token getToken() {
+        return token;
     }
 }

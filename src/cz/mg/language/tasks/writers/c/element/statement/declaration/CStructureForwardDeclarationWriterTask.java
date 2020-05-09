@@ -8,7 +8,6 @@ import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
 import cz.mg.language.entities.text.common.Line;
 import cz.mg.language.entities.text.common.tokens.c.CKeywordToken;
 import cz.mg.language.entities.text.common.tokens.c.CSeparatorToken;
-import cz.mg.language.entities.text.common.tokens.Whitespace;
 import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
 
 

@@ -3,7 +3,7 @@ package cz.mg.language.entities.text.common.tokens.c;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
-import cz.mg.language.entities.text.common.tokens.Operator;
+import cz.mg.language.entities.text.common.tokens.mg.Operator;
 
 
 public class COperatorToken extends Operator {

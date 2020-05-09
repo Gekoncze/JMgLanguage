@@ -1,18 +1,15 @@
 package cz.mg.language.tasks.writers.c.part;
 
 import cz.mg.collections.list.List;
-import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.logic.c.elements.statements.declarations.CFunctionForwardDeclaration;
 import cz.mg.language.entities.logic.c.parts.CVariable;
-import cz.mg.language.entities.text.common.tokens.Space;
 import cz.mg.language.entities.text.common.tokens.c.CIdentifierToken;
 import cz.mg.language.entities.text.common.Token;
 import cz.mg.language.entities.text.common.tokens.c.CBracketToken;
 import cz.mg.language.entities.text.common.tokens.c.CSeparatorToken;
-import cz.mg.language.entities.text.common.tokens.Whitespace;
 import cz.mg.language.entities.text.common.tokens.c.CSpaceToken;
 
 

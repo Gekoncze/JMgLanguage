@@ -8,7 +8,6 @@ import cz.mg.language.entities.logic.c.elements.statements.definitions.CStructur
 import cz.mg.language.entities.logic.c.parts.CModifier;
 import cz.mg.language.entities.text.common.tokens.c.*;
 import cz.mg.language.entities.text.common.Line;
-import cz.mg.language.entities.text.common.tokens.Whitespace;
 import cz.mg.language.tasks.writers.c.CVariableBlockWriterTask;
 
 import static cz.mg.language.tasks.writers.c.Utilities.indent;

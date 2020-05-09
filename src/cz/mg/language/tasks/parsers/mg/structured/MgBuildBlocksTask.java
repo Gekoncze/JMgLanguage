@@ -7,9 +7,9 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.common.Line;
 import cz.mg.language.entities.text.common.Page;
 import cz.mg.language.entities.text.common.Token;
-import cz.mg.language.entities.text.common.tokens.Comment;
-import cz.mg.language.entities.text.common.tokens.Space;
-import cz.mg.language.entities.text.common.tokens.Whitespace;
+import cz.mg.language.entities.text.common.tokens.mg.Comment;
+import cz.mg.language.entities.text.common.tokens.mg.Space;
+import cz.mg.language.entities.text.common.tokens.mg.Whitespace;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
