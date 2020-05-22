@@ -40,19 +40,21 @@ public class MgParseBlocksTask extends MgParseTask {
 
     @Override
     protected void onRun() {
-        root = (MgRootBlock) createBlock(new List<>(), new MgRootContextParser());
+        root = new MgRootBlock();
+        map.set(root, new MgRootContextParser());
 
         List<Line> lines = sweepPage(page);
         for(Line line : lines){
             int lineIndentation = countLineIndentation(line);
-            MgBlock targetBlock = getTargetBlock(root, lineIndentation);
+            MgBlock parentBlock = getParentBlock(root, lineIndentation);
             List<Token> tokens = sweepLine(line);
-            MgContextParser parser = map.get(targetBlock);
-            targetBlock.getBlocks().addLast(createBlock(tokens, parser));
+            MgContextParser parentParser = map.get(parentBlock);
+            parentBlock.getBlocks().addLast(createBlock(tokens, parentParser));
         }
     }
 
-    private MgBlock createBlock(ReadableList<Token> tokens, MgContextParser parser){
+    private MgBlock createBlock(ReadableList<Token> tokens, MgContextParser parentParser){
+        MgContextParser parser = parentParser.recognizeBlock(tokens);
         MgBlock block = parser.createBlock(tokens);
         map.set(block, parser);
         return block;
@@ -99,7 +101,7 @@ public class MgParseBlocksTask extends MgParseTask {
         return spaces / INDENTATION_SIZE;
     }
 
-    private static MgBlock getTargetBlock(MgBlock root, int targetBlockIndentation){
+    private static MgBlock getParentBlock(MgBlock root, int targetBlockIndentation){
         MgBlock currentBlock = root;
         int currentBlockIndentation = 0;
         while(currentBlock != null){
