@@ -1,10 +1,10 @@
 package cz.mg.language.tasks.parsers.mg.structured;
 
 import cz.mg.collections.list.List;
-import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.linear.Line;
 import cz.mg.language.entities.text.linear.Page;
 import cz.mg.language.entities.text.linear.Token;
@@ -24,6 +24,9 @@ public class MgParseBlocksTask extends MgParseTask {
     @Output
     private Block root = null;
 
+    @Subtask
+    private final List<MgParsePartsTask> parsePartsTasks = new List<>();
+
     public MgParseBlocksTask(Page page) {
         this.page = page;
     }
@@ -36,48 +39,26 @@ public class MgParseBlocksTask extends MgParseTask {
     protected void onRun() {
         root = new Block();
 
-        List<Line> lines = sweepPage(page);
-        for(Line line : lines){
+        for(Line line : page.getLines()){
+            if(isEmpty(line)) continue;
             int lineIndentation = countLineIndentation(line);
             Block parentBlock = getParentBlock(root, lineIndentation);
-            List<Token> tokens = sweepLine(line);
-            MgContextParser parentParser = map.get(parentBlock);
-            parentBlock.getBlocks().addLast(createBlock(tokens, parentParser));
+            mergeOperators();
+            flattenLinesByKeywords();
+            flattenLinesByStamps();
+            parsePartsTasks.addLast(new MgParsePartsTask(line.getTokens()));
+            parsePartsTasks.getLast().run();
+            parentBlock.getBlocks().addLast(new Block(parsePartsTasks.getLast().getParts()));
         }
-    }
-
-    private Block createBlock(ReadableList<Token> tokens, MgContextParser parentParser){
-        MgContextParser parser = parentParser.recognizeBlock(tokens);
-        Block block = parser.createBlock(tokens);
-        map.set(block, parser);
-        return block;
-    }
-
-    private List<Line> sweepPage(Page page){
-        List<Line> lines = new List<>();
-        for(Line line : page.getLines()){
-            if(!isEmpty(line)){
-                lines.addLast(line);
-            }
-        }
-        return lines;
     }
 
     private boolean isEmpty(Line line){
         for(Token token : line.getTokens()){
-            if(!(token instanceof SpaceToken || token instanceof CommentToken)) return false;
-        }
-        return true;
-    }
-
-    private List<Token> sweepLine(Line line){
-        List<Token> tokens = new List<>();
-        for(Token token : line.getTokens()){
             if(!isEmpty(token)){
-                tokens.addLast(token);
+                return false;
             }
         }
-        return tokens;
+        return true;
     }
 
     private boolean isEmpty(Token token){

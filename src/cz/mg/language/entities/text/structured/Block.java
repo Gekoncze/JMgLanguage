@@ -10,7 +10,15 @@ public class Block implements TextEntity {
     private final List<Block> blocks = new List<>();
 
     @cz.mg.language.annotations.entity.Part
-    private final List<Part> parts = new List<>();
+    private final List<Part> parts;
+
+    public Block() {
+        this(new List<>());
+    }
+
+    public Block(List<Part> parts) {
+        this.parts = parts;
+    }
 
     public List<Block> getBlocks() {
         return blocks;

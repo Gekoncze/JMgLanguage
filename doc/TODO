@@ -1,8 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-entity cleanup
-changed inheritance for c tokens (will fix later)
-again introduced "general" tokens
-operators will be resolved after name resolution, until then will be groups
+simplified block parsing
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -21,6 +18,9 @@ mg parser
         keyword grouper
             keywords can be only toplevel, not inside groups
                 this wil lbe easily handled by block flattening
+
+        line and stamp block flattening
+            dont forget to handle whitespaces properly
 
     block chaining
         there are groups of keywords following each other, always at the beginning, for example DEFINE CLASS
