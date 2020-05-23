@@ -70,6 +70,23 @@ public class MgParseLineTask extends MgParseTask {
         return ch >= '!' && ch <= '~';
     }
 
+    private static boolean isOperator(char ch){
+        switch (ch){
+            case '+': return true;
+            case '-': return true;
+            case '*': return true;
+            case '/': return true;
+            case '\\': return true;
+            case '%': return true;
+            case '^': return true;
+            case '!': return true;
+            case '=': return true;
+            case '$': return true;
+            case '&': return true;
+            default: return false;
+        }
+    }
+
     @Override
     protected void onRun() {
         line = new Line();
@@ -88,6 +105,8 @@ public class MgParseLineTask extends MgParseTask {
                 line.getTokens().addLast(parseWord());
             } else if(isStampSign(ch)){
                 line.getTokens().addLast(parseStamp());
+            } else if(isOperator(ch)){
+                line.getTokens().addLast(parseOperator());
             } else if(isAllowedSymbol(ch)) {
                 line.getTokens().addLast(new SymbolToken(reader.slice()));
             } else {
@@ -155,5 +174,19 @@ public class MgParseLineTask extends MgParseTask {
             }
         }
         return new StampToken(reader.slice());
+    }
+
+    protected OperatorToken parseOperator(){
+        reader.back();
+
+        while(reader.canRead()){
+            char ch = reader.read();
+            if(!isOperator(ch)){
+                reader.back();
+                break;
+            }
+        }
+
+        return new OperatorToken(reader.slice());
     }
 }

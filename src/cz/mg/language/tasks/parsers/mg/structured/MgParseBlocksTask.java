@@ -43,7 +43,6 @@ public class MgParseBlocksTask extends MgParseTask {
             if(isEmpty(line)) continue;
             int lineIndentation = countLineIndentation(line);
             Block parentBlock = getParentBlock(root, lineIndentation);
-            mergeOperators();
             flattenLinesByKeywords();
             flattenLinesByStamps();
             parsePartsTasks.addLast(new MgParsePartsTask(line.getTokens()));

@@ -1,18 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-simplified block parsing
+implemented operator merging to parser
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-when to resolve operator priority
-    maybe first only resolve brackets and chains, leave operators for later time, during resolve I think
-    let user choose operator priority by a number
-    operators have to be imported!
-
 mg parser
-    part builder - should this be handled at "text level" or "logical level" ??? ...
-        operator merger - merge symbols that are close to each other and are not brackets or stamps
-            this would have to be handled by parser, or not?
-                or this can be handled before line sweep
+    part builder
         bracket builder
         chain builder
         keyword grouper
@@ -49,6 +41,11 @@ runtime and logical architecture
         we could take a look at locations as folders/directories in os
         packages would be like installer packages in os
         components would be like files in os
+
+when to resolve operator priority
+    maybe first only resolve brackets and chains, leave operators for later time, during resolve I think
+    let user choose operator priority by a number
+    operators have to be imported!
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
