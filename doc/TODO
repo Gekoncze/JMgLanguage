@@ -1,5 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-implemented operator merging to parser
+line flattening
+    by stamps
+    by keywords
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -7,34 +9,10 @@ mg parser
     part builder
         bracket builder
         chain builder
-        keyword grouper
-            keywords can be only toplevel, not inside groups
-                this wil lbe easily handled by block flattening
+            list builder
+            path builder
 
-        line and stamp block flattening
-            dont forget to handle whitespaces properly
-
-    block chaining
-        there are groups of keywords following each other, always at the beginning, for example DEFINE CLASS
-            then follows no keywords, for example DEFINE CLASS FooBar
-                but just in case another keyword follows, it is interpreted as if it was a child block, for example:
-                    DEFINE CLASS FooBar IS Bar
-                    is the same as
-                    DEFINE CLASS FooBar
-                        IS Bar
-            the same could be with stamps, for example:
-                @public DEFINE CLASS FooBar
-                is the same as
-                @public
-                DEFINE CLASS FooBar
-
-            so, there would be two steps in between
-                keyword block arrangement
-                stamp block arrangement
-
-            this could be part of sweep page task or the result of sweep task would be passed to another method
-
-    relative vs absolute usages
+relative vs absolute usages
 
 runtime and logical architecture
     modules or bundles or libraries or packages ...

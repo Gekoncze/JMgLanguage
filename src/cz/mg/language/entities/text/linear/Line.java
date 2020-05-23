@@ -14,7 +14,7 @@ public class Line implements TextEntity {
     private final List<Token> tokens;
 
     public Line() {
-        tokens = new List<>();
+        this(new List<>());
     }
 
     public Line(List<Token> tokens) {
