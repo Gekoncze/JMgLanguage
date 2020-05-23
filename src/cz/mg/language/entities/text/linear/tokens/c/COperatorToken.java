@@ -3,10 +3,10 @@ package cz.mg.language.entities.text.linear.tokens.c;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
-import cz.mg.language.entities.text.linear.tokens.mg.MgOperator;
+import cz.mg.language.entities.text.linear.Token;
 
 
-public class COperatorToken extends MgOperator {
+public class COperatorToken extends Token {
     protected COperatorToken(ReadableText text) {
         super(text);
     }

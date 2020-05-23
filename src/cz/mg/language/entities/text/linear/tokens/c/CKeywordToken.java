@@ -2,10 +2,10 @@ package cz.mg.language.entities.text.linear.tokens.c;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.text.linear.tokens.mg.MgKeyword;
+import cz.mg.language.entities.text.linear.Token;
 
 
-public class CKeywordToken extends MgKeyword {
+public class CKeywordToken extends Token {
     public static final CKeywordToken TYPEDEF = new CKeywordToken(new ReadonlyText("typedef"));
     public static final CKeywordToken STRUCT = new CKeywordToken(new ReadonlyText("struct"));
     public static final CKeywordToken VOID = new CKeywordToken(new ReadonlyText("void"));

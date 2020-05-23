@@ -5,8 +5,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.linear.Line;
-import cz.mg.language.entities.text.linear.tokens.mg.*;
-import cz.mg.language.entities.text.linear.tokens.mg.MgNumber;
+import cz.mg.language.entities.text.linear.tokens.*;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 
@@ -80,7 +79,7 @@ public class MgParseLineTask extends MgParseTask {
             reader.setMark();
             char ch = reader.read();
             if(ch == ' '){
-                line.getTokens().addLast(new MgSpace(reader.slice()));
+                line.getTokens().addLast(new SpaceToken(reader.slice()));
             } else if(isCommentSign(ch)){
                 line.getTokens().addLast(parseComment());
             } else if(isValueSign(ch)){
@@ -90,26 +89,26 @@ public class MgParseLineTask extends MgParseTask {
             } else if(isStampSign(ch)){
                 line.getTokens().addLast(parseStamp());
             } else if(isAllowedSymbol(ch)) {
-                line.getTokens().addLast(new MgSymbol(reader.slice()));
+                line.getTokens().addLast(new SymbolToken(reader.slice()));
             } else {
                 throw new LanguageException("Illegal character " + reader.sliceChar() + " (" + (int)reader.sliceChar().get(0) + ").");
             }
         }
     }
 
-    protected MgComment parseComment(){
+    protected CommentToken parseComment(){
         while(reader.canRead()){
             char ch = reader.read();
             if(!isAllowedCommentCharacter(ch)) throw new LanguageException("Illegal character '" + reader.sliceChar() + "' (" + (int)ch + ") in comment.");
         }
-        return new MgComment(reader.slice(1, 0).trim());
+        return new CommentToken(reader.slice(1, 0).trim());
     }
 
-    protected MgValue parseValue(char boundary){
+    protected ValueToken parseValue(char boundary){
         while(reader.canRead()){
             char ch = reader.read();
             if(ch == boundary){
-                return new MgValue(reader.slice());
+                return new ValueToken(reader.slice());
             } else if(isAllowedLiteralCharacter(ch)) {
                 continue;
             } else {
@@ -119,7 +118,7 @@ public class MgParseLineTask extends MgParseTask {
         throw new LanguageException("Missing closing character " + boundary + " for value.");
     }
 
-    protected MgWord parseWord(){
+    protected WordToken parseWord(){
         reader.back();
 
         boolean hasLower = false;
@@ -140,14 +139,14 @@ public class MgParseLineTask extends MgParseTask {
             }
         }
 
-        if(hasLower) return new MgName(reader.slice());
-        if(hasUpper) return new MgKeyword(reader.slice());
-        if(hasNumber) return new MgNumber(reader.slice());
+        if(hasLower) return new NameToken(reader.slice());
+        if(hasUpper) return new KeywordToken(reader.slice());
+        if(hasNumber) return new NumberToken(reader.slice());
 
         throw new LanguageException("Unsupported word '" + reader.slice() + "'.");
     }
 
-    protected MgStamp parseStamp(){
+    protected StampToken parseStamp(){
         while(reader.canRead()){
             char ch = reader.read();
             if(!isLowerCharacter(ch)){
@@ -155,6 +154,6 @@ public class MgParseLineTask extends MgParseTask {
                 break;
             }
         }
-        return new MgStamp(reader.slice());
+        return new StampToken(reader.slice());
     }
 }

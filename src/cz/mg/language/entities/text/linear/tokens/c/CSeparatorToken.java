@@ -2,10 +2,10 @@ package cz.mg.language.entities.text.linear.tokens.c;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.text.linear.tokens.mg.MgSeparator;
+import cz.mg.language.entities.text.linear.Token;
 
 
-public class CSeparatorToken extends MgSeparator {
+public class CSeparatorToken extends Token {
     public static final CSeparatorToken COLON = new CSeparatorToken(new ReadonlyText(":"));
     public static final CSeparatorToken SEMICOLON = new CSeparatorToken(new ReadonlyText(";"));
     public static final CSeparatorToken COMMA = new CSeparatorToken(new ReadonlyText(","));

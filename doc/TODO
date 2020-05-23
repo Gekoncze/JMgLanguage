@@ -1,34 +1,26 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-again separated entities to logical and runtime
-logical entities take care of bindings and their resolution (load time)
-runtime entities represent actual classes that are in memory at runtime
-bunch of other changes
+entity cleanup
+changed inheritance for c tokens (will fix later)
+again introduced "general" tokens
+operators will be resolved after name resolution, until then will be groups
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-runtime and logical architecture
-    modules or bundles or libraries or packages ...
-        we could take a look at locations as folders/directories in os
-        packages would be like installer packages in os
-        components would be like files in os
+when to resolve operator priority
+    maybe first only resolve brackets and chains, leave operators for later time, during resolve I think
+    let user choose operator priority by a number
+    operators have to be imported!
 
 mg parser
-    context parsers
-        MgRootContextParser ...
-        add more context parsers
-            using context parser
-            function context parser
-                input context parser
-                output context parser
-            class context parser
-            -- add more --
-
     part builder - should this be handled at "text level" or "logical level" ??? ...
         operator merger - merge symbols that are close to each other and are not brackets or stamps
+            this would have to be handled by parser, or not?
+                or this can be handled before line sweep
         bracket builder
         chain builder
-        operator builder
-        keyword grouper - keywords can be only toplevel, not inside groups
+        keyword grouper
+            keywords can be only toplevel, not inside groups
+                this wil lbe easily handled by block flattening
 
     block chaining
         there are groups of keywords following each other, always at the beginning, for example DEFINE CLASS
@@ -51,6 +43,12 @@ mg parser
             this could be part of sweep page task or the result of sweep task would be passed to another method
 
     relative vs absolute usages
+
+runtime and logical architecture
+    modules or bundles or libraries or packages ...
+        we could take a look at locations as folders/directories in os
+        packages would be like installer packages in os
+        components would be like files in os
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

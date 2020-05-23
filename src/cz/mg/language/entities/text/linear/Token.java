@@ -5,7 +5,7 @@ import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.text.TextEntity;
 
 
-public abstract class Token implements TextEntity {
+public class Token implements TextEntity {
     @Value
     private final ReadableText text;
 
