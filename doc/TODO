@@ -1,18 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-line flattening
-    by stamps
-    by keywords
+added mg build tasks
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 mg parser
-    part builder
-        bracket builder
-        chain builder
-            list builder
-            path builder
-
-relative vs absolute usages
+    test it out!
 
 runtime and logical architecture
     modules or bundles or libraries or packages ...
@@ -20,13 +12,16 @@ runtime and logical architecture
         packages would be like installer packages in os
         components would be like files in os
 
-when to resolve operator priority
-    maybe first only resolve brackets and chains, leave operators for later time, during resolve I think
-    let user choose operator priority by a number
-    operators have to be imported!
+resolver
+    resolution of logical entity usages
+    resolution of operators and additional build steps based on priority
+        priority can be choosen by the user
+        operators need to be imported
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
+nullable type specifier "?" in logical (and runtime?) mg entities
+mg relative vs absolute usages
 mg logical to runtime entities
 add more instructions
 implement logic for loading modules
@@ -34,12 +29,13 @@ implement logic for loading modules
 think about mg collections
     they should definitely be distinguished as readable or writeable or both somehow
 
-there should be strictly distinguished sugar and actual language entities
-    needs to think a lot about their purpose
-    for example function call with expression as parameter could be one, but also dont have to be!
-
 think about static variables, we might want these to supply enums
     those will be stored in the runtime classes, right?
+
+
+### LATER ### ----------------------------------------------------------------------------------------------------------
+mg logic entity version
+mg runtime entity version
 
 think of possible scheduler
     also think if current architecture is good
@@ -48,11 +44,6 @@ think of possible scheduler
         for each core a bunch of threads
         a bunch of threads for bunch of cores
         ... the question there is, if scheduler should be inside of core or application ?
-
-
-### LATER ### ----------------------------------------------------------------------------------------------------------
-mg logic entity version
-mg runtime entity version
 
 c entities
     add global variable element (dont forget modifiers)

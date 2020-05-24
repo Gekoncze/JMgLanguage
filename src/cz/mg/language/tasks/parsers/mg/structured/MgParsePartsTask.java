@@ -20,6 +20,9 @@ public class MgParsePartsTask extends MgParseTask {
     @Subtask
     private MgParseLeavesTask parseLeavesTask = null;
 
+    @Subtask
+    private MgParseGroupsTask parseGroupsTask = null;
+
     public MgParsePartsTask(ReadableList<Token> tokens) {
         this.tokens = tokens;
     }
@@ -34,6 +37,7 @@ public class MgParsePartsTask extends MgParseTask {
         parseLeavesTask.run();
         parts = parseLeavesTask.getParts();
 
-        todo;
+        parseGroupsTask = new MgParseGroupsTask(parts);
+        parseGroupsTask.run();
     }
 }

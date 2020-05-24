@@ -158,7 +158,15 @@ public class MgParseLineTask extends MgParseTask {
             }
         }
 
-        if(hasLower) return new NameToken(reader.slice());
+        if(hasLower){
+            ReadableText name = reader.slice();
+            if(isUpperCharacter(name.getFirst())){
+                return new TypeNameToken(name);
+            } else {
+                return new ObjectNameToken(name);
+            }
+        }
+
         if(hasUpper) return new KeywordToken(reader.slice());
         if(hasNumber) return new NumberToken(reader.slice());
 
@@ -176,7 +184,7 @@ public class MgParseLineTask extends MgParseTask {
         return new StampToken(reader.slice());
     }
 
-    protected OperatorToken parseOperator(){
+    protected SignsToken parseOperator(){
         reader.back();
 
         while(reader.canRead()){
@@ -187,6 +195,6 @@ public class MgParseLineTask extends MgParseTask {
             }
         }
 
-        return new OperatorToken(reader.slice());
+        return new SignsToken(reader.slice());
     }
 }
