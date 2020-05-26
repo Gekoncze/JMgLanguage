@@ -1,8 +1,8 @@
 package cz.mg.language.entities.text.linear;
 
 import cz.mg.collections.list.List;
-import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.collections.text.Text;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.text.TextEntity;
 
@@ -30,7 +30,7 @@ public class Line implements TextEntity {
     }
 
     public ReadableText toText() {
-        EditableText text = new EditableText();
+        Text text = new Text();
         for(Token token : tokens){
             text.append(token.toText());
         }

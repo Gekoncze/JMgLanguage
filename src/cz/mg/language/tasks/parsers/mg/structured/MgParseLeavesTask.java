@@ -9,6 +9,7 @@ import cz.mg.language.entities.text.linear.Token;
 import cz.mg.language.entities.text.linear.tokens.*;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.leaves.*;
+import cz.mg.language.entities.text.structured.parts.leaves.names.ObjectName;
 import cz.mg.language.entities.text.structured.parts.leaves.names.TypeName;
 import cz.mg.language.entities.text.structured.parts.leaves.special.Keyword;
 import cz.mg.language.entities.text.structured.parts.leaves.special.Stamp;
@@ -38,7 +39,7 @@ public class MgParseLeavesTask extends MgParseTask {
             if(token instanceof KeywordToken) parts.addLast(new Keyword(token.getText()));
             else if(token instanceof StampToken) parts.addLast(new Stamp(token.getText()));
             else if(token instanceof TypeNameToken) parts.addLast(new TypeName(token.getText()));
-            else if(token instanceof NameToken) parts.addLast(new Name(token.getText()));
+            else if(token instanceof ObjectNameToken) parts.addLast(new ObjectName(token.getText()));
             else if(token instanceof ValueToken) parts.addLast(new Value(token.getText()));
             else if(token instanceof SignsToken) parts.addLast(new Signs(token.getText()));
             else if(token instanceof SymbolToken) parts.addLast(new Symbol(token.getText()));

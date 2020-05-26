@@ -1,11 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added mg build tasks
+minor fixed and adjustments
+simple parser test
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-mg parser
-    test it out!
-
 runtime and logical architecture
     modules or bundles or libraries or packages ...
         we could take a look at locations as folders/directories in os

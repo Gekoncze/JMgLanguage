@@ -114,7 +114,7 @@ public class MgParseBlocksTask extends MgParseTask {
             else if(!(token instanceof KeywordToken)) nonKeywords = true;
             else {
                 if(nonKeywords){
-                    splitLine(lineItem, tokenItem, indentation);
+                    splitLine(lineItem, tokenItem, indentation + 1);
                     return;
                 }
             }
@@ -134,7 +134,7 @@ public class MgParseBlocksTask extends MgParseTask {
     private List<Token> generateIndentation(int indentation){
         List<Token> tokens = new List<>();
         for(int i = 0; i < indentation; i++){
-            for(int ii = 0; ii < INDENTATION_SIZE; i++){
+            for(int ii = 0; ii < INDENTATION_SIZE; ii++){
                 tokens.addLast(new SpaceToken(new ReadonlyText(" ")));
             }
         }

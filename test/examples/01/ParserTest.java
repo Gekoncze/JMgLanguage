@@ -1,9 +1,11 @@
-import cz.mg.collections.text.EditableText;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.collections.text.ReadonlyText;
+import cz.mg.collections.text.Text;
 import cz.mg.language.entities.text.linear.Line;
 import cz.mg.language.entities.text.linear.Page;
 import cz.mg.language.entities.text.linear.Token;
 import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.entities.text.structured.parts.leaves.Leaf;
 import cz.mg.language.tasks.parsers.mg.structured.MgParseBlocksTask;
 import cz.mg.language.tasks.parsers.mg.common.MgParsePageTask;
 
@@ -22,16 +24,20 @@ public class ParserTest {
         buildBlocksTask.run();
         Block root = buildBlocksTask.getRoot();
 
-//        printBlocks(root, 0);
+        printBlocks(root, 0);
     }
 
-//    private static void printBlocks(Block block, int level){
-//        for(int i = 0; i < level; i++) System.out.print("    ");
-//        System.out.println(block.getTokens().toText("[", "][", "]"));
-//        for(Block child : block.getBlocks()){
-//            printBlocks(child, level + 1);
-//        }
-//    }
+    private static void printBlocks(Block block, int level){
+        for(int i = 0; i < level; i++) System.out.print("    ");
+        System.out.println(block.getParts().toText("[", "][", "]", (p) -> {
+            String value = "";
+            if(p instanceof Leaf) value = " = " + ((Leaf) p).getText().toString();
+            return new ReadonlyText(p.getClass().getSimpleName() + value);
+        }));
+        for(Block child : block.getBlocks()){
+            printBlocks(child, level + 1);
+        }
+    }
 
     private static void printPage(Page page){
         for(Line line : page.getLines()){
@@ -43,7 +49,7 @@ public class ParserTest {
     }
 
     private static ReadableText loadCode() {
-        EditableText text = new EditableText();
+        Text text = new Text();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File("/home/me/Plocha/Dev/Java/JMgLanguage/test/examples/01/application.mg")));
             String line;

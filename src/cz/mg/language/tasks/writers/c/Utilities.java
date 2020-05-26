@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.writers.c;
 
 import cz.mg.collections.list.List;
-import cz.mg.collections.text.EditableText;
+import cz.mg.collections.text.Text;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.text.linear.Line;
 import cz.mg.language.entities.text.linear.tokens.c.CTabToken;
@@ -13,7 +13,7 @@ public class Utilities {
     private static final char ESCAPE = '\\';
 
     private static ReadableText quote(ReadableText input, char quote){
-        EditableText output = new EditableText();
+        Text output = new Text();
         boolean escaped = false;
         for(Character ch : input){
             if(ch == '\n'){
