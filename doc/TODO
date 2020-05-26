@@ -1,14 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-minor fixed and adjustments
-simple parser test
+mg logical entity builders
+added simple pattern matching
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-runtime and logical architecture
-    modules or bundles or libraries or packages ...
-        we could take a look at locations as folders/directories in os
-        packages would be like installer packages in os
-        components would be like files in os
+structured text entities to logical entities
+    improve pattern matcher
+    improve error message for pattern mismatch
+    add block matching ...
 
 resolver
     resolution of logical entity usages
@@ -29,6 +28,12 @@ think about mg collections
 
 think about static variables, we might want these to supply enums
     those will be stored in the runtime classes, right?
+
+runtime and logical architecture
+    modules or bundles or libraries or packages ...
+        we could take a look at locations as folders/directories in os
+        packages would be like installer packages in os
+        components would be like files in os
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers.mg.structured.builders;
+package cz.mg.language.tasks.parsers.mg.structured.composers;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
@@ -9,8 +9,8 @@ import cz.mg.language.entities.text.structured.parts.leaves.special.SpecialLeaf;
 import cz.mg.language.entities.text.structured.parts.leaves.special.Symbol;
 
 
-public class MgBuildPathsTask extends MgBuildTask {
-    public MgBuildPathsTask(List<List<Part>> groups) {
+public class MgComposePathsTask extends MgComposeTask {
+    public MgComposePathsTask(List<List<Part>> groups) {
         super(groups);
     }
 

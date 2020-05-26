@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers.mg.structured.builders;
+package cz.mg.language.tasks.parsers.mg.structured.composers;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
@@ -7,11 +7,11 @@ import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
 
 
-public abstract class MgBuildTask extends MgParseTask {
+public abstract class MgComposeTask extends MgParseTask {
     @Input
     protected final List<List<Part>> groups;
 
-    public MgBuildTask(List<List<Part>> groups) {
+    public MgComposeTask(List<List<Part>> groups) {
         this.groups = groups;
     }
 

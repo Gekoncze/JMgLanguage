@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.parsers.mg.MgParseTask;
-import cz.mg.language.tasks.parsers.mg.structured.builders.*;
+import cz.mg.language.tasks.parsers.mg.structured.composers.*;
 
 
 public class MgParseGroupsTask extends MgParseTask {
@@ -13,25 +13,25 @@ public class MgParseGroupsTask extends MgParseTask {
     private final List<Part> parts;
 
     @Subtask
-    private MgBuildBracketsTask buildBracketsTask = null;
+    private MgComposeBracketsTask buildBracketsTask = null;
 
     @Subtask
-    private MgBuildColonsTask buildColonsTask = null;
+    private MgComposeColonsTask buildColonsTask = null;
 
     @Subtask
-    private MgBuildPathsTask buildPathsTask = null;
+    private MgComposePathsTask buildPathsTask = null;
 
     @Subtask
-    private MgBuildDeclarationsTask buildDeclarationsTask = null;
+    private MgComposeDeclarationsTask buildDeclarationsTask = null;
 
     @Subtask
-    private MgBuildPairsTask buildPairsTask = null;
+    private MgComposePairsTask buildPairsTask = null;
 
     @Subtask
-    private MgBuildOperatorsTask buildOperatorsTask = null;
+    private MgComposeOperatorsTask buildOperatorsTask = null;
 
     @Subtask
-    private MgBuildListsTask buildListsTask = null;
+    private MgComposeListsTask buildListsTask = null;
 
     public MgParseGroupsTask(List<Part> parts) {
         this.parts = parts;
@@ -42,25 +42,25 @@ public class MgParseGroupsTask extends MgParseTask {
         List<List<Part>> groups = new List<>();
         groups.addLast(parts);
 
-        buildBracketsTask = new MgBuildBracketsTask(groups);
+        buildBracketsTask = new MgComposeBracketsTask(groups);
         buildBracketsTask.run();
 
-        buildColonsTask = new MgBuildColonsTask(groups);
+        buildColonsTask = new MgComposeColonsTask(groups);
         buildColonsTask.run();
 
-        buildPathsTask = new MgBuildPathsTask(groups);
+        buildPathsTask = new MgComposePathsTask(groups);
         buildPathsTask.run();
 
-        buildDeclarationsTask = new MgBuildDeclarationsTask(groups);
+        buildDeclarationsTask = new MgComposeDeclarationsTask(groups);
         buildDeclarationsTask.run();
 
-        buildPairsTask = new MgBuildPairsTask(groups);
+        buildPairsTask = new MgComposePairsTask(groups);
         buildPairsTask.run();
 
-        buildOperatorsTask = new MgBuildOperatorsTask(groups);
+        buildOperatorsTask = new MgComposeOperatorsTask(groups);
         buildOperatorsTask.run();
 
-        buildListsTask = new MgBuildListsTask(groups);
+        buildListsTask = new MgComposeListsTask(groups);
         buildListsTask.run();
     }
 }

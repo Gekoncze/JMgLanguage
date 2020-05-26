@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.parsers.mg.structured.builders;
+package cz.mg.language.tasks.parsers.mg.structured.composers;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
@@ -12,8 +12,8 @@ import cz.mg.language.entities.text.structured.parts.groups.brackets.SquareBrack
 import cz.mg.language.entities.text.structured.parts.leaves.special.Symbol;
 
 
-public class MgBuildBracketsTask extends MgBuildTask {
-    public MgBuildBracketsTask(List<List<Part>> groups) {
+public class MgComposeBracketsTask extends MgComposeTask {
+    public MgComposeBracketsTask(List<List<Part>> groups) {
         super(groups);
     }
 
