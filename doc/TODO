@@ -1,18 +1,18 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+finished build block task
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
-    improve error message for pattern mismatch
-    add error for block mismatch
-    finish builders
+    add more build tasks
 
 resolver
     resolution of logical entity usages
     resolution of operators and additional build steps based on priority
         priority can be choosen by the user
         operators need to be imported
+
+mg builder - improve error message for pattern mismatch
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
