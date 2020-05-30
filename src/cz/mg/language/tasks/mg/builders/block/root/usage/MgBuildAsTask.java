@@ -9,19 +9,19 @@ import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
-import cz.mg.language.tasks.mg.builders.pattern.token.Expectations;
-import cz.mg.language.tasks.mg.builders.pattern.token.TokenPattern;
+import cz.mg.language.tasks.mg.builders.pattern.part.Expectations;
+import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 
 
 public class MgBuildAsTask extends MgBuildBlockTask {
-    private static final FieldProcessor nameProcessor = new FieldProcessor<>(
+    private static final FieldProcessor NAME_PROCESSOR = new FieldProcessor<>(
             MgBuildNameTask.class,
             MgBuildAsTask.class,
             (source, destination) -> destination.alias = source.getName()
     );
 
-    private static final ReadableCollection<TokenPattern> TOKEN_PATTERNS = new List<>(
-            new TokenPattern(Expectations.KEYWORD("AS"), Expectations.NAME(nameProcessor))
+    private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
+            new PartPattern(Expectations.KEYWORD("AS"), Expectations.NAME(NAME_PROCESSOR))
     );
 
     private static final ReadableCollection<BlockPattern> BLOCK_PATTERNS = new List<>();
@@ -38,8 +38,8 @@ public class MgBuildAsTask extends MgBuildBlockTask {
     }
 
     @Override
-    public ReadableCollection<TokenPattern> getTokenPatterns() {
-        return TOKEN_PATTERNS;
+    public ReadableCollection<PartPattern> getPartPatterns() {
+        return PART_PATTERNS;
     }
 
     @Override

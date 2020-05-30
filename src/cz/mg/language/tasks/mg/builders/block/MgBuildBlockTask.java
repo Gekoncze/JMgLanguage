@@ -7,7 +7,7 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.MgBuildTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
-import cz.mg.language.tasks.mg.builders.pattern.token.TokenPattern;
+import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 
 
 public abstract class MgBuildBlockTask extends MgBuildTask {
@@ -15,7 +15,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     private final Block block;
 
     @Input
-    private TokenPattern usedPattern = null;
+    private PartPattern usedPattern = null;
 
     @Subtask
     private final List<MgBuildBlockTask> subtasks = new List();
@@ -24,23 +24,28 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
         this.block = block;
     }
 
-    public TokenPattern getUsedPattern() {
+    public PartPattern getUsedPattern() {
         return usedPattern;
     }
 
-    public void setUsedPattern(TokenPattern usedPattern) {
+    public void setUsedPattern(PartPattern usedPattern) {
         this.usedPattern = usedPattern;
     }
 
     @Override
     protected final void onRun() {
-        if(usedPattern != null){
-            todo;
-        }
+        buildParts();
+        buildBlocks();
+    }
 
+    protected void buildParts(){
+        todo;
+    }
+
+    protected void buildBlocks(){
         List<Block> remainingBlocks = new List<>(block.getBlocks());
         for(BlockPattern blockPattern : getBlockPatterns()){
-            for(TokenPattern tokenPattern : blockPattern.getPatterns()){
+            for(PartPattern partPattern : blockPattern.getPatterns()){
                 todo;
             }
         }
@@ -62,6 +67,6 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
 //        if(block.getBlocks().count() <= 0) throw new LanguageException("Missing as "); todo;
 //    }
 
-    public abstract ReadableCollection<TokenPattern> getTokenPatterns();
+    public abstract ReadableCollection<PartPattern> getPartPatterns();
     public abstract ReadableCollection<BlockPattern> getBlockPatterns();
 }

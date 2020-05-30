@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.builders.pattern.token.expectations;
+package cz.mg.language.tasks.mg.builders.pattern.part.expectations;
 
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;

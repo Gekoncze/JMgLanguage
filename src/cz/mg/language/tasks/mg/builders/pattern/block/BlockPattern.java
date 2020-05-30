@@ -6,7 +6,7 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
-import cz.mg.language.tasks.mg.builders.pattern.token.TokenPattern;
+import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 
 
 public class BlockPattern {
@@ -23,7 +23,7 @@ public class BlockPattern {
     private final FieldProcessor fieldProcessor;
 
     @Link
-    private final ReadableCollection<TokenPattern> patterns;
+    private final ReadableCollection<PartPattern> patterns;
 
     @Link
     private final ReadableCollection<BlockPattern> children;
@@ -35,7 +35,7 @@ public class BlockPattern {
         this.fieldProcessor = fieldProcessor;
         try {
             MgBuildBlockTask buildBlockTask = (MgBuildBlockTask) fieldProcessor.getFactory().newInstance((Object)null);
-            this.patterns = buildBlockTask.getTokenPatterns();
+            this.patterns = buildBlockTask.getPartPatterns();
             this.children = buildBlockTask.getBlockPatterns();
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException(e);
@@ -58,7 +58,7 @@ public class BlockPattern {
         return fieldProcessor;
     }
 
-    public ReadableCollection<TokenPattern> getPatterns() {
+    public ReadableCollection<PartPattern> getPatterns() {
         return patterns;
     }
 
