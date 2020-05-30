@@ -1,13 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-mg logical entity builders
-added simple pattern matching
+added block matcher
+improved pattern matcher a bit
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
-    improve pattern matcher
     improve error message for pattern mismatch
-    add block matching ...
+    add error for block mismatch
+    finish builders
 
 resolver
     resolution of logical entity usages

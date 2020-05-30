@@ -3,22 +3,18 @@ package cz.mg.language.tasks.builders.mg;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.chains.PathChain;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
 
 
-public class MgBuildPathTask extends MgBuildTask {
-    @Input
-    private final Part part;
-
+public class MgBuildPathTask extends MgBuildPartTask {
     @Output
     private List<ReadableText> path = null;
 
     public MgBuildPathTask(Part part) {
-        this.part = part;
+        super(part);
     }
 
     public List<ReadableText> getPath() {

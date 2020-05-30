@@ -9,7 +9,7 @@ import cz.mg.language.entities.logic.mg.MgEntityL;
 
 public class MgUsageL extends MgPartL {
     @Value
-    private final List<ReadableText> path = new List<>();
+    private List<ReadableText> path = null;
 
     @Value
     private ReadableText alias = null;
@@ -22,6 +22,10 @@ public class MgUsageL extends MgPartL {
 
     public List<ReadableText> getPath() {
         return path;
+    }
+
+    public void setPath(List<ReadableText> path) {
+        this.path = path;
     }
 
     public ReadableText getAlias() {

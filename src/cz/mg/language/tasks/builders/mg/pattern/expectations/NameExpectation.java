@@ -1,11 +1,11 @@
 package cz.mg.language.tasks.builders.mg.pattern.expectations;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
+import cz.mg.language.tasks.builders.mg.field.FieldProcessor;
 
 
 public class NameExpectation extends LeafExpectation {
-    public NameExpectation(ReadableText value) {
-        super(Name.class, value);
+    public NameExpectation(FieldProcessor fieldProcessor) {
+        super(Name.class, null, fieldProcessor);
     }
 }

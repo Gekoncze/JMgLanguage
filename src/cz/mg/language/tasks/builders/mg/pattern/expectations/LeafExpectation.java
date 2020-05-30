@@ -4,14 +4,15 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.leaves.Leaf;
+import cz.mg.language.tasks.builders.mg.field.FieldProcessor;
 
 
 public class LeafExpectation extends ClassExpectation {
     @Value
     private final ReadableText value;
 
-    public LeafExpectation(Class<? extends Leaf> clazz, ReadableText value) {
-        super(clazz);
+    public LeafExpectation(Class<? extends Leaf> clazz, ReadableText value, FieldProcessor fieldProcessor) {
+        super(clazz, fieldProcessor);
         this.value = value;
     }
 
