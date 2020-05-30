@@ -14,14 +14,16 @@ import static cz.mg.language.tasks.mg.builders.pattern.Expectations.*;
 
 
 public class MgBuildUsageTask extends MgBuildBlockTask {
-    private static final FieldProcessor pathProcessor = new FieldProcessor(
+    private static final FieldProcessor pathProcessor = new FieldProcessor<>(
             MgBuildPathTask.class,
-            (source, destination) -> ((MgBuildUsageTask)destination).usage.setPath((((MgBuildPathTask)source).getPath()))
+            MgBuildUsageTask.class,
+            (source, destination) -> destination.usage.setPath((source.getPath()))
     );
 
-    private static final FieldProcessor aliasProcessor = new FieldProcessor(
+    private static final FieldProcessor aliasProcessor = new FieldProcessor<>(
             MgBuildAsTask.class,
-            (source, destination) -> ((MgBuildUsageTask)destination).usage.setAlias(((MgBuildAsTask)source).getAlias())
+            MgBuildUsageTask.class,
+            (source, destination) -> destination.usage.setAlias(source.getAlias())
     );
 
     private static final Patterns PATTERNS = new Patterns(
@@ -30,7 +32,7 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     );
 
     private static final Children CHILDREN = new Children(
-            new Child(Order.SORTED, Requirement.MANDATORY, Count.SINGLE, aliasProcessor)
+            new Child(Order.STRICT, Requirement.MANDATORY, Count.SINGLE, aliasProcessor)
     );
 
     @Output

@@ -33,7 +33,7 @@ public class Child {
         this.count = count;
         this.fieldProcessor = fieldProcessor;
         try {
-            MgBuildBlockTask buildBlockTask = (MgBuildBlockTask) fieldProcessor.getFactory().newInstance(null);
+            MgBuildBlockTask buildBlockTask = (MgBuildBlockTask) fieldProcessor.getFactory().newInstance((Object)null);
             this.patterns = buildBlockTask.getPatterns();
             this.children = buildBlockTask.getChildren();
         } catch (ReflectiveOperationException e) {
