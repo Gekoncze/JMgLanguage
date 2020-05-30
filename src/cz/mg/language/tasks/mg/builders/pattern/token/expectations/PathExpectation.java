@@ -1,9 +1,9 @@
-package cz.mg.language.tasks.mg.builders.pattern.expectations;
+package cz.mg.language.tasks.mg.builders.pattern.token.expectations;
 
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.chains.PathChain;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
-import cz.mg.language.tasks.mg.builders.pattern.Expectation;
+import cz.mg.language.tasks.mg.builders.pattern.token.Expectation;
 
 
 public class PathExpectation extends Expectation {

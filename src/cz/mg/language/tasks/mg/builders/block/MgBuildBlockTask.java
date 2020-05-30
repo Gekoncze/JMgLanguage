@@ -2,19 +2,20 @@ package cz.mg.language.tasks.mg.builders.block;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
-import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.MgBuildTask;
-import cz.mg.language.tasks.mg.builders.child.Children;
-import cz.mg.language.tasks.mg.builders.pattern.Patterns;
+import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
+import cz.mg.language.tasks.mg.builders.pattern.token.TokenPattern;
 
 
 public abstract class MgBuildBlockTask extends MgBuildTask {
     @Input
     private final Block block;
+
+    @Input
+    private TokenPattern usedPattern = null;
 
     @Subtask
     private final List<MgBuildBlockTask> subtasks = new List();
@@ -23,9 +24,26 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
         this.block = block;
     }
 
+    public TokenPattern getUsedPattern() {
+        return usedPattern;
+    }
+
+    public void setUsedPattern(TokenPattern usedPattern) {
+        this.usedPattern = usedPattern;
+    }
+
     @Override
     protected final void onRun() {
-        // todo;
+        if(usedPattern != null){
+            todo;
+        }
+
+        List<Block> remainingBlocks = new List<>(block.getBlocks());
+        for(BlockPattern blockPattern : getBlockPatterns()){
+            for(TokenPattern tokenPattern : blockPattern.getPatterns()){
+                todo;
+            }
+        }
     }
 
     //    @Override
@@ -44,12 +62,6 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
 //        if(block.getBlocks().count() <= 0) throw new LanguageException("Missing as "); todo;
 //    }
 
-    private void match(Patterns patterns, ReadableCollection<Part> parts){
-        if(!patterns.match(parts)){
-            throw new LanguageException("Unrecognized pattern.");
-        }
-    }
-
-    public abstract Patterns getPatterns();
-    public abstract Children getChildren();
+    public abstract ReadableCollection<TokenPattern> getTokenPatterns();
+    public abstract ReadableCollection<BlockPattern> getBlockPatterns();
 }

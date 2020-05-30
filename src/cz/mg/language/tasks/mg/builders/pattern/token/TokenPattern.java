@@ -1,15 +1,15 @@
-package cz.mg.language.tasks.mg.builders.pattern;
+package cz.mg.language.tasks.mg.builders.pattern.token;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.language.entities.text.structured.parts.Part;
 
 
-public class Pattern {
+public class TokenPattern {
     @cz.mg.language.annotations.entity.Part
     private final Array<Expectation> expectations;
 
-    public Pattern(Expectation... expectations) {
+    public TokenPattern(Expectation... expectations) {
         this.expectations = new Array<>(expectations);
     }
 

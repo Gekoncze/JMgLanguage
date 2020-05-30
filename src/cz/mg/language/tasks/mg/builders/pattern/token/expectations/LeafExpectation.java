@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.builders.pattern.expectations;
+package cz.mg.language.tasks.mg.builders.pattern.token.expectations;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;

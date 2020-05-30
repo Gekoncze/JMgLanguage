@@ -1,14 +1,15 @@
-package cz.mg.language.tasks.mg.builders.child;
+package cz.mg.language.tasks.mg.builders.pattern.block;
 
+import cz.mg.collections.ReadableCollection;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
-import cz.mg.language.tasks.mg.builders.pattern.Patterns;
+import cz.mg.language.tasks.mg.builders.pattern.token.TokenPattern;
 
 
-public class Child {
+public class BlockPattern {
     @Value
     private final Order order;
 
@@ -22,20 +23,20 @@ public class Child {
     private final FieldProcessor fieldProcessor;
 
     @Link
-    private final Patterns patterns;
+    private final ReadableCollection<TokenPattern> patterns;
 
     @Link
-    private final Children children;
+    private final ReadableCollection<BlockPattern> children;
 
-    public Child(Order order, Requirement requirement, Count count, FieldProcessor fieldProcessor) {
+    public BlockPattern(Order order, Requirement requirement, Count count, FieldProcessor fieldProcessor) {
         this.order = order;
         this.requirement = requirement;
         this.count = count;
         this.fieldProcessor = fieldProcessor;
         try {
             MgBuildBlockTask buildBlockTask = (MgBuildBlockTask) fieldProcessor.getFactory().newInstance((Object)null);
-            this.patterns = buildBlockTask.getPatterns();
-            this.children = buildBlockTask.getChildren();
+            this.patterns = buildBlockTask.getTokenPatterns();
+            this.children = buildBlockTask.getBlockPatterns();
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException(e);
         }
@@ -57,11 +58,11 @@ public class Child {
         return fieldProcessor;
     }
 
-    public Patterns getPatterns() {
+    public ReadableCollection<TokenPattern> getPatterns() {
         return patterns;
     }
 
-    public Children getChildren() {
+    public ReadableCollection<BlockPattern> getChildren() {
         return children;
     }
 }

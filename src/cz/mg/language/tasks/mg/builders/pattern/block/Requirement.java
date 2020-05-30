@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.builders.child;
+package cz.mg.language.tasks.mg.builders.pattern.block;
 
 public enum Requirement {
     MANDATORY,

@@ -1,16 +1,17 @@
 package cz.mg.language.tasks.mg.builders.block.root;
 
+import cz.mg.collections.ReadableCollection;
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgUsageL;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.block.root.usage.MgBuildAsTask;
-import cz.mg.language.tasks.mg.builders.child.*;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
 import cz.mg.language.tasks.mg.builders.part.MgBuildPathTask;
-import cz.mg.language.tasks.mg.builders.pattern.Pattern;
-import cz.mg.language.tasks.mg.builders.pattern.Patterns;
-import static cz.mg.language.tasks.mg.builders.pattern.Expectations.*;
+import cz.mg.language.tasks.mg.builders.pattern.block.*;
+import cz.mg.language.tasks.mg.builders.pattern.token.TokenPattern;
+import static cz.mg.language.tasks.mg.builders.pattern.token.Expectations.*;
 
 
 public class MgBuildUsageTask extends MgBuildBlockTask {
@@ -26,13 +27,13 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
             (source, destination) -> destination.usage.setAlias(source.getAlias())
     );
 
-    private static final Patterns PATTERNS = new Patterns(
-            new Pattern(KEYWORD("USING"), NAME(pathProcessor)),
-            new Pattern(KEYWORD("USING"), PATH(pathProcessor))
+    private static final ReadableCollection<TokenPattern> TOKEN_PATTERNS = new List<>(
+            new TokenPattern(KEYWORD("USING"), NAME(pathProcessor)),
+            new TokenPattern(KEYWORD("USING"), PATH(pathProcessor))
     );
 
-    private static final Children CHILDREN = new Children(
-            new Child(Order.STRICT, Requirement.MANDATORY, Count.SINGLE, aliasProcessor)
+    private static final ReadableCollection<BlockPattern> BLOCK_PATTERNS = new List<>(
+            new BlockPattern(Order.STRICT, Requirement.MANDATORY, Count.SINGLE, aliasProcessor)
     );
 
     @Output
@@ -47,12 +48,12 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     }
 
     @Override
-    public Patterns getPatterns() {
-        return PATTERNS;
+    public ReadableCollection<TokenPattern> getTokenPatterns() {
+        return TOKEN_PATTERNS;
     }
 
     @Override
-    public Children getChildren() {
-        return CHILDREN;
+    public ReadableCollection<BlockPattern> getBlockPatterns() {
+        return BLOCK_PATTERNS;
     }
 }

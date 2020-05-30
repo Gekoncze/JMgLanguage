@@ -1,10 +1,10 @@
-package cz.mg.language.tasks.mg.builders.pattern;
+package cz.mg.language.tasks.mg.builders.pattern.token;
 
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
-import cz.mg.language.tasks.mg.builders.pattern.expectations.KeywordExpectation;
-import cz.mg.language.tasks.mg.builders.pattern.expectations.NameExpectation;
-import cz.mg.language.tasks.mg.builders.pattern.expectations.PathExpectation;
+import cz.mg.language.tasks.mg.builders.pattern.token.expectations.KeywordExpectation;
+import cz.mg.language.tasks.mg.builders.pattern.token.expectations.NameExpectation;
+import cz.mg.language.tasks.mg.builders.pattern.token.expectations.PathExpectation;
 
 
 public class Expectations {

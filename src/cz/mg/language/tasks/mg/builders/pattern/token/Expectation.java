@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.builders.pattern;
+package cz.mg.language.tasks.mg.builders.pattern.token;
 
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
