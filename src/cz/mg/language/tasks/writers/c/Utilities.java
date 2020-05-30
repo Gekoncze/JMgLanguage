@@ -1,10 +1,11 @@
 package cz.mg.language.tasks.writers.c;
 
 import cz.mg.collections.list.List;
+import cz.mg.collections.text.ReadonlyText;
 import cz.mg.collections.text.Text;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.text.linear.Line;
-import cz.mg.language.entities.text.linear.tokens.c.CTabToken;
+import cz.mg.language.entities.text.linear.tokens.WhitespaceToken;
 
 
 public class Utilities {
@@ -45,7 +46,7 @@ public class Utilities {
 
     public static List<Line> indent(List<Line> lines){
         for(Line line : lines){
-            line.getTokens().addFirst(new CTabToken());
+            line.getTokens().addFirst(new WhitespaceToken(new ReadonlyText("\t")));
         }
         return lines;
     }

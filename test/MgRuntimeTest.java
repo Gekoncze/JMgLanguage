@@ -1,13 +1,13 @@
 //import cz.mg.collections.text.ReadonlyText;
-//import cz.mg.language.entities.runtime.mg.architecture.MgApplicationR;
-//import cz.mg.language.entities.runtime.mg.architecture.MgModuleR;
-//import cz.mg.language.entities.runtime.mg.architecture.MgThreadR;
-//import cz.mg.language.entities.runtime.mg.components.MgFunctionR;
-//import cz.mg.language.entities.runtime.mg.components.MgVariableR;
-//import cz.mg.language.entities.runtime.mg.instructions.datatype.integer.MgIntegerPlusIntegerInstructionR;
-//import cz.mg.language.entities.runtime.mg.instructions.test.MgPrintIntegerInstructionR;
-//import cz.mg.language.entities.runtime.mg.objects.MgFunctionObjectR;
-//import cz.mg.language.entities.runtime.mg.objects.elementary.MgIntegerObjectR;
+//import cz.mg.language.entities.mg.runtime.architecture.MgApplicationR;
+//import cz.mg.language.entities.mg.runtime.architecture.MgModuleR;
+//import cz.mg.language.entities.mg.runtime.architecture.MgThreadR;
+//import cz.mg.language.entities.mg.runtime.components.MgFunctionR;
+//import cz.mg.language.entities.mg.runtime.components.MgVariableR;
+//import cz.mg.language.entities.mg.runtime.instructions.datatype.integer.MgIntegerPlusIntegerInstructionR;
+//import cz.mg.language.entities.mg.runtime.instructions.test.MgPrintIntegerInstructionR;
+//import cz.mg.language.entities.mg.runtime.objects.MgFunctionObjectR;
+//import cz.mg.language.entities.mg.runtime.objects.elementary.MgIntegerObjectR;
 //
 //
 //public class MgRuntimeTest {

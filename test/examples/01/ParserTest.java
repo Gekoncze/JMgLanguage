@@ -6,8 +6,8 @@ import cz.mg.language.entities.text.linear.Page;
 import cz.mg.language.entities.text.linear.Token;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.leaves.Leaf;
-import cz.mg.language.tasks.parsers.mg.structured.MgParseBlocksTask;
-import cz.mg.language.tasks.parsers.mg.common.MgParsePageTask;
+import cz.mg.language.tasks.mg.parsers.structured.MgParseBlocksTask;
+import cz.mg.language.tasks.mg.parsers.common.MgParsePageTask;
 
 import java.io.BufferedReader;
 import java.io.File;

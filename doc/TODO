@@ -1,6 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added block matcher
-improved pattern matcher a bit
+entity and task - package and class rearrangement
+temporarily disabled c entities and tasksilder
+minor builder improvements
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
