@@ -32,6 +32,11 @@ public class MgBuildRootTask extends MgBuildBlockTask {
     }
 
     @Override
+    protected void buildParts() {
+        // nothing to do
+    }
+
+    @Override
     public ReadableCollection<PartPattern> getPartPatterns() {
         return PART_PATTERNS;
     }

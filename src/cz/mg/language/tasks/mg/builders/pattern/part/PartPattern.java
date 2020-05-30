@@ -13,6 +13,10 @@ public class PartPattern {
         this.expectations = new Array<>(expectations);
     }
 
+    public Array<Expectation> getExpectations() {
+        return expectations;
+    }
+
     public boolean match(ReadableCollection<Part> parts){
         if(!(expectations.count() == parts.count())) return false;
         int i = 0;

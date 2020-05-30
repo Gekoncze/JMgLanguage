@@ -12,5 +12,9 @@ public abstract class Expectation {
         this.fieldProcessor = fieldProcessor;
     }
 
+    public FieldProcessor getFieldProcessor() {
+        return fieldProcessor;
+    }
+
     public abstract boolean match(Part part);
 }

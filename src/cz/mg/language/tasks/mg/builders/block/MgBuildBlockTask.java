@@ -5,8 +5,12 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.MgBuildTask;
+import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
+import cz.mg.language.tasks.mg.builders.part.MgBuildPartTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
+import cz.mg.language.tasks.mg.builders.pattern.part.Expectation;
 import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 
 
@@ -18,7 +22,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     private PartPattern usedPattern = null;
 
     @Subtask
-    private final List<MgBuildBlockTask> subtasks = new List();
+    private final List<MgBuildTask> subtasks = new List();
 
     public MgBuildBlockTask(Block block) {
         this.block = block;
@@ -39,33 +43,35 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     }
 
     protected void buildParts(){
-        todo;
-    }
-
-    protected void buildBlocks(){
-        List<Block> remainingBlocks = new List<>(block.getBlocks());
-        for(BlockPattern blockPattern : getBlockPatterns()){
-            for(PartPattern partPattern : blockPattern.getPatterns()){
-                todo;
+        for(int i = 0; i < block.getParts().count(); i++){
+            Part part = block.getParts().get(i);
+            Expectation expectation = usedPattern.getExpectations().get(i);
+            if(expectation.getFieldProcessor() != null){
+                subtasks.addLast(createPartTask(expectation.getFieldProcessor(), part));
+                subtasks.getLast().run();
+                expectation.getFieldProcessor().getSetter().set(subtasks.getLast(), this);
             }
         }
     }
 
-    //    @Override
-//    protected void onRun() {
-//        match(PATTERNS, block.getParts());
-//
-//        usage = new MgUsageL();
-//        buildPathTask = new MgBuildPathTask(block.getParts().get(1));
-//        buildPathTask.onRun();
-//        usage.getPath().addCollectionLast(buildPathTask.getPath());
-//
-//        for(Block childBlock : block.getBlocks()){
-//            todo;
-//        }
-//
-//        if(block.getBlocks().count() <= 0) throw new LanguageException("Missing as "); todo;
-//    }
+    protected void buildBlocks(){
+        List<BlockPattern> remainingBlockPatterns = new List<>(getBlockPatterns());
+        for(Block childBlock : block.getBlocks()){
+            for(BlockPattern pattern : remainingBlockPatterns){
+                todo;
+            }
+        }
+
+        todo;
+    }
+
+    private MgBuildPartTask createPartTask(FieldProcessor fieldProcessor, Part part){
+        try {
+             return (MgBuildPartTask) fieldProcessor.getFactory().newInstance(part);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public abstract ReadableCollection<PartPattern> getPartPatterns();
     public abstract ReadableCollection<BlockPattern> getBlockPatterns();
