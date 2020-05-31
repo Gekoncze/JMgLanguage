@@ -9,28 +9,27 @@ import cz.mg.language.entities.text.structured.parts.groups.chains.ListChain;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
 
 
-public class MgBuildNameListTask extends MgBuildPartTask {
+public class MgBuildNameListPartTask extends MgBuildPartTask {
     @Output
-    private List<ReadableText> list = null;
+    private final List<ReadableText> names = new List<>();
 
-    public MgBuildNameListTask(Part part) {
+    public MgBuildNameListPartTask(Part part) {
         super(part);
     }
 
-    public List<ReadableText> getList() {
-        return list;
+    public List<ReadableText> getNames() {
+        return names;
     }
 
     @Override
     protected void onRun() {
-        list = new List<>();
         if(part instanceof Name){
-            list.addLast(((Name) part).getText());
+            names.addLast(((Name) part).getText());
         } else if(part instanceof ListChain){
             ListChain listChain = (ListChain) part;
             for(Part listChainPart : listChain.getParts()){
                 if(listChainPart instanceof Name){
-                    list.addLast(((Name) listChainPart).getText());
+                    names.addLast(((Name) listChainPart).getText());
                 } else {
                     throw new LanguageException("Expected name, but got " + listChainPart.getClass().getSimpleName() + ".");
                 }

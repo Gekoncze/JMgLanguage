@@ -5,7 +5,7 @@ import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
+import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 
 
@@ -20,23 +20,23 @@ public class BlockPattern {
     private final Count count;
 
     @Part
-    private final FieldProcessor fieldProcessor;
+    private final BlockFieldProcessor fieldProcessor;
 
     @Link
-    private final ReadableCollection<PartPattern> patterns;
+    private final ReadableCollection<PartPattern> partPatterns;
 
     @Link
-    private final ReadableCollection<BlockPattern> children;
+    private final ReadableCollection<BlockPattern> blockPatterns;
 
-    public BlockPattern(Order order, Requirement requirement, Count count, FieldProcessor fieldProcessor) {
+    public BlockPattern(Order order, Requirement requirement, Count count, BlockFieldProcessor fieldProcessor) {
         this.order = order;
         this.requirement = requirement;
         this.count = count;
         this.fieldProcessor = fieldProcessor;
         try {
             MgBuildBlockTask buildBlockTask = (MgBuildBlockTask) fieldProcessor.getFactory().newInstance((Object)null);
-            this.patterns = buildBlockTask.getPartPatterns();
-            this.children = buildBlockTask.getBlockPatterns();
+            this.partPatterns = buildBlockTask.getPartPatterns();
+            this.blockPatterns = buildBlockTask.getBlockPatterns();
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException(e);
         }
@@ -54,15 +54,15 @@ public class BlockPattern {
         return count;
     }
 
-    public FieldProcessor getFieldProcessor() {
+    public BlockFieldProcessor getFieldProcessor() {
         return fieldProcessor;
     }
 
-    public ReadableCollection<PartPattern> getPatterns() {
-        return patterns;
+    public ReadableCollection<PartPattern> getPartPatterns() {
+        return partPatterns;
     }
 
-    public ReadableCollection<BlockPattern> getChildren() {
-        return children;
+    public ReadableCollection<BlockPattern> getBlockPatterns() {
+        return blockPatterns;
     }
 }

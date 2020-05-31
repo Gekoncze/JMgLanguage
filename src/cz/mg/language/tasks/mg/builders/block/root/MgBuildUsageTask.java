@@ -18,7 +18,7 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     private static final FieldProcessor PATH_PROCESSOR = new FieldProcessor<>(
             MgBuildNamePathTask.class,
             MgBuildUsageTask.class,
-            (source, destination) -> destination.usage.setPath((source.getPath()))
+            (source, destination) -> destination.usage.getPath().addCollectionLast(source.getPath())
     );
 
     private static final FieldProcessor ALIAS_PROCESSOR = new FieldProcessor<>(

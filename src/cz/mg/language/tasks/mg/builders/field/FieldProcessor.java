@@ -5,7 +5,7 @@ import cz.mg.language.tasks.mg.builders.MgBuildTask;
 import java.lang.reflect.Constructor;
 
 
-public class FieldProcessor<Source extends MgBuildTask, Destination extends MgBuildTask> {
+public abstract class FieldProcessor<Source extends MgBuildTask, Destination extends MgBuildTask> {
     @Part
     private final Constructor<? extends Source> factory;
 

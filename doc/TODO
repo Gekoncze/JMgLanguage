@@ -1,13 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-refactored logical entities
+added class block build task
+improved block build task
+added names build tasks
+patterns are now optional / nullable
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
-    add more build tasks
-
-maybe dont resolve usages objects too fast?
-    rewrite logical entities
+    add more build tasks ...
 
 resolver
     resolution of logical entity usages
@@ -17,11 +17,9 @@ resolver
 
 mg builder - improve error message for pattern mismatch
 
-should runtime class extend runtime object ?
-    ... maybe all the runtime entities should be fully dynamic - all being objects
+refactor runtime mg entities
+    all runtime mg entities should extend MgObject which should extend MgEntity
     logical mg entities should only serve as a "template" for actual runtime objects
-
-
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
