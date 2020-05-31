@@ -1,10 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-finished build block task
+refactored logical entities
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
     add more build tasks
+
+maybe dont resolve usages objects too fast?
+    rewrite logical entities
 
 resolver
     resolution of logical entity usages
@@ -14,6 +17,12 @@ resolver
 
 mg builder - improve error message for pattern mismatch
 
+should runtime class extend runtime object ?
+    ... maybe all the runtime entities should be fully dynamic - all being objects
+    logical mg entities should only serve as a "template" for actual runtime objects
+
+
+
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 nullable type specifier "?" in logical (and runtime?) mg entities
@@ -21,6 +30,8 @@ mg relative vs absolute usages
 mg logical to runtime entities
 add more instructions
 implement logic for loading modules
+use cache for usages during resolve to prevent multiple resolution of the same name
+    cache should also contain other information like the expected type of the object (class, stamp, function, etc.)
 
 think about mg collections
     they should definitely be distinguished as readable or writeable or both somehow

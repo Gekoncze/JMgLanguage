@@ -106,7 +106,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
         );
         FilteredCollection<BlockPattern> reality = new FilteredCollection<>(
                 blockPatternUsageOrder,
-                blockPattern -> blockPattern.getOrder() == Order.STRICT
+                blockPattern -> true // blockPattern.getOrder() == Order.STRICT
         );
         Iterator<BlockPattern> expectationIterator = expectation.iterator();
         BlockPattern currentExpectation = expectationIterator.next();

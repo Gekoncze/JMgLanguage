@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.logical.parts.commands.MgCommandL;
+import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstructionR;
 import cz.mg.language.entities.mg.runtime.other.MgOperatorR;
 
@@ -23,7 +23,7 @@ public class MgFunctionR extends MgComponentR {
     private final List<MgVariableR> variables = new List<>();
 
     @Part
-    private final List<MgCommandL> commands = new List<>();
+    private final List<MgLogicalCommand> commands = new List<>();
 
     @Part
     private final List<MgInstructionR> instructions = new List<>();
@@ -58,7 +58,7 @@ public class MgFunctionR extends MgComponentR {
         return variables;
     }
 
-    public List<MgCommandL> getCommands() {
+    public List<MgLogicalCommand> getCommands() {
         return commands;
     }
 
