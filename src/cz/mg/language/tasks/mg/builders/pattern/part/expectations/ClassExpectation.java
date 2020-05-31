@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.builders.pattern.part.expectations;
 
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.entities.text.structured.parts.Part;
-import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
+import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.part.Expectation;
 
 
@@ -10,7 +10,7 @@ public class ClassExpectation extends Expectation {
     @Link
     private final Class<? extends Part> clazz;
 
-    public ClassExpectation(Class<? extends Part> clazz, FieldProcessor fieldProcessor) {
+    public ClassExpectation(Class<? extends Part> clazz, PartFieldProcessor fieldProcessor) {
         super(fieldProcessor);
         this.clazz = clazz;
     }

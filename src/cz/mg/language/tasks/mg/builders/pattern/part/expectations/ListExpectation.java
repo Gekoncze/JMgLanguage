@@ -2,12 +2,12 @@ package cz.mg.language.tasks.mg.builders.pattern.part.expectations;
 
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.chains.ListChain;
-import cz.mg.language.tasks.mg.builders.field.FieldProcessor;
+import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.part.Expectation;
 
 
 public class ListExpectation extends Expectation {
-    public ListExpectation(FieldProcessor fieldProcessor) {
+    public ListExpectation(PartFieldProcessor fieldProcessor) {
         super(fieldProcessor);
     }
 
