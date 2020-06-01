@@ -6,6 +6,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.MgLogicalEntity;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.root.MgBuildClassTask;
+import cz.mg.language.tasks.mg.builders.block.root.MgBuildFunctionTask;
 import cz.mg.language.tasks.mg.builders.block.root.MgBuildUsageTask;
 import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
@@ -28,9 +29,16 @@ public class MgBuildRootTask extends MgBuildBlockTask {
             (source, destination) -> destination.entities.addLast(source.getClazz())
     );
 
+    private static final BlockFieldProcessor FUNCTION_FIELD_PROCESSOR = new BlockFieldProcessor<>(
+            MgBuildFunctionTask.class,
+            MgBuildRootTask.class,
+            (source, destination) -> destination.entities.addLast(source.getFunction())
+    );
+
     private static final ReadableCollection<BlockPattern> BLOCK_PATTERNS = new List<>(
             new BlockPattern(Order.STRICT, Requirement.OPTIONAL, Count.MULTIPLE, USAGE_FIELD_PROCESSOR),
-            new BlockPattern(Order.RANDOM, Requirement.OPTIONAL, Count.MULTIPLE, CLASS_FIELD_PROCESSOR)
+            new BlockPattern(Order.RANDOM, Requirement.OPTIONAL, Count.MULTIPLE, CLASS_FIELD_PROCESSOR),
+            new BlockPattern(Order.RANDOM, Requirement.OPTIONAL, Count.MULTIPLE, FUNCTION_FIELD_PROCESSOR)
     );
 
     @Output

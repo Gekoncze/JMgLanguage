@@ -1,10 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+added (some of) function build tasks
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
     add more build tasks ...
+        function
+            declaration
+            commands
 
 resolver
     resolution of logical entity usages
