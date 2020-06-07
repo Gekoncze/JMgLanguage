@@ -23,13 +23,13 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     private static final PartFieldProcessor PATH_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildNamePathTask.class,
             MgBuildUsageTask.class,
-            (source, destination) -> destination.usage.getPath().addCollectionLast(source.getOutput())
+            (source, destination) -> destination.output.getPath().addCollectionLast(source.getOutput())
     );
 
     private static final BlockFieldProcessor AS_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildAsTask.class,
             MgBuildUsageTask.class,
-            (source, destination) -> destination.usage.setAlias(source.getAlias())
+            (source, destination) -> destination.output.setAlias(source.getAlias())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
@@ -42,14 +42,14 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     );
 
     @Output
-    private MgLogicalUsage usage = new MgLogicalUsage();
+    private MgLogicalUsage output = new MgLogicalUsage();
 
     public MgBuildUsageTask(Block block) {
         super(block);
     }
 
-    public MgLogicalUsage getUsage() {
-        return usage;
+    public MgLogicalUsage getOutput() {
+        return output;
     }
 
     @Override

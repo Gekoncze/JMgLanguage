@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.builders.block.root.function;
+package cz.mg.language.tasks.mg.builders.block.part;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
@@ -18,13 +18,13 @@ public class MgBuildDeclarationBlockTask extends MgBuildBlockTask {
     private static final PartFieldProcessor DECLARATION_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildDeclarationPartTask.class,
             MgBuildDeclarationBlockTask.class,
-            (source, destination) -> destination.variables.addLast(source.getOutput())
+            (source, destination) -> destination.output.addLast(source.getOutput())
     );
 
     private static final PartFieldProcessor DECLARATION_LIST_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildDeclarationListPartTask.class,
             MgBuildDeclarationBlockTask.class,
-            (source, destination) -> destination.variables.addCollectionLast(source.getOutput())
+            (source, destination) -> destination.output.addCollectionLast(source.getOutput())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
@@ -33,14 +33,14 @@ public class MgBuildDeclarationBlockTask extends MgBuildBlockTask {
     );
 
     @Output
-    private final List<MgLogicalVariable> variables = new List<>();
+    private final List<MgLogicalVariable> output = new List<>();
 
     public MgBuildDeclarationBlockTask(Block block) {
         super(block);
     }
 
-    public List<MgLogicalVariable> getVariables() {
-        return variables;
+    public List<MgLogicalVariable> getOutput() {
+        return output;
     }
 
     @Override

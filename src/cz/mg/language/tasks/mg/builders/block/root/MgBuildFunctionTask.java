@@ -10,6 +10,7 @@ import cz.mg.language.tasks.mg.builders.block.root.function.MgBuildInputTask;
 import cz.mg.language.tasks.mg.builders.block.root.function.MgBuildOutputTask;
 import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
+import cz.mg.language.tasks.mg.builders.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builders.part.single.MgBuildNamePartTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
 import cz.mg.language.tasks.mg.builders.pattern.block.Count;
@@ -23,19 +24,25 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
     private static final PartFieldProcessor NAME_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildNamePartTask.class,
             MgBuildFunctionTask.class,
-            (source, destination) -> destination.function.setName(source.getOutput())
+            (source, destination) -> destination.output.setName(source.getOutput())
     );
 
     private static final BlockFieldProcessor INPUT_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildInputTask.class,
             MgBuildFunctionTask.class,
-            (source, destination) -> destination.function.getInput().addCollectionLast(source.getVariables())
+            (source, destination) -> destination.output.getInput().addCollectionLast(source.getVariables())
     );
 
     private static final BlockFieldProcessor OUTPUT_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildOutputTask.class,
             MgBuildFunctionTask.class,
-            (source, destination) -> destination.function.getOutput().addCollectionLast(source.getVariables())
+            (source, destination) -> destination.output.getOutput().addCollectionLast(source.getOutput())
+    );
+
+    private static final BlockFieldProcessor COMMAND_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
+            MgBuildExpressionPartTask.class,
+            MgBuildFunctionTask.class,
+            (source, destination) -> destination.output.getCommands().addCollectionLast(source.getOutput())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
@@ -48,14 +55,14 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
     );
 
     @Output
-    private final MgLogicalFunction function = new MgLogicalFunction();
+    private final MgLogicalFunction output = new MgLogicalFunction();
 
     public MgBuildFunctionTask(Block block) {
         super(block);
     }
 
-    public MgLogicalFunction getFunction() {
-        return function;
+    public MgLogicalFunction getOutput() {
+        return output;
     }
 
     @Override

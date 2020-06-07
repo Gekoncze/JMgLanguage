@@ -1,13 +1,17 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-improved part builders lil
-added build declaration tasks
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
     add more build tasks ...
-        function
-            commands
+        block
+            function
+                commands
+        part
+            expression
+
+        add helper build list block task
 
 resolver
     resolution of logical entity usages

@@ -20,19 +20,19 @@ public class MgBuildRootTask extends MgBuildBlockTask {
     private static final BlockFieldProcessor USAGE_FIELD_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildUsageTask.class,
             MgBuildRootTask.class,
-            (source, destination) -> destination.entities.addLast(source.getUsage())
+            (source, destination) -> destination.entities.addLast(source.getOutput())
     );
 
     private static final BlockFieldProcessor CLASS_FIELD_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildClassTask.class,
             MgBuildRootTask.class,
-            (source, destination) -> destination.entities.addLast(source.getClazz())
+            (source, destination) -> destination.entities.addLast(source.getOutput())
     );
 
     private static final BlockFieldProcessor FUNCTION_FIELD_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildFunctionTask.class,
             MgBuildRootTask.class,
-            (source, destination) -> destination.entities.addLast(source.getFunction())
+            (source, destination) -> destination.entities.addLast(source.getOutput())
     );
 
     private static final ReadableCollection<BlockPattern> BLOCK_PATTERNS = new List<>(

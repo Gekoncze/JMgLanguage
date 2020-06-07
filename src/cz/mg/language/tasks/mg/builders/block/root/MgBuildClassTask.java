@@ -22,13 +22,13 @@ public class MgBuildClassTask extends MgBuildBlockTask {
     private static final PartFieldProcessor NAME_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildNamePartTask.class,
             MgBuildClassTask.class,
-            (source, destination) -> destination.clazz = new MgLogicalClass(source.getOutput())
+            (source, destination) -> destination.output = new MgLogicalClass(source.getOutput())
     );
 
     private static final BlockFieldProcessor IS_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildIsTask.class,
             MgBuildClassTask.class,
-            (source, destination) -> destination.clazz.getBaseClasses().addCollectionLast(source.getNames())
+            (source, destination) -> destination.output.getBaseClasses().addCollectionLast(source.getNames())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
@@ -40,14 +40,14 @@ public class MgBuildClassTask extends MgBuildBlockTask {
     );
 
     @Output
-    private MgLogicalClass clazz = null;
+    private MgLogicalClass output = null;
 
     public MgBuildClassTask(Block block) {
         super(block);
     }
 
-    public MgLogicalClass getClazz() {
-        return clazz;
+    public MgLogicalClass getOutput() {
+        return output;
     }
 
     @Override

@@ -6,6 +6,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
+import cz.mg.language.tasks.mg.builders.block.part.MgBuildDeclarationBlockTask;
 import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
 import cz.mg.language.tasks.mg.builders.part.multiple.MgBuildDeclarationListPartTask;
@@ -22,19 +23,19 @@ public class MgBuildOutputTask extends MgBuildBlockTask {
     private static final PartFieldProcessor DECLARATION_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildDeclarationPartTask.class,
             MgBuildOutputTask.class,
-            (source, destination) -> destination.variables.addLast(source.getOutput())
+            (source, destination) -> destination.output.addLast(source.getOutput())
     );
 
     private static final PartFieldProcessor DECLARATION_LIST_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildDeclarationListPartTask.class,
             MgBuildOutputTask.class,
-            (source, destination) -> destination.variables.addCollectionLast(source.getOutput())
+            (source, destination) -> destination.output.addCollectionLast(source.getOutput())
     );
 
     private static final BlockFieldProcessor DECLARATION_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildDeclarationBlockTask.class,
             MgBuildOutputTask.class,
-            (source, destination) -> destination.variables.addCollectionLast(source.getVariables())
+            (source, destination) -> destination.output.addCollectionLast(source.getOutput())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
@@ -47,14 +48,14 @@ public class MgBuildOutputTask extends MgBuildBlockTask {
     );
 
     @Output
-    private final List<MgLogicalVariable> variables = new List<>();
+    private final List<MgLogicalVariable> output = new List<>();
 
     public MgBuildOutputTask(Block block) {
         super(block);
     }
 
-    public List<MgLogicalVariable> getVariables() {
-        return variables;
+    public List<MgLogicalVariable> getOutput() {
+        return output;
     }
 
     @Override

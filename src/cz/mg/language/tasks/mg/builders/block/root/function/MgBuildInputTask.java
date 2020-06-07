@@ -6,6 +6,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
+import cz.mg.language.tasks.mg.builders.block.part.MgBuildDeclarationBlockTask;
 import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
 import cz.mg.language.tasks.mg.builders.part.multiple.MgBuildDeclarationListPartTask;
@@ -34,7 +35,7 @@ public class MgBuildInputTask extends MgBuildBlockTask {
     private static final BlockFieldProcessor DECLARATION_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
             MgBuildDeclarationBlockTask.class,
             MgBuildInputTask.class,
-            (source, destination) -> destination.variables.addCollectionLast(source.getVariables())
+            (source, destination) -> destination.variables.addCollectionLast(source.getOutput())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
