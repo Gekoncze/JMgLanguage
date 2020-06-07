@@ -10,7 +10,7 @@ import cz.mg.language.tasks.mg.builders.block.root.function.MgBuildInputTask;
 import cz.mg.language.tasks.mg.builders.block.root.function.MgBuildOutputTask;
 import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
-import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builders.part.single.MgBuildNamePartTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
 import cz.mg.language.tasks.mg.builders.pattern.block.Count;
 import cz.mg.language.tasks.mg.builders.pattern.block.Order;
@@ -21,9 +21,9 @@ import static cz.mg.language.tasks.mg.builders.pattern.part.Expectations.*;
 
 public class MgBuildFunctionTask extends MgBuildBlockTask {
     private static final PartFieldProcessor NAME_PART_PROCESSOR = new PartFieldProcessor<>(
-            MgBuildNameTask.class,
+            MgBuildNamePartTask.class,
             MgBuildFunctionTask.class,
-            (source, destination) -> destination.function.setName(source.getName())
+            (source, destination) -> destination.function.setName(source.getOutput())
     );
 
     private static final BlockFieldProcessor INPUT_BLOCK_PROCESSOR = new BlockFieldProcessor<>(

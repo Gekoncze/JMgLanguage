@@ -7,7 +7,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
-import cz.mg.language.tasks.mg.builders.part.MgBuildNameListPartTask;
+import cz.mg.language.tasks.mg.builders.part.multiple.MgBuildNameListPartTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
 import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 import static cz.mg.language.tasks.mg.builders.pattern.part.Expectations.*;
@@ -17,7 +17,7 @@ public class MgBuildNameListBlockTask extends MgBuildBlockTask {
     private static final PartFieldProcessor NAMES_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildNameListPartTask.class,
             MgBuildNameListBlockTask.class,
-            (source, destination) -> destination.names.addCollectionLast(source.getNames())
+            (source, destination) -> destination.names.addCollectionLast(source.getOutput())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(

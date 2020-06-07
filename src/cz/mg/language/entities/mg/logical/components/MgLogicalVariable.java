@@ -8,12 +8,16 @@ public class MgLogicalVariable extends MgLogicalComponent {
     @Value
     private ReadableText type;
 
+    @Value
+    private Storage storage;
+
     public MgLogicalVariable() {
     }
 
-    public MgLogicalVariable(ReadableText name, ReadableText type) {
+    public MgLogicalVariable(ReadableText name, ReadableText type, Storage storage) {
         super(name);
         this.type = type;
+        this.storage = storage;
     }
 
     public ReadableText getType() {
@@ -22,5 +26,19 @@ public class MgLogicalVariable extends MgLogicalComponent {
 
     public void setType(ReadableText type) {
         this.type = type;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
+
+    public enum Storage {
+        VALUE,
+        ADDRESS,
+        NULLABLE_ADDRESS
     }
 }

@@ -7,8 +7,8 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
-import cz.mg.language.tasks.mg.builders.part.MgBuildDeclarationListTask;
-import cz.mg.language.tasks.mg.builders.part.MgBuildDeclarationTask;
+import cz.mg.language.tasks.mg.builders.part.multiple.MgBuildDeclarationListPartTask;
+import cz.mg.language.tasks.mg.builders.part.single.MgBuildDeclarationPartTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
 import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 import static cz.mg.language.tasks.mg.builders.pattern.part.Expectations.*;
@@ -16,15 +16,15 @@ import static cz.mg.language.tasks.mg.builders.pattern.part.Expectations.*;
 
 public class MgBuildDeclarationBlockTask extends MgBuildBlockTask {
     private static final PartFieldProcessor DECLARATION_PART_PROCESSOR = new PartFieldProcessor<>(
-            MgBuildDeclarationTask.class,
+            MgBuildDeclarationPartTask.class,
             MgBuildDeclarationBlockTask.class,
-            (source, destination) -> destination.variables.addLast(source.getVariable())
+            (source, destination) -> destination.variables.addLast(source.getOutput())
     );
 
     private static final PartFieldProcessor DECLARATION_LIST_PART_PROCESSOR = new PartFieldProcessor<>(
-            MgBuildDeclarationListTask.class,
+            MgBuildDeclarationListPartTask.class,
             MgBuildDeclarationBlockTask.class,
-            (source, destination) -> destination.variables.addCollectionLast(source.getVariables())
+            (source, destination) -> destination.variables.addCollectionLast(source.getOutput())
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(

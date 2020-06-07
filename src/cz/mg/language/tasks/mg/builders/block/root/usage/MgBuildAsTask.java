@@ -7,7 +7,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
-import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builders.part.single.MgBuildNamePartTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
 import cz.mg.language.tasks.mg.builders.pattern.part.Expectations;
 import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
@@ -15,9 +15,9 @@ import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
 
 public class MgBuildAsTask extends MgBuildBlockTask {
     private static final PartFieldProcessor NAME_PART_PROCESSOR = new PartFieldProcessor<>(
-            MgBuildNameTask.class,
+            MgBuildNamePartTask.class,
             MgBuildAsTask.class,
-            (source, destination) -> destination.alias = source.getName()
+            (source, destination) -> destination.alias = source.getOutput()
     );
 
     private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(

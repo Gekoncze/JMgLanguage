@@ -9,7 +9,7 @@ import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.block.root.usage.MgBuildAsTask;
 import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
 import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
-import cz.mg.language.tasks.mg.builders.part.MgBuildNamePathTask;
+import cz.mg.language.tasks.mg.builders.part.multiple.MgBuildNamePathTask;
 import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
 import cz.mg.language.tasks.mg.builders.pattern.block.Count;
 import cz.mg.language.tasks.mg.builders.pattern.block.Order;
@@ -23,7 +23,7 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     private static final PartFieldProcessor PATH_PART_PROCESSOR = new PartFieldProcessor<>(
             MgBuildNamePathTask.class,
             MgBuildUsageTask.class,
-            (source, destination) -> destination.usage.getPath().addCollectionLast(source.getPath())
+            (source, destination) -> destination.usage.getPath().addCollectionLast(source.getOutput())
     );
 
     private static final BlockFieldProcessor AS_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
