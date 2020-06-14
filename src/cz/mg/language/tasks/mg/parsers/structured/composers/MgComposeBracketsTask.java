@@ -9,7 +9,7 @@ import cz.mg.language.entities.text.structured.parts.groups.brackets.Brackets;
 import cz.mg.language.entities.text.structured.parts.groups.brackets.CurlyBrackets;
 import cz.mg.language.entities.text.structured.parts.groups.brackets.RoundBrackets;
 import cz.mg.language.entities.text.structured.parts.groups.brackets.SquareBrackets;
-import cz.mg.language.entities.text.structured.parts.leaves.special.Symbol;
+import cz.mg.language.entities.text.structured.parts.leaves.Special;
 
 
 public class MgComposeBracketsTask extends MgComposeTask {
@@ -86,8 +86,8 @@ public class MgComposeBracketsTask extends MgComposeTask {
         }
 
         public static Info create(Part part){
-            if(part instanceof Symbol){
-                ReadableText text = ((Symbol) part).getText();
+            if(part instanceof Special){
+                ReadableText text = ((Special) part).getText();
                 if(text.equals("(")) return new Info(Style.ROUND, Type.OPENING);
                 if(text.equals(")")) return new Info(Style.ROUND, Type.CLOSING);
                 if(text.equals("[")) return new Info(Style.SQUARE, Type.OPENING);

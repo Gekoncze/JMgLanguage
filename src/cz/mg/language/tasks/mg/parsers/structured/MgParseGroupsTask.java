@@ -28,7 +28,7 @@ public class MgParseGroupsTask extends MgParseTask {
     private MgComposePairsTask buildPairsTask = null;
 
     @Subtask
-    private MgComposeOperatorsTask buildOperatorsTask = null;
+    private MgComposeGroupsTask buildOperatorsTask = null;
 
     @Subtask
     private MgComposeListsTask buildListsTask = null;
@@ -57,7 +57,7 @@ public class MgParseGroupsTask extends MgParseTask {
         buildPairsTask = new MgComposePairsTask(groups);
         buildPairsTask.run();
 
-        buildOperatorsTask = new MgComposeOperatorsTask(groups);
+        buildOperatorsTask = new MgComposeGroupsTask(groups);
         buildOperatorsTask.run();
 
         buildListsTask = new MgComposeListsTask(groups);

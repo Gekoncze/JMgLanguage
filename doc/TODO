@@ -1,5 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+rewritten parsers and builders
+stamps and keywords have now separate collection fields in Block entity
+simplified pattern matching mechanism
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -13,20 +15,18 @@ structured text entities to logical entities
 
         add helper build list block task
 
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
+refactor runtime mg entities
+    all runtime mg entities should extend MgObject which should extend MgEntity
+    logical mg entities should only serve as a "template" for actual runtime objects
+
 resolver
     resolution of logical entity usages
     resolution of operators and additional build steps based on priority
         priority can be choosen by the user
         operators need to be imported
 
-mg builder - improve error message for pattern mismatch
-
-refactor runtime mg entities
-    all runtime mg entities should extend MgObject which should extend MgEntity
-    logical mg entities should only serve as a "template" for actual runtime objects
-
-
-### SOON ### -----------------------------------------------------------------------------------------------------------
 nullable type specifier "?" in logical (and runtime?) mg entities
 mg relative vs absolute usages
 mg logical to runtime entities
@@ -80,6 +80,11 @@ how to trace origin for error messages?
     1) might use optional setter, that shall be set for all newly created objects
         origin would be taken from one of the input objects
     2) shouldnt a stack trace be enough? implying we have a tree of entities
+
+stamps
+    additional information for the compiler
+    can be mandatory or optional ?
+        for mandatory stamps, the compiler has to throw an error if it cannot handle them
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------

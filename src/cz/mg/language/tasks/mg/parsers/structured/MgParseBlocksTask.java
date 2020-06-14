@@ -27,6 +27,9 @@ public class MgParseBlocksTask extends MgParseTask {
     @Subtask
     private final List<MgParsePartsTask> parsePartsTasks = new List<>();
 
+    private final StampCollector pendingStamps = new StampCollector();
+    private final KeywordCollector pendingKeywords = new KeywordCollector();
+
     public MgParseBlocksTask(Page page) {
         this.page = page;
     }
@@ -46,9 +49,25 @@ public class MgParseBlocksTask extends MgParseTask {
             Block parentBlock = getParentBlock(root, indentation);
             flattenLineByStamps(lineItem, indentation);
             flattenLineByKeywords(lineItem, indentation);
+            collectSpaces(line);
+            collectStamps(parentBlock, line);
+            if(isEmpty(line)) continue;
+            collectKeywords(parentBlock, line);
             parsePartsTasks.addLast(new MgParsePartsTask(line.getTokens()));
             parsePartsTasks.getLast().run();
-            parentBlock.getBlocks().addLast(new Block(parsePartsTasks.getLast().getParts()));
+            Block block = new Block();
+            block.getStamps().addCollectionLast(pendingStamps.take(parentBlock));
+            block.getKeywords().addCollectionLast(pendingKeywords.take(parentBlock));
+            block.getParts().addCollectionLast(parsePartsTasks.getLast().getParts());
+            parentBlock.getBlocks().addLast(block);
+        }
+
+        if(pendingStamps.count() > 0){
+            throw new LanguageException("Orphan stamps.");
+        }
+
+        if(pendingKeywords.count() > 0){
+            throw new LanguageException("Orphan keywords.");
         }
     }
 
@@ -139,5 +158,26 @@ public class MgParseBlocksTask extends MgParseTask {
             }
         }
         return tokens;
+    }
+
+    private void collectSpaces(Line line){
+        ListItem<Token> tokenItem = line.getTokens().getFirstItem();
+        while(tokenItem != null){
+            ListItem<Token> nextItem = tokenItem = tokenItem.getNextItem();
+            if(tokenItem.get() instanceof WhitespaceToken) tokenItem.remove();
+            tokenItem = nextItem;
+        }
+    }
+
+    private void collectStamps(Block parentBlock, Line line){
+        while(line.getTokens().getFirst() instanceof StampToken){
+            pendingStamps.add(parentBlock, (StampToken) line.getTokens().removeFirst());
+        }
+    }
+
+    private void collectKeywords(Block parentBlock, Line line){
+        while(line.getTokens().getFirst() instanceof KeywordToken){
+            pendingKeywords.add(parentBlock, (KeywordToken) line.getTokens().removeFirst());
+        }
     }
 }

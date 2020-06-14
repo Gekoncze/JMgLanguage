@@ -5,56 +5,80 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.MgLogicalEntity;
 import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.root.MgBuildClassTask;
 import cz.mg.language.tasks.mg.builders.block.root.MgBuildFunctionTask;
 import cz.mg.language.tasks.mg.builders.block.root.MgBuildUsageTask;
-import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
-import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
-import cz.mg.language.tasks.mg.builders.pattern.block.Count;
-import cz.mg.language.tasks.mg.builders.pattern.block.Order;
-import cz.mg.language.tasks.mg.builders.pattern.block.Requirement;
-import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
+import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildRootTask extends MgBuildBlockTask {
-    private static final BlockFieldProcessor USAGE_FIELD_PROCESSOR = new BlockFieldProcessor<>(
-            MgBuildUsageTask.class,
-            MgBuildRootTask.class,
-            (source, destination) -> destination.entities.addLast(source.getOutput())
-    );
+    private static final ReadableCollection<Pattern> PATTERNS = new List<>(
+        // build usages
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildUsageTask.class,
+                MgBuildRootTask.class,
+                (source, destination) -> destination.entities.addLast(source.getUsage())
+            )
+        ),
 
-    private static final BlockFieldProcessor CLASS_FIELD_PROCESSOR = new BlockFieldProcessor<>(
-            MgBuildClassTask.class,
-            MgBuildRootTask.class,
-            (source, destination) -> destination.entities.addLast(source.getOutput())
-    );
+        // build classes
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildClassTask.class,
+                MgBuildRootTask.class,
+                (source, destination) -> destination.entities.addLast(source.getClazz())
+            )
+        ),
 
-    private static final BlockFieldProcessor FUNCTION_FIELD_PROCESSOR = new BlockFieldProcessor<>(
-            MgBuildFunctionTask.class,
-            MgBuildRootTask.class,
-            (source, destination) -> destination.entities.addLast(source.getOutput())
-    );
-
-    private static final ReadableCollection<BlockPattern> BLOCK_PATTERNS = new List<>(
-            new BlockPattern(Order.STRICT, Requirement.OPTIONAL, Count.MULTIPLE, USAGE_FIELD_PROCESSOR),
-            new BlockPattern(Order.RANDOM, Requirement.OPTIONAL, Count.MULTIPLE, CLASS_FIELD_PROCESSOR),
-            new BlockPattern(Order.RANDOM, Requirement.OPTIONAL, Count.MULTIPLE, FUNCTION_FIELD_PROCESSOR)
+        // build functions
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildFunctionTask.class,
+                MgBuildRootTask.class,
+                (source, destination) -> destination.entities.addLast(source.getFunction())
+            )
+        )
     );
 
     @Output
     private final List<MgLogicalEntity> entities = new List<>();
 
     public MgBuildRootTask(Block block) {
-        super(block);
+        super(null, block);
+    }
+
+    public List<MgLogicalEntity> getEntities() {
+        return entities;
     }
 
     @Override
-    public ReadableCollection<PartPattern> getPartPatterns() {
+    protected Object getOutput() {
+        return entities;
+    }
+
+    @Override
+    public ReadableCollection<Pattern> getPatterns() {
+        return PATTERNS;
+    }
+
+    @Override
+    public Processor getProcessor() {
         return null;
     }
 
     @Override
-    public ReadableCollection<BlockPattern> getBlockPatterns() {
-        return BLOCK_PATTERNS;
+    protected void buildPart(Part part){
+        // nothing to do
     }
 }

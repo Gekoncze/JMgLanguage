@@ -66,10 +66,6 @@ public class MgParseLineTask extends MgParseTask {
         return ch >= ' ' && ch <= '~';
     }
 
-    private static boolean isAllowedSymbol(char ch){
-        return ch >= '!' && ch <= '~';
-    }
-
     private static boolean isOperator(char ch){
         switch (ch){
             case '+': return true;
@@ -83,6 +79,21 @@ public class MgParseLineTask extends MgParseTask {
             case '=': return true;
             case '$': return true;
             case '&': return true;
+            default: return false;
+        }
+    }
+
+    private static boolean isSpecial(char ch){
+        switch (ch){
+            case '(': return true;
+            case ')': return true;
+            case '[': return true;
+            case ']': return true;
+            case '{': return true;
+            case '}': return true;
+            case ':': return true;
+            case ',': return true;
+            case '.': return true;
             default: return false;
         }
     }
@@ -107,8 +118,8 @@ public class MgParseLineTask extends MgParseTask {
                 line.getTokens().addLast(parseStamp());
             } else if(isOperator(ch)){
                 line.getTokens().addLast(parseOperator());
-            } else if(isAllowedSymbol(ch)) {
-                line.getTokens().addLast(new SymbolToken(reader.slice()));
+            } else if(isSpecial(ch)) {
+                line.getTokens().addLast(new SpecialToken(reader.slice()));
             } else {
                 throw new LanguageException("Illegal character " + reader.sliceChar() + " (" + (int)reader.sliceChar().get(0) + ").");
             }

@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.Colon;
-import cz.mg.language.entities.text.structured.parts.leaves.special.Symbol;
+import cz.mg.language.entities.text.structured.parts.leaves.Special;
 
 
 public class MgComposeColonsTask extends MgComposeTask {
@@ -26,8 +26,8 @@ public class MgComposeColonsTask extends MgComposeTask {
     }
 
     private boolean isColon(Part part){
-        if(part instanceof Symbol){
-            if(((Symbol) part).getText().equals(":")){
+        if(part instanceof Special){
+            if(((Special) part).getText().equals(":")){
                 return true;
             }
         }

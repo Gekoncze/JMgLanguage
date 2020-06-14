@@ -11,9 +11,6 @@ import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.leaves.*;
 import cz.mg.language.entities.text.structured.parts.leaves.names.ObjectName;
 import cz.mg.language.entities.text.structured.parts.leaves.names.TypeName;
-import cz.mg.language.entities.text.structured.parts.leaves.special.Keyword;
-import cz.mg.language.entities.text.structured.parts.leaves.special.Stamp;
-import cz.mg.language.entities.text.structured.parts.leaves.special.Symbol;
 import cz.mg.language.tasks.mg.parsers.MgParseTask;
 
 
@@ -36,13 +33,11 @@ public class MgParseLeavesTask extends MgParseTask {
     protected void onRun() {
         parts = new List<>();
         for(Token token : tokens){
-            if(token instanceof KeywordToken) parts.addLast(new Keyword(token.getText()));
-            else if(token instanceof StampToken) parts.addLast(new Stamp(token.getText()));
-            else if(token instanceof TypeNameToken) parts.addLast(new TypeName(token.getText()));
+            if(token instanceof TypeNameToken) parts.addLast(new TypeName(token.getText()));
             else if(token instanceof ObjectNameToken) parts.addLast(new ObjectName(token.getText()));
             else if(token instanceof ValueToken) parts.addLast(new Value(token.getText()));
             else if(token instanceof SignsToken) parts.addLast(new Signs(token.getText()));
-            else if(token instanceof SymbolToken) parts.addLast(new Symbol(token.getText()));
+            else if(token instanceof SpecialToken) parts.addLast(new Special(token.getText()));
             else if(token instanceof CommentToken) continue;
             else if(token instanceof WhitespaceToken) continue;
             else throw new LanguageException("Unexpected token of type " + token.getClass().getSimpleName() + ".");

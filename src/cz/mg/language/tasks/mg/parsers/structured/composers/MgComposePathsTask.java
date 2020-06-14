@@ -5,8 +5,7 @@ import cz.mg.collections.list.ListItem;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.chains.PathChain;
-import cz.mg.language.entities.text.structured.parts.leaves.special.SpecialLeaf;
-import cz.mg.language.entities.text.structured.parts.leaves.special.Symbol;
+import cz.mg.language.entities.text.structured.parts.leaves.Special;
 
 
 public class MgComposePathsTask extends MgComposeTask {
@@ -23,8 +22,8 @@ public class MgComposePathsTask extends MgComposeTask {
             Part rightPart = partItem.removeNext();
             if(leftPart == null) throw new LanguageException("Missing left part for path.");
             if(rightPart == null) throw new LanguageException("Missing right part for path.");
-            if(leftPart instanceof SpecialLeaf) throw new LanguageException("Unexpected left part (" + leftPart.getClass().getSimpleName() + ") for path.");
-            if(rightPart instanceof SpecialLeaf) throw new LanguageException("Unexpected right part (" + leftPart.getClass().getSimpleName() + ") for path.");
+            if(leftPart instanceof Special) throw new LanguageException("Unexpected left part (" + leftPart.getClass().getSimpleName() + ") for path.");
+            if(rightPart instanceof Special) throw new LanguageException("Unexpected right part (" + leftPart.getClass().getSimpleName() + ") for path.");
             if(leftPart instanceof PathChain){
                 path = (PathChain)leftPart;
                 path.getParts().addLast(rightPart);
@@ -38,8 +37,8 @@ public class MgComposePathsTask extends MgComposeTask {
     }
 
     private boolean isDot(Part part){
-        if(part instanceof Symbol){
-            if(((Symbol) part).getText().equals(".")){
+        if(part instanceof Special){
+            if(((Special) part).getText().equals(".")){
                 return true;
             }
         }

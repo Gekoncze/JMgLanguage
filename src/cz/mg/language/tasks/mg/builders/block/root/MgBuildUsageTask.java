@@ -1,64 +1,60 @@
 package cz.mg.language.tasks.mg.builders.block.root;
 
-import cz.mg.collections.ReadableCollection;
+import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builders.block.root.usage.MgBuildAsTask;
-import cz.mg.language.tasks.mg.builders.field.BlockFieldProcessor;
-import cz.mg.language.tasks.mg.builders.field.PartFieldProcessor;
-import cz.mg.language.tasks.mg.builders.part.multiple.MgBuildNamePathTask;
-import cz.mg.language.tasks.mg.builders.pattern.block.BlockPattern;
-import cz.mg.language.tasks.mg.builders.pattern.block.Count;
-import cz.mg.language.tasks.mg.builders.pattern.block.Order;
-import cz.mg.language.tasks.mg.builders.pattern.block.Requirement;
-import cz.mg.language.tasks.mg.builders.pattern.part.PartPattern;
-
-import static cz.mg.language.tasks.mg.builders.pattern.part.Expectations.*;
+import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builders.part.group.common.MgBuildNamePathTask;
+import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildUsageTask extends MgBuildBlockTask {
-    private static final PartFieldProcessor PATH_PART_PROCESSOR = new PartFieldProcessor<>(
-            MgBuildNamePathTask.class,
-            MgBuildUsageTask.class,
-            (source, destination) -> destination.output.getPath().addCollectionLast(source.getOutput())
+    private static final Processor PROCESSOR = new Processor<>(
+        MgBuildNamePathTask.class,
+        MgBuildUsageTask.class,
+        (source, destination) -> destination.usage = new MgLogicalUsage(source.getNames())
     );
 
-    private static final BlockFieldProcessor AS_BLOCK_PROCESSOR = new BlockFieldProcessor<>(
-            MgBuildAsTask.class,
-            MgBuildUsageTask.class,
-            (source, destination) -> destination.output.setAlias(source.getAlias())
-    );
-
-    private static final ReadableCollection<PartPattern> PART_PATTERNS = new List<>(
-            new PartPattern(KEYWORD("USING"), NAME(PATH_PART_PROCESSOR)),
-            new PartPattern(KEYWORD("USING"), PATH(PATH_PART_PROCESSOR))
-    );
-
-    private static final ReadableCollection<BlockPattern> BLOCK_PATTERNS = new List<>(
-            new BlockPattern(Order.STRICT, Requirement.MANDATORY, Count.SINGLE, AS_BLOCK_PROCESSOR)
+    private static final List<Pattern> PATTERNS = new List<>(
+        new Pattern(
+            Order.STRICT,
+            Requirement.MANDATORY,
+            Count.SINGLE,
+            new Processor<>(
+                MgBuildNameTask.class,
+                MgBuildUsageTask.class,
+                (source, destination) -> destination.usage.setAlias(source.getName())
+            )
+        )
     );
 
     @Output
-    private MgLogicalUsage output = new MgLogicalUsage();
+    private MgLogicalUsage usage;
 
-    public MgBuildUsageTask(Block block) {
-        super(block);
+    public MgBuildUsageTask(Part part, Block block) {
+        super(part, block);
     }
 
-    public MgLogicalUsage getOutput() {
-        return output;
-    }
-
-    @Override
-    public ReadableCollection<PartPattern> getPartPatterns() {
-        return PART_PATTERNS;
+    public MgLogicalUsage getUsage() {
+        return usage;
     }
 
     @Override
-    public ReadableCollection<BlockPattern> getBlockPatterns() {
-        return BLOCK_PATTERNS;
+    protected Object getOutput() {
+        return usage;
+    }
+
+    @Override
+    protected Processor getProcessor() {
+        return PROCESSOR;
+    }
+
+    @Override
+    protected Clump<Pattern> getPatterns() {
+        return PATTERNS;
     }
 }

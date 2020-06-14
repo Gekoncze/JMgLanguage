@@ -6,7 +6,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.entities.text.structured.parts.Pair;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.Colon;
-import cz.mg.language.entities.text.structured.parts.leaves.special.SpecialLeaf;
+import cz.mg.language.entities.text.structured.parts.leaves.Special;
 
 
 public class MgComposePairsTask extends MgComposeTask {
@@ -19,7 +19,7 @@ public class MgComposePairsTask extends MgComposeTask {
         Part part = partItem.get();
         if(part instanceof Colon){
             Part leftPart = partItem.removePrevious();
-            if(leftPart instanceof SpecialLeaf) throw new LanguageException("Unexpected left part (" + leftPart.getClass().getSimpleName() + ") of colon.");
+            if(leftPart instanceof Special) throw new LanguageException("Unexpected left part (" + leftPart.getClass().getSimpleName() + ") of colon.");
             Pair pair = new Pair(leftPart, (Colon) part);
             partItem.setData(pair);
         }
