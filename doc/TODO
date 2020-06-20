@@ -1,7 +1,6 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added expression block builder
-fixed builder patterns - forgot to add keywords
-cleanup of logical expression entities
+added block command build tasks
+if, else if, else, while
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -10,10 +9,11 @@ structured text entities to logical entities
         block
             function
                 commands
+                    break -- might need to modify block builder task - optional key part
+                    continue -- same as above
+                    return -- same as above
         part
             expression
-
-        add helper build list block task
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

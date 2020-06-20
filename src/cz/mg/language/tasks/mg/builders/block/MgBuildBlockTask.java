@@ -45,13 +45,25 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     }
 
     protected void buildPart(Part part) {
-        MgBuildTask subtask = execute(
-            create(
-                getProcessor().getSourceBuildTaskClass(),
-                part
-            )
-        );
-        getProcessor().getSetter().set(subtask, this);
+        if(getProcessor() != null){
+            if(part != null) {
+                MgBuildTask subtask = execute(
+                    create(
+                        getProcessor().getSourceBuildTaskClass(),
+                        part
+                    )
+                );
+                getProcessor().getSetter().set(subtask, this);
+            } else {
+                throw new LanguageException("Missing part.");
+            }
+        } else {
+            if(part != null){
+                throw new LanguageException("Unexpected part.");
+            } else {
+                // nothing to do
+            }
+        }
     }
 
     protected void buildBlock(Block block){
@@ -132,11 +144,11 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
 
     private Part extractKeyPart(ReadableCollection<Part> parts){
         if(parts.count() <= 0){
-            throw new LanguageException("Missing part.");
+            return null;
         }
 
         if(parts.count() > 1){
-            throw new LanguageException("Orphan part.");
+            throw new LanguageException("Orphan part(s).");
         }
 
         return parts.iterator().next();
