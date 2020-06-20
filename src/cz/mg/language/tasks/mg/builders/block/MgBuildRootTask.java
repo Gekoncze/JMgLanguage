@@ -23,7 +23,8 @@ public class MgBuildRootTask extends MgBuildBlockTask {
                 MgBuildUsageTask.class,
                 MgBuildRootTask.class,
                 (source, destination) -> destination.entities.addLast(source.getUsage())
-            )
+            ),
+            "USING"
         ),
 
         // build classes
@@ -35,7 +36,8 @@ public class MgBuildRootTask extends MgBuildBlockTask {
                 MgBuildClassTask.class,
                 MgBuildRootTask.class,
                 (source, destination) -> destination.entities.addLast(source.getClazz())
-            )
+            ),
+            "CLASS"
         ),
 
         // build functions
@@ -47,7 +49,8 @@ public class MgBuildRootTask extends MgBuildBlockTask {
                 MgBuildFunctionTask.class,
                 MgBuildRootTask.class,
                 (source, destination) -> destination.entities.addLast(source.getFunction())
-            )
+            ),
+            "FUNCTION"
         )
     );
 

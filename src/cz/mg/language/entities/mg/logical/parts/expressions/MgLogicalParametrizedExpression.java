@@ -1,8 +1,8 @@
 package cz.mg.language.entities.mg.logical.parts.expressions;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.logical.parts.expressions.chains.MgLogicalListExpression;
 
 
 public class MgLogicalParametrizedExpression extends MgLogicalExpression {
@@ -10,12 +10,15 @@ public class MgLogicalParametrizedExpression extends MgLogicalExpression {
     private MgLogicalNameExpression target;
 
     @Part
-    private MgLogicalListExpression arguments;
+    private List<MgLogicalExpression> arguments;
+
+    @Value
+    private boolean closed = false;
 
     public MgLogicalParametrizedExpression() {
     }
 
-    public MgLogicalParametrizedExpression(MgLogicalNameExpression target, MgLogicalListExpression arguments) {
+    public MgLogicalParametrizedExpression(MgLogicalNameExpression target, List<MgLogicalExpression> arguments) {
         this.target = target;
         this.arguments = arguments;
     }
@@ -28,11 +31,19 @@ public class MgLogicalParametrizedExpression extends MgLogicalExpression {
         this.target = target;
     }
 
-    public MgLogicalListExpression getArguments() {
+    public List<MgLogicalExpression> getArguments() {
         return arguments;
     }
 
-    public void setArguments(MgLogicalListExpression arguments) {
+    public void setArguments(List<MgLogicalExpression> arguments) {
         this.arguments = arguments;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 }

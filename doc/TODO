@@ -1,7 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-rewritten parsers and builders
-stamps and keywords have now separate collection fields in Block entity
-simplified pattern matching mechanism
+added expression block builder
+fixed builder patterns - forgot to add keywords
+cleanup of logical expression entities
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------

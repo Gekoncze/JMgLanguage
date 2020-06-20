@@ -1,7 +1,6 @@
-package cz.mg.language.entities.mg.logical.parts.expressions.operators;
+package cz.mg.language.entities.mg.logical.parts.expressions;
 
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 
 
 public class MgLogicalBinaryOperatorExpression extends MgLogicalOperatorExpression {

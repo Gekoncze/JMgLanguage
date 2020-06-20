@@ -30,7 +30,8 @@ public class MgBuildClassTask extends MgBuildBlockTask {
                 MgBuildNamesBlockTask.class,
                 MgBuildClassTask.class,
                 (source, destination) -> destination.clazz.getBaseClasses().addCollectionLast(source.getNames())
-            )
+            ),
+            "IS"
         )
     );
 

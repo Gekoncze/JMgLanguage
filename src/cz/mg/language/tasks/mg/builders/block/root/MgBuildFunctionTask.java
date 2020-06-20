@@ -8,6 +8,7 @@ import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.block.part.MgBuildDeclarationsBlockTask;
+import cz.mg.language.tasks.mg.builders.block.root.command.MgBuildExpressionCommand;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builders.pattern.*;
 
@@ -29,7 +30,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildDeclarationsBlockTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getInput().addCollectionLast(source.getVariables())
-            )
+            ),
+            "INPUT"
         ),
 
         // build output
@@ -41,6 +43,19 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildDeclarationsBlockTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getOutput().addCollectionLast(source.getVariables())
+            ),
+            "OUTPUT"
+        ),
+
+        // build expression command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.MANDATORY,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildExpressionCommand.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
             )
         )
     );
