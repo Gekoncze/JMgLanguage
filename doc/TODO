@@ -1,17 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added block command build tasks
-if, else if, else, while
+added break, continue and return command builders
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 structured text entities to logical entities
     add more build tasks ...
-        block
-            function
-                commands
-                    break -- might need to modify block builder task - optional key part
-                    continue -- same as above
-                    return -- same as above
         part
             expression
 

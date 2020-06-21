@@ -8,7 +8,7 @@ import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builders.block.part.MgBuildDeclarationsBlockTask;
-import cz.mg.language.tasks.mg.builders.block.root.command.MgBuildExpressionCommand;
+import cz.mg.language.tasks.mg.builders.block.root.command.*;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builders.pattern.*;
 
@@ -54,6 +54,90 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Count.MULTIPLE,
             new Processor<>(
                 MgBuildExpressionCommand.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build if command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildIfCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build else if command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildElseIfCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build else command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildElseCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build while command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildWhileCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build return command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildReturnCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build continue command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildContinueCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build break command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildBreakCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
             )

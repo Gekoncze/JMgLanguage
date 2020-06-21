@@ -83,6 +83,42 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
             )
+        ),
+
+        // build return command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildReturnCommandTask.class,
+                MgBuildBlockCommandTask.class,
+                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build continue command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildContinueCommandTask.class,
+                MgBuildBlockCommandTask.class,
+                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
+            )
+        ),
+
+        // build break command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new Processor<>(
+                MgBuildBreakCommandTask.class,
+                MgBuildBlockCommandTask.class,
+                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
+            )
         )
     );
 
