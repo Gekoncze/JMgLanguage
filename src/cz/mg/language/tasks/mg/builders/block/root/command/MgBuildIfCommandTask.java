@@ -6,11 +6,11 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalIfCommand;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildExpressionPartTask;
-import cz.mg.language.tasks.mg.builders.pattern.Processor;
+import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
 
 
 public class MgBuildIfCommandTask extends MgBuildBlockCommandTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
         MgBuildIfCommandTask.class,
         (source, destination) -> destination.command = new MgLogicalIfCommand(source.getExpression())
@@ -33,7 +33,7 @@ public class MgBuildIfCommandTask extends MgBuildBlockCommandTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 }

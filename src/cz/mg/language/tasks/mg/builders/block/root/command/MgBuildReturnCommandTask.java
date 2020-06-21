@@ -13,7 +13,7 @@ import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildReturnCommandTask extends MgBuildCommandTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
         MgBuildReturnCommandTask.class,
         (source, destination) -> destination.command = new MgLogicalReturnCommand(source.getExpression())
@@ -24,7 +24,7 @@ public class MgBuildReturnCommandTask extends MgBuildCommandTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildExpressionCommand.class,
                 MgBuildReturnCommandTask.class,
                 (source, destination) -> destination.getLastExpression().getArguments().addLast(source.getCommand().getExpression())
@@ -49,7 +49,7 @@ public class MgBuildReturnCommandTask extends MgBuildCommandTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

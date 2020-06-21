@@ -14,6 +14,7 @@ import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildPartTask;
 import cz.mg.language.tasks.mg.builders.MgBuildTask;
 import cz.mg.language.tasks.mg.builders.pattern.MgPatternValidatorTask;
+import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.Pattern;
 import cz.mg.language.tasks.mg.builders.pattern.Processor;
 import java.util.Iterator;
@@ -169,6 +170,6 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     }
 
     protected abstract Object getOutput();
-    protected abstract Processor getProcessor();
+    protected abstract PartProcessor getProcessor();
     protected abstract Clump<Pattern> getPatterns();
 }

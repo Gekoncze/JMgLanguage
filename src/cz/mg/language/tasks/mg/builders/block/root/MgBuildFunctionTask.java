@@ -14,7 +14,7 @@ import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildFunctionTask extends MgBuildBlockTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNameTask.class,
         MgBuildFunctionTask.class,
         (source, destination) -> destination.function = new MgLogicalFunction(source.getName())
@@ -26,7 +26,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.STRICT,
             Requirement.OPTIONAL,
             Count.SINGLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildDeclarationsBlockTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getInput().addCollectionLast(source.getVariables())
@@ -39,7 +39,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.STRICT,
             Requirement.OPTIONAL,
             Count.SINGLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildDeclarationsBlockTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getOutput().addCollectionLast(source.getVariables())
@@ -52,7 +52,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.MANDATORY,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildExpressionCommand.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -64,7 +64,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildIfCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -76,7 +76,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildElseIfCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -88,7 +88,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildElseCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -100,7 +100,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildWhileCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -112,7 +112,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildReturnCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -124,7 +124,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildContinueCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -136,7 +136,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildBreakCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
@@ -161,7 +161,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

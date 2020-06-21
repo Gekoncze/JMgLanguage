@@ -6,12 +6,12 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalContinueComman
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.Pattern;
-import cz.mg.language.tasks.mg.builders.pattern.Processor;
 
 
 public class MgBuildContinueCommandTask extends MgBuildCommandTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNameTask.class,
         MgBuildContinueCommandTask.class,
         (source, destination) -> destination.command = new MgLogicalContinueCommand(source.getName())
@@ -34,7 +34,7 @@ public class MgBuildContinueCommandTask extends MgBuildCommandTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

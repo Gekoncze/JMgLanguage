@@ -163,7 +163,7 @@ public class MgParseBlocksTask extends MgParseTask {
     private void collectSpaces(Line line){
         ListItem<Token> tokenItem = line.getTokens().getFirstItem();
         while(tokenItem != null){
-            ListItem<Token> nextItem = tokenItem = tokenItem.getNextItem();
+            ListItem<Token> nextItem = tokenItem.getNextItem();
             if(tokenItem.get() instanceof WhitespaceToken) tokenItem.remove();
             tokenItem = nextItem;
         }

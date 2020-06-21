@@ -23,7 +23,7 @@ public abstract class MgBuildPartTask<P extends Part> extends MgBuildTask {
         if(expectedPartType.isInstance(part)){
             buildPart((P) part);
         } else {
-            throw new LanguageException("Expected " + expectedPartType.getClass().getSimpleName() + ", but got " + part.getClass().getSimpleName() + ".");
+            throw new LanguageException("Expected " + expectedPartType.getSimpleName() + ", but got " + part.getClass().getSimpleName() + ".");
         }
     }
 

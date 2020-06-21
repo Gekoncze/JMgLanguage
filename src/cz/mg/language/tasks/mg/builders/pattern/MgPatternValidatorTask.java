@@ -30,9 +30,11 @@ public class MgPatternValidatorTask extends Task {
 
     @Override
     protected void onRun() {
-        validateOrder();
-        validateRequirement();
-        validateCount();
+        if(patterns != null){
+            validateOrder();
+            validateRequirement();
+            validateCount();
+        }
     }
 
     private void validateOrder(){

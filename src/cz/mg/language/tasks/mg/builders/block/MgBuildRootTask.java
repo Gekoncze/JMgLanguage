@@ -19,7 +19,7 @@ public class MgBuildRootTask extends MgBuildBlockTask {
             Order.STRICT,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildUsageTask.class,
                 MgBuildRootTask.class,
                 (source, destination) -> destination.entities.addLast(source.getUsage())
@@ -32,7 +32,7 @@ public class MgBuildRootTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildClassTask.class,
                 MgBuildRootTask.class,
                 (source, destination) -> destination.entities.addLast(source.getClazz())
@@ -45,7 +45,7 @@ public class MgBuildRootTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildFunctionTask.class,
                 MgBuildRootTask.class,
                 (source, destination) -> destination.entities.addLast(source.getFunction())
@@ -76,7 +76,7 @@ public class MgBuildRootTask extends MgBuildBlockTask {
     }
 
     @Override
-    public Processor getProcessor() {
+    public PartProcessor getProcessor() {
         return null;
     }
 

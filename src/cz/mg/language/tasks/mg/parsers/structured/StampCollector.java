@@ -21,9 +21,12 @@ public class StampCollector {
     }
 
     public List<ReadableText> take(Block block){
-        List<ReadableText> stamps = map.get(block);
-        map.set(block, null);
-        return stamps;
+        List<ReadableText> stamps = map.remove(block);
+        if(stamps != null){
+            return stamps;
+        } else {
+            return new List<>();
+        }
     }
 
     public int count(){

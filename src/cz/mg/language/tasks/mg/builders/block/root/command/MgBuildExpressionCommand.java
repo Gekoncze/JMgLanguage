@@ -17,7 +17,7 @@ import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildExpressionCommand extends MgBuildCommandTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
         MgBuildExpressionCommand.class,
         (source, destination) -> destination.command = new MgLogicalExpressionCommand(source.getExpression())
@@ -28,7 +28,7 @@ public class MgBuildExpressionCommand extends MgBuildCommandTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildExpressionCommand.class,
                 MgBuildExpressionCommand.class,
                 (source, destination) -> destination.getLastExpression().getArguments().addLast(source.command.getExpression())
@@ -53,7 +53,7 @@ public class MgBuildExpressionCommand extends MgBuildCommandTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

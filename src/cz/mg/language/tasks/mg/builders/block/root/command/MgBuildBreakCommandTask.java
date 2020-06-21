@@ -6,12 +6,13 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBreakCommand;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.Pattern;
 import cz.mg.language.tasks.mg.builders.pattern.Processor;
 
 
 public class MgBuildBreakCommandTask extends MgBuildCommandTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNameTask.class,
         MgBuildBreakCommandTask.class,
         (source, destination) -> destination.command = new MgLogicalBreakCommand(source.getName())
@@ -34,7 +35,7 @@ public class MgBuildBreakCommandTask extends MgBuildCommandTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

@@ -13,17 +13,20 @@ public class KeywordCollector {
     public KeywordCollector() {
     }
 
-    public void add(Block block, KeywordToken stamp){
-        List<ReadableText> stamps = map.get(block);
-        if(stamps == null) stamps = new List<>();
-        stamps.addLast(stamp.getText());
-        map.set(block, stamps);
+    public void add(Block block, KeywordToken keyword){
+        List<ReadableText> keywords = map.get(block);
+        if(keywords == null) keywords = new List<>();
+        keywords.addLast(keyword.getText());
+        map.set(block, keywords);
     }
 
     public List<ReadableText> take(Block block){
-        List<ReadableText> stamps = map.get(block);
-        map.set(block, null);
-        return stamps;
+        List<ReadableText> keywords = map.remove(block);
+        if(keywords != null){
+            return keywords;
+        } else {
+            return new List<>();
+        }
     }
 
     public int count(){

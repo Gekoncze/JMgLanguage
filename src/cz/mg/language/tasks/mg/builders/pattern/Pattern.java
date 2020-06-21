@@ -16,7 +16,7 @@ public class Pattern {
     private final Count count;
 
     @cz.mg.language.annotations.entity.Part
-    private final Processor processor;
+    private final BlockProcessor processor;
 
     @cz.mg.language.annotations.entity.Part
     private final List<ReadableText> keywords = new List<>();
@@ -25,7 +25,7 @@ public class Pattern {
             Order order,
             Requirement requirement,
             Count count,
-            Processor processor,
+            BlockProcessor processor,
             String... keywords
     ){
         this.order = order;
@@ -49,7 +49,7 @@ public class Pattern {
         return count;
     }
 
-    public Processor getProcessor() {
+    public BlockProcessor getProcessor() {
         return processor;
     }
 

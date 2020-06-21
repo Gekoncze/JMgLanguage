@@ -1,9 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added expresion part builder
+first batch of fixes
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 test and bug fix
+    error - some declarations are not composed ...
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
@@ -36,6 +37,8 @@ runtime and logical architecture
         we could take a look at locations as folders/directories in os
         packages would be like installer packages in os
         components would be like files in os
+
+add support for start usings
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------

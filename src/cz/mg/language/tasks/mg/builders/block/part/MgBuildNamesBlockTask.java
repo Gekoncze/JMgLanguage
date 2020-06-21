@@ -12,7 +12,7 @@ import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildNamesBlockTask extends MgBuildBlockTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNameListTask.class,
         MgBuildNamesBlockTask.class,
         (source, destination) -> destination.names.addCollectionLast(source.getNames())
@@ -23,7 +23,11 @@ public class MgBuildNamesBlockTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.MANDATORY,
             Count.MULTIPLE,
-            PROCESSOR
+            new BlockProcessor<>(
+                MgBuildNameBlockTask.class,
+                MgBuildNamesBlockTask.class,
+                (source, destination) -> destination.names.addLast(source.getName())
+            )
         )
     );
 
@@ -32,7 +36,11 @@ public class MgBuildNamesBlockTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            PROCESSOR
+            new BlockProcessor<>(
+                MgBuildNameBlockTask.class,
+                MgBuildNamesBlockTask.class,
+                (source, destination) -> destination.names.addLast(source.getName())
+            )
         )
     );
 
@@ -53,7 +61,7 @@ public class MgBuildNamesBlockTask extends MgBuildBlockTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

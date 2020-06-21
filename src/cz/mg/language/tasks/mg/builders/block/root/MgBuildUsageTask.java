@@ -7,13 +7,13 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builders.block.part.MgBuildNameBlockTask;
 import cz.mg.language.tasks.mg.builders.part.group.common.MgBuildNamePathTask;
 import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildUsageTask extends MgBuildBlockTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNamePathTask.class,
         MgBuildUsageTask.class,
         (source, destination) -> destination.usage = new MgLogicalUsage(source.getNames())
@@ -22,13 +22,14 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     private static final List<Pattern> PATTERNS = new List<>(
         new Pattern(
             Order.STRICT,
-            Requirement.MANDATORY,
+            Requirement.OPTIONAL,
             Count.SINGLE,
-            new Processor<>(
-                MgBuildNameTask.class,
+            new BlockProcessor<>(
+                MgBuildNameBlockTask.class,
                 MgBuildUsageTask.class,
                 (source, destination) -> destination.usage.setAlias(source.getName())
-            )
+            ),
+            "AS"
         )
     );
 
@@ -49,7 +50,7 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

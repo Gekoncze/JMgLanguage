@@ -17,7 +17,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.STRICT,
             Requirement.OPTIONAL,
             Count.SINGLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildNameBlockTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().setName(source.getName())
@@ -30,7 +30,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildExpressionCommand.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -42,7 +42,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildIfCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -54,7 +54,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildElseIfCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -66,7 +66,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildElseCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -78,7 +78,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildWhileCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -90,7 +90,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildReturnCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -102,7 +102,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildContinueCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
@@ -114,7 +114,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Order.RANDOM,
             Requirement.OPTIONAL,
             Count.MULTIPLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildBreakCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())

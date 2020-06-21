@@ -8,13 +8,14 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalClass;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
+import cz.mg.language.tasks.mg.builders.block.part.MgBuildDeclarationBlockTask;
 import cz.mg.language.tasks.mg.builders.block.part.MgBuildNamesBlockTask;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builders.pattern.*;
 
 
 public class MgBuildClassTask extends MgBuildBlockTask {
-    private static final Processor PROCESSOR = new Processor<>(
+    private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNameTask.class,
         MgBuildClassTask.class,
         (source, destination) -> destination.clazz = new MgLogicalClass(source.getName())
@@ -26,12 +27,36 @@ public class MgBuildClassTask extends MgBuildBlockTask {
             Order.STRICT,
             Requirement.OPTIONAL,
             Count.SINGLE,
-            new Processor<>(
+            new BlockProcessor<>(
                 MgBuildNamesBlockTask.class,
                 MgBuildClassTask.class,
                 (source, destination) -> destination.clazz.getBaseClasses().addCollectionLast(source.getNames())
             ),
             "IS"
+        ),
+
+        // build variables
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildDeclarationBlockTask.class,
+                MgBuildClassTask.class,
+                (source, destination) -> destination.clazz.getVariables().addLast(source.getDeclaration())
+            )
+        ),
+
+        // build functions
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildFunctionTask.class,
+                MgBuildClassTask.class,
+                (source, destination) -> destination.clazz.getFunctions().addLast(source.getFunction())
+            )
         )
     );
 
@@ -52,7 +77,7 @@ public class MgBuildClassTask extends MgBuildBlockTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return PROCESSOR;
     }
 

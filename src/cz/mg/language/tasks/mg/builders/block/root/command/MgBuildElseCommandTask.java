@@ -5,6 +5,7 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBlockCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalElseCommand;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.Processor;
 
 
@@ -26,7 +27,7 @@ public class MgBuildElseCommandTask extends MgBuildBlockCommandTask {
     }
 
     @Override
-    protected Processor getProcessor() {
+    protected PartProcessor getProcessor() {
         return null;
     }
 }
