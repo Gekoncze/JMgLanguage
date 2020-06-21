@@ -13,6 +13,7 @@ import cz.mg.language.entities.text.structured.parts.groups.brackets.RoundBracke
 import cz.mg.language.entities.text.structured.parts.groups.chains.ListChain;
 import cz.mg.language.entities.text.structured.parts.groups.chains.PathChain;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
+import cz.mg.language.entities.text.structured.parts.leaves.Signs;
 import cz.mg.language.entities.text.structured.parts.leaves.Value;
 
 
@@ -40,6 +41,10 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
             return buildName((Name) part);
         }
 
+        if(part instanceof Signs){
+            return buildSigns((Signs) part);
+        }
+
         if(part instanceof Value){
             return buildValue((Value) part);
         }
@@ -61,6 +66,10 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
         }
 
         throw new LanguageException("Unsupported part " + part.getClass().getSimpleName() + " in expression.");
+    }
+
+    private static MgLogicalExpression buildSigns(Signs signs) {
+        return new MgLogicalSignsExpression(signs.getText());
     }
 
 //    private static <T extends MgLogicalExpression> T build(Part part, Class<T> clazz){
@@ -99,22 +108,7 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
     }
 
     private static MgLogicalOperatorExpression buildOperator(Group group){
-        if(group.getParts().count() == 2){
-            return new MgLogicalUnaryOperatorExpression(
-                build(group.getParts().getFirst()),
-                build(group.getParts().getLast())
-            );
-        } else if(group.getParts().count() == 3){
-            return new MgLogicalBinaryOperatorExpression(
-                build(group.getParts().getFirst()),
-                build(group.getParts().get(1)),
-                build(group.getParts().getLast())
-            );
-        } else if(group.getParts().count() <= 1){
-            throw new LanguageException("Illegal group.");
-        } else {
-            throw new LanguageException("Too many operands for a group to be an operator.");
-        }
+        return new MgLogicalOperatorExpression(buildGroup(group));
     }
 
     private static List<MgLogicalExpression> buildGroup(Group group){

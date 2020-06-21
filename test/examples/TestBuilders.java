@@ -1,7 +1,11 @@
 package examples;
 
+import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
+import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.entities.text.structured.parts.groups.Group;
 import cz.mg.language.tasks.mg.builders.block.MgBuildRootTask;
 import cz.mg.language.tasks.mg.parsers.common.MgParsePageTask;
 import cz.mg.language.tasks.mg.parsers.structured.MgParseBlocksTask;
@@ -19,8 +23,45 @@ class TestBuilders {
         MgParseBlocksTask parseBlocksTask = new MgParseBlocksTask(parsePageTask.getPage());
         parseBlocksTask.run();
 
+        printBlocks(parseBlocksTask.getRoot(), -1);
+
         MgBuildRootTask buildRootTask = new MgBuildRootTask(parseBlocksTask.getRoot());
         buildRootTask.run();
+    }
+
+    private static void printBlocks(Block block, int level){
+        for(int i = 0; i < level; i++) System.out.print("    ");
+
+        for(ReadableText stamp : block.getStamps()){
+            System.out.print(stamp + " ");
+        }
+
+        for(ReadableText keyword : block.getKeywords()){
+            System.out.print(keyword + " ");
+        }
+
+        for(Part part : block.getParts()){
+            printPart(part);
+        }
+
+        System.out.println();
+
+        for(Block childBlock : block.getBlocks()){
+            printBlocks(childBlock, level + 1);
+        }
+    }
+
+    private static void printPart(Part part){
+        if(part instanceof Group){
+            System.out.print(part.getClass().getSimpleName() + "[");
+            for(Part childPart : ((Group) part).getParts()){
+                printPart(childPart);
+                System.out.print(" ");
+            }
+            System.out.print("]");
+        } else {
+            System.out.print(part.getClass().getSimpleName());
+        }
     }
 
     private static ReadableText load(){

@@ -1,13 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-first batch of fixes
+second batch of fixes
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-test and bug fix
-    error - some declarations are not composed ...
-
-
-### SOON ### -----------------------------------------------------------------------------------------------------------
 refactor runtime mg entities
     all runtime mg entities should extend MgObject which should extend MgEntity
     logical mg entities should only serve as a "template" for actual runtime objects
@@ -18,19 +13,16 @@ resolver
         priority can be choosen by the user
         operators need to be imported
 
-nullable type specifier "?" in logical (and runtime?) mg entities
+    use cache for usages during resolve to prevent multiple resolution of the same name
+        cache should also contain other information like the expected type of the object (class, stamp, function, etc.)
+
+add more instructions
+
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
 mg relative vs absolute usages
 mg logical to runtime entities
-add more instructions
-implement logic for loading modules
-use cache for usages during resolve to prevent multiple resolution of the same name
-    cache should also contain other information like the expected type of the object (class, stamp, function, etc.)
-
-think about mg collections
-    they should definitely be distinguished as readable or writeable or both somehow
-
-think about static variables, we might want these to supply enums
-    those will be stored in the runtime classes, right?
+mg add support for star usings
 
 runtime and logical architecture
     modules or bundles or libraries or packages ...
@@ -38,12 +30,18 @@ runtime and logical architecture
         packages would be like installer packages in os
         components would be like files in os
 
-add support for start usings
-
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
+think about mg collections
+    they should definitely be distinguished as readable or writeable or both somehow
+
+think about static variables, we might want these to supply enums
+    those will be stored in the runtime classes, right?
+
 mg logic entity version
 mg runtime entity version
+
+implement logic for loading modules
 
 think of possible scheduler
     also think if current architecture is good

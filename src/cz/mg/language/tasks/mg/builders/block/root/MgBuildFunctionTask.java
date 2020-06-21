@@ -68,7 +68,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildIfCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "IF"
         ),
 
         // build else if command
@@ -80,7 +81,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildElseIfCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "ELSE", "IF"
         ),
 
         // build else command
@@ -92,7 +94,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildElseCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "ELSE"
         ),
 
         // build while command
@@ -104,7 +107,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildWhileCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "WHILE"
         ),
 
         // build return command
@@ -116,7 +120,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildReturnCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "RETURN"
         ),
 
         // build continue command
@@ -128,7 +133,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildContinueCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "CONTINUE"
         ),
 
         // build break command
@@ -140,7 +146,8 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 MgBuildBreakCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            )
+            ),
+            "BREAK"
         )
     );
 

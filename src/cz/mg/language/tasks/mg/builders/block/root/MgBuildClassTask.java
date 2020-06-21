@@ -56,7 +56,8 @@ public class MgBuildClassTask extends MgBuildBlockTask {
                 MgBuildFunctionTask.class,
                 MgBuildClassTask.class,
                 (source, destination) -> destination.clazz.getFunctions().addLast(source.getFunction())
-            )
+            ),
+            "FUNCTION"
         )
     );
 

@@ -79,14 +79,9 @@ public class MgBuildReturnCommandTask extends MgBuildCommandTask {
             return getLastExpression(pathExpression.getExpressions().getLast());
         }
 
-        if(expression instanceof MgLogicalUnaryOperatorExpression){
-            MgLogicalUnaryOperatorExpression unaryOperatorExpression = (MgLogicalUnaryOperatorExpression) expression;
-            return getLastExpression(unaryOperatorExpression.getRight());
-        }
-
-        if(expression instanceof MgLogicalBinaryOperatorExpression){
-            MgLogicalBinaryOperatorExpression binaryOperatorExpression = (MgLogicalBinaryOperatorExpression) expression;
-            return getLastExpression(binaryOperatorExpression);
+        if(expression instanceof MgLogicalOperatorExpression){
+            MgLogicalOperatorExpression operatorExpression = (MgLogicalOperatorExpression) expression;
+            return getLastExpression(operatorExpression.getExpressions().getLast());
         }
 
         if(expression instanceof MgLogicalParametrizedExpression){

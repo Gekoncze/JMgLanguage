@@ -49,7 +49,13 @@ public class MgPatternValidatorTask extends Task {
 
         for(Pattern currentReality : reality){
             while(currentReality != currentExpectation){
-                if(currentExpectation == null) throw new LanguageException("Illegal element order.");
+                if(currentExpectation == null){
+                    if(currentReality.getOrder() == Order.RANDOM){
+                        break;
+                    } else {
+                        throw new LanguageException("Illegal element order.");
+                    }
+                }
                 currentExpectation = expectationIterator.next();
             }
         }

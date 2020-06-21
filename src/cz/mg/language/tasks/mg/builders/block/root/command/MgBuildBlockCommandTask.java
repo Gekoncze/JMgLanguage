@@ -46,7 +46,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildIfCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "IF"
         ),
 
         // build else if command
@@ -58,7 +59,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildElseIfCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "ELSE", "IF"
         ),
 
         // build else command
@@ -70,7 +72,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildElseCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "ELSE"
         ),
 
         // build while command
@@ -82,7 +85,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildWhileCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "WHILE"
         ),
 
         // build return command
@@ -94,7 +98,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildReturnCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "RETURN"
         ),
 
         // build continue command
@@ -106,7 +111,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildContinueCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "CONTINUE"
         ),
 
         // build break command
@@ -118,7 +124,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 MgBuildBreakCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            )
+            ),
+            "BREAK"
         )
     );
 

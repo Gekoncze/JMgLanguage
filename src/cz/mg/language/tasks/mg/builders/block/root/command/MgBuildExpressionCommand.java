@@ -6,10 +6,9 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalExpressionCommand;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalOperatorExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalParametrizedExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalPathExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalBinaryOperatorExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalUnaryOperatorExpression;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildExpressionPartTask;
@@ -74,14 +73,9 @@ public class MgBuildExpressionCommand extends MgBuildCommandTask {
             return getLastExpression(pathExpression.getExpressions().getLast());
         }
 
-        if(expression instanceof MgLogicalUnaryOperatorExpression){
-            MgLogicalUnaryOperatorExpression unaryOperatorExpression = (MgLogicalUnaryOperatorExpression) expression;
-            return getLastExpression(unaryOperatorExpression.getRight());
-        }
-
-        if(expression instanceof MgLogicalBinaryOperatorExpression){
-            MgLogicalBinaryOperatorExpression binaryOperatorExpression = (MgLogicalBinaryOperatorExpression) expression;
-            return getLastExpression(binaryOperatorExpression);
+        if(expression instanceof MgLogicalOperatorExpression){
+            MgLogicalOperatorExpression operatorExpression = (MgLogicalOperatorExpression) expression;
+            return getLastExpression(operatorExpression.getExpressions().getLast());
         }
 
         if(expression instanceof MgLogicalParametrizedExpression){

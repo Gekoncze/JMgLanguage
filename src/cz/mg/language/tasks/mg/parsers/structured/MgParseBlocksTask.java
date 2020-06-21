@@ -47,8 +47,8 @@ public class MgParseBlocksTask extends MgParseTask {
             if(isEmpty(line)) continue;
             int indentation = countIndentation(line);
             Block parentBlock = getParentBlock(root, indentation);
-            flattenLineByStamps(lineItem, indentation);
-            flattenLineByKeywords(lineItem, indentation);
+            splitLineByKeywords(lineItem, indentation);
+            line = lineItem.get();
             collectSpaces(line);
             collectStamps(parentBlock, line);
             if(isEmpty(line)) continue;
@@ -108,49 +108,61 @@ public class MgParseBlocksTask extends MgParseTask {
         throw new LanguageException("Too large indentation.");
     }
 
-    private void flattenLineByStamps(ListItem<Line> lineItem, int indentation) {
-        Line line = lineItem.get();
-        boolean stamps = false;
-        for(ListItem<Token> tokenItem = line.getTokens().getFirstItem(); tokenItem != null; tokenItem = tokenItem.getNextItem()){
-            Token token = tokenItem.get();
-            if(token instanceof WhitespaceToken) continue;
-            else if(token instanceof StampToken) stamps = true;
-            else {
-                if(stamps){
-                    splitLine(lineItem, tokenItem, indentation);
-                    return;
-                }
-            }
+    private static void splitLineByKeywords(ListItem<Line> lineItem, int indentation) {
+        List<Line> newLines = splitLineByKeywords(lineItem.get());
+        lineItem.setData(newLines.removeFirst());
+        for(Line newLine : newLines) {
+            newLine.getTokens().addCollectionFirst(generateIndentation(indentation + 1));
+            lineItem.addNext(newLine);
+            lineItem = lineItem.getNextItem();
         }
     }
 
-    private void flattenLineByKeywords(ListItem<Line> lineItem, int indentation) {
-        Line line = lineItem.get();
-        boolean nonKeywords = false;
-        for(ListItem<Token> tokenItem = line.getTokens().getFirstItem(); tokenItem != null; tokenItem = tokenItem.getNextItem()) {
-            Token token = tokenItem.get();
-            if(token instanceof WhitespaceToken) continue;
-            else if(!(token instanceof KeywordToken)) nonKeywords = true;
-            else {
-                if(nonKeywords){
-                    splitLine(lineItem, tokenItem, indentation + 1);
-                    return;
-                }
-            }
-        }
-    }
-
-    private void splitLine(ListItem<Line> lineItem, ListItem<Token> tokenItem, int indentation){
+    private static List<Line> splitLineByKeywords(Line line){
+        List<Line> lines = new List<>();
+        SplitStatus status = SplitStatus.SPACES;
         Line newLine = new Line();
-        while(tokenItem.hasNext()){
-            newLine.getTokens().addLast(tokenItem.removeNext());
+        for(Token token : line.getTokens()){
+            switch (status){
+                case SPACES:
+                    if(token instanceof KeywordToken){
+                        status = SplitStatus.KEYWORDS;
+                    } else if(token instanceof SpaceToken){
+                        status = SplitStatus.SPACES;
+                    } else {
+                        status = SplitStatus.PARTS;
+                    }
+                    break;
+                case KEYWORDS:
+                    if(token instanceof KeywordToken) {
+                        status = SplitStatus.KEYWORDS;
+                    } else {
+                        status = SplitStatus.PARTS;
+                    }
+                    break;
+                case PARTS:
+                    if(token instanceof KeywordToken) {
+                        status = SplitStatus.SPACES;
+                        lines.addLast(newLine);
+                        newLine = new Line();
+                    } else {
+                        status = SplitStatus.PARTS;
+                    }
+                    break;
+            }
+            newLine.getTokens().addLast(token);
         }
-        newLine.getTokens().addFirst(tokenItem.remove());
-        newLine.getTokens().addCollectionFirst(generateIndentation(indentation));
-        lineItem.addNext(newLine);
+        lines.addLast(newLine);
+        return lines;
     }
 
-    private List<Token> generateIndentation(int indentation){
+    private enum SplitStatus {
+        SPACES,
+        KEYWORDS,
+        PARTS
+    }
+
+    private static List<Token> generateIndentation(int indentation){
         List<Token> tokens = new List<>();
         for(int i = 0; i < indentation; i++){
             for(int ii = 0; ii < INDENTATION_SIZE; ii++){
@@ -180,4 +192,36 @@ public class MgParseBlocksTask extends MgParseTask {
             pendingKeywords.add(parentBlock, (KeywordToken) line.getTokens().removeFirst());
         }
     }
+
+//    public static void main(String[] args) {
+//        List<Line> lines = new List<>();
+//
+//        Line line = new Line(
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new KeywordToken(new ReadonlyText("FUNCTION")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new NameToken(new ReadonlyText("name")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new KeywordToken(new ReadonlyText("INPUT")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new NameToken(new ReadonlyText("foo")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new KeywordToken(new ReadonlyText("OUTPUT")),
+//            new SpaceToken(new ReadonlyText(" ")),
+//            new NameToken(new ReadonlyText("bar"))
+//        );
+//
+//        lines.addLast(line);
+//
+//        System.out.println(line.getTokens().toText("", token -> new ReadonlyText(token.getText())));
+//        System.out.println();
+//
+//        splitLineByKeywords(lines.getFirstItem(), 1);
+//        for(Line newLine : lines){
+//            System.out.println("{LINE} " + newLine.getTokens().toText("", token -> new ReadonlyText(token.getText())));
+//        }
+//    }
 }
