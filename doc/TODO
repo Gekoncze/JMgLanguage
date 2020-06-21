@@ -1,12 +1,14 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-second batch of fixes
+rewritten runtime entities (draft #1)
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-refactor runtime mg entities
-    all runtime mg entities should extend MgObject which should extend MgEntity
-    logical mg entities should only serve as a "template" for actual runtime objects
+improve runtime entities model
+do something with runtime architecture package
+add more instructions
 
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
 resolver
     resolution of logical entity usages
     resolution of operators and additional build steps based on priority
@@ -16,10 +18,6 @@ resolver
     use cache for usages during resolve to prevent multiple resolution of the same name
         cache should also contain other information like the expected type of the object (class, stamp, function, etc.)
 
-add more instructions
-
-
-### SOON ### -----------------------------------------------------------------------------------------------------------
 mg relative vs absolute usages
 mg logical to runtime entities
 mg add support for star usings
@@ -40,6 +38,9 @@ think about static variables, we might want these to supply enums
 
 mg logic entity version
 mg runtime entity version
+
+stamps definitions
+collection definitions
 
 implement logic for loading modules
 

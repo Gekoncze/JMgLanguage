@@ -6,6 +6,7 @@ because of a bad design of the java programming language, some classes need pref
 
 all mg entities should implement MgEntity
 all c entities should implement CEntity
+logical mg entities should only serve as a "template" for actual runtime objects
 
 locations should be in both logical and runtime entities
 locations are handled by parser as folders/directories

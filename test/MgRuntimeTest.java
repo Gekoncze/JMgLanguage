@@ -1,7 +1,7 @@
 //import cz.mg.collections.text.ReadonlyText;
-//import cz.mg.language.entities.mg.runtime.architecture.MgApplicationR;
-//import cz.mg.language.entities.mg.runtime.architecture.MgModuleR;
-//import cz.mg.language.entities.mg.runtime.architecture.MgThreadR;
+//import cz.mg.language.entities.mg.runtime.clazzes.architecture.MgApplicationR;
+//import cz.mg.language.entities.mg.runtime.clazzes.architecture.MgModuleR;
+//import cz.mg.language.entities.mg.runtime.clazzes.architecture.MgThreadR;
 //import cz.mg.language.entities.mg.runtime.components.MgFunctionR;
 //import cz.mg.language.entities.mg.runtime.components.MgVariableR;
 //import cz.mg.language.entities.mg.runtime.instructions.datatype.integer.MgIntegerPlusIntegerInstructionR;
