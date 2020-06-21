@@ -1,12 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added break, continue and return command builders
+added expresion part builder
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-structured text entities to logical entities
-    add more build tasks ...
-        part
-            expression
+test and bug fix
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

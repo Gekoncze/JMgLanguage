@@ -7,7 +7,7 @@ import cz.mg.language.annotations.entity.Value;
 
 public class MgLogicalParametrizedExpression extends MgLogicalExpression {
     @Value
-    private MgLogicalNameExpression target;
+    private MgLogicalExpression target;
 
     @Part
     private List<MgLogicalExpression> arguments;
@@ -18,12 +18,12 @@ public class MgLogicalParametrizedExpression extends MgLogicalExpression {
     public MgLogicalParametrizedExpression() {
     }
 
-    public MgLogicalParametrizedExpression(MgLogicalNameExpression target, List<MgLogicalExpression> arguments) {
+    public MgLogicalParametrizedExpression(MgLogicalExpression target, List<MgLogicalExpression> arguments) {
         this.target = target;
         this.arguments = arguments;
     }
 
-    public MgLogicalNameExpression getTarget() {
+    public MgLogicalExpression getTarget() {
         return target;
     }
 

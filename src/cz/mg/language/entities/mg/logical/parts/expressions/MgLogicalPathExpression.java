@@ -5,9 +5,14 @@ import cz.mg.language.annotations.entity.Part;
 
 public class MgLogicalPathExpression extends MgLogicalExpression {
     @Part
-    private final List<MgLogicalExpression> expressions = new List<>();
+    private final List<MgLogicalExpression> expressions;
 
     public MgLogicalPathExpression() {
+        this(new List<>());
+    }
+
+    public MgLogicalPathExpression(List<MgLogicalExpression> expressions) {
+        this.expressions = expressions;
     }
 
     public List<MgLogicalExpression> getExpressions() {
