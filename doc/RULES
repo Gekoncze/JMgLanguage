@@ -65,3 +65,13 @@ consider the problem of the time of resolve of names
 collection polymorphism problem
     ReadableList<Child> can be passed as ReadableList<Parent>
     WriteableList<Child> cannot be passed as WritableList<Parent> !!!
+
+class object model
+    pointer to its class definition
+    list of data storages - each data storage belongs to certain class in inheritance
+    class definition contains list of functions
+
+literals - do not allow escape sequences or anything like that
+    use special buildin constants or functions
+    this will simplify literal handling A LOT
+    things like \n \t etc can be handled at cast/convert level (to text)

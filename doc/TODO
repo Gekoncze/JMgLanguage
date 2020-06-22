@@ -1,14 +1,12 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-rewritten runtime entities (draft #1)
+rewritten runtime entities (draft #2)
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-improve runtime entities model
-do something with runtime architecture package
 add more instructions
+automatically add buildin definitions to application before resolve
+make MgCore work
 
-
-### SOON ### -----------------------------------------------------------------------------------------------------------
 resolver
     resolution of logical entity usages
     resolution of operators and additional build steps based on priority
@@ -18,6 +16,8 @@ resolver
     use cache for usages during resolve to prevent multiple resolution of the same name
         cache should also contain other information like the expected type of the object (class, stamp, function, etc.)
 
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
 mg relative vs absolute usages
 mg logical to runtime entities
 mg add support for star usings
@@ -28,25 +28,25 @@ runtime and logical architecture
         packages would be like installer packages in os
         components would be like files in os
 
+    implement logic for loading modules
 
-### LATER ### ----------------------------------------------------------------------------------------------------------
-think about mg collections
+mg collection definitions
     they should definitely be distinguished as readable or writeable or both somehow
+
+mg stamps definitions
+    additional information for the compiler
+    can be mandatory or optional ?
+        for mandatory stamps, the compiler has to throw an error if it cannot handle them
 
 think about static variables, we might want these to supply enums
     those will be stored in the runtime classes, right?
 
+
+### LATER ### ----------------------------------------------------------------------------------------------------------
 mg logic entity version
 mg runtime entity version
 
-stamps definitions
-collection definitions
-
-implement logic for loading modules
-
 think of possible scheduler
-    also think if current architecture is good
-    maybe I will postpone schedulers for later ... or now will just make simple round robin one!
     schedulers can schedule:
         for each core a bunch of threads
         a bunch of threads for bunch of cores
@@ -66,17 +66,15 @@ c entities
 
 write mg to c converter (logic or runtime?)
 
-function pointers - might need to add function type
+c writer
+    optimize operator writer tasks to not always include brackets
+
+function pointers in mg
 
 how to trace origin for error messages?
     1) might use optional setter, that shall be set for all newly created objects
         origin would be taken from one of the input objects
     2) shouldnt a stack trace be enough? implying we have a tree of entities
-
-stamps
-    additional information for the compiler
-    can be mandatory or optional ?
-        for mandatory stamps, the compiler has to throw an error if it cannot handle them
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------
@@ -102,29 +100,7 @@ limit file location to project folder only ?
 aliases for modules in application - ie remapping module locations
     this step would probably take in place after the module itself and its dependencies are resolved
 
-object model
-    pointer to its class definition
-    list of data storages - each data storage belongs to certain class in inheritance
-    class definition contains list of functions
-
-    objects should be able to be aliased
-        aliases are two way exchangable
-        aliases can have aditional methods, but not aditional data
-        maybe those methods can even be overriden
-
-mg language - required and/or optional input and output (probably with stamps)
-transparent work with collections and (non-nullable / nullable) objects - if possible
-be it only a library yet, ie no project file, for simplicity
-optimize operator writer tasks to not always include brackets
-
-add compiler parameters for cproject ?
-ideas mg groups - classes can belong to one or more groups
-    something like multiple inheritance
-
-do not allow escape sequences or anythign like that
-    use special buildin constants or functions
-    this will simplify literal handling A LOT
-
-ALL mg paths to be completely relative, or absolute being relative to module
+mg language - required vs optional input and output variables for functions
+    can be implemented as syntactical sugar
 
 if, then, and, or operators ?

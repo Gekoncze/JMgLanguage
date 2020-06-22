@@ -1,45 +1,67 @@
-//import cz.mg.collections.text.ReadonlyText;
-//import cz.mg.language.entities.mg.runtime.clazzes.architecture.MgApplicationR;
-//import cz.mg.language.entities.mg.runtime.clazzes.architecture.MgModuleR;
-//import cz.mg.language.entities.mg.runtime.clazzes.architecture.MgThreadR;
-//import cz.mg.language.entities.mg.runtime.components.MgFunctionR;
-//import cz.mg.language.entities.mg.runtime.components.MgVariableR;
-//import cz.mg.language.entities.mg.runtime.instructions.datatype.integer.MgIntegerPlusIntegerInstructionR;
-//import cz.mg.language.entities.mg.runtime.instructions.test.MgPrintIntegerInstructionR;
-//import cz.mg.language.entities.mg.runtime.objects.MgFunctionObjectR;
-//import cz.mg.language.entities.mg.runtime.objects.elementary.MgIntegerObjectR;
-//
-//
-//public class MgRuntimeTest {
-//    public static void main(String[] args) {
-//        MgApplicationR application = new MgApplicationR(new ReadonlyText("application"));
-//
-//        MgModuleR module = new MgModuleR(new ReadonlyText("module"));
-//        application.getModules().addLast(module);
-//
-//        MgFunctionR functionDefinition = new MgFunctionR(new ReadonlyText("function"));
-//        functionDefinition.getVariables().addLast(new MgVariableR(new ReadonlyText("a"), null));
-//        functionDefinition.getVariables().addLast(new MgVariableR(new ReadonlyText("b"), null));
-//        functionDefinition.getVariables().addLast(new MgVariableR(new ReadonlyText("c"), null));
-//
-//        functionDefinition.getInstructions().addLast(new MgIntegerPlusIntegerInstructionR(0, 1, 2));
-//        functionDefinition.getInstructions().addLast(new MgPrintIntegerInstructionR(2));
-//        ((MgIntegerPlusIntegerInstructionR)functionDefinition.getInstructions().getFirst()).setNextInstruction(
-//                functionDefinition.getInstructions().getLast()
-//        );
-//
-//        module.getFunctions().addLast(functionDefinition);
-//
-//        MgThreadR thread = new MgThreadR(new ReadonlyText("main"));
-//
-//        MgFunctionObjectR functionObject = new MgFunctionObjectR(functionDefinition);
-//        functionObject.getObjects().set(0, new MgIntegerObjectR(7));
-//        functionObject.getObjects().set(1, new MgIntegerObjectR(10));
-//        functionObject.getObjects().set(2, new MgIntegerObjectR(0));
-//        functionObject.setInstruction(functionDefinition.getInstructions().getFirst());
-//
-//        thread.getFunctionObjects().addLast(functionObject);
-//        thread.setCurrentFunctionObject(functionObject);
-//        thread.run();
-//    }
-//}
+import cz.mg.collections.array.Array;
+import cz.mg.collections.text.ReadonlyText;
+import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
+import cz.mg.language.entities.mg.runtime.architecture.MgThread;
+import cz.mg.language.entities.mg.runtime.atoms.MgIntegerObject;
+import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.other.MgVariable;
+import cz.mg.language.entities.mg.runtime.instructions.buildin.integer.MgIntegerPlusIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.test.MgPrintIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.types.MgFunction;
+
+
+public class MgRuntimeTest {
+    public static void main(String[] args) {
+        MgApplication application = new MgApplication(new ReadonlyText("application"));
+
+        MgFunction function = new MgFunction(
+            // name
+            new ReadonlyText("function"),
+
+            // input variables
+            new Array<>(),
+
+            // output variables
+            new Array<>(),
+
+            // local variables
+            new Array<>(
+                new MgVariable(new ReadonlyText("a"), null),
+                new MgVariable(new ReadonlyText("b"), null),
+                new MgVariable(new ReadonlyText("c"), null)
+            ),
+
+            // instructions
+            new Array<>(
+                new MgIntegerPlusIntegerInstruction(0, 1, 2),
+                new MgPrintIntegerInstruction(2)
+            ),
+
+            // operator
+            null,
+
+            // stamps
+            new Array<>()
+        );
+
+        // todo - is there any better way to connect instructions?
+        ((MgIntegerPlusIntegerInstruction)function.getInstructions().getFirst()).setNextInstruction(
+            function.getInstructions().getLast()
+        );
+
+        application.getRoot().getObjects().addLast(function);
+
+        MgThread thread = new MgThread(new ReadonlyText("main"));
+        application.getThreads().addLast(thread);
+
+        MgFunctionObject functionObject = new MgFunctionObject(function);
+        functionObject.getObjects().set(new MgIntegerObject(7), 0);
+        functionObject.getObjects().set(new MgIntegerObject(10), 1);
+        functionObject.getObjects().set(new MgIntegerObject(0), 2);
+        functionObject.setInstruction(function.getInstructions().getFirst());
+
+        thread.getFunctionObjects().addLast(functionObject);
+        thread.setCurrentFunctionObject(functionObject);
+        thread.run();
+    }
+}

@@ -2,21 +2,19 @@ package cz.mg.language.entities.mg.runtime.other;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.runtime.types.MgClass;
 
 
-public class MgParameter extends MgOther implements Named {
+public class MgVariable extends MgOther implements Named {
     @Value
     private final ReadableText name;
 
-    @Link
-    private final MgClass type;
+    @Value
+    private final MgDatatype datatype;
 
-    public MgParameter(ReadableText name, MgClass type) {
+    public MgVariable(ReadableText name, MgDatatype datatype) {
         this.name = name;
-        this.type = type;
+        this.datatype = datatype;
     }
 
     @Override
@@ -24,7 +22,7 @@ public class MgParameter extends MgOther implements Named {
         return name;
     }
 
-    public MgClass getType() {
-        return type;
+    public MgDatatype getDatatype() {
+        return datatype;
     }
 }
