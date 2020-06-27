@@ -1,30 +1,28 @@
 package cz.mg.language.entities.mg.runtime.objects;
 
 import cz.mg.collections.array.Array;
-import cz.mg.collections.array.ReadableArray;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.runtime.types.MgClass;
 
 
 public class MgClassObject extends MgObject {
     @Part
-    private final ReadableArray<Array<MgObject>> objects;
+    private final Array<MgObject> objects;
 
     public MgClassObject(MgClass clazz) {
         super(clazz);
-        this.objects = generateArrays(clazz);
+        this.objects = generateArray(clazz);
     }
 
-    public ReadableArray<Array<MgObject>> getObjects() {
+    public Array<MgObject> getObjects() {
         return objects;
     }
 
-    private static ReadableArray<Array<MgObject>> generateArrays(MgClass clazz){
-        Array<Array<MgObject>> objects = new Array<>(clazz.getClasses().count() + 1);
-        for(int i = 0; i < clazz.getClasses().count(); i++){
-            objects.set(new Array<>(clazz.getClasses().get(i).getVariables().count()), i);
+    private static Array<MgObject> generateArray(MgClass clazz){
+        int count = clazz.getVariables().count();
+        for(MgClass base : clazz.getClasses()){
+            count += base.getVariables().count();
         }
-        objects.set(new Array<>(clazz.getVariables().count()), clazz.getClasses().count());
-        return objects;
+        return new Array<>(count);
     }
 }

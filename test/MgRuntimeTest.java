@@ -5,10 +5,13 @@ import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 import cz.mg.language.entities.mg.runtime.atoms.MgIntegerObject;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSequentialInstruction;
+import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.other.MgVariable;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.integer.MgIntegerPlusIntegerInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.test.MgPrintIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.types.MgClass;
 import cz.mg.language.entities.mg.runtime.types.MgFunction;
 
 
@@ -42,12 +45,7 @@ public class MgRuntimeTest {
         MgThread thread = new MgThread(new ReadonlyText("main"));
         application.getThreads().addLast(thread);
 
-        MgFunctionObject functionObject = new MgFunctionObject(function);
-        functionObject.getObjects().set(new MgIntegerObject(7), 0);
-        functionObject.getObjects().set(new MgIntegerObject(10), 1);
-        functionObject.getObjects().set(new MgIntegerObject(0), 2);
-        functionObject.setInstruction(function.getInstructions().getFirst());
-
+        MgFunctionObject functionObject = create(function, create(7), create(10), create(0));
         thread.getFunctionObjects().addLast(functionObject);
         thread.setCurrentFunctionObject(functionObject);
         thread.run();
@@ -55,5 +53,26 @@ public class MgRuntimeTest {
 
     private static void connect(MgInstruction left, MgInstruction right){
         ((MgSequentialInstruction) left).setNextInstruction(right);
+    }
+
+    private static MgFunctionObject create(MgFunction function, MgObject... objects){
+        MgFunctionObject functionObject = new MgFunctionObject(function);
+        for(int i = 0; i < objects.length; i++){
+            functionObject.getObjects().set(objects[i], i);
+        }
+        functionObject.setInstruction(function.getInstructions().getFirst());
+        return functionObject;
+    }
+
+    private static MgClassObject create(MgClass clazz, MgObject... objects){
+        MgClassObject classObject = new MgClassObject(clazz);
+        for(int i = 0; i < objects.length; i++){
+            classObject.getObjects().set(objects[i], i);
+        }
+        return classObject;
+    }
+
+    private static MgIntegerObject create(int integer){
+        return new MgIntegerObject(integer);
     }
 }
