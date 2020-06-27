@@ -3,10 +3,12 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 import cz.mg.language.entities.mg.runtime.atoms.MgIntegerObject;
+import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSequentialInstruction;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.other.MgVariable;
-import cz.mg.language.entities.mg.runtime.instructions.buildin.integer.MgIntegerPlusIntegerInstruction;
-import cz.mg.language.entities.mg.runtime.instructions.test.MgPrintIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.integer.MgIntegerPlusIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.test.MgPrintIntegerInstruction;
 import cz.mg.language.entities.mg.runtime.types.MgFunction;
 
 
@@ -30,8 +32,8 @@ public class MgRuntimeTest {
             new MgPrintIntegerInstruction(2)
         ));
 
-        // todo - is there any better way to connect instructions?
-        ((MgIntegerPlusIntegerInstruction)function.getInstructions().getFirst()).setNextInstruction(
+        connect(
+            function.getInstructions().getFirst(),
             function.getInstructions().getLast()
         );
 
@@ -49,5 +51,9 @@ public class MgRuntimeTest {
         thread.getFunctionObjects().addLast(functionObject);
         thread.setCurrentFunctionObject(functionObject);
         thread.run();
+    }
+
+    private static void connect(MgInstruction left, MgInstruction right){
+        ((MgSequentialInstruction) left).setNextInstruction(right);
     }
 }
