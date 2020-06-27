@@ -16,6 +16,9 @@ public class MgRuntimeTest {
 
         MgFunction function = new MgFunction(new ReadonlyText("function"));
 
+        function.setInput(new Array<>());
+        function.setOutput(new Array<>());
+
         function.setLocal(new Array<>(
             new MgVariable(new ReadonlyText("a"), null),
             new MgVariable(new ReadonlyText("b"), null),

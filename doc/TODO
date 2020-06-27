@@ -1,7 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-minor improvements
-type child collections cannot be final because types can reference each other
-added function interface
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
