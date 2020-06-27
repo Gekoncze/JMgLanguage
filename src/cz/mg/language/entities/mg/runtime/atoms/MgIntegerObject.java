@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.runtime.types.MgType;
 
 
 public class MgIntegerObject extends MgAtom {
-    private static final MgType TYPE = new MgType("Integer");
+    public static final MgType TYPE = new MgType("Integer");
 
     @Value
     private int value;

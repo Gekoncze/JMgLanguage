@@ -5,12 +5,15 @@ import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 import cz.mg.language.entities.mg.runtime.atoms.MgIntegerObject;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSequentialInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSetFieldToVariableInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.integer.MgIntegerPlusIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.test.MgPrintIntegerInstruction;
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.entities.mg.runtime.other.MgDatatype;
+import cz.mg.language.entities.mg.runtime.other.MgModifier;
 import cz.mg.language.entities.mg.runtime.other.MgVariable;
-import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.integer.MgIntegerPlusIntegerInstruction;
-import cz.mg.language.entities.mg.runtime.instructions.sequential.test.MgPrintIntegerInstruction;
 import cz.mg.language.entities.mg.runtime.types.MgClass;
 import cz.mg.language.entities.mg.runtime.types.MgFunction;
 
@@ -19,25 +22,47 @@ public class MgRuntimeTest {
     public static void main(String[] args) {
         MgApplication application = new MgApplication(new ReadonlyText("application"));
 
+        MgClass clazz = new MgClass(new ReadonlyText("Class"));
+
+        clazz.setClasses(new Array<>());
+        clazz.setFunctions(new Array<>());
+        clazz.setVariables(new Array<>(
+            new MgVariable(new ReadonlyText("foo"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 0
+            new MgVariable(new ReadonlyText("bar"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE))  // 1
+        ));
+
         MgFunction function = new MgFunction(new ReadonlyText("function"));
 
         function.setInput(new Array<>());
         function.setOutput(new Array<>());
 
         function.setLocal(new Array<>(
-            new MgVariable(new ReadonlyText("a"), null),
-            new MgVariable(new ReadonlyText("b"), null),
-            new MgVariable(new ReadonlyText("c"), null)
+            new MgVariable(new ReadonlyText("a"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 0
+            new MgVariable(new ReadonlyText("b"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 1
+            new MgVariable(new ReadonlyText("c"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 2
+            new MgVariable(new ReadonlyText("aa"), new MgDatatype(clazz, MgModifier.VALUE)),               // 3
+            new MgVariable(new ReadonlyText("bb"), new MgDatatype(clazz, MgModifier.VALUE)),               // 4
+            new MgVariable(new ReadonlyText("cc"), new MgDatatype(clazz, MgModifier.VALUE))                // 5
         ));
 
         function.setInstructions(new Array<>(
-            new MgIntegerPlusIntegerInstruction(0, 1, 2),
-            new MgPrintIntegerInstruction(2)
+            new MgIntegerPlusIntegerInstruction(0, 1, 2), // c = a + b
+            new MgPrintIntegerInstruction(2),             // print c
+            new MgSetFieldToVariableInstruction(3, 0, 0), // a = aa.foo
+            new MgSetFieldToVariableInstruction(4, 0, 1), // b = bb.foo
+            new MgSetFieldToVariableInstruction(5, 0, 2), // c = cc.foo
+            new MgIntegerPlusIntegerInstruction(0, 1, 2), // c = a + b
+            new MgPrintIntegerInstruction(2)              // print c
         ));
 
         connect(
-            function.getInstructions().getFirst(),
-            function.getInstructions().getLast()
+            function.getInstructions().get(0),
+            function.getInstructions().get(1),
+            function.getInstructions().get(2),
+            function.getInstructions().get(3),
+            function.getInstructions().get(4),
+            function.getInstructions().get(5),
+            function.getInstructions().get(6)
         );
 
         application.getRoot().getObjects().addLast(function);
@@ -45,14 +70,27 @@ public class MgRuntimeTest {
         MgThread thread = new MgThread(new ReadonlyText("main"));
         application.getThreads().addLast(thread);
 
-        MgFunctionObject functionObject = create(function, create(7), create(10), create(0));
+        MgFunctionObject functionObject = create(
+            function,
+            create(1),
+            create(2),
+            create(0),
+            create(clazz, create(11), create(33)),
+            create(clazz, create(22), create(44)),
+            create(clazz, create(0), create(0))
+        );
+
         thread.getFunctionObjects().addLast(functionObject);
         thread.setCurrentFunctionObject(functionObject);
         thread.run();
     }
 
-    private static void connect(MgInstruction left, MgInstruction right){
-        ((MgSequentialInstruction) left).setNextInstruction(right);
+    private static void connect(MgInstruction... instructions){
+        for(int i = 0; i < instructions.length - 1; i++){
+            MgSequentialInstruction left = (MgSequentialInstruction) instructions[i];
+            MgInstruction right = instructions[i+1];
+            left.setNextInstruction(right);
+        }
     }
 
     private static MgFunctionObject create(MgFunction function, MgObject... objects){

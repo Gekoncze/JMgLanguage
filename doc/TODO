@@ -1,9 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+more instructions + test improvements
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-add more instructions
+mg runtime
+    add more instructions
+
 automatically add buildin definitions to application before resolve
 make MgCore work
 
