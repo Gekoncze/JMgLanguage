@@ -4,48 +4,28 @@ import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.runtime.other.MgStamp;
-import cz.mg.language.entities.mg.runtime.other.MgVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
+import cz.mg.language.entities.mg.runtime.other.MgVariable;
 
 
-public class MgFunction extends MgType {
+public class MgFunction extends MgInterface {
     private static final MgType TYPE = new MgType("Function");
 
     @Part
-    private final ReadableArray<MgVariable> input;
+    private ReadableArray<MgVariable> local;
 
     @Part
-    private final ReadableArray<MgVariable> output;
-
-    @Part
-    private final ReadableArray<MgVariable> local;
-
-    @Part
-    private final ReadableArray<MgInstruction> instructions;
+    private ReadableArray<MgInstruction> instructions;
 
     @Value
-    private final ReadableText operator;
+    private ReadableText operator;
 
-    protected MgFunction(MgType type, ReadableText name, ReadableArray<MgVariable> input, ReadableArray<MgVariable> output, ReadableArray<MgVariable> local, ReadableArray<MgInstruction> instructions, ReadableText operator, ReadableArray<MgStamp> stamps) {
-        super(type, name, stamps);
-        this.input = input;
-        this.output = output;
-        this.local = local;
-        this.instructions = instructions;
-        this.operator = operator;
+    protected MgFunction(MgType type, ReadableText name) {
+        super(type, name);
     }
 
-    public MgFunction(ReadableText name, ReadableArray<MgVariable> input, ReadableArray<MgVariable> output, ReadableArray<MgVariable> local, ReadableArray<MgInstruction> instructions, ReadableText operator, ReadableArray<MgStamp> stamps) {
-        this(TYPE, name, input, output, local, instructions, operator, stamps);
-    }
-
-    public ReadableArray<MgVariable> getInput() {
-        return input;
-    }
-
-    public ReadableArray<MgVariable> getOutput() {
-        return output;
+    public MgFunction(ReadableText name) {
+        super(TYPE, name);
     }
 
     public ReadableArray<MgVariable> getLocal() {
@@ -58,5 +38,17 @@ public class MgFunction extends MgType {
 
     public ReadableText getOperator() {
         return operator;
+    }
+
+    public void setOperator(ReadableText operator) {
+        this.operator = operator;
+    }
+
+    public void setLocal(ReadableArray<MgVariable> local) {
+        this.local = local;
+    }
+
+    public void setInstructions(ReadableArray<MgInstruction> instructions) {
+        this.instructions = instructions;
     }
 }

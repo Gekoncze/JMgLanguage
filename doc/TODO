@@ -1,5 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-rewritten runtime entities (draft #2)
+minor improvements
+type child collections cannot be final because types can reference each other
+added function interface
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -104,3 +106,5 @@ mg language - required vs optional input and output variables for functions
     can be implemented as syntactical sugar
 
 if, then, and, or operators ?
+stamps dont need to hold values, ie there will be no instances
+    values could be handled by global variables with inheritance

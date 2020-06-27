@@ -16,16 +16,15 @@ public class MgType extends MgObject implements Named {
     private final ReadableText name;
 
     @Link
-    private final ReadableArray<MgStamp> stamps;
+    private ReadableArray<MgStamp> stamps;
 
     public MgType(String name) {
-        this(null, new ReadonlyText(name), new Array<>());
+        this(null, new ReadonlyText(name));
     }
 
-    public MgType(MgType type, ReadableText name, ReadableArray<MgStamp> stamps) {
+    public MgType(MgType type, ReadableText name) {
         super(type);
         this.name = name;
-        this.stamps = stamps;
     }
 
     @Override
@@ -35,5 +34,9 @@ public class MgType extends MgObject implements Named {
 
     public ReadableArray<MgStamp> getStamps() {
         return stamps;
+    }
+
+    public void setStamps(ReadableArray<MgStamp> stamps) {
+        this.stamps = stamps;
     }
 }

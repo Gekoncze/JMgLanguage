@@ -20,11 +20,11 @@ public class MgClassObject extends MgObject {
     }
 
     private static ReadableArray<Array<MgObject>> generateArrays(MgClass clazz){
-        Array<Array<MgObject>> objects = new Array<>(clazz.getClazzes().count() + 1);
-        for(int i = 0; i < clazz.getClazzes().count(); i++){
-            objects.set(new Array<>(clazz.getClazzes().get(i).getVariables().count()), i);
+        Array<Array<MgObject>> objects = new Array<>(clazz.getClasses().count() + 1);
+        for(int i = 0; i < clazz.getClasses().count(); i++){
+            objects.set(new Array<>(clazz.getClasses().get(i).getVariables().count()), i);
         }
-        objects.set(new Array<>(clazz.getVariables().count()), clazz.getClazzes().count());
+        objects.set(new Array<>(clazz.getVariables().count()), clazz.getClasses().count());
         return objects;
     }
 }

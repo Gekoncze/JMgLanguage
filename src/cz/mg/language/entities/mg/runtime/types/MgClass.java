@@ -5,7 +5,6 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.runtime.other.MgStamp;
 import cz.mg.language.entities.mg.runtime.other.MgVariable;
 
 
@@ -13,27 +12,24 @@ public class MgClass extends MgType implements Named {
     private static final MgType TYPE = new MgType("Class");
 
     @Link
-    private final ReadableArray<MgClass> clazzes;
+    private ReadableArray<MgClass> classes;
 
     @Part
-    private final ReadableArray<MgVariable> variables;
+    private ReadableArray<MgVariable> variables;
 
     @Part
-    private final ReadableArray<MgFunction> functions;
+    private ReadableArray<MgFunction> functions;
 
-    protected MgClass(MgType type, ReadableText name, ReadableArray<MgClass> clazzes, ReadableArray<MgVariable> variables, ReadableArray<MgFunction> functions, ReadableArray<MgStamp> stamps) {
-        super(type, name, stamps);
-        this.clazzes = clazzes;
-        this.variables = variables;
-        this.functions = functions;
+    protected MgClass(MgType type, ReadableText name) {
+        super(type, name);
     }
 
-    public MgClass(ReadableText name, ReadableArray<MgClass> clazzes, ReadableArray<MgVariable> variables, ReadableArray<MgFunction> functions, ReadableArray<MgStamp> stamps) {
-        this(TYPE, name, clazzes, variables, functions, stamps);
+    public MgClass(ReadableText name) {
+        super(TYPE, name);
     }
 
-    public ReadableArray<MgClass> getClazzes() {
-        return clazzes;
+    public ReadableArray<MgClass> getClasses() {
+        return classes;
     }
 
     public ReadableArray<MgVariable> getVariables() {
@@ -42,5 +38,17 @@ public class MgClass extends MgType implements Named {
 
     public ReadableArray<MgFunction> getFunctions() {
         return functions;
+    }
+
+    public void setClasses(ReadableArray<MgClass> classes) {
+        this.classes = classes;
+    }
+
+    public void setVariables(ReadableArray<MgVariable> variables) {
+        this.variables = variables;
+    }
+
+    public void setFunctions(ReadableArray<MgFunction> functions) {
+        this.functions = functions;
     }
 }

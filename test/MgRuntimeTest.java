@@ -14,35 +14,18 @@ public class MgRuntimeTest {
     public static void main(String[] args) {
         MgApplication application = new MgApplication(new ReadonlyText("application"));
 
-        MgFunction function = new MgFunction(
-            // name
-            new ReadonlyText("function"),
+        MgFunction function = new MgFunction(new ReadonlyText("function"));
 
-            // input variables
-            new Array<>(),
+        function.setLocal(new Array<>(
+            new MgVariable(new ReadonlyText("a"), null),
+            new MgVariable(new ReadonlyText("b"), null),
+            new MgVariable(new ReadonlyText("c"), null)
+        ));
 
-            // output variables
-            new Array<>(),
-
-            // local variables
-            new Array<>(
-                new MgVariable(new ReadonlyText("a"), null),
-                new MgVariable(new ReadonlyText("b"), null),
-                new MgVariable(new ReadonlyText("c"), null)
-            ),
-
-            // instructions
-            new Array<>(
-                new MgIntegerPlusIntegerInstruction(0, 1, 2),
-                new MgPrintIntegerInstruction(2)
-            ),
-
-            // operator
-            null,
-
-            // stamps
-            new Array<>()
-        );
+        function.setInstructions(new Array<>(
+            new MgIntegerPlusIntegerInstruction(0, 1, 2),
+            new MgPrintIntegerInstruction(2)
+        ));
 
         // todo - is there any better way to connect instructions?
         ((MgIntegerPlusIntegerInstruction)function.getInstructions().getFirst()).setNextInstruction(
