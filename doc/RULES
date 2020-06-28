@@ -75,3 +75,6 @@ literals - do not allow escape sequences or anything like that
     use special buildin constants or functions
     this will simplify literal handling A LOT
     things like \n \t etc can be handled at cast/convert level (to text)
+
+stamps don't need to hold values, ie there will be no instances
+    values can be handled by global variables with inheritance

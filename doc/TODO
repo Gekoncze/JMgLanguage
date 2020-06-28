@@ -1,25 +1,16 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-file compilers + architectural mg logical entity fixes
-each file can contain only single mg component
-usages are part of a context which is part of mg component
-added some simple file compilers
+todo cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-update tests
-
-mg compilers
-    add filesystem based implementation
-
-mg runtime
-    add more instructions
+update all tests
 
 automatically add buildin definitions to application before resolve
-make MgCore work
 
 mg command to instruction converter
+add more instructions
 
-resolver
+resolver + logical to runtime converter
     creation of location and empty objects with just a name
 
     resolution of logical entity usages
@@ -32,20 +23,20 @@ resolver
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
+make MgCore work
 mg relative vs absolute usages
-mg logical to runtime entities
-mg add support for star usings
+mg add support for multiple (star) usages
 
-runtime and logical architecture
+think about runtime and logical architecture
     modules or bundles or libraries or packages ...
         we could take a look at locations as folders/directories in os
         packages would be like installer packages in os
         components would be like files in os
 
-    implement logic for loading modules
+    implement logic for loading modules/bundles/libraries/package
 
 mg collection definitions
-    they should definitely be distinguished as readable or writeable or both somehow
+    they should definitely be distinguished as readable, writeable, readonly, nonnull somehow
 
 mg stamps definitions
     additional information for the compiler
@@ -53,12 +44,12 @@ mg stamps definitions
         for mandatory stamps, the compiler has to throw an error if it cannot handle them
 
 think about static variables, we might want these to supply enums
-    those will be stored in the runtime classes, right?
+    where will those be stored in at runtime? in classes directly maybe?
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
-mg logic entity version
-mg runtime entity version
+mg logic entity versioning ?
+mg runtime entity versioning ?
 
 think of possible scheduler
     schedulers can schedule:
@@ -83,16 +74,26 @@ write mg to c converter (logic or runtime?)
 c writer
     optimize operator writer tasks to not always include brackets
 
-function pointers in mg
+function pointers in mg - will be called interfaces (java like interfaces might be called roles)
 
-how to trace origin for error messages?
-    1) might use optional setter, that shall be set for all newly created objects
-        origin would be taken from one of the input objects
-    2) shouldnt a stack trace be enough? implying we have a tree of entities
+improve exceptions
+    add more exception types
+    add some kind of tracing
+        how to trace origin for error messages?
+            1) might use optional setter, that shall be set for all newly created objects
+                origin would be taken from one of the input objects
+            2) shouldnt a stack trace be enough? implying we have a tree of entities
+
+
+### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
+limit file size parameter
+add entity validations
+
+mg language - required vs optional input and output variables for functions
+    can be implemented as syntactical sugar
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------
-add entity assertation class with entity assertation exception ???
 very interesting idea
     contextual methods
         entities can have different methods based on current context
@@ -109,14 +110,7 @@ very interesting idea
 
         also, think about difference between dependency injection and contextual methods
 
-limit file size parameter
-limit file location to project folder only ?
 aliases for modules in application - ie remapping module locations
     this step would probably take in place after the module itself and its dependencies are resolved
 
-mg language - required vs optional input and output variables for functions
-    can be implemented as syntactical sugar
-
-if, then, and, or operators ?
-stamps dont need to hold values, ie there will be no instances
-    values could be handled by global variables with inheritance
+if operator
