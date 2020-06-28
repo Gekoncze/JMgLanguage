@@ -1,15 +1,24 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-more instructions + test improvements
+added file input
+added task for loading tree of folders and documents, handling cyclic dependencies
+prepared some basic parts for compiler and resolver tasks
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+mg compilers
+    add filesystem based implementation
+
 mg runtime
     add more instructions
 
 automatically add buildin definitions to application before resolve
 make MgCore work
 
+mg command to instruction converter
+
 resolver
+    creation of location and empty objects with just a name
+
     resolution of logical entity usages
     resolution of operators and additional build steps based on priority
         priority can be choosen by the user
