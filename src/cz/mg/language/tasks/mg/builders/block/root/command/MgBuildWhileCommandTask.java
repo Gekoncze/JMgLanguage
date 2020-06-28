@@ -7,7 +7,6 @@ import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
-import cz.mg.language.tasks.mg.builders.pattern.Processor;
 
 
 public class MgBuildWhileCommandTask extends MgBuildBlockCommandTask {

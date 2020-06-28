@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.builders.part;
 
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.parts.Declaration;
 import cz.mg.language.entities.text.structured.parts.Part;
 

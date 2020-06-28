@@ -8,7 +8,6 @@ import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builders.pattern.PartProcessor;
 import cz.mg.language.tasks.mg.builders.pattern.Pattern;
-import cz.mg.language.tasks.mg.builders.pattern.Processor;
 
 
 public class MgBuildBreakCommandTask extends MgBuildCommandTask {

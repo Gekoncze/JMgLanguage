@@ -8,6 +8,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.MgLogicalEntity;
+import cz.mg.language.entities.mg.logical.Stampable;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
@@ -39,7 +40,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     }
 
     @Override
-    protected final void onRun() {
+    protected void onRun() {
         buildPart(part);
         buildBlock(block);
         handoverStamps(block.getStamps());
@@ -159,9 +160,9 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
         if(stamps != null){
             if(!stamps.isEmpty()){
                 Object output = getOutput();
-                if(output instanceof MgLogicalEntity){
-                    MgLogicalComponent logicalComponent = (MgLogicalComponent) output;
-                    logicalComponent.getStamps().addCollectionLast(stamps);
+                if(output instanceof Stampable){
+                    Stampable stampableEntity = (Stampable) output;
+                    stampableEntity.getStamps().addCollectionLast(stamps);
                 } else {
                     throw new LanguageException("Cannot apply stamps to " + output.getClass().getSimpleName() + ".");
                 }

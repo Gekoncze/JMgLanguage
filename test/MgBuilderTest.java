@@ -3,7 +3,7 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.entities.text.structured.parts.groups.Group;
-import cz.mg.language.tasks.mg.builders.block.MgBuildRootTask;
+import cz.mg.language.tasks.mg.builders.block.MgBuildRootBlockTask;
 import cz.mg.language.tasks.mg.parsers.common.MgParsePageTask;
 import cz.mg.language.tasks.mg.parsers.structured.MgParseBlocksTask;
 
@@ -22,7 +22,7 @@ class MgBuilderTest {
 
         printBlocks(parseBlocksTask.getRoot(), -1);
 
-        MgBuildRootTask buildRootTask = new MgBuildRootTask(parseBlocksTask.getRoot());
+        MgBuildRootBlockTask buildRootTask = new MgBuildRootBlockTask(parseBlocksTask.getRoot());
         buildRootTask.run();
     }
 

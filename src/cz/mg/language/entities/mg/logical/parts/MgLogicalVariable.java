@@ -1,23 +1,34 @@
-package cz.mg.language.entities.mg.logical.components;
+package cz.mg.language.entities.mg.logical.parts;
 
+import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.entities.mg.logical.Stampable;
 
 
-public class MgLogicalVariable extends MgLogicalComponent {
+public class MgLogicalVariable extends MgLogicalPart implements Named, Stampable {
+    @Value
+    private final ReadableText name;
+
     @Value
     private ReadableText type;
 
     @Value
     private Storage storage;
 
-    public MgLogicalVariable() {
-    }
+    @Value
+    private final List<ReadableText> stamps = new List<>();
 
     public MgLogicalVariable(ReadableText name, ReadableText type, Storage storage) {
-        super(name);
+        this.name = name;
         this.type = type;
         this.storage = storage;
+    }
+
+    @Override
+    public ReadableText getName() {
+        return name;
     }
 
     public ReadableText getType() {
@@ -34,6 +45,11 @@ public class MgLogicalVariable extends MgLogicalComponent {
 
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+
+    @Override
+    public List<ReadableText> getStamps() {
+        return stamps;
     }
 
     public enum Storage {

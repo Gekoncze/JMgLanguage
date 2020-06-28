@@ -1,10 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added file input
-added task for loading tree of folders and documents, handling cyclic dependencies
-prepared some basic parts for compiler and resolver tasks
+file compilers + architectural mg logical entity fixes
+each file can contain only single mg component
+usages are part of a context which is part of mg component
+added some simple file compilers
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+update tests
+
 mg compilers
     add filesystem based implementation
 

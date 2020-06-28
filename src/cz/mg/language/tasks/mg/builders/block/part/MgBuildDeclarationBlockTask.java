@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.builders.block.part;
 
 import cz.mg.collections.Clump;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builders.block.MgBuildBlockTask;
