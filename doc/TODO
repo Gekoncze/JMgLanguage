@@ -1,32 +1,43 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-changed build test to compile test
+todo cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 resolver + logical to runtime converter
-    commands
-        resolve operators and build a tree with respect to operator priorities
-        mg command to instruction converter
-        add more instructions
+    1# step of resolver
+        automatically add buildin definitions to application before resolve
+    2# step of resolver
+        creation of runtime locations and empty objects with just a name
+        maybe also resolve values not having reference if possible ???
+    3# step of resolver
+        resolution of usages - map those to runtime objects
+        resolution of names and operators - map those to usages
+        cache all of these mappings to avoid unnecessary re-resolution
+        updating currently empty runtime objects, filling them with all the remaining data
 
-    automatically add buildin definitions to application before resolve
-    creation of location and empty objects with just a name
-
-    resolution of logical entity usages
-    resolution of operators and additional build steps based on priority
-        priority can be choosen by the user
-        operators need to be imported
-
-    use cache for usages during resolve to prevent multiple resolution of the same name
-        cache should also contain other information like the expected type of the object (class, stamp, function, etc.)
+        command resolver
+            resolve operators and build a tree with respect to operator priorities
+            mg command to instruction converter
+            add more instructions
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 make MgCore work
-mg relative vs absolute usages
-mg add support for multiple (star) usages
 
-think about runtime and logical architecture
+mg add support for relative "../" usages
+mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
+
+add support for operator definitions
+    operators are build on top of functions, as an optional syntactical sugar
+    you should still be able to call the function by its name with parameters
+    investigate the best way how to express it in the mg language
+    add builder for it
+    priority can be set in the definition too
+    how to import the operators ???
+
+add support for variable number of parameters of functions ?
+
+think about runtime and logical high-level architecture
     modules or bundles or libraries or packages ...
         we could take a look at locations as folders/directories in os
         packages would be like installer packages in os
