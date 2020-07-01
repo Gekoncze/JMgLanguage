@@ -1,2 +1,0 @@
-FUNCTION function
-    # TODO

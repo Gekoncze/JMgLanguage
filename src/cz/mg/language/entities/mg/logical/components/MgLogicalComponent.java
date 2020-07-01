@@ -6,10 +6,11 @@ import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Shared;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.logical.MgLogicalEntity;
+import cz.mg.language.entities.mg.logical.Stampable;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalContext;
 
 
-public class MgLogicalComponent extends MgLogicalEntity implements Named {
+public class MgLogicalComponent extends MgLogicalEntity implements Named, Stampable {
     @Value
     private ReadableText name;
 
@@ -26,6 +27,7 @@ public class MgLogicalComponent extends MgLogicalEntity implements Named {
         this.name = name;
     }
 
+    @Override
     public List<ReadableText> getStamps() {
         return stamps;
     }

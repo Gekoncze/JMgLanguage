@@ -1,16 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-todo cleanup
+changed build test to compile test
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-update all tests
-
-automatically add buildin definitions to application before resolve
-
-mg command to instruction converter
-add more instructions
-
 resolver + logical to runtime converter
+    commands
+        resolve operators and build a tree with respect to operator priorities
+        mg command to instruction converter
+        add more instructions
+
+    automatically add buildin definitions to application before resolve
     creation of location and empty objects with just a name
 
     resolution of logical entity usages
