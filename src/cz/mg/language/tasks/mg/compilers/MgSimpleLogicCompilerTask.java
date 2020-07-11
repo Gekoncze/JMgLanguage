@@ -4,7 +4,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.mg.logical.architecture.MgLogicalLocation;
+import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
 import cz.mg.language.tasks.input.file.MgLoadFolderTreeTask;
 
 

@@ -1,16 +1,11 @@
-package cz.mg.language.entities.mg.logical.architecture;
+package cz.mg.language.entities.mg.logical.components;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 
 
-public class MgLogicalLocation extends MgLogicalArchitectureEntity implements Named {
-    @Part
-    private final List<MgLogicalLocation> locations = new List<>();
-
+public class MgLogicalLocation extends MgLogicalComponent {
     @Part
     private final List<MgLogicalComponent> components = new List<>();
 
@@ -19,10 +14,6 @@ public class MgLogicalLocation extends MgLogicalArchitectureEntity implements Na
 
     public MgLogicalLocation(ReadableText name) {
         super(name);
-    }
-
-    public List<MgLogicalLocation> getLocations() {
-        return locations;
     }
 
     public List<MgLogicalComponent> getComponents() {

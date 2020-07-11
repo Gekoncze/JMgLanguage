@@ -8,7 +8,7 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.file.Document;
 import cz.mg.language.entities.file.File;
 import cz.mg.language.entities.file.Folder;
-import cz.mg.language.entities.mg.logical.architecture.MgLogicalLocation;
+import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
 
 
 public class MgCompileFolderLogicTask extends MgCompileFileLogicTask {
@@ -37,7 +37,7 @@ public class MgCompileFolderLogicTask extends MgCompileFileLogicTask {
                 MgCompileFolderLogicTask compileFolderTask = new MgCompileFolderLogicTask((Folder) file);
                 compileFileTasks.addLast(compileFolderTask);
                 compileFolderTask.run();
-                location.getLocations().addLast(compileFolderTask.getLocation());
+                location.getComponents().addLast(compileFolderTask.getLocation());
             } else if(file instanceof Document){
                 MgCompileDocumentLogicTask compileDocumentTask = new MgCompileDocumentLogicTask((Document) file);
                 compileFileTasks.addLast(compileDocumentTask);

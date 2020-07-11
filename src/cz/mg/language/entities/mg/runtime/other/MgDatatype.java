@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.other;
 
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.runtime.types.MgType;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgDatatype extends MgOther {

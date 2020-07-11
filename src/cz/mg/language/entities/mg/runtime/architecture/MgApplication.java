@@ -4,7 +4,8 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.runtime.types.MgType;
+import cz.mg.language.entities.mg.runtime.components.MgLocation;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgApplication extends MgArchitectureObject {

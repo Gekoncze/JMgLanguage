@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.architecture;
+package cz.mg.language.entities.mg.runtime.components;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
@@ -7,11 +7,11 @@ import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
-public abstract class MgArchitectureObject extends MgObject implements Named {
+public abstract class MgComponent extends MgObject implements Named {
     @Value
     private final ReadableText name;
 
-    public MgArchitectureObject(MgType type, ReadableText name) {
+    public MgComponent(MgType type, ReadableText name) {
         super(type);
         this.name = name;
     }

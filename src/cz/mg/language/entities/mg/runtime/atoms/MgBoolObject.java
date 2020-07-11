@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.atoms;
 
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.runtime.types.MgType;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgBoolObject extends MgAtom {

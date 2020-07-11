@@ -6,7 +6,7 @@ import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
-import cz.mg.language.entities.mg.runtime.types.MgType;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgThread extends MgArchitectureObject implements Runnable {

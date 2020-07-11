@@ -5,7 +5,7 @@ import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
-import cz.mg.language.entities.mg.runtime.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 
 
 public class MgDestroyFunctionInstruction extends MgSequentialInstruction {

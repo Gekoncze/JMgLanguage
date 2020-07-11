@@ -1,8 +1,8 @@
 package cz.mg.language.tasks.mg.resolvers;
 
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.entities.mg.logical.architecture.MgLogicalBuildinLocation;
-import cz.mg.language.entities.mg.logical.architecture.MgLogicalLocation;
+import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinLocation;
+import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
 import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinClass;
 import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinStamp;
 
@@ -21,10 +21,10 @@ public class MgAddBuildinComponentsTask extends MgResolverTask {
         MgLogicalBuildinLocation mg = new MgLogicalBuildinLocation("mg");
         MgLogicalBuildinLocation types = new MgLogicalBuildinLocation("types");
         MgLogicalBuildinLocation stamps = new MgLogicalBuildinLocation("stamps");
-        cz.getLocations().addLast(mg);
-        mg.getLocations().addLast(types);
-        mg.getLocations().addLast(stamps);
-        root.getLocations().addLast(cz);
+        cz.getComponents().addLast(mg);
+        mg.getComponents().addLast(types);
+        mg.getComponents().addLast(stamps);
+        root.getComponents().addLast(cz);
 
         types.getComponents().addLast(new MgLogicalBuildinClass("Bool"));
         types.getComponents().addLast(new MgLogicalBuildinClass("Int"));

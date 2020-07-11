@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.objects;
 
 import cz.mg.collections.array.Array;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.runtime.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 
 
 public class MgClassObject extends MgObject {

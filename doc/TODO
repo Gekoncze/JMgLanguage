@@ -1,14 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added building entities and task
+location is now component + added some resolver tasks
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 resolver + logical to runtime converter
     1# add buildin components
-
-    2# step of resolver
-        creation of runtime locations and empty objects with just a name
-        maybe also resolve values not having reference if possible ???
+    2# creation of runtime empty components
     3# step of resolver
         resolution of usages - map those to runtime objects
         resolution of names and operators - map those to usages

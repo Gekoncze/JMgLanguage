@@ -14,8 +14,8 @@ import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 import cz.mg.language.entities.mg.runtime.other.MgModifier;
 import cz.mg.language.entities.mg.runtime.other.MgVariable;
-import cz.mg.language.entities.mg.runtime.types.MgClass;
-import cz.mg.language.entities.mg.runtime.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 
 
 public class MgRuntimeTest {

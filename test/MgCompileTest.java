@@ -8,7 +8,7 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Shared;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.logical.MgLogicalEntity;
-import cz.mg.language.entities.mg.logical.architecture.MgLogicalLocation;
+import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
 import cz.mg.language.tasks.mg.compilers.MgSimpleLogicCompilerTask;
 
 

@@ -1,20 +1,14 @@
-package cz.mg.language.entities.mg.runtime.types;
+package cz.mg.language.entities.mg.runtime.components.types;
 
-import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.entity.Link;
-import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.runtime.objects.MgObject;
-import cz.mg.language.Named;
-import cz.mg.language.entities.mg.runtime.other.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgStamp;
 
 
-public class MgType extends MgObject implements Named {
-    @Value
-    private final ReadableText name;
-
+public class MgType extends MgComponent {
     @Link
     private ReadableArray<MgStamp> stamps;
 
@@ -23,13 +17,7 @@ public class MgType extends MgObject implements Named {
     }
 
     public MgType(MgType type, ReadableText name) {
-        super(type);
-        this.name = name;
-    }
-
-    @Override
-    public ReadableText getName() {
-        return name;
+        super(type, name);
     }
 
     public ReadableArray<MgStamp> getStamps() {
