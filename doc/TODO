@@ -1,11 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added bool object and bunch of new instructions
+added building entities and task
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 resolver + logical to runtime converter
-    1# step of resolver
-        automatically add buildin definitions to application before resolve
+    1# add buildin components
+
     2# step of resolver
         creation of runtime locations and empty objects with just a name
         maybe also resolve values not having reference if possible ???
