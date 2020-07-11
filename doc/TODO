@@ -1,5 +1,6 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-resolution of logical usages
+added part of class resolve and fixed lil usage resolve
+work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -8,8 +9,12 @@ resolver + logical to runtime converter
     2# creation of runtime empty components
     3# step of resolver
         a) resolution of logical usages
+            problem ... we need to resolve runtime components ...
+                because we need to set those to target runtime component during resolution
+
         resolution of names and operators - map those to usages
-        cache all of these mappings to avoid unnecessary re-resolution
+            cache all of these mappings to avoid unnecessary re-resolution
+                these will be cached per component context, ie per container
         updating currently empty runtime objects, filling them with all the remaining data
 
         command resolver
@@ -18,11 +23,19 @@ resolver + logical to runtime converter
             mg command to instruction converter
             add more instructions
 
+take into account access modifiers during resolve
+
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 make MgCore work
+move all subtasks to Task class ???
+how to handle nulls and what will be their syntax?
+    probably as a buildin component
 
-mg add support for relative "../" usages
+add support for global variables ?
+    in logical class the field is already prepared, but I dont know if it is actually used during build
+
+mg add support for relative "../" usages ???
 mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
 
 add support for operator definitions
