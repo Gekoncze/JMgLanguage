@@ -9,9 +9,6 @@ public class MgLogicalLocation extends MgLogicalComponent {
     @Part
     private final List<MgLogicalComponent> components = new List<>();
 
-    public MgLogicalLocation() {
-    }
-
     public MgLogicalLocation(ReadableText name) {
         super(name);
     }

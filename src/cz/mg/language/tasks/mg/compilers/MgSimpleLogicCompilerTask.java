@@ -34,7 +34,7 @@ public class MgSimpleLogicCompilerTask extends MgCompilerTask {
         loadFolderTreeTask = new MgLoadFolderTreeTask(sourceRootPath);
         loadFolderTreeTask.run();
 
-        compileFolderTask = new MgCompileFolderLogicTask(loadFolderTreeTask.getFolder());
+        compileFolderTask = new MgCompileFolderLogicTask(loadFolderTreeTask.getFolder(), null);
         compileFolderTask.run();
 
         root = compileFolderTask.getLocation();

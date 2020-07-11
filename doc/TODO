@@ -1,5 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-location is now component + added some resolver tasks
+resolution of logical usages
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -7,13 +7,14 @@ resolver + logical to runtime converter
     1# add buildin components
     2# creation of runtime empty components
     3# step of resolver
-        resolution of usages - map those to runtime objects
+        a) resolution of logical usages
         resolution of names and operators - map those to usages
         cache all of these mappings to avoid unnecessary re-resolution
         updating currently empty runtime objects, filling them with all the remaining data
 
         command resolver
             resolve operators and build a tree with respect to operator priorities
+            expression resolver
             mg command to instruction converter
             add more instructions
 
