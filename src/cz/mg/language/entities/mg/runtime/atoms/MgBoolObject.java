@@ -4,22 +4,22 @@ import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.types.MgType;
 
 
-public class MgIntegerObject extends MgAtom {
-    public static final MgType TYPE = new MgType("Integer");
+public class MgBoolObject extends MgAtom {
+    private static final MgType TYPE = new MgType("Bool");
 
     @Value
-    private int value;
+    private boolean value;
 
-    public MgIntegerObject(int value) {
+    public MgBoolObject(boolean value) {
         super(TYPE);
         this.value = value;
     }
 
-    public int getValue() {
+    public boolean getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(boolean value) {
         this.value = value;
     }
 }

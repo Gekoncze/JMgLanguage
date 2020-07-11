@@ -1,14 +1,13 @@
-package cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.integer;
+package cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.floatt;
 
-import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
+import cz.mg.language.entities.mg.runtime.atoms.MgFloatObject;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.MgBuildinInstruction;
-import cz.mg.language.entities.mg.runtime.atoms.MgIntegerObject;
 
 
-public class MgIntegerPlusIntegerInstruction extends MgBuildinInstruction {
+public class MgFloatPlusInstruction extends MgBuildinInstruction {
     @Value
     private final int sourceLeftIndex;
 
@@ -18,7 +17,7 @@ public class MgIntegerPlusIntegerInstruction extends MgBuildinInstruction {
     @Value
     private final int targetIndex;
 
-    public MgIntegerPlusIntegerInstruction(int sourceLeftIndex, int sourceRightIndex, int targetIndex) {
+    public MgFloatPlusInstruction(int sourceLeftIndex, int sourceRightIndex, int targetIndex) {
         this.sourceLeftIndex = sourceLeftIndex;
         this.sourceRightIndex = sourceRightIndex;
         this.targetIndex = targetIndex;
@@ -26,9 +25,9 @@ public class MgIntegerPlusIntegerInstruction extends MgBuildinInstruction {
 
     @Override
     public MgInstruction run(MgThread thread) {
-        MgIntegerObject sourceLeft = (MgIntegerObject) thread.getCurrentFunctionObject().getObjects().get(sourceLeftIndex);
-        MgIntegerObject sourceRight = (MgIntegerObject) thread.getCurrentFunctionObject().getObjects().get(sourceRightIndex);
-        MgIntegerObject target = (MgIntegerObject) thread.getCurrentFunctionObject().getObjects().get(targetIndex);
+        MgFloatObject sourceLeft = (MgFloatObject) thread.getCurrentFunctionObject().getObjects().get(sourceLeftIndex);
+        MgFloatObject sourceRight = (MgFloatObject) thread.getCurrentFunctionObject().getObjects().get(sourceRightIndex);
+        MgFloatObject target = (MgFloatObject) thread.getCurrentFunctionObject().getObjects().get(targetIndex);
         target.setValue(sourceLeft.getValue() + sourceRight.getValue());
         return getNextInstruction();
     }

@@ -13,20 +13,20 @@ public class MgDestroyFunctionInstruction extends MgSequentialInstruction {
     private final MgFunction function;
 
     @Link
-    private final Array<Integer> output;
+    private final Array<Integer> outputOffset;
 
-    public MgDestroyFunctionInstruction(MgFunction function, Array<Integer> output) {
+    public MgDestroyFunctionInstruction(MgFunction function, Array<Integer> outputOffset) {
         this.function = function;
-        this.output = output;
+        this.outputOffset = outputOffset;
     }
 
     @Override
     public MgInstruction run(MgThread thread) {
         MgFunctionObject nextFunctionObject = thread.getFunctionObjects().removeLast();
         MgFunctionObject prevFunctionObject = thread.getFunctionObjects().getLast();
-        for(int i = 0; i < output.count(); i++){
+        for(int i = 0; i < outputOffset.count(); i++){
             int delta = function.getInput().count();
-            prevFunctionObject.getObjects().set(nextFunctionObject.getObjects().get(delta + i), output.get(i));
+            prevFunctionObject.getObjects().set(nextFunctionObject.getObjects().get(delta + i), outputOffset.get(i));
         }
         thread.setCurrentFunctionObject(prevFunctionObject);
         return getNextInstruction();

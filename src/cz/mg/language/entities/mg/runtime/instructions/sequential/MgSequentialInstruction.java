@@ -11,7 +11,7 @@ public abstract class MgSequentialInstruction extends MgInstruction {
     public MgSequentialInstruction() {
     }
 
-    public MgInstruction getNextInstruction() {
+    protected MgInstruction getNextInstruction() {
         return nextInstruction;
     }
 

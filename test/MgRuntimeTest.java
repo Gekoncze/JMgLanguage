@@ -2,11 +2,11 @@ import cz.mg.collections.array.Array;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
-import cz.mg.language.entities.mg.runtime.atoms.MgIntegerObject;
+import cz.mg.language.entities.mg.runtime.atoms.MgIntObject;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSequentialInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSetFieldToVariableInstruction;
-import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.integer.MgIntegerPlusIntegerInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.buildin.intt.MgIntPlusInstruction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.test.MgPrintIntegerInstruction;
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
@@ -27,8 +27,8 @@ public class MgRuntimeTest {
         clazz.setClasses(new Array<>());
         clazz.setFunctions(new Array<>());
         clazz.setVariables(new Array<>(
-            new MgVariable(new ReadonlyText("foo"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 0
-            new MgVariable(new ReadonlyText("bar"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE))  // 1
+            new MgVariable(new ReadonlyText("foo"), new MgDatatype(MgIntObject.TYPE, MgModifier.VALUE)), // 0
+            new MgVariable(new ReadonlyText("bar"), new MgDatatype(MgIntObject.TYPE, MgModifier.VALUE))  // 1
         ));
 
         MgFunction function = new MgFunction(new ReadonlyText("function"));
@@ -37,21 +37,21 @@ public class MgRuntimeTest {
         function.setOutput(new Array<>());
 
         function.setLocal(new Array<>(
-            new MgVariable(new ReadonlyText("a"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 0
-            new MgVariable(new ReadonlyText("b"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 1
-            new MgVariable(new ReadonlyText("c"), new MgDatatype(MgIntegerObject.TYPE, MgModifier.VALUE)), // 2
+            new MgVariable(new ReadonlyText("a"), new MgDatatype(MgIntObject.TYPE, MgModifier.VALUE)), // 0
+            new MgVariable(new ReadonlyText("b"), new MgDatatype(MgIntObject.TYPE, MgModifier.VALUE)), // 1
+            new MgVariable(new ReadonlyText("c"), new MgDatatype(MgIntObject.TYPE, MgModifier.VALUE)), // 2
             new MgVariable(new ReadonlyText("aa"), new MgDatatype(clazz, MgModifier.VALUE)),               // 3
             new MgVariable(new ReadonlyText("bb"), new MgDatatype(clazz, MgModifier.VALUE)),               // 4
             new MgVariable(new ReadonlyText("cc"), new MgDatatype(clazz, MgModifier.VALUE))                // 5
         ));
 
         function.setInstructions(new Array<>(
-            new MgIntegerPlusIntegerInstruction(0, 1, 2), // c = a + b
+            new MgIntPlusInstruction(0, 1, 2), // c = a + b
             new MgPrintIntegerInstruction(2),             // print c
             new MgSetFieldToVariableInstruction(3, 0, 0), // a = aa.foo
             new MgSetFieldToVariableInstruction(4, 0, 1), // b = bb.foo
             new MgSetFieldToVariableInstruction(5, 0, 2), // c = cc.foo
-            new MgIntegerPlusIntegerInstruction(0, 1, 2), // c = a + b
+            new MgIntPlusInstruction(0, 1, 2), // c = a + b
             new MgPrintIntegerInstruction(2)              // print c
         ));
 
@@ -110,7 +110,7 @@ public class MgRuntimeTest {
         return classObject;
     }
 
-    private static MgIntegerObject create(int integer){
-        return new MgIntegerObject(integer);
+    private static MgIntObject create(int integer){
+        return new MgIntObject(integer);
     }
 }

@@ -14,11 +14,11 @@ public class MgCreateFunctionInstruction extends MgSequentialInstruction {
     private final MgFunction function;
 
     @Value
-    private final Array<Integer> input;
+    private final Array<Integer> inputOffset;
 
-    public MgCreateFunctionInstruction(MgFunction function, Array<Integer> input) {
+    public MgCreateFunctionInstruction(MgFunction function, Array<Integer> inputOffset) {
         this.function = function;
-        this.input = input;
+        this.inputOffset = inputOffset;
     }
 
     @Override
@@ -26,8 +26,8 @@ public class MgCreateFunctionInstruction extends MgSequentialInstruction {
         MgFunctionObject prevFunctionObject = thread.getFunctionObjects().getLast();
         MgFunctionObject nextFunctionObject = new MgFunctionObject(function);
         thread.getFunctionObjects().addLast(nextFunctionObject);
-        for(int i = 0; i < input.count(); i++){
-            nextFunctionObject.getObjects().set(prevFunctionObject.getObjects().get(input.get(i)), i);
+        for(int i = 0; i < inputOffset.count(); i++){
+            nextFunctionObject.getObjects().set(prevFunctionObject.getObjects().get(inputOffset.get(i)), i);
         }
         thread.setCurrentFunctionObject(nextFunctionObject);
         return getNextInstruction();
