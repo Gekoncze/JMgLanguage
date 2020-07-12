@@ -32,5 +32,10 @@ public class MgAddBuildinComponentsTask extends MgResolverTask {
 
         stamps.getComponents().addLast(new MgLogicalBuildinStamp("public"));
         stamps.getComponents().addLast(new MgLogicalBuildinStamp("private"));
+
+        stamps.getComponents().addLast(new MgLogicalBuildinStamp("value"));
+        stamps.getComponents().addLast(new MgLogicalBuildinStamp("part"));
+        stamps.getComponents().addLast(new MgLogicalBuildinStamp("shared"));
+        stamps.getComponents().addLast(new MgLogicalBuildinStamp("link"));
     }
 }

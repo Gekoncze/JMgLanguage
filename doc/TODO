@@ -1,17 +1,21 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added part of class resolve and fixed lil usage resolve
+added filter and context helper classes
+added function resolver task
 work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+class resolution
+function resolution
+take into account access modifiers during resolve
+maybe filter usages at the beginning by type ?
+
 resolver + logical to runtime converter
     1# add buildin components
     2# creation of runtime empty components
     3# step of resolver
         a) resolution of logical usages
-            problem ... we need to resolve runtime components ...
-                because we need to set those to target runtime component during resolution
-
+        b) resolution of stamps
         resolution of names and operators - map those to usages
             cache all of these mappings to avoid unnecessary re-resolution
                 these will be cached per component context, ie per container
@@ -22,8 +26,6 @@ resolver + logical to runtime converter
             expression resolver
             mg command to instruction converter
             add more instructions
-
-take into account access modifiers during resolve
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

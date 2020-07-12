@@ -18,12 +18,16 @@ public class MgLogicalVariable extends MgLogicalPart implements Named, Stampable
     private Storage storage;
 
     @Value
+    private Requirement requirement;
+
+    @Value
     private final List<ReadableText> stamps = new List<>();
 
-    public MgLogicalVariable(ReadableText name, ReadableText type, Storage storage) {
+    public MgLogicalVariable(ReadableText name, ReadableText type, Storage storage, Requirement requirement) {
         this.name = name;
         this.type = type;
         this.storage = storage;
+        this.requirement = requirement;
     }
 
     @Override
@@ -47,14 +51,26 @@ public class MgLogicalVariable extends MgLogicalPart implements Named, Stampable
         this.storage = storage;
     }
 
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(Requirement requirement) {
+        this.requirement = requirement;
+    }
+
     @Override
     public List<ReadableText> getStamps() {
         return stamps;
     }
 
     public enum Storage {
-        VALUE,
-        ADDRESS,
-        NULLABLE_ADDRESS
+        DIRECT,
+        INDIRECT
+    }
+
+    public enum Requirement {
+        OPTIONAL,
+        MANDATORY
     }
 }

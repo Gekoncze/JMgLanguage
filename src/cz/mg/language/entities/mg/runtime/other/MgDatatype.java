@@ -10,18 +10,32 @@ public class MgDatatype extends MgOther {
     private final MgType type;
 
     @Value
-    private final MgModifier modifier;
+    private final Storage storage;
 
-    public MgDatatype(MgType type, MgModifier modifier) {
+    @Value
+    private final Requirement requirement;
+
+    public MgDatatype(MgType type, Storage storage, Requirement requirement) {
         this.type = type;
-        this.modifier = modifier;
+        this.storage = storage;
+        this.requirement = requirement;
     }
 
-    public MgType getType() {
-        return type;
+    public Storage getStorage() {
+        return storage;
     }
 
-    public MgModifier getModifier() {
-        return modifier;
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public enum Storage {
+        DIRECT,
+        INDIRECT
+    }
+
+    public enum Requirement {
+        OPTIONAL,
+        MANDATORY
     }
 }

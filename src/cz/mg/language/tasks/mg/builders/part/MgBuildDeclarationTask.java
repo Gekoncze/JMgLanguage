@@ -23,7 +23,8 @@ public class MgBuildDeclarationTask extends MgBuildPartTask<Declaration> {
         variable = new MgLogicalVariable(
             part.getObjectName().getText(),
             part.getTypeName().getText(),
-            MgLogicalVariable.Storage.valueOf(part.getStorage().name())
+            MgLogicalVariable.Storage.valueOf(part.getStorage().name()),
+            MgLogicalVariable.Requirement.valueOf(part.getRequirement().name())
         );
     }
 }

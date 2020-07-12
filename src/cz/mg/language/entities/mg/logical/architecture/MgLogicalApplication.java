@@ -8,7 +8,7 @@ import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinLoca
 
 public class MgLogicalApplication extends MgLogicalArchitectureEntity {
     @Part
-    private final MgLogicalLocation root = new MgLogicalBuildinLocation("", null);
+    private final MgLogicalLocation root = new MgLogicalBuildinLocation("");
 
     public MgLogicalApplication(ReadableText name) {
         super(name);
