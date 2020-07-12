@@ -1,6 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added filter and context helper classes
-added function resolver task
+major resolver improvements
 work in progress ...
 
 
@@ -9,6 +8,7 @@ class resolution
 function resolution
 take into account access modifiers during resolve
 maybe filter usages at the beginning by type ?
+add support for logical variables as logical components if possible
 
 resolver + logical to runtime converter
     1# add buildin components

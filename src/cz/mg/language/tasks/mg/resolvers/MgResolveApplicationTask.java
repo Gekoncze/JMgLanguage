@@ -6,21 +6,18 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.architecture.MgLogicalApplication;
 import cz.mg.language.entities.mg.logical.components.*;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.MgStamp;
 
 
-public class MgPrepareRuntimeObjectsTask extends MgResolverTask {
+public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
     @Input
     private final MgLogicalApplication logicalApplication;
 
     @Output
     private MgApplication application;
 
-    public MgPrepareRuntimeObjectsTask(MgLogicalApplication logicalApplication) {
+    public MgResolveApplicationTask(MgLogicalApplication logicalApplication) {
+        super((output)->{}, null);
         this.logicalApplication = logicalApplication;
     }
 
@@ -29,37 +26,57 @@ public class MgPrepareRuntimeObjectsTask extends MgResolverTask {
     }
 
     @Override
-    protected void onRun() {
+    protected MgApplication onResolve() {
         application = new MgApplication(logicalApplication.getName());
         application.getRoot().getObjects().addCollectionLast(
             prepareLocation(logicalApplication.getRoot()).getObjects()
         );
+
+        todo; // TODO - call required resolves in correct order
+
+        return application;
     }
 
     private MgLocation prepareLocation(MgLogicalLocation logicalLocation){
         MgLocation location = new MgLocation(logicalLocation.getName());
         for(MgLogicalComponent logicalComponent : logicalLocation.getComponents()){
-            location.getObjects().addLast(prepareComponent(logicalComponent));
+            prepareComponent(logicalComponent, location);
         }
         return location;
     }
 
-    private MgComponent prepareComponent(MgLogicalComponent logicalComponent){
+    private void prepareComponent(MgLogicalComponent logicalComponent, final MgLocation location){
         if(logicalComponent instanceof MgLogicalLocation){
-            return prepareLocation((MgLogicalLocation) logicalComponent);
+            location.getObjects().addLast(prepareLocation((MgLogicalLocation) logicalComponent));
         }
 
         if(logicalComponent instanceof MgLogicalStamp){
-            return new MgStamp(logicalComponent.getName());
+            createAndPostpone(
+                MgResolveStampTask.class,
+                logicalComponent,
+                object -> location.getObjects().addLast(object)
+            );
         }
 
         if(logicalComponent instanceof MgLogicalClass){
-            return new MgClass(logicalComponent.getName()); // TODO - might need to prepare typeless variables
+            createAndPostpone(
+                MgResolveClassTask.class,
+                logicalComponent,
+                object -> location.getObjects().addLast(object)
+            );
         }
 
         if(logicalComponent instanceof MgLogicalFunction){
-            return new MgFunction(logicalComponent.getName()); // TODO - might need to prepare typeless variables
+            createAndPostpone(
+                MgResolveFunctionTask.class,
+                logicalComponent,
+                object -> location.getObjects().addLast(object)
+            );
         }
+
+//        if(logicalComponent instanceof MgLogicalVariable){ // TODO - add support if possible
+//
+//        }
 
         throw new LanguageException("Unsupported logical component for resolve: " + logicalComponent.getClass().getSimpleName());
     }

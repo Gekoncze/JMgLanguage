@@ -8,9 +8,10 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalContext;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
+import cz.mg.language.tasks.Task;
 
 
-public class MgResolveUsagesTask extends MgResolverTask {
+public class MgResolveUsagesTask extends Task { // TODO
     @Input
     private final MgLocation location;
 

@@ -1,13 +1,14 @@
-package cz.mg.language.tasks.mg.resolvers;
+package cz.mg.language.tasks.mg.other;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinLocation;
 import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
 import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinClass;
 import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinStamp;
+import cz.mg.language.tasks.Task;
 
 
-public class MgAddBuildinComponentsTask extends MgResolverTask {
+public class MgAddBuildinComponentsTask extends Task {
     @Input
     private final MgLogicalLocation root;
 

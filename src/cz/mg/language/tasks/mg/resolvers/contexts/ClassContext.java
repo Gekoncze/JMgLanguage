@@ -9,10 +9,17 @@ import cz.mg.language.tasks.mg.resolvers.Context;
 
 public class ClassContext extends Context {
     @Link
-    private final MgClass clazz;
+    private MgClass clazz;
 
-    public ClassContext(Context outerContext, MgClass clazz) {
+    public ClassContext(Context outerContext) {
         super(outerContext);
+    }
+
+    public MgClass getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(MgClass clazz) {
         this.clazz = clazz;
     }
 

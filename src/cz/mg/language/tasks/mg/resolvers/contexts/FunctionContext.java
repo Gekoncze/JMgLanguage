@@ -9,10 +9,17 @@ import cz.mg.language.tasks.mg.resolvers.Context;
 
 public class FunctionContext extends Context {
     @Link
-    private final MgFunction function;
+    private MgFunction function;
 
-    public FunctionContext(Context outerContext, MgFunction function) {
+    public FunctionContext(Context outerContext) {
         super(outerContext);
+    }
+
+    public MgFunction getFunction() {
+        return function;
+    }
+
+    public void setFunction(MgFunction function) {
         this.function = function;
     }
 

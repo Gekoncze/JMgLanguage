@@ -10,9 +10,10 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.tasks.Task;
 
 
-public class MgResolveUsageTask extends MgResolverTask {
+public class MgResolveUsageTask extends Task { // TODO
     @Input
     private final MgLogicalUsage usage;
 
