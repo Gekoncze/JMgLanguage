@@ -12,7 +12,6 @@ import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.other.MgDatatype;
-import cz.mg.language.entities.mg.runtime.other.MgRelationship;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
@@ -27,8 +26,8 @@ public class MgRuntimeTest {
         clazz.setClasses(new Array<>());
         clazz.setFunctions(new Array<>());
         clazz.setVariables(new Array<>(
-            new MgVariable(new ReadonlyText("foo"), new MgDatatype(MgIntObject.TYPE, MgRelationship.VALUE)), // 0
-            new MgVariable(new ReadonlyText("bar"), new MgDatatype(MgIntObject.TYPE, MgRelationship.VALUE))  // 1
+            new MgVariable(new ReadonlyText("foo"), new MgDatatype(MgIntObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)), // 0
+            new MgVariable(new ReadonlyText("bar"), new MgDatatype(MgIntObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL))  // 1
         ));
 
         MgFunction function = new MgFunction(new ReadonlyText("function"));
@@ -37,12 +36,12 @@ public class MgRuntimeTest {
         function.setOutput(new Array<>());
 
         function.setLocal(new Array<>(
-            new MgVariable(new ReadonlyText("a"), new MgDatatype(MgIntObject.TYPE, MgRelationship.VALUE)), // 0
-            new MgVariable(new ReadonlyText("b"), new MgDatatype(MgIntObject.TYPE, MgRelationship.VALUE)), // 1
-            new MgVariable(new ReadonlyText("c"), new MgDatatype(MgIntObject.TYPE, MgRelationship.VALUE)), // 2
-            new MgVariable(new ReadonlyText("aa"), new MgDatatype(clazz, MgRelationship.VALUE)),               // 3
-            new MgVariable(new ReadonlyText("bb"), new MgDatatype(clazz, MgRelationship.VALUE)),               // 4
-            new MgVariable(new ReadonlyText("cc"), new MgDatatype(clazz, MgRelationship.VALUE))                // 5
+            new MgVariable(new ReadonlyText("a"), new MgDatatype(MgIntObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)), // 0
+            new MgVariable(new ReadonlyText("b"), new MgDatatype(MgIntObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)), // 1
+            new MgVariable(new ReadonlyText("c"), new MgDatatype(MgIntObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)), // 2
+            new MgVariable(new ReadonlyText("aa"), new MgDatatype(clazz, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)),               // 3
+            new MgVariable(new ReadonlyText("bb"), new MgDatatype(clazz, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)),               // 4
+            new MgVariable(new ReadonlyText("cc"), new MgDatatype(clazz, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL))                // 5
         ));
 
         function.setInstructions(new Array<>(

@@ -48,8 +48,8 @@ public class MgResolveFunctionTask extends MgResolveTask<MgFunction> {
             variables -> function.setLocal(variables)
         );
 
-        function.setInstructions(resolveInstructions()); // TODO
-        function.setOperator(resolveOperator()); // TODO
+        //function.setInstructions(resolveInstructions()); // TODO
+        //function.setOperator(resolveOperator()); // TODO
 
         return function;
     }

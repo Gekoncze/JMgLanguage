@@ -32,7 +32,7 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
             prepareLocation(logicalApplication.getRoot()).getObjects()
         );
 
-        todo; // TODO - call required resolves in correct order
+        //todo; // TODO - call required resolves in correct order
 
         return application;
     }

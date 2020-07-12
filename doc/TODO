@@ -1,6 +1,4 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-major resolver improvements
-work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -26,6 +24,8 @@ resolver + logical to runtime converter
             expression resolver
             mg command to instruction converter
             add more instructions
+
+fix runtime test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

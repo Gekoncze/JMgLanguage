@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.resolvers;
 
 import cz.mg.collections.Collection;
+import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
@@ -57,7 +58,7 @@ public abstract class MgResolveTask<O extends MgObject> extends Task {
 
     protected <O2 extends MgObject> void createAndPostponeMore(
         Class<? extends MgResolveTask<O2>> taskClass,
-        Collection inputs,
+        ReadableCollection inputs,
         ArrayStore<O2> store
     ){
         Array<O2> outputs = new Array<>(inputs.count());
