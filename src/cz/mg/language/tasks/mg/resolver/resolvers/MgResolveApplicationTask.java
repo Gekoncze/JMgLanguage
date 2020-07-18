@@ -11,10 +11,7 @@ import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.tasks.mg.resolver.MgAddBuildinComponentsTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveInstructionsTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveUsagesTask;
-import cz.mg.language.tasks.mg.resolver.resolvers.component.MgResolveClassDefinitionTask;
-import cz.mg.language.tasks.mg.resolver.resolvers.component.MgResolveFunctionDefinitionTask;
-import cz.mg.language.tasks.mg.resolver.resolvers.component.MgResolveStampDefinitionTask;
-import cz.mg.language.tasks.mg.resolver.resolvers.component.MgResolveVariableDefinitionTask;
+import cz.mg.language.tasks.mg.resolver.resolvers.component.*;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveClassInheritanceTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveComponentStampTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveVariableDatatypeTask;
@@ -79,7 +76,7 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
     }
 
     private void resolveCollectionDefinitions(){
-        // TODO
+        resolve(MgResolveCollectionDefinitionTask.class);
     }
 
     private void resolveVariableDefinitions(){
@@ -155,6 +152,14 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
             );
         }
 
-        throw new LanguageException("Unsupported logical component for resolve: " + logicalComponent.getClass().getSimpleName());
+        if(logicalComponent instanceof MgLogicalCollection){
+            createAndPostpone(
+                MgResolveCollectionDefinitionTask.class,
+                logicalComponent,
+                object -> location.getObjects().addLast(object)
+            );
+        }
+
+        throw new LanguageException("Resolution of " + logicalComponent.getClass().getSimpleName() + " is not supported in location context.");
     }
 }

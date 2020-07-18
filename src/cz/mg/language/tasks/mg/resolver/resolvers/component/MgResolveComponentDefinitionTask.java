@@ -12,7 +12,7 @@ import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveComponentStampTask;
 
 
-public abstract class MgResolveComponentDefinitionTask<O extends MgObject> extends MgResolveTask<O> {
+public abstract class MgResolveComponentDefinitionTask<O extends MgComponent> extends MgResolveTask<O> {
     @Input
     private final MgLogicalComponent logicalComponent;
 
@@ -21,7 +21,7 @@ public abstract class MgResolveComponentDefinitionTask<O extends MgObject> exten
         this.logicalComponent = logicalComponent;
     }
 
-    public abstract MgComponent getOutput();
+    public abstract O getOutput();
 
     @Override
     protected final O onResolve() {

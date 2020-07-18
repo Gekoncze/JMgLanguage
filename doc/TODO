@@ -1,6 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-implemented resolution order + some resolver improvements
-prepared resolve instruction task - work in progress
+prepared support for collections + minor improvements
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -27,6 +26,9 @@ add support for global variables ?
 
 mg add support for relative "../" usages ???
 mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
+
+complete support for collections
+    for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)
 
 add support for operator definitions
     operators are build on top of functions, as an optional syntactical sugar
