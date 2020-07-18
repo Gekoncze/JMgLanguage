@@ -17,12 +17,21 @@ fix runtime test
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 make MgCore work
-move all subtasks to Task class ???
-how to handle nulls and what will be their syntax?
-    probably as a buildin component
 
-add support for global variables ?
+move all subtasks to Task class ???
+    we could then have an universal execute method
+    there we could specify if we do run or try to run at global level, if possible, thats it
+
+how to handle nulls and what will be their syntax?
+    it will be probably a buildin global variable within a buildin location with a buildin value of null
+
+add support for global variables
     in logical class the field is already prepared, but I dont know if it is actually used during build
+    difference between variables and global variables
+    global variables can hold values directly
+    variables cannot hold values directly, those are held by actual objects
+    maybe rename class and function variables to fields and parameters ?
+        would also require rename of collection parameter to something like type parameter
 
 mg add support for relative "../" usages ???
 mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
