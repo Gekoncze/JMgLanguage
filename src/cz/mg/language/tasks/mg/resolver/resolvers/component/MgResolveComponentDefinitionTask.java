@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.resolvers.component;
 
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
@@ -9,18 +8,15 @@ import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgResolveUsagesTask;
 import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.contexts.ComponentContext;
-import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveComponentStampTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
+import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveComponentStampTask;
 
 
-public abstract class MgResolveComponentTask<O extends MgObject> extends MgResolveTask<O> {
+public abstract class MgResolveComponentDefinitionTask<O extends MgObject> extends MgResolveTask<O> {
     @Input
     private final MgLogicalComponent logicalComponent;
 
-    @Subtask
-    private MgResolveUsagesTask resolveUsagesTask;
-
-    public MgResolveComponentTask(Store<O> store, Context context, MgLogicalComponent logicalComponent) {
+    public MgResolveComponentDefinitionTask(Store<O> store, Context context, MgLogicalComponent logicalComponent) {
         super(store, new ComponentContext(context));
         this.logicalComponent = logicalComponent;
     }
@@ -29,9 +25,13 @@ public abstract class MgResolveComponentTask<O extends MgObject> extends MgResol
 
     @Override
     protected final O onResolve() {
-        resolveUsagesTask = new MgResolveUsagesTask(getContext().getLocation(), logicalComponent.getContext());
-        resolveUsagesTask.run();
-        ((ComponentContext)getContext()).setComponents(resolveUsagesTask.getComponents());
+        postpone(
+            new MgResolveUsagesTask(
+                getContext().getLocation(),
+                logicalComponent.getContext(),
+                (ComponentContext) getContext()
+            )
+        );
 
         createAndPostponeMore(
             MgResolveComponentStampTask.class,

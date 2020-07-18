@@ -10,14 +10,14 @@ import cz.mg.language.tasks.mg.resolver.contexts.ClassContext;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveClassInheritanceTask;
 
 
-public class MgResolveClassTask extends MgResolveComponentTask<MgClass> {
+public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTask<MgClass> {
     @Input
     private final MgLogicalClass logicalClass;
 
     @Output
     private MgClass clazz;
 
-    public MgResolveClassTask(Store<MgClass> store, Context context, MgLogicalClass logicalClass) {
+    public MgResolveClassDefinitionTask(Store<MgClass> store, Context context, MgLogicalClass logicalClass) {
         super(store, new ClassContext(context), logicalClass);
         this.logicalClass = logicalClass;
     }
@@ -39,13 +39,13 @@ public class MgResolveClassTask extends MgResolveComponentTask<MgClass> {
         );
 
         createAndPostponeMore(
-            MgResolveVariableTask.class,
+            MgResolveVariableDefinitionTask.class,
             logicalClass.getVariables(),
             variables -> clazz.setVariables(variables)
         );
 
         createAndPostponeMore(
-            MgResolveFunctionTask.class,
+            MgResolveFunctionDefinitionTask.class,
             logicalClass.getFunctions(),
             functions -> clazz.setFunctions(functions)
         );

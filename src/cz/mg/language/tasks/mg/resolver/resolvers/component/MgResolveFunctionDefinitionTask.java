@@ -5,18 +5,19 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.Context;
+import cz.mg.language.tasks.mg.resolver.MgResolveInstructionsTask;
 import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.contexts.FunctionContext;
 
 
-public class MgResolveFunctionTask extends MgResolveComponentTask<MgFunction> {
+public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitionTask<MgFunction> {
     @Input
     private final MgLogicalFunction logicalFunction;
 
     @Output
     private MgFunction function;
 
-    public MgResolveFunctionTask(Store<MgFunction> store, Context context, MgLogicalFunction logicalFunction) {
+    public MgResolveFunctionDefinitionTask(Store<MgFunction> store, Context context, MgLogicalFunction logicalFunction) {
         super(store, new FunctionContext(context), logicalFunction);
         this.logicalFunction = logicalFunction;
     }
@@ -33,24 +34,30 @@ public class MgResolveFunctionTask extends MgResolveComponentTask<MgFunction> {
         ((FunctionContext)getContext()).setFunction(function);
 
         createAndPostponeMore(
-            MgResolveVariableTask.class,
+            MgResolveVariableDefinitionTask.class,
             function.getInput(),
             variables -> function.setInput(variables)
         );
 
         createAndPostponeMore(
-            MgResolveVariableTask.class,
+            MgResolveVariableDefinitionTask.class,
             function.getOutput(),
             variables -> function.setOutput(variables)
         );
 
         createAndPostponeMore(
-            MgResolveVariableTask.class,
+            MgResolveVariableDefinitionTask.class,
             function.getLocal(),
             variables -> function.setLocal(variables)
         );
 
-        //function.setInstructions(resolveInstructions()); // TODO
+        postpone(
+            new MgResolveInstructionsTask(
+                getContext(),
+                logicalFunction,
+                function
+            )
+        );
 
         return function;
     }

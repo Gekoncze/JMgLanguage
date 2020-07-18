@@ -8,14 +8,14 @@ import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.Store;
 
 
-public class MgResolveStampTask extends MgResolveComponentTask<MgStamp> {
+public class MgResolveStampDefinitionTask extends MgResolveComponentDefinitionTask<MgStamp> {
     @Input
     private final MgLogicalStamp logicalStamp;
 
     @Output
     private MgStamp stamp;
 
-    public MgResolveStampTask(Store<MgStamp> store, Context context, MgLogicalStamp logicalStamp) {
+    public MgResolveStampDefinitionTask(Store<MgStamp> store, Context context, MgLogicalStamp logicalStamp) {
         super(store, context, logicalStamp);
         this.logicalStamp = logicalStamp;
     }

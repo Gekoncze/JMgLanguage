@@ -1,8 +1,6 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-improved resolve component tasks
-found proper place for add buildin components and resolve usages tasks
-added operator to logical function
-added build operator (for function header) task
+implemented resolution order + some resolver improvements
+prepared resolve instruction task - work in progress
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -15,15 +13,6 @@ function resolution
             add more instructions
 
 take into account access modifiers during resolve
-
-resolver + logical to runtime converter
-    1# add buildin components
-    2# create empty runtime components
-    3# resolution of usages
-    4# resolution of stamps
-    5# resolution of components
-    6# resolution of instructions
-
 fix runtime test
 
 

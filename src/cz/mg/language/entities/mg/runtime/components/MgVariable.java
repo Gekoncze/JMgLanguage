@@ -10,19 +10,26 @@ public class MgVariable extends MgComponent {
     private static final MgType TYPE = new MgType("Variable");
 
     @Value
-    private final MgDatatype datatype;
+    private MgDatatype datatype;
 
-    protected MgVariable(MgType type, ReadableText name, MgDatatype datatype) {
+    protected MgVariable(MgType type, ReadableText name) {
         super(type, name);
-        this.datatype = datatype;
+    }
+
+    public MgVariable(ReadableText name) {
+        super(TYPE, name);
     }
 
     public MgVariable(ReadableText name, MgDatatype datatype) {
         super(TYPE, name);
-        this.datatype = datatype;
+        setDatatype(datatype);
     }
 
     public MgDatatype getDatatype() {
         return datatype;
+    }
+
+    public void setDatatype(MgDatatype datatype) {
+        this.datatype = datatype;
     }
 }
