@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.MgResolveInstructionsTask;
+import cz.mg.language.tasks.mg.resolver.command.MgResolveFunctionCommandsTask;
 import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.contexts.FunctionContext;
 
@@ -46,7 +46,7 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
         );
 
         postpone(
-            new MgResolveInstructionsTask(
+            new MgResolveFunctionCommandsTask(
                 getContext(),
                 logicalFunction,
                 function
