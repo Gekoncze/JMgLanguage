@@ -5,7 +5,6 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
 
 
 public class MgLogicalFunction extends MgLogicalComponent {
@@ -14,9 +13,6 @@ public class MgLogicalFunction extends MgLogicalComponent {
 
     @Part
     private final List<MgLogicalVariable> output = new List<>();
-
-    @Part
-    private final List<MgVariable> variables = new List<>();
 
     @Part
     private final List<MgLogicalCommand> commands = new List<>();
@@ -37,10 +33,6 @@ public class MgLogicalFunction extends MgLogicalComponent {
 
     public List<MgLogicalVariable> getOutput() {
         return output;
-    }
-
-    public List<MgVariable> getVariables() {
-        return variables;
     }
 
     public List<MgLogicalCommand> getCommands() {
