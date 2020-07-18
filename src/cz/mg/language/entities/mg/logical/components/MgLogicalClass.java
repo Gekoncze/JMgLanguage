@@ -4,7 +4,6 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.logical.parts.MgLogicalVariable;
 
 
 public class MgLogicalClass extends MgLogicalComponent {
