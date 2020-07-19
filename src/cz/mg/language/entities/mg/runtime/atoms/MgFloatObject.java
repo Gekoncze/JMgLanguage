@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgFloatObject extends MgAtom {
-    private static final MgType TYPE = new MgType("Float");
+    public static final MgType TYPE = new MgType("Float");
 
     @Value
     private float value;

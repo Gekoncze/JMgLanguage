@@ -1,41 +1,49 @@
 package cz.mg.language.tasks.mg.resolver;
 
+import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
-import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinClass;
-import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinLocation;
-import cz.mg.language.entities.mg.logical.components.buidin.MgLogicalBuildinStamp;
+import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.atoms.MgFloatObject;
+import cz.mg.language.entities.mg.runtime.atoms.MgIntObject;
+import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
+import cz.mg.language.entities.mg.runtime.components.MgLocation;
+import cz.mg.language.entities.mg.runtime.components.MgStamp;
+import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 
 
 public class MgAddBuildinComponentsTask extends MgResolverTask {
     @Input
-    private final MgLogicalLocation root;
+    private final MgLocation root;
 
-    public MgAddBuildinComponentsTask(MgLogicalLocation root) {
+    public MgAddBuildinComponentsTask(MgLocation root) {
         this.root = root;
     }
 
     @Override
     protected void onRun() {
-        MgLogicalBuildinLocation cz = new MgLogicalBuildinLocation("cz");
-        MgLogicalBuildinLocation mg = new MgLogicalBuildinLocation("mg");
-        MgLogicalBuildinLocation types = new MgLogicalBuildinLocation("types");
-        MgLogicalBuildinLocation stamps = new MgLogicalBuildinLocation("stamps");
-        cz.getComponents().addLast(mg);
-        mg.getComponents().addLast(types);
-        mg.getComponents().addLast(stamps);
-        root.getComponents().addLast(cz);
+        MgLocation cz = new MgLocation(new ReadonlyText("cz"));
+        MgLocation mg = new MgLocation(new ReadonlyText("mg"));
+        MgLocation types = new MgLocation(new ReadonlyText("types"));
+        MgLocation stamps = new MgLocation(new ReadonlyText("stamps"));
+        cz.getObjects().addLast(mg);
+        mg.getObjects().addLast(types);
+        mg.getObjects().addLast(stamps);
+        root.getObjects().addLast(cz);
 
-        types.getComponents().addLast(new MgLogicalBuildinClass("Bool"));
-        types.getComponents().addLast(new MgLogicalBuildinClass("Int"));
-        types.getComponents().addLast(new MgLogicalBuildinClass("Float"));
+        MgDatatype nullDatatype = new MgDatatype(MgObject.TYPE, MgDatatype.Storage.INDIRECT, MgDatatype.Requirement.OPTIONAL);
+        mg.getObjects().addLast(new MgGlobalVariable(new ReadonlyText("null"), nullDatatype, null));
 
-        stamps.getComponents().addLast(new MgLogicalBuildinStamp("public"));
-        stamps.getComponents().addLast(new MgLogicalBuildinStamp("private"));
+        types.getObjects().addLast(MgBoolObject.TYPE);
+        types.getObjects().addLast(MgIntObject.TYPE);
+        types.getObjects().addLast(MgFloatObject.TYPE);
 
-        stamps.getComponents().addLast(new MgLogicalBuildinStamp("value"));
-        stamps.getComponents().addLast(new MgLogicalBuildinStamp("part"));
-        stamps.getComponents().addLast(new MgLogicalBuildinStamp("shared"));
-        stamps.getComponents().addLast(new MgLogicalBuildinStamp("link"));
+        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("public")));
+        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("private")));
+
+        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("value")));
+        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("part")));
+        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("shared")));
+        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("link")));
     }
 }

@@ -1,9 +1,12 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added runtime global variables
-added instructions to read/write global variables
+fixed add buildin components task
+added buildin null global variable
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+omg fix add buildin components task
+    it should add runtime objects ...
+
 function resolution
     resolve instructions
         command resolver
@@ -11,6 +14,8 @@ function resolution
             expression resolver
             mg command to instruction converter
             add more instructions
+            store literal values in function global variables
+                literals always use converter ... when should this be run?
 
 an idea for resolution of expressions
     browse it as a tree, have a resolve method to return list of variables for an expression element
@@ -25,11 +30,7 @@ fix runtime test
 make MgCore work
 
 move all subtasks to Task class ???
-    we could then have an universal execute method
-    there we could specify if we do run or try to run at global level, if possible, thats it
-
-how to handle nulls and what will be their syntax?
-    it will be probably a buildin global variable within a buildin location with a buildin value of null
+    we could then have execute and try to execute methods
 
 add support for global variables
     in logical class the field is already prepared, but I dont know if it is actually used during build
@@ -78,6 +79,8 @@ think about static variables, we might want these to supply enums
 ### LATER ### ----------------------------------------------------------------------------------------------------------
 mg logic entity versioning ?
 mg runtime entity versioning ?
+mg gloval variable - add runtime validation for type?
+mg member variable - add runtime validation for type?
 
 think of possible scheduler
     schedulers can schedule:

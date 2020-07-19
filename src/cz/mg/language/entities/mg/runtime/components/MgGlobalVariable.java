@@ -4,6 +4,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 
 
 public class MgGlobalVariable extends MgVariable {
@@ -18,6 +19,11 @@ public class MgGlobalVariable extends MgVariable {
 
     public MgGlobalVariable(ReadableText name) {
         super(TYPE, name);
+    }
+
+    public MgGlobalVariable(ReadableText name, MgDatatype datatype, MgObject object) {
+        super(name, datatype);
+        this.object = object;
     }
 
     public MgObject getObject() {

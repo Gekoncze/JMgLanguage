@@ -6,6 +6,8 @@ import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgObject extends MgRuntimeEntity {
+    public static final MgType TYPE = new MgType("Object");
+
     @Link
     private final MgType type;
 

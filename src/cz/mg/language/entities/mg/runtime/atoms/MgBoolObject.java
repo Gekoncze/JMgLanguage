@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgBoolObject extends MgAtom {
-    private static final MgType TYPE = new MgType("Bool");
+    public static final MgType TYPE = new MgType("Bool");
 
     @Value
     private boolean value;
