@@ -1,11 +1,12 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed add buildin components task
-added buildin null global variable
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-omg fix add buildin components task
-    it should add runtime objects ...
+add support for global variables
+    in logical class the field is already prepared, but I dont know if it is actually used during build
+
+add priority to functions for operators
 
 function resolution
     resolve instructions
@@ -29,22 +30,12 @@ fix runtime test
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 make MgCore work
 
-move all subtasks to Task class ???
-    we could then have execute and try to execute methods
-
-add support for global variables
-    in logical class the field is already prepared, but I dont know if it is actually used during build
-    difference between variables and global variables
-    global variables can hold values directly
-    variables cannot hold values directly, those are held by actual objects
-    maybe rename class and function variables to fields and parameters ?
-        would also require rename of collection parameter to something like type parameter
+complete support for collections
+    for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)
+    they should definitely be distinguished as readable, writeable, readonly, nonnull somehow
 
 mg add support for relative "../" usages ???
 mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
-
-complete support for collections
-    for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)
 
 add support for operator definitions
     operators are build on top of functions, as an optional syntactical sugar
@@ -56,30 +47,24 @@ add support for operator definitions
 
 add support for variable number of parameters of functions ?
 
-think about runtime and logical high-level architecture
+high-level architecture
     modules or bundles or libraries or packages ...
         we could take a look at locations as folders/directories in os
         packages would be like installer packages in os
         components would be like files in os
-
-    implement logic for loading modules/bundles/libraries/package
-
-mg collection definitions
-    they should definitely be distinguished as readable, writeable, readonly, nonnull somehow
+    how would this be solved on both logical and runtime level?
 
 mg stamps definitions
-    additional information for the compiler
-    can be mandatory or optional ?
+    additional information for the compiler or during runtime
+    when used, the "instances" cannot hold any values, those will be just references to the definition
+    can be mandatory or optional ? or maybe it could be called critical or something like that
         for mandatory stamps, the compiler has to throw an error if it cannot handle them
-
-think about static variables, we might want these to supply enums
-    where will those be stored in at runtime? in classes directly maybe?
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
 mg logic entity versioning ?
 mg runtime entity versioning ?
-mg gloval variable - add runtime validation for type?
+mg global variable - add runtime validation for type?
 mg member variable - add runtime validation for type?
 
 think of possible scheduler
@@ -107,7 +92,7 @@ c writer
 
 function pointers in mg - will be called interfaces (java like interfaces might be called roles)
 
-improve exceptions
+improve compiler exceptions
     add more exception types
     add some kind of tracing
         how to trace origin for error messages?
@@ -122,6 +107,9 @@ add entity validations
 
 mg language - required vs optional input and output variables for functions
     can be implemented as syntactical sugar
+
+move all subtasks to Task class ???
+    we could then have execute and try to execute methods
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------
