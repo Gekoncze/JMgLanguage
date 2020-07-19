@@ -4,6 +4,7 @@ import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 
@@ -13,6 +14,9 @@ public class MgFunction extends MgInterface {
 
     @Part
     private ReadableArray<MgVariable> local;
+
+    @Part
+    private ReadableArray<MgGlobalVariable> globalVariables;
 
     @Part
     private ReadableArray<MgInstruction> instructions;
@@ -30,6 +34,14 @@ public class MgFunction extends MgInterface {
 
     public ReadableArray<MgVariable> getLocal() {
         return local;
+    }
+
+    public ReadableArray<MgGlobalVariable> getGlobalVariables() {
+        return globalVariables;
+    }
+
+    public void setGlobalVariables(ReadableArray<MgGlobalVariable> globalVariables) {
+        this.globalVariables = globalVariables;
     }
 
     public ReadableArray<MgInstruction> getInstructions() {

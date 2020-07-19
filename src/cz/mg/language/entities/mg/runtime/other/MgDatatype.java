@@ -21,6 +21,10 @@ public class MgDatatype extends MgOther {
         this.requirement = requirement;
     }
 
+    public MgType getType() {
+        return type;
+    }
+
     public Storage getStorage() {
         return storage;
     }

@@ -1,5 +1,6 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+added runtime global variables
+added instructions to read/write global variables
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -10,6 +11,11 @@ function resolution
             expression resolver
             mg command to instruction converter
             add more instructions
+
+an idea for resolution of expressions
+    browse it as a tree, have a resolve method to return list of variables for an expression element
+        this resolve method will be adding instructions and created variables to a stack
+            for complex expressions this will create anonymous variables with no name, but with a type
 
 take into account access modifiers during resolve
 fix runtime test

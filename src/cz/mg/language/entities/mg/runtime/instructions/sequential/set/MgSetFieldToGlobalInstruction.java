@@ -1,13 +1,15 @@
-package cz.mg.language.entities.mg.runtime.instructions.sequential;
+package cz.mg.language.entities.mg.runtime.instructions.sequential.set;
 
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
+import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSequentialInstruction;
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
 
 
-public class MgSetFieldToVariableInstruction extends MgSequentialInstruction {
+public class MgSetFieldToGlobalInstruction extends MgSequentialInstruction {
     @Value
     private final int sourceIndex;
 
@@ -15,19 +17,19 @@ public class MgSetFieldToVariableInstruction extends MgSequentialInstruction {
     private final int sourceFieldIndex;
 
     @Value
-    private final int targetIndex;
+    private final MgGlobalVariable globalVariable;
 
-    public MgSetFieldToVariableInstruction(int sourceIndex, int sourceFieldIndex, int targetIndex) {
+    public MgSetFieldToGlobalInstruction(int sourceIndex, int sourceFieldIndex, MgGlobalVariable globalVariable) {
         this.sourceIndex = sourceIndex;
         this.sourceFieldIndex = sourceFieldIndex;
-        this.targetIndex = targetIndex;
+        this.globalVariable = globalVariable;
     }
 
     @Override
     public MgInstruction run(MgThread thread) {
         MgClassObject source = (MgClassObject) thread.getCurrentFunctionObject().getObjects().get(sourceIndex);
         MgObject sourceMember = source.getObjects().get(sourceFieldIndex);
-        thread.getCurrentFunctionObject().getObjects().set(sourceMember, targetIndex);
+       globalVariable.setObject(sourceMember);
         return getNextInstruction();
     }
 }

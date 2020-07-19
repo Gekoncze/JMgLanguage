@@ -5,6 +5,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 
 
@@ -19,6 +20,9 @@ public class MgClass extends MgType implements Named {
 
     @Part
     private ReadableArray<MgFunction> functions;
+
+    @Part
+    private ReadableArray<MgGlobalVariable> globalVariables;
 
     protected MgClass(MgType type, ReadableText name) {
         super(type, name);
@@ -50,5 +54,13 @@ public class MgClass extends MgType implements Named {
 
     public void setFunctions(ReadableArray<MgFunction> functions) {
         this.functions = functions;
+    }
+
+    public ReadableArray<MgGlobalVariable> getGlobalVariables() {
+        return globalVariables;
+    }
+
+    public void setGlobalVariables(ReadableArray<MgGlobalVariable> globalVariables) {
+        this.globalVariables = globalVariables;
     }
 }

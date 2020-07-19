@@ -1,13 +1,14 @@
-package cz.mg.language.entities.mg.runtime.instructions.sequential;
+package cz.mg.language.entities.mg.runtime.instructions.sequential.set;
 
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
+import cz.mg.language.entities.mg.runtime.instructions.sequential.MgSequentialInstruction;
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
 
 
-public class MgSetVariableToFieldInstruction extends MgSequentialInstruction {
+public class MgSetLocalToFieldInstruction extends MgSequentialInstruction {
     @Value
     private final int sourceIndex;
 
@@ -17,7 +18,7 @@ public class MgSetVariableToFieldInstruction extends MgSequentialInstruction {
     @Value
     private final int targetFieldIndex;
 
-    public MgSetVariableToFieldInstruction(int sourceIndex, int targetIndex, int targetFieldIndex) {
+    public MgSetLocalToFieldInstruction(int sourceIndex, int targetIndex, int targetFieldIndex) {
         this.sourceIndex = sourceIndex;
         this.targetIndex = targetIndex;
         this.targetFieldIndex = targetFieldIndex;
