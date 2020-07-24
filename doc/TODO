@@ -1,13 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added global variable builder
-removed logical buildin entities
-minor bug fixes
+added global variable resolver
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-add support for global variables
-    in logical class the field is already prepared, but I dont know if it is actually used during build
-
 add priority to functions for operators
 
 function resolution

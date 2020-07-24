@@ -50,6 +50,12 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
             functions -> clazz.setFunctions(functions)
         );
 
+        createAndPostponeMore(
+            MgResolveGlobalVariableDefinitionTask.class,
+            logicalClass.getGlobalVariables(),
+            variables -> clazz.setGlobalVariables(variables)
+        );
+
         return clazz;
     }
 }
