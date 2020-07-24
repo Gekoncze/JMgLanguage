@@ -9,6 +9,7 @@ import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.MgBuildDeclarationsBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.MgBuildOperatorBlockTask;
+import cz.mg.language.tasks.mg.builder.block.part.MgBuildPriorityBlockTask;
 import cz.mg.language.tasks.mg.builder.block.root.command.*;
 import cz.mg.language.tasks.mg.builder.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builder.pattern.*;
@@ -59,6 +60,19 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 (source, destination) -> destination.function.setOperator(source.getOperator())
             ),
             "OPERATOR"
+        ),
+
+        // build priority
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildPriorityBlockTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.setPriority(source.getPriority())
+            ),
+            "PRIORITY"
         ),
 
         // build expression command

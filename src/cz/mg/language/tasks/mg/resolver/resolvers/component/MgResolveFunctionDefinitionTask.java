@@ -31,6 +31,7 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
     protected MgFunction onResolveComponent() {
         function = new MgFunction(logicalFunction.getName());
         function.setOperator(logicalFunction.getOperator());
+        function.setPriority(logicalFunction.getPriority());
         ((FunctionContext)getContext()).setFunction(function);
 
         createAndPostponeMore(

@@ -1,10 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added global variable resolver
+added priority for function operators
+added priority builder tasks
+updated function resolver
+updated function entities
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-add priority to functions for operators
-
 function resolution
     resolve instructions
         command resolver

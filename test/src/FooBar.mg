@@ -12,3 +12,19 @@ CLASS FooBar IS Foo, Bar
         self.doBar
         print: "The riddle is " + self.foo + " and " + self.bar
         RETURN testOut = testIn
+
+    @public
+    FUNCTION plus INPUT Int32$ left, Int32$ right OUTPUT Int32$ result OPERATOR + PRIORITY "1"
+        RETURN result $= left + right
+
+    @public
+    FUNCTION plus INPUT Int32$ left, Int32$ right OUTPUT Int32$ result OPERATOR pp PRIORITY "1"
+        RETURN result $= left + right
+
+    @public
+    FUNCTION negative INPUT Int32$ value OUTPUT Int32$ result LEFT OPERATOR -
+        RETURN result $= -value
+
+    @public
+    FUNCTION decrement INPUT Int32$ value OUTPUT Int32$ result RIGHT OPERATOR --
+        RETURN result $= value - 1

@@ -24,6 +24,9 @@ public class MgFunction extends MgInterface {
     @Value
     private ReadableText operator;
 
+    @Value
+    private int priority;
+
     protected MgFunction(MgType type, ReadableText name) {
         super(type, name);
     }
@@ -52,8 +55,8 @@ public class MgFunction extends MgInterface {
         return operator;
     }
 
-    public void setOperator(ReadableText operator) {
-        this.operator = operator;
+    public int getPriority() {
+        return priority;
     }
 
     public void setLocal(ReadableArray<MgVariable> local) {
@@ -62,5 +65,13 @@ public class MgFunction extends MgInterface {
 
     public void setInstructions(ReadableArray<MgInstruction> instructions) {
         this.instructions = instructions;
+    }
+
+    public void setOperator(ReadableText operator) {
+        this.operator = operator;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

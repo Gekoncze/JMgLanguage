@@ -20,6 +20,9 @@ public class MgLogicalFunction extends MgLogicalComponent {
     @Value
     private ReadableText operator;
 
+    @Value
+    private int priority;
+
     public MgLogicalFunction() {
     }
 
@@ -45,5 +48,13 @@ public class MgLogicalFunction extends MgLogicalComponent {
 
     public void setOperator(ReadableText operator) {
         this.operator = operator;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }
