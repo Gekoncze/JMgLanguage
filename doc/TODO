@@ -1,8 +1,6 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added priority for function operators
-added priority builder tasks
-updated function resolver
-updated function entities
+accidentally commited work in progress for command resolver in last changelist
+it might change a lot
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
