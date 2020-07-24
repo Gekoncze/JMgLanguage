@@ -4,6 +4,8 @@ USING cz.mg.stamps.private
 
 @public
 CLASS FooBar IS Foo, Bar
+    GLOBAL Int32$ globe
+
     @public
     FUNCTION doFooBar INPUT FooBar& self, Int$ testIn OUTPUT Int$ testOut
         self.doFoo

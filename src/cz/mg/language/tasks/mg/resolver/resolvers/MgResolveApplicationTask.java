@@ -57,7 +57,7 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
     }
 
     private void addBuildinComponents(){
-        addBuildinComponentsTask = new MgAddBuildinComponentsTask(logicalApplication.getRoot());
+        addBuildinComponentsTask = new MgAddBuildinComponentsTask(application.getRoot());
         addBuildinComponentsTask.run();
     }
 
