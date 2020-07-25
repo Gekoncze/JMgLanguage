@@ -1,6 +1,5 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
 import cz.mg.language.LanguageException;

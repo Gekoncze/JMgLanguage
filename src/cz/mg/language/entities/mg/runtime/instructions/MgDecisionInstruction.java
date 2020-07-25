@@ -1,13 +1,12 @@
-package cz.mg.language.entities.mg.runtime.instructions.branching;
+package cz.mg.language.entities.mg.runtime.instructions;
 
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
-import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 
 
-public class MgSingleDecisionInstruction extends MgBranchingInstruction {
+public class MgDecisionInstruction extends MgInstruction {
     @Value
     private final int sourceIndex;
 
@@ -17,7 +16,7 @@ public class MgSingleDecisionInstruction extends MgBranchingInstruction {
     @Link
     private MgInstruction falseBranch;
 
-    public MgSingleDecisionInstruction(int sourceIndex) {
+    public MgDecisionInstruction(int sourceIndex) {
         this.sourceIndex = sourceIndex;
     }
 

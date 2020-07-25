@@ -5,17 +5,17 @@ import cz.mg.language.entities.mg.runtime.MgRuntimeEntity;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
-public class MgObject extends MgRuntimeEntity {
+public class MgObject<Type extends MgType> extends MgRuntimeEntity {
     public static final MgType TYPE = new MgType("Object");
 
     @Link
-    private final MgType type;
+    private final Type type;
 
-    public MgObject(MgType type) {
+    public MgObject(Type type) {
         this.type = type;
     }
 
-    public MgType getType() {
+    public Type getType() {
         return type;
     }
 }

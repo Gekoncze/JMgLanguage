@@ -5,7 +5,7 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 
 
-public class MgClassObject extends MgObject {
+public class MgClassObject extends MgObject<MgClass> {
     @Part
     private final Array<MgObject> objects;
 

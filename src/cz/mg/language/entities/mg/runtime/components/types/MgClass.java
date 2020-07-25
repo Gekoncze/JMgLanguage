@@ -5,8 +5,10 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.other.MgOverrideTable;
 
 
 public class MgClass extends MgType implements Named {
@@ -23,6 +25,9 @@ public class MgClass extends MgType implements Named {
 
     @Part
     private ReadableArray<MgGlobalVariable> globalVariables;
+
+    @Cache
+    private MgOverrideTable overrideTable;
 
     protected MgClass(MgType type, ReadableText name) {
         super(type, name);
@@ -44,6 +49,10 @@ public class MgClass extends MgType implements Named {
         return functions;
     }
 
+    public MgOverrideTable getOverrideTable() {
+        return overrideTable;
+    }
+
     public void setClasses(ReadableArray<MgClass> classes) {
         this.classes = classes;
     }
@@ -62,5 +71,9 @@ public class MgClass extends MgType implements Named {
 
     public void setGlobalVariables(ReadableArray<MgGlobalVariable> globalVariables) {
         this.globalVariables = globalVariables;
+    }
+
+    public void setOverrideTable(MgOverrideTable oberrideTable) {
+        this.overrideTable = oberrideTable;
     }
 }

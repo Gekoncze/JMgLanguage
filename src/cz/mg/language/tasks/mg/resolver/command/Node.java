@@ -29,6 +29,9 @@ class Node {
     @Shared
     private final List<MgVariable> declaredVariables = new List<>();
 
+    @Shared
+    private final List<MgVariable> expressionVariables = new List<>();
+
     public Node(CommandContext context, MgLogicalCommand command, Node next) {
         this.context = context;
         this.command = command;
@@ -57,5 +60,9 @@ class Node {
 
     public List<MgVariable> getDeclaredVariables() {
         return declaredVariables;
+    }
+
+    public List<MgVariable> getExpressionVariables() {
+        return expressionVariables;
     }
 }
