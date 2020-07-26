@@ -26,7 +26,7 @@ public class MgCreateMethodInstruction extends MgSequentialInstruction {
     public MgInstruction run(MgThread thread) {
         MgFunctionObject prevFunctionObject = thread.getFunctionObjects().getLast();
         MgClassObject object = (MgClassObject) prevFunctionObject.getObjects().get(0);
-        MgFunction function = object.getType().getOverrideTable().get(this.function);
+        MgFunction function = object.getType().getFunctionTable().get(this.function);
         MgFunctionObject nextFunctionObject = new MgFunctionObject(function);
         thread.getFunctionObjects().addLast(nextFunctionObject);
         for(int i = 0; i < inputOffset.count(); i++){

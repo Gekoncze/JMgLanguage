@@ -5,11 +5,11 @@ import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 
 
-public class MgOverrideTable {
+public class MgFunctionTable {
     @Link
     private final Map<MgFunction, MgFunction> map = new Map<>();
 
-    public MgOverrideTable() {
+    public MgFunctionTable() {
     }
 
     public void set(MgFunction input, MgFunction output){

@@ -7,11 +7,8 @@ CLASS FooBar IS Foo, Bar
     GLOBAL Int32$ globe
 
     @public
-    FUNCTION doFooBar INPUT FooBar& self, Int$ testIn OUTPUT Int$ testOut
-        self.doFoo
-        self.doBar
+    FUNCTION sayRiddle INPUT FooBar& self
         print: "The riddle is " + self.foo + " and " + self.bar
-        RETURN testOut = testIn
 
     @public
     FUNCTION plus INPUT Int32$ left, Int32$ right OUTPUT Int32$ result OPERATOR + PRIORITY "1"

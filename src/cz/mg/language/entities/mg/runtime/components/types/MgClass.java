@@ -8,7 +8,8 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.other.MgOverrideTable;
+import cz.mg.language.entities.mg.runtime.other.MgFunctionTable;
+import cz.mg.language.entities.mg.runtime.other.MgVariableTable;
 
 
 public class MgClass extends MgType implements Named {
@@ -27,7 +28,10 @@ public class MgClass extends MgType implements Named {
     private ReadableArray<MgGlobalVariable> globalVariables;
 
     @Cache
-    private MgOverrideTable overrideTable;
+    private MgFunctionTable functionTable;
+
+    @Cache
+    private MgVariableTable variableTable;
 
     protected MgClass(MgType type, ReadableText name) {
         super(type, name);
@@ -49,8 +53,16 @@ public class MgClass extends MgType implements Named {
         return functions;
     }
 
-    public MgOverrideTable getOverrideTable() {
-        return overrideTable;
+    public ReadableArray<MgGlobalVariable> getGlobalVariables() {
+        return globalVariables;
+    }
+
+    public MgFunctionTable getFunctionTable() {
+        return functionTable;
+    }
+
+    public MgVariableTable getVariableTable() {
+        return variableTable;
     }
 
     public void setClasses(ReadableArray<MgClass> classes) {
@@ -65,15 +77,15 @@ public class MgClass extends MgType implements Named {
         this.functions = functions;
     }
 
-    public ReadableArray<MgGlobalVariable> getGlobalVariables() {
-        return globalVariables;
-    }
-
     public void setGlobalVariables(ReadableArray<MgGlobalVariable> globalVariables) {
         this.globalVariables = globalVariables;
     }
 
-    public void setOverrideTable(MgOverrideTable oberrideTable) {
-        this.overrideTable = oberrideTable;
+    public void setFunctionTable(MgFunctionTable functionTable) {
+        this.functionTable = functionTable;
+    }
+
+    public void setVariableTable(MgVariableTable variableTable) {
+        this.variableTable = variableTable;
     }
 }

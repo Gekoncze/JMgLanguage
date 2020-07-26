@@ -7,5 +7,5 @@ CLASS Foo
     @private Int$ foo
 
     @public
-    FUNCTION doFoo INPUT Foo& self
+    FUNCTION sayRiddle INPUT Foo& self
         print: "The riddle is " + self.foo

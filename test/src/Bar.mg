@@ -6,5 +6,6 @@ USING cz.mg.stamps.private
 CLASS Bar
     @private Int$ bar
 
-    FUNCTION doBar INPUT Bar& self
+    @public
+    FUNCTION sayRiddle INPUT Bar& self
         print: "The riddle is " + self.bar

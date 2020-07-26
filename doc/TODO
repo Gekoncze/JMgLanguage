@@ -1,8 +1,14 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added create method instruction
+added variable table to mg class
+updated field set instructions
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+mg class
+    override table resolution
+    variable table resolution
+    instructions for vields throught variable table
+
 function resolution
     resolve instructions
         command resolver
