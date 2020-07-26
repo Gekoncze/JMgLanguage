@@ -1,13 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added simple default mg class variable and function table resolution
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-calling of super method:
-    let class FooBar extend Bar and override print function
-    instead of fooBar.print
-    call Foo.print: fooBar
-
 function resolution
     resolve instructions
         command resolver

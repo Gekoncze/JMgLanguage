@@ -28,7 +28,6 @@ modules should never depend on something outside of their location
             and then the locations would just have links to the objects in the modules!
             by the way, this is very similar to how package management works in operating systems!
 
-
 Do not use static methods
     using tasks helps saving the execution tree and inspect it more closely when debugging
 
@@ -47,34 +46,3 @@ ensure good naming
 
     string -> page = parser
     page -> string = formatter
-
-resolve should be done during runtime
-    when loading compile entities, actual objects are temporarily represented by unresolved objects
-
-during resolution, these objects are examined:
-    1) the current/parent entity
-    2) the current location
-    3) the current context
-    then all results are gathered and if there is more than one, then throw an exception - ambiguous entity/object
-
-consider the problem of the time of resolve of names
-    compile time - resolve entities during compilation - very limited
-    startup time - resolve entities at application startup - slightly limited
-    runtime - load and resolve entities at runtime - unlimited! -- I will use this one
-
-collection polymorphism problem
-    ReadableList<Child> can be passed as ReadableList<Parent>
-    WriteableList<Child> cannot be passed as WritableList<Parent> !!!
-
-class object model
-    pointer to its class definition
-    list of data storages - each data storage belongs to certain class in inheritance
-    class definition contains list of functions
-
-literals - do not allow escape sequences or anything like that
-    use special buildin constants or functions
-    this will simplify literal handling A LOT
-    things like \n \t etc can be handled at cast/convert level (to text)
-
-stamps don't need to hold values, ie there will be no instances
-    values can be handled by global variables with inheritance
