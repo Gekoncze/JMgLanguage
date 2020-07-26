@@ -1,13 +1,12 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added variable table to mg class
-updated field set instructions
+added simple default mg class variable and function table resolution
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-mg class
-    override table resolution
-    variable table resolution
-    instructions for vields throught variable table
+calling of super method:
+    let class FooBar extend Bar and override print function
+    instead of fooBar.print
+    call Foo.print: fooBar
 
 function resolution
     resolve instructions
@@ -24,12 +23,18 @@ an idea for resolution of expressions
         this resolve method will be adding instructions and created variables to a stack
             for complex expressions this will create anonymous variables with no name, but with a type
 
+add support for function overriding - alternative implementation of function table
+
 take into account access modifiers during resolve
 fix runtime test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 make MgCore work
+think about new object creation
+    there would be probably some default allocator
+    and default factory, which would automatically call function
+        with stamps like @create @destroy
 
 complete support for collections
     for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)

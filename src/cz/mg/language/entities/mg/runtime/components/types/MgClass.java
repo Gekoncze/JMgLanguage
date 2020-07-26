@@ -28,10 +28,10 @@ public class MgClass extends MgType implements Named {
     private ReadableArray<MgGlobalVariable> globalVariables;
 
     @Cache
-    private MgFunctionTable functionTable;
+    private MgVariableTable variableTable;
 
     @Cache
-    private MgVariableTable variableTable;
+    private MgFunctionTable functionTable;
 
     protected MgClass(MgType type, ReadableText name) {
         super(type, name);
@@ -57,12 +57,14 @@ public class MgClass extends MgType implements Named {
         return globalVariables;
     }
 
-    public MgFunctionTable getFunctionTable() {
-        return functionTable;
+    public MgVariableTable getVariableTable() {
+        if(this.variableTable == null) createDefaultVariableTable();
+        return variableTable;
     }
 
-    public MgVariableTable getVariableTable() {
-        return variableTable;
+    public MgFunctionTable getFunctionTable() {
+        if(this.functionTable == null) createDefaultFunctionTable();
+        return functionTable;
     }
 
     public void setClasses(ReadableArray<MgClass> classes) {
@@ -87,5 +89,37 @@ public class MgClass extends MgType implements Named {
 
     public void setVariableTable(MgVariableTable variableTable) {
         this.variableTable = variableTable;
+    }
+
+    private void createDefaultVariableTable() {
+        this.variableTable = new MgVariableTable();
+        addClassVariables(this);
+    }
+
+    private void addClassVariables(MgClass clazz) {
+        for(MgClass baseClass : clazz.getClasses()){
+            addClassFunctions(baseClass);
+        }
+
+        int i = 0;
+        for(MgVariable variable : clazz.getVariables()){
+            this.variableTable.set(variable, i);
+            i++;
+        }
+    }
+
+    private void createDefaultFunctionTable() {
+        this.functionTable = new MgFunctionTable();
+        addClassFunctions(this);
+    }
+
+    private void addClassFunctions(MgClass clazz){
+        for(MgClass baseClass : clazz.getClasses()){
+            addClassFunctions(baseClass);
+        }
+
+        for(MgFunction function : clazz.getFunctions()){
+            this.functionTable.set(function, function);
+        }
     }
 }

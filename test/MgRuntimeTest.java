@@ -47,9 +47,9 @@ public class MgRuntimeTest {
         function.setInstructions(new Array<>(
             new MgIntPlusInstruction(0, 1, 2), // c = a + b
             new MgPrintIntegerInstruction(2),             // print c
-            new MgSetFieldToLocalInstruction(3, 0, 0), // a = aa.foo
-            new MgSetFieldToLocalInstruction(4, 0, 1), // b = bb.foo
-            new MgSetFieldToLocalInstruction(5, 0, 2), // c = cc.foo
+            new MgSetFieldToLocalInstruction(3, clazz.getVariables().getFirst(), 0), // a = aa.foo
+            new MgSetFieldToLocalInstruction(4, clazz.getVariables().getFirst(), 1), // b = bb.foo
+            new MgSetFieldToLocalInstruction(5, clazz.getVariables().getFirst(), 2), // c = cc.foo
             new MgIntPlusInstruction(0, 1, 2), // c = a + b
             new MgPrintIntegerInstruction(2)              // print c
         ));
