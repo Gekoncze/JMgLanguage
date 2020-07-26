@@ -6,12 +6,26 @@
 function resolution
     resolve instructions
         command resolver
-            resolve operators and build a tree with respect to operator priorities
-            expression resolver
-            mg command to instruction converter
-            add more instructions
+            to do:
+                resolve operators and build a tree with respect to operator priorities
+                expression resolver
+                mg command to instruction converter
+            I have an idea
+                each expression element will:
+                    1) generate instructions and variables into node (variables without names, and without type (if possible))
+                    2) return a list of return values - indexes of local variables
+
+            function resolution
+                will be from leaves to root
+                I will see in the future if can be in opposite direction too and under which conditions
+
             store literal values in function global variables
-                literals always use converter ... when should this be run?
+                how to handle converters for literals? when are those called? at startup?
+
+            how to store expression variables in function?
+                they cannot have separate list, because they are located by index in instructions as regular variables
+                they will be stored probably at the end, after input, output and locals
+                    will need to pass starting index at a point where the index is stored in instruction
 
 an idea for resolution of expressions
     browse it as a tree, have a resolve method to return list of variables for an expression element
