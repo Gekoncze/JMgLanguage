@@ -10,15 +10,15 @@ import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-class Node {
+class Command {
     @Shared
     private final CommandContext context;
 
     @Link
-    private final MgLogicalCommand command;
+    private final MgLogicalCommand logicalCommand;
 
     @Shared
-    private final Node next;
+    private final List<Command> commands = new List<>();
 
     @Part
     private final List<Condition> conditions = new List<>();
@@ -32,22 +32,21 @@ class Node {
     @Shared
     private final List<MgVariable> expressionVariables = new List<>();
 
-    public Node(CommandContext context, MgLogicalCommand command, Node next) {
+    public Command(CommandContext context, MgLogicalCommand logicalCommand) {
         this.context = context;
-        this.command = command;
-        this.next = next;
+        this.logicalCommand = logicalCommand;
     }
 
     public CommandContext getContext() {
         return context;
     }
 
-    public MgLogicalCommand getCommand() {
-        return command;
+    public MgLogicalCommand getLogicalCommand() {
+        return logicalCommand;
     }
 
-    public Node getNext() {
-        return next;
+    public List<Command> getCommands() {
+        return commands;
     }
 
     public List<Condition> getConditions() {

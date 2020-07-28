@@ -9,18 +9,18 @@ class Condition {
     private final MgVariable variable;
 
     @Link
-    private final Node node;
+    private final Command command;
 
-    public Condition(MgVariable variable, Node node) {
+    public Condition(MgVariable variable, Command command) {
         this.variable = variable;
-        this.node = node;
+        this.command = command;
     }
 
     public MgVariable getVariable() {
         return variable;
     }
 
-    public Node getNode() {
-        return node;
+    public Command getCommand() {
+        return command;
     }
 }
