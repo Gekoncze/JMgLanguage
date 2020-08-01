@@ -1,9 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added resolve command and resolve expression task
-work in progress ...
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+change mg types into class objects
+    then inside they could have an optional type definition
+    which would contain variable declarations
+    this way we could get rid of mg global variable class
+
 function resolution
     resolve instructions
         command resolver
@@ -19,6 +23,14 @@ function resolution
             function resolution
                 will be from leaves to root
                 I will see in the future if can be in opposite direction too and under which conditions
+                    this could be achieved by first resolution from root to leaves
+                    and then resolution from leaves to root
+                    at each moment we wil check what we have available and search and filter based on that
+                        if a single match is made, we select it as target object
+                        if no match, then we throw an error
+                        if multiple matches then
+                            if root to leave resolution, we skip and continue
+                            if leaf to root resolution, we throw an ambiguous error
 
             store literal values in function global variables
                 how to handle converters for literals? when are those called? at startup?
@@ -37,6 +49,10 @@ add support for function overriding - alternative implementation of function tab
 
 take into account access modifiers during resolve
 fix runtime test
+
+mg operator replication
+    list part / list expression would "return multiple values"
+    if input and ouptut lists matches, then operator is called for each corresponding input/output pair
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
