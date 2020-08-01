@@ -1,12 +1,11 @@
-package cz.mg.language.tasks.mg.resolver.command;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.command.Command;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -33,7 +32,7 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
     protected void onRun() {
         subtask = new MgResolveCommandsTask(new CommandContext(context), logicalFunction.getCommands());
         subtask.run();
-        List<Command> nodes = subtask.getNodes();
+        List<Command> nodes = subtask.getCommands();
 
         //todo; // todo - at this point we have all nodes connected and resolved
         // todo - so we can create instructions from them
@@ -42,5 +41,7 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
 
         //function.setInstructions(new Array<>(instructions));
         //function.setLocal(new Array<>(variables));
+
+        todo;
     }
 }

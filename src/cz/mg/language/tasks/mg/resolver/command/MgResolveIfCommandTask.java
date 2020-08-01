@@ -2,23 +2,32 @@ package cz.mg.language.tasks.mg.resolver.command;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalIfCommand;
-import cz.mg.language.tasks.mg.resolver.Context;
+import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
 public class MgResolveIfCommandTask extends MgResolveCommandTask {
     @Input
-    private final Context context;
+    private final CommandContext context;
 
     @Input
-    private final MgLogicalIfCommand command;
+    private final MgLogicalIfCommand logicalCommand;
 
     @Output
     private Command command;
 
-    public MgResolveIfCommandTask(Context context, MgLogicalIfCommand command) {
+    @Subtask
+    private MgResolveExpressionTask resolveExpressionTask;
+
+    @Subtask
+    private MgResolveCommandsTask resolveCommandsTask;
+
+    public MgResolveIfCommandTask(CommandContext context, MgLogicalIfCommand logicalCommand) {
         this.context = context;
-        this.command = command;
+        this.logicalCommand = logicalCommand;
     }
 
     @Override
@@ -28,14 +37,16 @@ public class MgResolveIfCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        MgLogicalIfCommand cc = (MgLogicalIfCommand) c;
-        Command conditionalCommand = createNodes(command.getContext(), cc.getCommands());
-        Expr expression = resolveExpression(command.getContext(), cc.getExpression());
-        command.getConditions().addLast(new Condition(
-            boolOutput(singleOutput(expression.getOutput())),
-            conditionalCommand
-        ));
-        command.getInstructions().addCollectionLast(expression.getInstructions());
-        command.getDeclaredVariables().addCollectionLast(expression.getDeclaredVariables());
+        command = new Command(context, logicalCommand);
+
+        resolveExpressionTask = MgResolveExpressionTask.create(context, logicalCommand.getExpression());
+        resolveExpressionTask.run();
+        command.setExpression(resolveExpressionTask.getExpression());
+
+        resolveCommandsTask = new MgResolveCommandsTask(context, logicalCommand.getCommands());
+        resolveCommandsTask.run();
+        command.getCommands().addCollectionLast(resolveCommandsTask.getCommands());
+
+        todo;
     }
 }

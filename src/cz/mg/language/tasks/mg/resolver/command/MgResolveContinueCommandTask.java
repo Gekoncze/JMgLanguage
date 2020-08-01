@@ -3,12 +3,13 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalContinueCommand;
-import cz.mg.language.tasks.mg.resolver.Context;
+import cz.mg.language.entities.mg.runtime.instructions.MgJumpInstruction;
+import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
 public class MgResolveContinueCommandTask extends MgResolveCommandTask {
     @Input
-    private final Context context;
+    private final CommandContext context;
 
     @Input
     private final MgLogicalContinueCommand logicalCommand;
@@ -16,7 +17,7 @@ public class MgResolveContinueCommandTask extends MgResolveCommandTask {
     @Output
     private Command command;
 
-    public MgResolveContinueCommandTask(Context context, MgLogicalContinueCommand logicalCommand) {
+    public MgResolveContinueCommandTask(CommandContext context, MgLogicalContinueCommand logicalCommand) {
         this.context = context;
         this.logicalCommand = logicalCommand;
     }
@@ -28,6 +29,9 @@ public class MgResolveContinueCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
+        command = new Command(context, logicalCommand);
+        command.getInstructions().addLast(new MgJumpInstruction());
+
         todo;
     }
 }

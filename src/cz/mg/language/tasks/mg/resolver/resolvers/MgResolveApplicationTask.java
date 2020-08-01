@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.logical.components.*;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.tasks.mg.resolver.MgAddBuildinComponentsTask;
-import cz.mg.language.tasks.mg.resolver.command.MgResolveFunctionCommandsTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveFunctionCommandsTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveUsagesTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.component.*;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveClassInheritanceTask;

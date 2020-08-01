@@ -2,13 +2,15 @@ package cz.mg.language.tasks.mg.resolver.command;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalExpressionCommand;
-import cz.mg.language.tasks.mg.resolver.Context;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
 public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
     @Input
-    private final Context context;
+    private final CommandContext context;
 
     @Input
     private final MgLogicalExpressionCommand logicalCommand;
@@ -16,7 +18,10 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
     @Output
     private Command command;
 
-    public MgResolveExpressionCommandTask(Context context, MgLogicalExpressionCommand logicalCommand) {
+    @Subtask
+    private MgResolveExpressionTask resolveExpressionTask;
+
+    public MgResolveExpressionCommandTask(CommandContext context, MgLogicalExpressionCommand logicalCommand) {
         this.context = context;
         this.logicalCommand = logicalCommand;
     }
@@ -28,10 +33,12 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        MgLogicalExpressionCommand cc = (MgLogicalExpressionCommand) c;
-        Expr expression = resolveExpression(command.getContext(), cc.getExpression());
-        noOutput(expression.getOutput());
-        command.getInstructions().addCollectionLast(expression.getInstructions());
-        command.getDeclaredVariables().addCollectionLast(expression.getDeclaredVariables());
+        command = new Command(context, logicalCommand);
+
+        resolveExpressionTask = MgResolveExpressionTask.create(context, logicalCommand.getExpression());
+        resolveExpressionTask.run();
+        command.setExpression(resolveExpressionTask.getExpression());
+
+        todo;
     }
 }

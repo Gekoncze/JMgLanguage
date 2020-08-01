@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
@@ -6,13 +6,15 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
-import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.command.Command;
+import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
+import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
 public class MgResolveCommandsTask extends MgResolverTask {
     @Input
-    private final Context context;
+    private final CommandContext context;
 
     @Input
     private final ReadableCollection<MgLogicalCommand> commands;
@@ -23,12 +25,12 @@ public class MgResolveCommandsTask extends MgResolverTask {
     @Subtask
     private final List<MgResolveCommandTask> subtasks = new List<>();
 
-    public MgResolveCommandsTask(Context context, ReadableCollection<MgLogicalCommand> commands) {
+    public MgResolveCommandsTask(CommandContext context, ReadableCollection<MgLogicalCommand> commands) {
         this.context = context;
         this.commands = commands;
     }
 
-    public List<Command> getNodes() {
+    public List<Command> getCommands() {
         return nodes;
     }
 
