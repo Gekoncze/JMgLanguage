@@ -40,7 +40,6 @@ public class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
         elements.addCollectionLast(logicalOperatorExpression.getExpressions());
 
         OperatorCache operatorCache = context.getOperatorCache();
-
         for(int i = -1; i < operatorCache.getFunctions().count(); i++){
             for(MgLogicalExpression logicalExpression : logicalOperatorExpression.getExpressions()){
                 if(i == -1){

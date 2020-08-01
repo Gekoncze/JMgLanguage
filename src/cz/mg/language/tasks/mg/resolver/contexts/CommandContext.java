@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.resolver.contexts;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.tasks.mg.resolver.Context;
@@ -11,24 +12,22 @@ public class CommandContext extends Context {
     @Link
     private final List<MgVariable> variables = new List<>();
 
-    public CommandContext(CommandContext outerContext) {
-        super(outerContext);
-    }
+    @Cache
+    private OperatorCache operatorCache;
 
-    public CommandContext(FunctionContext outerContext) {
+    public CommandContext(Context outerContext) {
         super(outerContext);
     }
 
     public OperatorCache getOperatorCache() {
-        Context context = getOuterContext();
-        while(context != null){
-            if(context instanceof FunctionContext){
-                return ((FunctionContext) context).getOperatorCache();
+        if(operatorCache == null){
+            if(getOuterContext() instanceof CommandContext){
+                return operatorCache = ((CommandContext) getOuterContext()).getOperatorCache();
             } else {
-                context = context.getOuterContext();
+                return operatorCache = new OperatorCache(this);
             }
         }
-        throw new RuntimeException("Command context must be inside of function context.");
+        return operatorCache;
     }
 
     @Override
