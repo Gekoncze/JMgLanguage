@@ -2,6 +2,8 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+distinguish left and right unary operators somehow
+
 function resolution
     resolve instructions
         command resolver
@@ -33,6 +35,9 @@ function resolution
                 they cannot have separate list, because they are located by index in instructions as regular variables
                 they will be stored probably at the end, after input, output and locals
                     will need to pass starting index at a point where the index is stored in instruction
+
+            path resolution
+                context need to be changed only for root expression
 
 change mg types into class objects
     then inside they could have an optional type definition
