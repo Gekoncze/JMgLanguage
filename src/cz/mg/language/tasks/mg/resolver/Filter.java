@@ -42,7 +42,9 @@ public class Filter<C extends MgComponent> {
         while(currentContext != null){
             for(MgComponent component : currentContext.read()){
                 if(clazz.isInstance(component)){
-                    if(name.equals(component)){
+                    if(name == null){
+                        components.addLast((C) component);
+                    } else if(name.equals(component)){
                         components.addLast((C) component);
                     }
                 }

@@ -11,8 +11,24 @@ public class CommandContext extends Context {
     @Link
     private final List<MgVariable> variables = new List<>();
 
-    public CommandContext(Context outerContext) {
+    public CommandContext(CommandContext outerContext) {
         super(outerContext);
+    }
+
+    public CommandContext(FunctionContext outerContext) {
+        super(outerContext);
+    }
+
+    public OperatorCache getOperatorCache() {
+        Context context = getOuterContext();
+        while(context != null){
+            if(context instanceof FunctionContext){
+                return ((FunctionContext) context).getOperatorCache();
+            } else {
+                context = context.getOuterContext();
+            }
+        }
+        throw new RuntimeException("Command context must be inside of function context.");
     }
 
     @Override

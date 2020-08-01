@@ -8,6 +8,10 @@ import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 public abstract class MgResolveExpressionTask extends MgResolverTask {
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression){
+        return create(context, logicalExpression, false);
+    }
+
+    public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, boolean optional){
         if(logicalExpression instanceof MgLogicalValueExpression){
             return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression);
         }
@@ -21,10 +25,12 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         }
 
         if(logicalExpression instanceof MgLogicalSignsExpression){
+            if(optional) return null;
             throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalSignsExpression) logicalExpression).getTarget() + "' for resolve.");
         }
 
         if(logicalExpression instanceof MgLogicalSymbolExpression){
+            if(optional) return null;
             throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalSymbolExpression) logicalExpression).getSymbol() + "' for resolve.");
         }
 
@@ -40,6 +46,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
             return new MgResolvePathExpressionTask(context, (MgLogicalPathExpression) logicalExpression);
         }
 
+        if(optional) return null;
         throw new LanguageException("Unsupported expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
     }
 
