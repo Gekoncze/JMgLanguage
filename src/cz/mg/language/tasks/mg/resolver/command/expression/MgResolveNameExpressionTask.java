@@ -28,6 +28,6 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected void onRun() {
-        todo;
+        //todo;
     }
 }

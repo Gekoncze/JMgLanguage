@@ -32,6 +32,6 @@ public class MgResolveBreakCommandTask extends MgResolveCommandTask {
         command = new Command(context, logicalCommand);
         command.getInstructions().addLast(new MgJumpInstruction());
 
-        todo;
+        //todo;
     }
 }

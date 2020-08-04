@@ -47,6 +47,6 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
         resolveCommandsTask.run();
         command.getCommands().addCollectionLast(resolveCommandsTask.getCommands());
 
-        todo;
+        //todo;
     }
 }

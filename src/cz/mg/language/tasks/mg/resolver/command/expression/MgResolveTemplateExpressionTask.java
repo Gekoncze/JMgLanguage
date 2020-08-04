@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -27,6 +28,6 @@ public class MgResolveTemplateExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected void onRun() {
-        todo;
+        //todo;
     }
 }

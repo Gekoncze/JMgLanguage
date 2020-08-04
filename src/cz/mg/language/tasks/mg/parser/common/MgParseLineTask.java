@@ -138,7 +138,7 @@ public class MgParseLineTask extends MgParseTask {
         while(reader.canRead()){
             char ch = reader.read();
             if(ch == boundary){
-                return new ValueToken(reader.slice());
+                return new ValueToken(reader.slice(1, -1));
             } else if(isAllowedLiteralCharacter(ch)) {
                 continue;
             } else {

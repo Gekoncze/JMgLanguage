@@ -4,6 +4,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.other.MgOperator;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgResolveFunctionCommandsTask;
 import cz.mg.language.tasks.mg.resolver.Store;
@@ -30,8 +31,11 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
     @Override
     protected MgFunction onResolveComponent() {
         function = new MgFunction(logicalFunction.getName());
-        function.setOperator(logicalFunction.getOperator());
-        function.setPriority(logicalFunction.getPriority());
+        function.setOperator(new MgOperator(
+            logicalFunction.getOperator().getName()
+        ));
+        function.getOperator().setType(MgOperator.Type.valueOf(logicalFunction.getOperator().getType().name()));
+        function.getOperator().setPriority(logicalFunction.getOperator().getPriority());
         ((FunctionContext)getContext()).setFunction(function);
 
         createAndPostponeMore(

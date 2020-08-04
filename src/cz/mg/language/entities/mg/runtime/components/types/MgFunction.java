@@ -7,6 +7,7 @@ import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.other.MgOperator;
 
 
 public class MgFunction extends MgInterface {
@@ -22,7 +23,7 @@ public class MgFunction extends MgInterface {
     private ReadableArray<MgInstruction> instructions;
 
     @Value
-    private ReadableText operator;
+    private MgOperator operator;
 
     @Value
     private int priority;
@@ -51,7 +52,7 @@ public class MgFunction extends MgInterface {
         return instructions;
     }
 
-    public ReadableText getOperator() {
+    public MgOperator getOperator() {
         return operator;
     }
 
@@ -67,7 +68,7 @@ public class MgFunction extends MgInterface {
         this.instructions = instructions;
     }
 
-    public void setOperator(ReadableText operator) {
+    public void setOperator(MgOperator operator) {
         this.operator = operator;
     }
 

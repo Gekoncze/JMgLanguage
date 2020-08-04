@@ -6,22 +6,22 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalOperator;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builder.part.MgBuildOperatorTask;
+import cz.mg.language.tasks.mg.builder.part.MgBuildRightOperatorTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
 import cz.mg.language.tasks.mg.builder.pattern.Pattern;
 
 
-public class MgBuildOperatorBlockTask extends MgBuildBlockTask {
+public class MgBuildRightOperatorBlockTask extends MgBuildBlockTask {
     private static final PartProcessor PROCESSOR = new PartProcessor<>(
-        MgBuildOperatorTask.class,
-        MgBuildOperatorBlockTask.class,
+        MgBuildRightOperatorTask.class,
+        MgBuildRightOperatorBlockTask.class,
         (source, destination) -> destination.operator = source.getOperator()
     );
 
     @Output
     private MgLogicalOperator operator;
 
-    public MgBuildOperatorBlockTask(Part part, Block block) {
+    public MgBuildRightOperatorBlockTask(Part part, Block block) {
         super(part, block);
     }
 

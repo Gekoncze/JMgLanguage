@@ -42,6 +42,6 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
         //function.setInstructions(new Array<>(instructions));
         //function.setLocal(new Array<>(variables));
 
-        todo;
+        //todo;
     }
 }

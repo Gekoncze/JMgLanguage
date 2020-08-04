@@ -4,6 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalOperator;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 
 
@@ -18,10 +19,7 @@ public class MgLogicalFunction extends MgLogicalComponent {
     private final List<MgLogicalCommand> commands = new List<>();
 
     @Value
-    private ReadableText operator;
-
-    @Value
-    private int priority;
+    private MgLogicalOperator operator;
 
     public MgLogicalFunction() {
     }
@@ -42,19 +40,11 @@ public class MgLogicalFunction extends MgLogicalComponent {
         return commands;
     }
 
-    public ReadableText getOperator() {
+    public MgLogicalOperator getOperator() {
         return operator;
     }
 
-    public void setOperator(ReadableText operator) {
+    public void setOperator(MgLogicalOperator operator) {
         this.operator = operator;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 }

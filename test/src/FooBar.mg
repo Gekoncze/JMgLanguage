@@ -24,4 +24,4 @@ CLASS FooBar IS Foo, Bar
 
     @public
     FUNCTION decrement INPUT Int32$ value OUTPUT Int32$ result RIGHT OPERATOR --
-        RETURN result $= value - 1
+        RETURN result $= value - "1"

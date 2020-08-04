@@ -9,11 +9,11 @@ import cz.mg.language.entities.text.structured.parts.leaves.Name;
 import cz.mg.language.entities.text.structured.parts.leaves.Signs;
 
 
-public class MgBuildOperatorTask extends MgBuildPartTask<Leaf> {
+public class MgBuildRightOperatorTask extends MgBuildPartTask<Leaf> {
     @Output
     private MgLogicalOperator operator;
 
-    public MgBuildOperatorTask(Part part) {
+    public MgBuildRightOperatorTask(Part part) {
         super(part, Leaf.class);
     }
 
@@ -25,7 +25,7 @@ public class MgBuildOperatorTask extends MgBuildPartTask<Leaf> {
     protected void buildPart(Leaf part) {
         if(part instanceof Name || part instanceof Signs){
             operator = new MgLogicalOperator(part.getText());
-            operator.setType(MgLogicalOperator.Type.BINARY);
+            operator.setType(MgLogicalOperator.Type.RIGHT);
         } else {
             throw new LanguageException("Expected name or signs, but got " + part.getClass().getSimpleName() + ".");
         }

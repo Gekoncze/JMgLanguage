@@ -40,48 +40,48 @@ public class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
     protected void onRun() {
         // initialize list of elements
         // resolve all expressions except operators
-        boolean hasOperator = false;
         List elements = new List();
         elements.addCollectionLast(logicalOperatorExpression.getExpressions());
         for(MgLogicalExpression logicalExpression : logicalOperatorExpression.getExpressions()){
             MgResolveExpressionTask subtask = MgResolveExpressionTask.create(context, logicalExpression, true);
             if(subtask != null){
-                resolveExpressionTasks.addLast(subtask);
-                subtask.run();
-                elements.addLast(subtask.getExpression());
+                if(!(subtask instanceof MgResolveNameExpressionTask)){
+                    resolveExpressionTasks.addLast(subtask);
+                    subtask.run();
+                    elements.addLast(subtask.getExpression());
+                } else {
+                    elements.addLast(logicalExpression);
+                }
             } else {
                 elements.addLast(logicalExpression);
-                hasOperator = true;
             }
         }
 
-        // resolve operator expressions if there are any
-        if(hasOperator){
-            OperatorCache operatorCache = context.getOperatorCache();
-            for(int p = operatorCache.getFunctions().count() - 1; p >= 0; p--){
-                List<MgFunction> functions = operatorCache.getFunctions().get(p);
-                for(
-                    ListItem elementItem = elements.getFirstItem();
-                    elementItem != null;
-                    elementItem = elementItem.getNextItem()
-                ){
-                    todo;
-                }
+        // resolve operator expressions
+        OperatorCache operatorCache = context.getOperatorCache();
+        for(int p = operatorCache.getFunctions().count() - 1; p >= 0; p--){
+            List<MgFunction> functions = operatorCache.getFunctions().get(p);
+            for(
+                ListItem elementItem = elements.getFirstItem();
+                elementItem != null;
+                elementItem = elementItem.getNextItem()
+            ){
+                //todo;
             }
         }
 
         // operator expressions need to form a tree structure with one root expression
         // resolve the root expression
         if(elements.count() <= 0){
-            throw new LanguageException("Missing expression.");
+            throw new RuntimeException("Missing operator expression.");
         } else if(elements.count() == 1){
             if(elements.getFirst() instanceof Expression){
                 this.expression = (Expression) elements.getFirst();
             } else {
-                throw new LanguageException("Unresolved expression.");
+                throw new LanguageException("Unresolved operator expression.");
             }
         } else {
-            throw new LanguageException("Illegal expression.");
+            throw new LanguageException("Illegal operator expression.");
         }
     }
 }

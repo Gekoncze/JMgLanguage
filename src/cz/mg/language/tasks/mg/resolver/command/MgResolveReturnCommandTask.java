@@ -39,6 +39,6 @@ public class MgResolveReturnCommandTask extends MgResolveCommandTask {
         resolveExpressionTask.run();
         command.setExpression(resolveExpressionTask.getExpression());
 
-        todo;
+        //todo;
     }
 }

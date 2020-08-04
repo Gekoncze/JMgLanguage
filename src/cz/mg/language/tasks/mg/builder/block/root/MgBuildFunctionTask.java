@@ -2,14 +2,13 @@ package cz.mg.language.tasks.mg.builder.block.root;
 
 import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
+import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builder.block.part.MgBuildDeclarationsBlockTask;
-import cz.mg.language.tasks.mg.builder.block.part.MgBuildOperatorBlockTask;
-import cz.mg.language.tasks.mg.builder.block.part.MgBuildPriorityBlockTask;
+import cz.mg.language.tasks.mg.builder.block.part.*;
 import cz.mg.language.tasks.mg.builder.block.root.command.*;
 import cz.mg.language.tasks.mg.builder.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builder.pattern.*;
@@ -49,7 +48,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             "OUTPUT"
         ),
 
-        // build operator
+        // build binary operator
         new Pattern(
             Order.STRICT,
             Requirement.OPTIONAL,
@@ -57,9 +56,53 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             new BlockProcessor<>(
                 MgBuildOperatorBlockTask.class,
                 MgBuildFunctionTask.class,
-                (source, destination) -> destination.function.setOperator(source.getOperator())
+                (source, destination) -> {
+                    if(destination.function.getOperator() == null){
+                        destination.function.setOperator(source.getOperator());
+                    } else {
+                        throw new LanguageException("Multiple operator blocks.");
+                    }
+                }
             ),
             "OPERATOR"
+        ),
+
+        // build unary left operator
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildLeftOperatorBlockTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> {
+                    if(destination.function.getOperator() == null){
+                        destination.function.setOperator(source.getOperator());
+                    } else {
+                        throw new LanguageException("Multiple operator blocks.");
+                    }
+                }
+            ),
+            "LEFT", "OPERATOR"
+        ),
+
+        // build unary right operator
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildRightOperatorBlockTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> {
+                    if(destination.function.getOperator() == null){
+                        destination.function.setOperator(source.getOperator());
+                    } else {
+                        throw new LanguageException("Multiple operator blocks.");
+                    }
+                }
+            ),
+            "RIGHT", "OPERATOR"
         ),
 
         // build priority
@@ -70,7 +113,13 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             new BlockProcessor<>(
                 MgBuildPriorityBlockTask.class,
                 MgBuildFunctionTask.class,
-                (source, destination) -> destination.function.setPriority(source.getPriority())
+                (source, destination) -> {
+                    if(destination.function.getOperator() != null){
+                        destination.function.getOperator().setPriority(source.getPriority());
+                    } else {
+                        throw new LanguageException("Missing operator to set priority.");
+                    }
+                }
             ),
             "PRIORITY"
         ),

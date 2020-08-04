@@ -16,7 +16,7 @@ class MgCompileTest {
     private static final ReadonlyText INDENT = new ReadonlyText("    ");
 
     public static void main(String[] args) {
-        ReadableText path = new ReadonlyText("/home/me/Plocha/Dev/Java/JMgLanguage/test/src");
+        ReadableText path = new ReadonlyText("/home/me/Desktop/Dev/Java/JMgLanguage/test/src");
         MgSimpleLogicCompilerTask simpleLogicCompilerTask = new MgSimpleLogicCompilerTask(path);
         simpleLogicCompilerTask.run();
 
