@@ -7,6 +7,9 @@ function resolution
     resolve instructions
         command resolver
             to do:
+                might need to pass output variables to expression resolve tasks as input ...
+                    this might be required so they can tighten the return value set
+
                 resolve operators and build a tree with respect to operator priorities
                 expression resolver
                 mg command to instruction converter

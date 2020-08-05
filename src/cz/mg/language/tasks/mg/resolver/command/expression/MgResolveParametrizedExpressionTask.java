@@ -1,7 +1,10 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.annotations.task.Subtask;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalParametrizedExpression;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -16,6 +19,9 @@ public class MgResolveParametrizedExpressionTask extends MgResolveExpressionTask
     @Output
     private Expression expression;
 
+    @Subtask
+    private final List<MgResolveExpressionTask> subtasks = new List<>();
+
     public MgResolveParametrizedExpressionTask(CommandContext context, MgLogicalParametrizedExpression logicalExpression) {
         this.context = context;
         this.logicalExpression = logicalExpression;
@@ -28,6 +34,20 @@ public class MgResolveParametrizedExpressionTask extends MgResolveExpressionTask
 
     @Override
     protected void onRun() {
-        //todo;
+        expression = new Expression(logicalExpression);
+
+        todo; // todo - try to resolve function - first pass
+
+        for(MgLogicalExpression argument : logicalExpression.getArguments()){
+            subtasks.addLast(MgResolveExpressionTask.create(context, argument));
+            subtasks.getLast().run();
+            expression.getExpressions().addLast(subtasks.getLast().getExpression());
+        }
+
+        todo; // todo - try to resolve function - second pass
+
+        expression.setInput(todo);
+        expression.setOutput(todo);
+        expression.getInstructions().add(todo);
     }
 }

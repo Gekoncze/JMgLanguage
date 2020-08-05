@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.array.Array;
-import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
