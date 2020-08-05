@@ -6,8 +6,8 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Filter;
 import cz.mg.language.tasks.mg.resolver.Store;
+import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 
 
@@ -29,7 +29,7 @@ public class MgResolveVariableDatatypeTask extends MgResolveTask<MgDatatype> {
 
     @Override
     protected MgDatatype onResolve() {
-        Filter<MgType> filter = new Filter<>(getContext(), MgType.class, logicalVariable.getType());
+        ClassFilter<MgType> filter = new ClassFilter<>(getContext(), logicalVariable.getType(), MgType.class);
         this.datatype = new MgDatatype(
             filter.find(),
             MgDatatype.Storage.valueOf(logicalVariable.getStorage().name()),

@@ -136,6 +136,7 @@ improve compiler exceptions
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
 limit file size parameter
 add entity validations
+during resolution, inner context cannot shadow outer context results
 
 mg language - required vs optional input and output variables for functions
     can be implemented as syntactical sugar

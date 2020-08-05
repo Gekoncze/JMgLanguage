@@ -7,8 +7,8 @@ import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalDeclaration
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.other.MgDatatype;
-import cz.mg.language.tasks.mg.resolver.Filter;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 
 
 public class MgResolveDeclarationExpressionTask extends MgResolveExpressionTask {
@@ -33,7 +33,7 @@ public class MgResolveDeclarationExpressionTask extends MgResolveExpressionTask 
 
     @Override
     protected void onRun() {
-        expression = new Expression(context, logicalExpression);
+        expression = new Expression(logicalExpression);
         expression.getDeclaredVariables().addLast(
             new MgVariable(
                 logicalExpression.getName(),
@@ -44,9 +44,11 @@ public class MgResolveDeclarationExpressionTask extends MgResolveExpressionTask 
                 )
             )
         );
+        expression.setInput(io());
+        expression.setOutput(io(expression.getDeclaredVariables()));
     }
 
     private MgType resolveType(ReadableText name){
-        return new Filter<>(context, MgType.class, name).find();
+        return new ClassFilter<>(context, name, MgType.class).find();
     }
 }

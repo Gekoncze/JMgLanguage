@@ -6,20 +6,20 @@ import cz.mg.language.annotations.entity.Value;
 
 public class MgLogicalNameExpression extends MgLogicalExpression {
     @Value
-    private ReadableText target;
+    private ReadableText name;
 
     public MgLogicalNameExpression() {
     }
 
-    public MgLogicalNameExpression(ReadableText target) {
-        this.target = target;
+    public MgLogicalNameExpression(ReadableText name) {
+        this.name = name;
     }
 
-    public ReadableText getTarget() {
-        return target;
+    public ReadableText getName() {
+        return name;
     }
 
-    public void setTarget(ReadableText target) {
-        this.target = target;
+    public void setName(ReadableText name) {
+        this.name = name;
     }
 }

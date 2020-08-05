@@ -5,8 +5,8 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Filter;
 import cz.mg.language.tasks.mg.resolver.Store;
+import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 
 
@@ -28,6 +28,6 @@ public class MgResolveComponentStampTask extends MgResolveTask<MgStamp> {
 
     @Override
     protected MgStamp onResolve() {
-        return new Filter<>(getContext(), MgStamp.class, logicalStamp).find();
+        return new ClassFilter<>(getContext(), logicalStamp, MgStamp.class).find();
     }
 }

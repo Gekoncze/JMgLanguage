@@ -1,7 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
+import cz.mg.collections.array.Array;
+import cz.mg.collections.array.ReadableArray;
+import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
+import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -54,4 +58,20 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     }
 
     public abstract Expression getExpression();
+
+    protected ReadableArray<MgVariable> io(){
+        return new Array<>();
+    }
+
+    protected ReadableArray<MgVariable> io(MgVariable... io){
+        return new Array<>(io);
+    }
+
+    protected ReadableArray<MgVariable> io(ReadableArray<MgVariable> io){
+        return io;
+    }
+
+    protected ReadableArray<MgVariable> io(ReadableList<MgVariable> io){
+        return new Array(io);
+    }
 }

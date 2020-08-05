@@ -2,10 +2,11 @@ package cz.mg.language.tasks.mg.resolver.contexts;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
+import cz.mg.collections.list.ReadableList;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Filter;
+import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 
 
 public class OperatorCache {
@@ -15,8 +16,8 @@ public class OperatorCache {
     public OperatorCache(Context context) {
         if(context != null){
             // find all functions available in this context
-            Filter<MgFunction> filter = new Filter<>(context, MgFunction.class, null);
-            List<MgFunction> availableFunctions = filter.findAll();
+            ClassFilter<MgFunction> filter = new ClassFilter<>(context, null, MgFunction.class);
+            ReadableList<MgFunction> availableFunctions = filter.findAll();
 
             // fund the min and max priority of the available functions
             int minOperatorPriority = 0;
