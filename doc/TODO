@@ -1,12 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-left, right and binary operators are now distinguished by type
-fixed operator keyword requirement for priority keyword
-some test fixes
+fixed multiple keywords line splitting bug
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-multiple keywords does not work ...
-
 function resolution
     resolve instructions
         command resolver

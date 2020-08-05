@@ -108,7 +108,7 @@ public class MgParseBlocksTask extends MgParseTask {
         throw new LanguageException("Too large indentation.");
     }
 
-    private static void splitLineByKeywords(ListItem<Line> lineItem, int indentation) {
+    /*private*/ public static void splitLineByKeywords(ListItem<Line> lineItem, int indentation) {
         List<Line> newLines = splitLineByKeywords(lineItem.get());
         lineItem.setData(newLines.removeFirst());
         for(Line newLine : newLines) {
@@ -118,7 +118,7 @@ public class MgParseBlocksTask extends MgParseTask {
         }
     }
 
-    private static List<Line> splitLineByKeywords(Line line){
+    /*private*/ public static List<Line> splitLineByKeywords(Line line){
         List<Line> lines = new List<>();
         SplitStatus status = SplitStatus.SPACES;
         Line newLine = new Line();
@@ -135,6 +135,8 @@ public class MgParseBlocksTask extends MgParseTask {
                     break;
                 case KEYWORDS:
                     if(token instanceof KeywordToken) {
+                        status = SplitStatus.KEYWORDS;
+                    } else if(token instanceof SpaceToken){
                         status = SplitStatus.KEYWORDS;
                     } else {
                         status = SplitStatus.PARTS;
@@ -192,36 +194,4 @@ public class MgParseBlocksTask extends MgParseTask {
             pendingKeywords.add(parentBlock, (KeywordToken) line.getTokens().removeFirst());
         }
     }
-
-//    public static void main(String[] args) {
-//        List<Line> lines = new List<>();
-//
-//        Line line = new Line(
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new KeywordToken(new ReadonlyText("FUNCTION")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new NameToken(new ReadonlyText("name")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new KeywordToken(new ReadonlyText("INPUT")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new NameToken(new ReadonlyText("foo")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new KeywordToken(new ReadonlyText("OUTPUT")),
-//            new SpaceToken(new ReadonlyText(" ")),
-//            new NameToken(new ReadonlyText("bar"))
-//        );
-//
-//        lines.addLast(line);
-//
-//        System.out.println(line.getTokens().toText("", token -> new ReadonlyText(token.getText())));
-//        System.out.println();
-//
-//        splitLineByKeywords(lines.getFirstItem(), 1);
-//        for(Line newLine : lines){
-//            System.out.println("{LINE} " + newLine.getTokens().toText("", token -> new ReadonlyText(token.getText())));
-//        }
-//    }
 }
