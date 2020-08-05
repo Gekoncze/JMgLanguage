@@ -42,6 +42,8 @@ change mg types into class objects
     then inside they could have an optional type definition
     which would contain variable declarations
     this way we could get rid of mg global variable class
+    or we could just rename them to type variables and handle them differently in text and data structures
+    will need to think a bit more about type inheritance for both variables and functions
 
 add support for function overriding - alternative implementation of function table
 

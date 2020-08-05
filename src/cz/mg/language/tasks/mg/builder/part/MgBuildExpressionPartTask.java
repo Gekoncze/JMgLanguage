@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.builder.part;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.text.structured.parts.Declaration;
 import cz.mg.language.entities.text.structured.parts.Pair;
@@ -92,7 +93,11 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
     private static MgLogicalDeclarationExpression buildDeclaration(Declaration declaration){
         return new MgLogicalDeclarationExpression(
             declaration.getObjectName().getText(),
-            declaration.getTypeName().getText()
+            new MgLogicalDatatype(
+                declaration.getTypeName().getText(),
+                MgLogicalDatatype.Storage.valueOf(declaration.getStorage().name()),
+                MgLogicalDatatype.Requirement.valueOf(declaration.getRequirement().name())
+            )
         );
     }
 

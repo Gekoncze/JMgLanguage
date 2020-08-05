@@ -1,22 +1,28 @@
 package cz.mg.language.entities.mg.logical.parts.expressions;
 
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 
 
 public class MgLogicalDeclarationExpression extends MgLogicalExpression {
     @Value
     private ReadableText name;
 
-    @Value
-    private ReadableText typename;
+    @Part
+    private MgLogicalDatatype datatype;
 
     public MgLogicalDeclarationExpression() {
     }
 
-    public MgLogicalDeclarationExpression(ReadableText name, ReadableText typename) {
+    public MgLogicalDeclarationExpression(ReadableText name) {
         this.name = name;
-        this.typename = typename;
+    }
+
+    public MgLogicalDeclarationExpression(ReadableText name, MgLogicalDatatype datatype) {
+        this.name = name;
+        this.datatype = datatype;
     }
 
     public ReadableText getName() {
@@ -27,11 +33,11 @@ public class MgLogicalDeclarationExpression extends MgLogicalExpression {
         this.name = name;
     }
 
-    public ReadableText getTypename() {
-        return typename;
+    public MgLogicalDatatype getDatatype() {
+        return datatype;
     }
 
-    public void setTypename(ReadableText typename) {
-        this.typename = typename;
+    public void setDatatype(MgLogicalDatatype datatype) {
+        this.datatype = datatype;
     }
 }
