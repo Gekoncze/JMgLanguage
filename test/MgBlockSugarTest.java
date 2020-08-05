@@ -1,54 +1,71 @@
-import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.entities.text.linear.Line;
-import cz.mg.language.entities.text.linear.tokens.KeywordToken;
-import cz.mg.language.entities.text.linear.tokens.NameToken;
-import cz.mg.language.entities.text.linear.tokens.SpaceToken;
-import cz.mg.language.entities.text.linear.tokens.ValueToken;
-
-import static cz.mg.language.tasks.mg.parser.structured.MgParseBlocksTask.splitLineByKeywords;
+import cz.mg.language.entities.text.linear.Page;
+import cz.mg.language.entities.text.linear.tokens.*;
+import cz.mg.language.entities.text.structured.Block;
+import cz.mg.language.tasks.mg.parser.structured.MgParseBlocksTask;
 
 
 public class MgBlockSugarTest {
     public static void main(String[] args) {
-        List<Line> lines = new List<>();
+        Page page = createPage();
+
+        System.out.println("### INPUT ###");
+        System.out.println(page.getLines().getFirst().getTokens().toText("", token -> new ReadonlyText(token.getText())));
+        System.out.println();
+
+        MgParseBlocksTask parseBlocksTask = new MgParseBlocksTask(page);
+        parseBlocksTask.run();
+        Block block = parseBlocksTask.getRoot();
+
+        System.out.println("### OUTPUT ###");
+        printBlock(block, -1);
+    }
+
+    private static void printBlock(Block block, int level){
+        if(level != -1){
+            System.out.print(new ReadonlyText("    ").repeat(level));
+            System.out.print(block.getStamps().toText(" "));
+            if(block.getStamps().count() > 0) System.out.print(" ");
+            System.out.print(block.getKeywords().toText(" "));
+            if(block.getKeywords().count() > 0) System.out.print(" ");
+            System.out.print(block.getParts().toText(" ", o -> new ReadonlyText(o.getClass().getSimpleName())));
+            System.out.println();
+        }
+
+        for(Block subBlock : block.getBlocks()){
+            printBlock(subBlock, level + 1);
+        }
+    }
+
+    private static Page createPage(){
+        Page page = new Page();
 
         Line line = new Line(
-            new SpaceToken(new ReadonlyText(" ")),
-            new SpaceToken(new ReadonlyText(" ")),
-            new SpaceToken(new ReadonlyText(" ")),
-            new SpaceToken(new ReadonlyText(" ")),
             new KeywordToken(new ReadonlyText("FUNCTION")),
             new SpaceToken(new ReadonlyText(" ")),
-            new NameToken(new ReadonlyText("name")),
+            new ObjectNameToken(new ReadonlyText("name")),
             new SpaceToken(new ReadonlyText(" ")),
             new KeywordToken(new ReadonlyText("INPUT")),
             new SpaceToken(new ReadonlyText(" ")),
-            new NameToken(new ReadonlyText("foo")),
+            new ObjectNameToken(new ReadonlyText("foo")),
             new SpaceToken(new ReadonlyText(" ")),
             new KeywordToken(new ReadonlyText("OUTPUT")),
             new SpaceToken(new ReadonlyText(" ")),
-            new NameToken(new ReadonlyText("bar")),
+            new ObjectNameToken(new ReadonlyText("bar")),
             new SpaceToken(new ReadonlyText(" ")),
             new KeywordToken(new ReadonlyText("LEFT")),
             new SpaceToken(new ReadonlyText(" ")),
             new KeywordToken(new ReadonlyText("OPERATOR")),
             new SpaceToken(new ReadonlyText(" ")),
-            new NameToken(new ReadonlyText("not")),
+            new ObjectNameToken(new ReadonlyText("not")),
             new SpaceToken(new ReadonlyText(" ")),
             new KeywordToken(new ReadonlyText("PRIORITY")),
             new SpaceToken(new ReadonlyText(" ")),
             new ValueToken(new ReadonlyText("1"))
         );
 
-        lines.addLast(line);
-
-        System.out.println(line.getTokens().toText("", token -> new ReadonlyText(token.getText())));
-        System.out.println();
-
-        splitLineByKeywords(lines.getFirstItem(), 1);
-        for(Line newLine : lines){
-            System.out.println("{LINE} " + newLine.getTokens().toText("", token -> new ReadonlyText(token.getText())));
-        }
+        page.getLines().addLast(line);
+        return page;
     }
 }

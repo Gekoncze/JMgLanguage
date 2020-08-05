@@ -108,7 +108,7 @@ public class MgParseBlocksTask extends MgParseTask {
         throw new LanguageException("Too large indentation.");
     }
 
-    /*private*/ public static void splitLineByKeywords(ListItem<Line> lineItem, int indentation) {
+    private static void splitLineByKeywords(ListItem<Line> lineItem, int indentation) {
         List<Line> newLines = splitLineByKeywords(lineItem.get());
         lineItem.setData(newLines.removeFirst());
         for(Line newLine : newLines) {
@@ -118,7 +118,7 @@ public class MgParseBlocksTask extends MgParseTask {
         }
     }
 
-    /*private*/ public static List<Line> splitLineByKeywords(Line line){
+    private static List<Line> splitLineByKeywords(Line line){
         List<Line> lines = new List<>();
         SplitStatus status = SplitStatus.SPACES;
         Line newLine = new Line();
