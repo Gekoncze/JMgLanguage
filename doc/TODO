@@ -28,6 +28,19 @@ hmmmm
         then the tree builder would just follow left, right or binary operator
             and order of grouping would be set by priority
 
+(global) function and variable overriding
+    VARIABLE Int32 foo
+    vs
+    OVERRIDE foo VARIABLE Int32 bar
+    vs
+    VARIABLE Int32 bar OVERRIDE foo
+    -
+    FUNCTION foo INPUT ... OUTPUT ...
+    vs
+    OVERRIDE foo FUNCTION bar INPUT ... OUTPUT ...
+    vs
+    FUNCTION bar INPUT ... OUTPUT ... OVERRIDE foo
+
 matcher
     how to handle operators?
     how to handle operator replication?
