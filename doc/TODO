@@ -5,18 +5,33 @@
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 hmmmm
     would it be possible to unite operators and functions?
-    like, function would be just an operator, consider the following scenario
+    like, function would be just an operator, consider the following scenario of valid calls
         foo(a, b, c)
         foo: a, b, c
+        foo a
+        foo: a
+        foo(a)
+
         colon is same as one sided bracket
         now foo would be defined internally as left operator with multiple input
-        maybe replication would then need to be distinguished somehow?
-            for example with some brackets a, b, c [=] d, e, f
+
+    maybe replication would then need to be distinguished somehow?
+        for example with some brackets a, b, c [=] d, e, f
+
     this would require lot of refactoring but imo would be worth the cost and the simplifications
+
+    buildin and non-customizable ooperators would be
+        _._ dot, aka contextual chain
+        _,_ comma, aka con-contextual chain
+        (_) and :_ aka group
+        [_] or {_} aka replication // todo
+        then the tree builder would just follow left, right or binary operator
+            and order of grouping would be set by priority
 
 matcher
     how to handle operators?
     how to handle operator replication?
+    how to handle member access matching for auto passing self?
 
 function resolution
     resolve instructions
