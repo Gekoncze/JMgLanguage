@@ -6,7 +6,6 @@ import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -82,11 +81,5 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
 
     protected ReadableArray<MgVariable> io(ReadableList<MgVariable> io){
         return new Array(io);
-    }
-
-    protected void match(Expression parent, Expression child){
-        if(!Matcher.matches(parent, child)){
-            throw new LanguageException("Type mismatch.");
-        }
     }
 }

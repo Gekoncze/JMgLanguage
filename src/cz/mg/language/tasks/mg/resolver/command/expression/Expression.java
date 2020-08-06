@@ -1,8 +1,8 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
+import cz.mg.collections.array.ArrayView;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
-import cz.mg.collections.list.ReadableList;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
@@ -63,5 +63,13 @@ public class Expression {
 
     public void setOutput(ReadableArray<MgVariable> output) {
         this.output = output;
+    }
+
+    public ReadableArray<MgVariable> getRemainingInput(){
+        int offset = 0;
+        for(Expression expression : expressions){
+            offset += expression.getOutput().count();
+        }
+        return new ArrayView<>(input, offset, input.count());
     }
 }

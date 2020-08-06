@@ -7,42 +7,54 @@ import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 
 
 public class Matcher {
-    public static boolean matches(Expression parent, Expression child){
-        if(parent == null || child == null) return true;
-        return matches(parent.getInput(), child.getOutput());
+    public static boolean matchesPartial(ReadableArray<MgVariable> lvalue, MgVariable rvalue){
+        if(lvalue == null || rvalue == null) return true;
+        if(lvalue.count() < 1) return false;
+        if(!matches(lvalue.getFirst(), rvalue)) return false;
+        return true;
     }
 
-    public static boolean matches(ReadableArray<MgVariable> parent, ReadableArray<MgVariable> child){
-        if(parent == null || child == null) return true;
-        if(parent.count() != child.count()) return false;
-        for(int i = 0; i < parent.count(); i++){
-            if(!matches(parent.get(i), child.get(i))) return false;
+    public static boolean matchesPartial(ReadableArray<MgVariable> lvalue, ReadableArray<MgVariable> rvalue){
+        if(lvalue == null || rvalue == null) return true;
+        if(lvalue.count() < rvalue.count()) return false;
+        for(int i = 0; i < rvalue.count(); i++){
+            if(!matches(lvalue.get(i), rvalue.get(i))) return false;
         }
         return true;
     }
 
-    public static boolean matches(MgVariable parent, MgVariable child){
-        return matches(parent.getDatatype(), child.getDatatype());
+    public static boolean matches(ReadableArray<MgVariable> lvalue, ReadableArray<MgVariable> rvalue){
+        if(lvalue == null || rvalue == null) return true;
+        if(lvalue.count() != rvalue.count()) return false;
+        for(int i = 0; i < lvalue.count(); i++){
+            if(!matches(lvalue.get(i), rvalue.get(i))) return false;
+        }
+        return true;
     }
 
-    public static boolean matches(MgDatatype parent, MgDatatype child){
-        boolean type = matches(parent.getType(), child.getType());
-        boolean requirement = matches(parent.getRequirement(), child.getRequirement());
-        boolean storage = matches(parent.getStorage(), child.getStorage());
+    public static boolean matches(MgVariable lvalue, MgVariable rvalue){
+        if(lvalue == null || rvalue == null) return true;
+        return matches(lvalue.getDatatype(), rvalue.getDatatype());
+    }
+
+    private static boolean matches(MgDatatype lvalue, MgDatatype rvalue){
+        boolean type = matches(lvalue.getType(), rvalue.getType());
+        boolean requirement = matches(lvalue.getRequirement(), rvalue.getRequirement());
+        boolean storage = matches(lvalue.getStorage(), rvalue.getStorage());
         return type && requirement && storage;
     }
 
-    public static boolean matches(MgType parent, MgType child){
-        return child.is(parent);
+    private static boolean matches(MgType lvalue, MgType rvalue){
+        return rvalue.is(lvalue);
     }
 
-    public static boolean matches(MgDatatype.Requirement parent, MgDatatype.Requirement child){
-        if(child == parent) return true;
-        if(child == MgDatatype.Requirement.MANDATORY && parent == MgDatatype.Requirement.OPTIONAL) return true;
+    private static boolean matches(MgDatatype.Requirement lvalue, MgDatatype.Requirement rvalue){
+        if(rvalue == lvalue) return true;
+        if(rvalue == MgDatatype.Requirement.MANDATORY && lvalue == MgDatatype.Requirement.OPTIONAL) return true;
         return false;
     }
 
-    public static boolean matches(MgDatatype.Storage parent, MgDatatype.Storage child){
-        return parent == child;
+    private static boolean matches(MgDatatype.Storage lvalue, MgDatatype.Storage rvalue){
+        return lvalue == rvalue;
     }
 }
