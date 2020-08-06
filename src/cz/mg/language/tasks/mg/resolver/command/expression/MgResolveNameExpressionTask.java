@@ -10,7 +10,7 @@ import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.instructions.sequential.MgCreateFunctionInstruction;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
-import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
+import cz.mg.language.tasks.mg.resolver.filter.ExpressionFilter;
 
 
 public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
@@ -52,11 +52,9 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
         } else {
             throw new RuntimeException();
         }
-        match(parent, expression);
     }
 
     private MgComponent resolveName(ReadableText name){
-        todo; // todo - filter also by return type when specified
-        return new ClassFilter<>(context, name, MgVariable.class, MgFunction.class).find();
+        return new ExpressionFilter(context, name, new Array<>(), parent.getInput()).find();
     }
 }

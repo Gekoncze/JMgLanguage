@@ -1,14 +1,22 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added expression filter + matcher improvements
-work in progress ...
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-we might need to somehow add offset to the passed parent expression parameter ...
-    we might then need to do some optional matching
-        so at lest one variable has to match and this will be used to connect to the parent
-            add a connect method maybe?
-            how to handle operator replication?
+hmmmm
+    would it be possible to unite operators and functions?
+    like, function would be just an operator, consider the following scenario
+        foo(a, b, c)
+        foo: a, b, c
+        colon is same as one sided bracket
+        now foo would be defined internally as left operator with multiple input
+        maybe replication would then need to be distinguished somehow?
+            for example with some brackets a, b, c [=] d, e, f
+    this would require lot of refactoring but imo would be worth the cost and the simplifications
+
+matcher
+    how to handle operators?
+    how to handle operator replication?
 
 function resolution
     resolve instructions
