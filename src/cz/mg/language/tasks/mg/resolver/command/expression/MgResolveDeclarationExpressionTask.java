@@ -18,12 +18,16 @@ public class MgResolveDeclarationExpressionTask extends MgResolveExpressionTask 
     @Input
     private final MgLogicalDeclarationExpression logicalExpression;
 
+    @Input
+    private final Expression parent;
+
     @Output
     private Expression expression;
 
-    public MgResolveDeclarationExpressionTask(CommandContext context, MgLogicalDeclarationExpression logicalExpression) {
+    public MgResolveDeclarationExpressionTask(CommandContext context, MgLogicalDeclarationExpression logicalExpression, Expression parent) {
         this.context = context;
         this.logicalExpression = logicalExpression;
+        this.parent = parent;
     }
 
     @Override
@@ -46,6 +50,7 @@ public class MgResolveDeclarationExpressionTask extends MgResolveExpressionTask 
         );
         expression.setInput(io());
         expression.setOutput(io(expression.getDeclaredVariables()));
+        match(parent, expression);
     }
 
     private MgType resolveType(ReadableText name){

@@ -6,26 +6,35 @@ import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.other.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
 public abstract class MgResolveExpressionTask extends MgResolverTask {
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression){
-        return create(context, logicalExpression, false);
+        return create(context, logicalExpression, null, false);
+    }
+
+    public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent){
+        return create(context, logicalExpression, parent, false);
     }
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, boolean optional){
+        return create(context, logicalExpression, null, optional);
+    }
+
+    public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent, boolean optional){
         if(logicalExpression instanceof MgLogicalValueExpression){
-            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression);
+            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalNameExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression);
+            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalDeclarationExpression){
-            return new MgResolveDeclarationExpressionTask(context, (MgLogicalDeclarationExpression) logicalExpression);
+            return new MgResolveDeclarationExpressionTask(context, (MgLogicalDeclarationExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalSignsExpression){
@@ -39,15 +48,15 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         }
 
         if(logicalExpression instanceof MgLogicalOperatorExpression){
-            return new MgResolveOperatorExpressionTask(context, (MgLogicalOperatorExpression) logicalExpression);
+            return new MgResolveOperatorExpressionTask(context, (MgLogicalOperatorExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalParametrizedExpression){
-            return new MgResolveParametrizedExpressionTask(context, (MgLogicalParametrizedExpression) logicalExpression);
+            return new MgResolveParametrizedExpressionTask(context, (MgLogicalParametrizedExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalPathExpression){
-            return new MgResolvePathExpressionTask(context, (MgLogicalPathExpression) logicalExpression);
+            return new MgResolvePathExpressionTask(context, (MgLogicalPathExpression) logicalExpression, parent);
         }
 
         if(optional) return null;
@@ -73,5 +82,11 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
 
     protected ReadableArray<MgVariable> io(ReadableList<MgVariable> io){
         return new Array(io);
+    }
+
+    protected void match(Expression parent, Expression child){
+        if(!Matcher.matches(parent, child)){
+            throw new LanguageException("Type mismatch.");
+        }
     }
 }

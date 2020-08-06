@@ -13,4 +13,8 @@ public class MgType extends MgComponent {
     public MgType(MgType type, ReadableText name) {
         super(type, name);
     }
+
+    public boolean is(MgType type){
+        return this == type;
+    }
 }

@@ -13,12 +13,16 @@ public class MgResolvePathExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalPathExpression logicalExpression;
 
+    @Input
+    private final Expression parent;
+
     @Output
     private Expression expression;
 
-    public MgResolvePathExpressionTask(CommandContext context, MgLogicalPathExpression logicalExpression) {
+    public MgResolvePathExpressionTask(CommandContext context, MgLogicalPathExpression logicalExpression, Expression parent) {
         this.context = context;
         this.logicalExpression = logicalExpression;
+        this.parent = parent;
     }
 
     @Override
@@ -28,6 +32,6 @@ public class MgResolvePathExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected void onRun() {
-        //todo;
+        todo;
     }
 }

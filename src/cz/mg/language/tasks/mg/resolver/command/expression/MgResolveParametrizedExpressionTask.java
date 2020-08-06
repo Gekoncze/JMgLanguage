@@ -16,15 +16,19 @@ public class MgResolveParametrizedExpressionTask extends MgResolveExpressionTask
     @Input
     private final MgLogicalParametrizedExpression logicalExpression;
 
+    @Input
+    private final Expression parent;
+
     @Output
     private Expression expression;
 
     @Subtask
     private final List<MgResolveExpressionTask> subtasks = new List<>();
 
-    public MgResolveParametrizedExpressionTask(CommandContext context, MgLogicalParametrizedExpression logicalExpression) {
+    public MgResolveParametrizedExpressionTask(CommandContext context, MgLogicalParametrizedExpression logicalExpression, Expression parent) {
         this.context = context;
         this.logicalExpression = logicalExpression;
+        this.parent = parent;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class MgResolveParametrizedExpressionTask extends MgResolveExpressionTask
         todo; // todo - try to resolve function - first pass
 
         for(MgLogicalExpression argument : logicalExpression.getArguments()){
-            subtasks.addLast(MgResolveExpressionTask.create(context, argument));
+            subtasks.addLast(MgResolveExpressionTask.create(context, argument, expression));
             subtasks.getLast().run();
             expression.getExpressions().addLast(subtasks.getLast().getExpression());
         }

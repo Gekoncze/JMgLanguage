@@ -1,16 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.list.List;
-import cz.mg.collections.list.ListItem;
-import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalOperatorExpression;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
-import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
 
 
 public class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
@@ -20,15 +15,19 @@ public class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalOperatorExpression logicalOperatorExpression;
 
+    @Input
+    private final Expression parent;
+
     @Output
     private Expression expression;
 
     @Subtask
     private List<MgResolveExpressionTask> resolveExpressionTasks = new List<>();
 
-    public MgResolveOperatorExpressionTask(CommandContext context, MgLogicalOperatorExpression logicalExpression) {
+    public MgResolveOperatorExpressionTask(CommandContext context, MgLogicalOperatorExpression logicalExpression, Expression parent) {
         this.context = context;
         this.logicalOperatorExpression = logicalExpression;
+        this.parent = parent;
     }
 
     @Override
@@ -38,7 +37,7 @@ public class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected void onRun() {
-        // TODO
+        todo;
 //        // initialize list of elements
 //        // resolve all expressions except operators
 //        List elements = new List();

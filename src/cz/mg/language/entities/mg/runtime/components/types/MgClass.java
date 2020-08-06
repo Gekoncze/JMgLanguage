@@ -2,7 +2,6 @@ package cz.mg.language.entities.mg.runtime.components.types;
 
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.Named;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.task.Cache;
@@ -12,7 +11,7 @@ import cz.mg.language.entities.mg.runtime.other.MgFunctionTable;
 import cz.mg.language.entities.mg.runtime.other.MgVariableTable;
 
 
-public class MgClass extends MgType implements Named {
+public class MgClass extends MgType {
     private static final MgType TYPE = new MgType("Class");
 
     @Link
@@ -121,5 +120,14 @@ public class MgClass extends MgType implements Named {
         for(MgFunction function : clazz.getFunctions()){
             this.functionTable.set(function, function);
         }
+    }
+
+    @Override
+    public boolean is(MgType type) {
+        if(type == this) return true;
+        for(MgClass base : classes){
+            if(base.is(type)) return true;
+        }
+        return false;
     }
 }

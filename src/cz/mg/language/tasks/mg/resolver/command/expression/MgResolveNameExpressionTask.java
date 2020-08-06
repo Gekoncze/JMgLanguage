@@ -20,12 +20,16 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalNameExpression logicalExpression;
 
+    @Input
+    private final Expression parent;
+
     @Output
     private Expression expression;
 
-    public MgResolveNameExpressionTask(CommandContext context, MgLogicalNameExpression logicalExpression) {
+    public MgResolveNameExpressionTask(CommandContext context, MgLogicalNameExpression logicalExpression, Expression parent) {
         this.context = context;
         this.logicalExpression = logicalExpression;
+        this.parent = parent;
     }
 
     @Override
@@ -48,9 +52,11 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
         } else {
             throw new RuntimeException();
         }
+        match(parent, expression);
     }
 
     private MgComponent resolveName(ReadableText name){
+        todo; // todo - filter also by return type when specified
         return new ClassFilter<>(context, name, MgVariable.class, MgFunction.class).find();
     }
 }
