@@ -1,8 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+we might need to somehow add offset to the passed parent expression parameter ...
+    we might then need to do some optional matching
+        so at lest one variable has to match and this will be used to connect to the parent
+            add a connect method maybe?
+
 function resolution
     resolve instructions
         command resolver
