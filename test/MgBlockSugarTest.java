@@ -1,9 +1,9 @@
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.text.linear.Line;
-import cz.mg.language.entities.text.linear.Page;
-import cz.mg.language.entities.text.linear.tokens.*;
+import cz.mg.language.entities.text.plain.Line;
+import cz.mg.language.entities.text.plain.Page;
+import cz.mg.language.entities.text.plain.tokens.*;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.tasks.mg.parser.structured.MgParseBlocksTask;
+import cz.mg.language.tasks.mg.composer.MgComposeBlocksTask;
 
 
 public class MgBlockSugarTest {
@@ -14,7 +14,7 @@ public class MgBlockSugarTest {
         System.out.println(page.getLines().getFirst().getTokens().toText("", token -> new ReadonlyText(token.getText())));
         System.out.println();
 
-        MgParseBlocksTask parseBlocksTask = new MgParseBlocksTask(page);
+        MgComposeBlocksTask parseBlocksTask = new MgComposeBlocksTask(page);
         parseBlocksTask.run();
         Block block = parseBlocksTask.getRoot();
 

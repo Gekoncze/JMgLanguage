@@ -49,7 +49,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
 
         onResolveLeave();
 
-        todo; // todo - final matching;
+        //todo; // todo - final matching;
     }
 
     protected abstract ReadableCollection<MgLogicalExpression> onResolveEnter();
@@ -91,41 +91,34 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     }
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent, boolean optional){
-        if(logicalExpression instanceof MgLogicalValueExpression){
-            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalNameExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalDeclarationExpression){
-            return new MgResolveDeclarationExpressionTask(context, (MgLogicalDeclarationExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalSignsExpression){
-            if(optional) return null;
-            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalSignsExpression) logicalExpression).getTarget() + "' for resolve.");
-        }
-
-        if(logicalExpression instanceof MgLogicalSymbolExpression){
-            if(optional) return null;
-            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalSymbolExpression) logicalExpression).getSymbol() + "' for resolve.");
-        }
-
-        if(logicalExpression instanceof MgLogicalOperatorExpression){
-            return new MgResolveOperatorExpressionTask(context, (MgLogicalOperatorExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalParametrizedExpression){
-            return new MgResolveParametrizedExpressionTask(context, (MgLogicalParametrizedExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalPathExpression){
-            return new MgResolvePathExpressionTask(context, (MgLogicalPathExpression) logicalExpression, parent);
-        }
-
-        if(optional) return null;
-        throw new LanguageException("Unsupported expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
+        throw new UnsupportedOperationException(); // TODO
+//        if(logicalExpression instanceof MgLogicalValueExpression){
+//            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression, parent);
+//        }
+//
+//        if(logicalExpression instanceof MgLogicalNameExpression) {
+//            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
+//        }
+//
+//        if(logicalExpression instanceof MgLogicalDeclarationExpression){
+//            return new MgResolveDeclarationExpressionTask(context, (MgLogicalDeclarationExpression) logicalExpression, parent);
+//        }
+//
+//        if(logicalExpression instanceof MgLogicalOperatorExpression){
+//            if(optional) return null;
+//            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalOperatorExpression) logicalExpression).getTarget() + "' for resolve.");
+//        }
+//
+//        if(logicalExpression instanceof MgLogicalSymbolExpression){
+//            if(optional) return null;
+//            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalSymbolExpression) logicalExpression).getSymbol() + "' for resolve.");
+//        }
+//
+//        if(logicalExpression instanceof MgLogicalGroupExpression){
+//            return new MgResolveOperatorExpressionTask(context, (MgLogicalGroupExpression) logicalExpression, parent);
+//        }
+//
+//        if(optional) return null;
+//        throw new LanguageException("Unsupported expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
     }
 }

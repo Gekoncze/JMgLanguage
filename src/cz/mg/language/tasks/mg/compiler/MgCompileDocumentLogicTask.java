@@ -6,9 +6,9 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.file.Document;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.tasks.input.file.MgLoadTextFileTask;
-import cz.mg.language.tasks.mg.builder.block.MgBuildRootBlockTask;
-import cz.mg.language.tasks.mg.parser.common.MgParsePageTask;
-import cz.mg.language.tasks.mg.parser.structured.MgParseBlocksTask;
+import cz.mg.language.tasks.mg.builder.block.MgBuildComponentTask;
+import cz.mg.language.tasks.mg.parser.MgParsePageTask;
+import cz.mg.language.tasks.mg.composer.MgComposeBlocksTask;
 
 
 public class MgCompileDocumentLogicTask extends MgCompileFileLogicTask {
@@ -25,10 +25,10 @@ public class MgCompileDocumentLogicTask extends MgCompileFileLogicTask {
     private MgParsePageTask parsePageTask;
 
     @Input
-    private MgParseBlocksTask parseBlocksTask;
+    private MgComposeBlocksTask parseBlocksTask;
 
     @Subtask
-    private MgBuildRootBlockTask buildRootTask;
+    private MgBuildComponentTask buildRootTask;
 
     public MgCompileDocumentLogicTask(Document document) {
         this.document = document;
@@ -46,10 +46,10 @@ public class MgCompileDocumentLogicTask extends MgCompileFileLogicTask {
         parsePageTask = new MgParsePageTask(loadTextFileTask.getContent());
         parsePageTask.run();
 
-        parseBlocksTask = new MgParseBlocksTask(parsePageTask.getPage());
+        parseBlocksTask = new MgComposeBlocksTask(parsePageTask.getPage());
         parseBlocksTask.run();
 
-        buildRootTask = new MgBuildRootBlockTask(parseBlocksTask.getRoot());
+        buildRootTask = new MgBuildComponentTask(parseBlocksTask.getRoot());
         buildRootTask.run();
 
         component = buildRootTask.getComponent();

@@ -7,7 +7,7 @@ import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.other.MgOperator;
+import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 
 
 public class MgFunction extends MgInterface {

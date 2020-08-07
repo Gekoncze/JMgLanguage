@@ -3,7 +3,6 @@ package cz.mg.language.entities.text.structured;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.text.TextEntity;
-import cz.mg.language.entities.text.structured.parts.Part;
 
 
 public class Block implements TextEntity {

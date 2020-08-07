@@ -4,8 +4,8 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.collections.text.Text;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.text.linear.Line;
-import cz.mg.language.entities.text.linear.tokens.WhitespaceToken;
+import cz.mg.language.entities.text.plain.Line;
+import cz.mg.language.entities.text.plain.tokens.WhitespaceToken;
 
 
 public class Utilities {

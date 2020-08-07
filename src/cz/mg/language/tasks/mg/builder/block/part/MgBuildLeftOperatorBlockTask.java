@@ -1,11 +1,9 @@
 package cz.mg.language.tasks.mg.builder.block.part;
 
 import cz.mg.collections.Clump;
-import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalOperator;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.part.MgBuildLeftOperatorTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
@@ -22,8 +20,8 @@ public class MgBuildLeftOperatorBlockTask extends MgBuildBlockTask {
     @Output
     private MgLogicalOperator operator;
 
-    public MgBuildLeftOperatorBlockTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildLeftOperatorBlockTask(Block block) {
+        super(block);
     }
 
     public MgLogicalOperator getOperator() {

@@ -11,7 +11,7 @@ import cz.mg.language.entities.mg.runtime.instructions.sequential.test.MgPrintIn
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
-import cz.mg.language.entities.mg.runtime.other.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;

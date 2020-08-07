@@ -1,22 +1,25 @@
 package cz.mg.language.entities.mg.logical.parts.expressions;
 
-import cz.mg.collections.list.List;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.collections.text.ReadableText;
+import cz.mg.language.annotations.entity.Value;
 
 
 public class MgLogicalOperatorExpression extends MgLogicalExpression {
-    @Part
-    private final List<MgLogicalExpression> expressions;
+    @Value
+    private ReadableText target;
 
     public MgLogicalOperatorExpression() {
-        this(new List<>());
     }
 
-    public MgLogicalOperatorExpression(List<MgLogicalExpression> expressions) {
-        this.expressions = expressions;
+    public MgLogicalOperatorExpression(ReadableText target) {
+        this.target = target;
     }
 
-    public List<MgLogicalExpression> getExpressions() {
-        return expressions;
+    public ReadableText getTarget() {
+        return target;
+    }
+
+    public void setTarget(ReadableText target) {
+        this.target = target;
     }
 }

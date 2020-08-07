@@ -6,7 +6,6 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.command.Command;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;

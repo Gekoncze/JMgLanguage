@@ -7,8 +7,8 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.other.MgFunctionTable;
-import cz.mg.language.entities.mg.runtime.other.MgVariableTable;
+import cz.mg.language.entities.mg.runtime.parts.MgFunctionTable;
+import cz.mg.language.entities.mg.runtime.parts.MgVariableTable;
 
 
 public class MgClass extends MgType {

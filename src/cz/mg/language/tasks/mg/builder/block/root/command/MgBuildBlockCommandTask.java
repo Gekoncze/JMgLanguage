@@ -4,7 +4,6 @@ import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBlockCommand;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.MgBuildNameBlockTask;
 import cz.mg.language.tasks.mg.builder.pattern.*;
@@ -129,8 +128,8 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
         )
     );
 
-    public MgBuildBlockCommandTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildBlockCommandTask(Block block) {
+        super(block);
     }
 
     @Override

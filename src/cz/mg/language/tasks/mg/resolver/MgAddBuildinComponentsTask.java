@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
-import cz.mg.language.entities.mg.runtime.other.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
 public class MgAddBuildinComponentsTask extends MgResolverTask {

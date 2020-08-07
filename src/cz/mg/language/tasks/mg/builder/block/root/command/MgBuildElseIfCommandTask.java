@@ -4,7 +4,6 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBlockCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalElseIfCommand;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
 
@@ -19,8 +18,8 @@ public class MgBuildElseIfCommandTask extends MgBuildBlockCommandTask {
     @Output
     private MgLogicalElseIfCommand command;
 
-    public MgBuildElseIfCommandTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildElseIfCommandTask(Block block) {
+        super(block);
     }
 
     public MgLogicalElseIfCommand getCommand() {

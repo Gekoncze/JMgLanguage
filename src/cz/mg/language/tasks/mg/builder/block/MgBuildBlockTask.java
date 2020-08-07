@@ -9,20 +9,15 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.Stampable;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.part.MgBuildPartTask;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
-import cz.mg.language.tasks.mg.builder.pattern.MgPatternValidatorTask;
-import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
-import cz.mg.language.tasks.mg.builder.pattern.Pattern;
+import cz.mg.language.tasks.mg.builder.pattern.*;
 
 import java.util.Iterator;
 
 
 public abstract class MgBuildBlockTask extends MgBuildTask {
-    @Input
-    private final Part part;
-
     @Input
     private final Block block;
 
@@ -32,33 +27,26 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     @Subtask
     private final List<MgBuildTask> subtasks = new List<>();
 
-    public MgBuildBlockTask(Part part, Block block) {
-        this.part = part;
+    public MgBuildBlockTask(Block block) {
         this.block = block;
     }
 
     @Override
     protected void onRun() {
-        buildPart(part);
-        buildBlock(block);
+        buildParts(block.getParts());
+        buildBlocks(block.getBlocks());
         handoverStamps(block.getStamps());
     }
 
-    protected void buildPart(Part part) {
+    protected void buildParts(List<Part> parts) {
         if(getProcessor() != null){
-            if(part != null) {
-                MgBuildTask subtask = execute(
-                    create(
-                        getProcessor().getSourceBuildTaskClass(),
-                        part
-                    )
-                );
-                getProcessor().getSetter().set(subtask, this);
+            if(parts.count() > 0) {
+                createExecuteSet(getProcessor(), parts);
             } else {
                 throw new LanguageException("Missing part.");
             }
         } else {
-            if(part != null){
+            if(parts.count() > 0){
                 throw new LanguageException("Unexpected part.");
             } else {
                 // nothing to do
@@ -66,49 +54,60 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
         }
     }
 
-    protected void buildBlock(Block block){
+    protected void buildBlocks(List<Block> blocks){
         validatorTask = new MgPatternValidatorTask(getPatterns());
 
-        for(Block childBlock : block.getBlocks()){
-            Pattern pattern = match(childBlock);
-            validatorTask.register(childBlock, pattern);
-            buildChildBlock(childBlock, pattern);
+        for(Block block : blocks){
+            Pattern pattern = match(block);
+            validatorTask.register(block, pattern);
+            createExecuteSet(pattern.getProcessor(), block);
         }
 
         validatorTask.run();
     }
 
-    protected void buildChildBlock(Block childBlock, Pattern pattern){
-        MgBuildTask subtask = execute(
-            create(
-                pattern.getProcessor().getSourceBuildTaskClass(),
-                extractKeyPart(childBlock.getParts()),
-                childBlock
-            )
-        );
-        pattern.getProcessor().getSetter().set(subtask, this);
+    private void createExecuteSet(BlockProcessor processor, Block block){
+        set(processor, execute(create(processor.getSourceBuildTaskClass(), block)));
     }
 
-    private MgBuildTask create(Class<? extends MgBuildBlockTask> clazz, Part part, Block block){
+    private void createExecuteSet(PartProcessor processor, List<Part> parts){
+        set(processor, execute(create(processor.getSourceBuildTaskClass(), parts)));
+    }
+
+    private MgBuildBlockTask create(Class<? extends MgBuildBlockTask> clazz, Block block){
         try {
-            return clazz.getConstructor(Part.class, Block.class).newInstance(part, block);
+            return clazz.getConstructor(Block.class).newInstance(block); // todo - update all constructors
         } catch (ReflectiveOperationException e){
             throw new RuntimeException(e);
         }
     }
 
-    private MgBuildTask create(Class<? extends MgBuildPartTask> clazz, Part part){
+    private MgBuildPartTask create(Class<? extends MgBuildPartTask> clazz, List<Part> parts){
         try {
-            return clazz.getConstructor(Part.class).newInstance(part);
+            return clazz.getConstructor(List.class).newInstance(parts); // todo - update all constructors
         } catch (ReflectiveOperationException e){
             throw new RuntimeException(e);
         }
     }
 
-    private <T extends MgBuildTask> T execute(T task){
+    private MgBuildBlockTask execute(MgBuildBlockTask task){
         subtasks.addLast(task);
         task.run();
         return task;
+    }
+
+    private MgBuildPartTask execute(MgBuildPartTask task){
+        subtasks.addLast(task);
+        task.run();
+        return task;
+    }
+
+    private void set(BlockProcessor processor, MgBuildBlockTask task){
+        processor.getSetter().set(task, this);
+    }
+
+    private void set(PartProcessor processor, MgBuildPartTask task){
+        processor.getSetter().set(task, this);
     }
 
     private Pattern match(Block childBlock){
@@ -140,18 +139,6 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
             if(!expectedKeyword.equals(actualKeyword)) return false;
         }
         return true;
-    }
-
-    private Part extractKeyPart(ReadableCollection<Part> parts){
-        if(parts.count() <= 0){
-            return null;
-        }
-
-        if(parts.count() > 1){
-            throw new LanguageException("Orphan part(s).");
-        }
-
-        return parts.iterator().next();
     }
 
     protected void handoverStamps(List<ReadableText> stamps) {

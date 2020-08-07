@@ -1,17 +1,18 @@
 package cz.mg.language.tasks.mg.builder.part;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.entities.text.structured.parts.leaves.Value;
 
 
-public class MgBuildPriorityTask extends MgBuildPartTask<Value> {
+public class MgBuildPriorityTask extends MgBuildPartTask {
     @Output
     private int priority;
 
-    public MgBuildPriorityTask(Part part) {
-        super(part, Value.class);
+    public MgBuildPriorityTask(List<Part> parts) {
+        super(parts);
     }
 
     public int getPriority() {
@@ -19,9 +20,10 @@ public class MgBuildPriorityTask extends MgBuildPartTask<Value> {
     }
 
     @Override
-    protected void buildPart(Value part) {
+    protected void buildParts(List<Part> parts) {
+        checkCount(1);
         try {
-            priority = part.getText().parseInt();
+            priority = get(Value.class, 0).getText().parseInt();
         } catch (Exception e){
             throw new LanguageException("Could not parse priority: " + e.getMessage());
         }

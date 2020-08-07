@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.builder.pattern;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
 
 
-public class Processor<S extends MgBuildTask, D extends MgBuildTask> {
+public abstract class Processor<S extends MgBuildTask, D extends MgBuildTask> {
     @cz.mg.language.annotations.entity.Part
     private final Class<S> sourceBuildTaskClass;
 

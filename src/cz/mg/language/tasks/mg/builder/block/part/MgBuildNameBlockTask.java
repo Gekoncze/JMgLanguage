@@ -4,7 +4,6 @@ import cz.mg.collections.Clump;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.part.MgBuildNameTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
@@ -21,8 +20,8 @@ public class MgBuildNameBlockTask extends MgBuildBlockTask {
     @Output
     private ReadableText name;
 
-    public MgBuildNameBlockTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildNameBlockTask(Block block) {
+        super(block);
     }
 
     public ReadableText getName() {

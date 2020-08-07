@@ -4,7 +4,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
-import cz.mg.language.entities.mg.runtime.other.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;

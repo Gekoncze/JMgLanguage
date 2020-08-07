@@ -3,7 +3,6 @@ package cz.mg.language.tasks.mg.builder.block.part;
 import cz.mg.collections.Clump;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.part.MgBuildPriorityTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
@@ -20,8 +19,8 @@ public class MgBuildPriorityBlockTask extends MgBuildBlockTask {
     @Output
     private int priority;
 
-    public MgBuildPriorityBlockTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildPriorityBlockTask(Block block) {
+        super(block);
     }
 
     public int getPriority() {

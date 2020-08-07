@@ -5,9 +5,8 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builder.part.group.common.MgBuildDeclarationListTask;
+import cz.mg.language.tasks.mg.builder.part.chain.list.MgBuildDeclarationListTask;
 import cz.mg.language.tasks.mg.builder.pattern.*;
 
 
@@ -18,7 +17,7 @@ public class MgBuildDeclarationsBlockTask extends MgBuildBlockTask {
         (source, destination) -> destination.variables.addCollectionLast(source.getVariables())
     );
 
-    private static final List<Pattern> MANDATORY_PATTERNS = new List<>(
+    private static final List<Pattern> PATTERNS = new List<>(
         new Pattern(
             Order.RANDOM,
             Requirement.MANDATORY,
@@ -31,24 +30,11 @@ public class MgBuildDeclarationsBlockTask extends MgBuildBlockTask {
         )
     );
 
-    private static final List<Pattern> OPTIONAL_PATTERNS = new List<>(
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildDeclarationBlockTask.class,
-                MgBuildDeclarationsBlockTask.class,
-                (source, destination) -> destination.variables.addLast(source.getDeclaration())
-            )
-        )
-    );
-
     @Output
     private final List<MgLogicalVariable> variables = new List<>();
 
-    public MgBuildDeclarationsBlockTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildDeclarationsBlockTask(Block block) {
+        super(block);
     }
 
     public List<MgLogicalVariable> getVariables() {
@@ -68,9 +54,9 @@ public class MgBuildDeclarationsBlockTask extends MgBuildBlockTask {
     @Override
     protected Clump<Pattern> getPatterns() {
         if(variables.isEmpty()){
-            return MANDATORY_PATTERNS;
+            return PATTERNS;
         } else {
-            return OPTIONAL_PATTERNS;
+            return null;
         }
     }
 }

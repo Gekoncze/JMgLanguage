@@ -46,3 +46,10 @@ ensure good naming
 
     string -> page = parser
     page -> string = formatter
+
+function is just an operator, consider the following scenario of valid calls
+        foo(a, b, c)
+        foo: a, b, c
+        foo a
+        foo: a
+        foo(a)

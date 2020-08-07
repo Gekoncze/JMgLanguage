@@ -1,17 +1,18 @@
 package cz.mg.language.tasks.mg.builder.part;
 
+import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
 
 
-public class MgBuildNameTask extends MgBuildPartTask<Name> {
+public class MgBuildNameTask extends MgBuildPartTask {
     @Output
     private ReadableText name;
 
-    public MgBuildNameTask(Part part) {
-        super(part, Name.class);
+    public MgBuildNameTask(List<Part> parts) {
+        super(parts);
     }
 
     public ReadableText getName() {
@@ -19,7 +20,8 @@ public class MgBuildNameTask extends MgBuildPartTask<Name> {
     }
 
     @Override
-    protected void buildPart(Name part) {
-        name = part.getText();
+    protected void buildParts(List<Part> parts) {
+        checkCount(1);
+        name = get(Name.class, 0).getText();
     }
 }

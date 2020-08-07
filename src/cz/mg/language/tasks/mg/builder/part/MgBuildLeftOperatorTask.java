@@ -1,33 +1,17 @@
 package cz.mg.language.tasks.mg.builder.part;
 
-import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.task.Output;
+import cz.mg.collections.list.List;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalOperator;
-import cz.mg.language.entities.text.structured.parts.Part;
-import cz.mg.language.entities.text.structured.parts.leaves.Leaf;
-import cz.mg.language.entities.text.structured.parts.leaves.Name;
-import cz.mg.language.entities.text.structured.parts.leaves.Signs;
+import cz.mg.language.entities.text.structured.Part;
 
 
-public class MgBuildLeftOperatorTask extends MgBuildPartTask<Leaf> {
-    @Output
-    private MgLogicalOperator operator;
-
-    public MgBuildLeftOperatorTask(Part part) {
-        super(part, Leaf.class);
-    }
-
-    public MgLogicalOperator getOperator() {
-        return operator;
+public class MgBuildLeftOperatorTask extends MgBuildOperatorTask {
+    public MgBuildLeftOperatorTask(List<Part> parts) {
+        super(parts);
     }
 
     @Override
-    protected void buildPart(Leaf part) {
-        if(part instanceof Name || part instanceof Signs){
-            operator = new MgLogicalOperator(part.getText());
-            operator.setType(MgLogicalOperator.Type.LEFT);
-        } else {
-            throw new LanguageException("Expected name or signs, but got " + part.getClass().getSimpleName() + ".");
-        }
+    protected MgLogicalOperator.Type getType() {
+        return MgLogicalOperator.Type.LEFT;
     }
 }

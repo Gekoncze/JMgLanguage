@@ -1,31 +1,54 @@
 package cz.mg.language.tasks.mg.builder.part;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.entities.text.structured.parts.Part;
+import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
 
 
-public abstract class MgBuildPartTask<P extends Part> extends MgBuildTask {
+public abstract class MgBuildPartTask extends MgBuildTask {
     @Input
-    protected final Part part;
+    private final List<Part> parts;
 
-    @Input
-    protected final Class<? extends Part> expectedPartType;
+    public MgBuildPartTask(List<Part> parts) {
+        this.parts = parts;
+    }
 
-    public MgBuildPartTask(Part part, Class<P> expectedPartType) {
-        this.part = part;
-        this.expectedPartType = expectedPartType;
+    public List<Part> getParts() {
+        return parts;
     }
 
     @Override
     protected void onRun() {
-        if(expectedPartType.isInstance(part)){
-            buildPart((P) part);
-        } else {
-            throw new LanguageException("Expected " + expectedPartType.getSimpleName() + ", but got " + part.getClass().getSimpleName() + ".");
+        buildParts(parts);
+    }
+
+    protected abstract void buildParts(List<Part> parts);
+
+    protected void checkCount(int i){
+        if(parts.count() > i){
+            throw new LanguageException("Too many parts. Expected " + i + ".");
+        }
+
+        if(parts.count() < i){
+            throw new LanguageException("Not enough parts. Expected " + i + ".");
         }
     }
 
-    protected abstract void buildPart(P part);
+    protected void checkNotEmpty(){
+        if(parts.count() <= 0){
+            throw new LanguageException("Missing part.");
+        }
+    }
+
+    protected <P extends Part> P get(Class<P> clazz, int i){
+        Part part = parts.get(i);
+        if(part == null) throw new LanguageException("Missing part.");
+        if(clazz.isInstance(part)){
+            return (P) part;
+        } else {
+            throw new LanguageException("Expected " + clazz.getSimpleName() + ", but got " + part.getClass().getSimpleName() + ".");
+        }
+    }
 }

@@ -5,9 +5,8 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
-import cz.mg.language.tasks.mg.builder.part.group.common.MgBuildNameListTask;
+import cz.mg.language.tasks.mg.builder.part.chain.list.MgBuildNameListTask;
 import cz.mg.language.tasks.mg.builder.pattern.*;
 
 
@@ -18,7 +17,7 @@ public class MgBuildNamesBlockTask extends MgBuildBlockTask {
         (source, destination) -> destination.names.addCollectionLast(source.getNames())
     );
 
-    private static final List<Pattern> MANDATORY_PATTERNS = new List<>(
+    private static final List<Pattern> PATTERNS = new List<>(
         new Pattern(
             Order.RANDOM,
             Requirement.MANDATORY,
@@ -31,24 +30,11 @@ public class MgBuildNamesBlockTask extends MgBuildBlockTask {
         )
     );
 
-    private static final List<Pattern> OPTIONAL_PATTERNS = new List<>(
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildNameBlockTask.class,
-                MgBuildNamesBlockTask.class,
-                (source, destination) -> destination.names.addLast(source.getName())
-            )
-        )
-    );
-
     @Output
     private final List<ReadableText> names = new List<>();
 
-    public MgBuildNamesBlockTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildNamesBlockTask(Block block) {
+        super(block);
     }
 
     public List<ReadableText> getNames() {
@@ -68,9 +54,9 @@ public class MgBuildNamesBlockTask extends MgBuildBlockTask {
     @Override
     protected Clump<Pattern> getPatterns() {
         if(names.isEmpty()){
-            return MANDATORY_PATTERNS;
+            return PATTERNS;
         } else {
-            return OPTIONAL_PATTERNS;
+            return null;
         }
     }
 }

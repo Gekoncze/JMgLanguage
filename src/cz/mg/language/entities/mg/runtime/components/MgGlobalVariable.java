@@ -4,7 +4,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
-import cz.mg.language.entities.mg.runtime.other.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
 public class MgGlobalVariable extends MgVariable {

@@ -6,7 +6,6 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalClass;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.MgBuildDeclarationBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.MgBuildNamesBlockTask;
@@ -77,8 +76,8 @@ public class MgBuildClassTask extends MgBuildBlockTask {
     @Output
     private MgLogicalClass clazz;
 
-    public MgBuildClassTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildClassTask(Block block) {
+        super(block);
     }
 
     public MgLogicalClass getClazz() {

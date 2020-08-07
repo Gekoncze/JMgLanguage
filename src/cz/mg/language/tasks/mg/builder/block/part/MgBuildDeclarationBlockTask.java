@@ -4,7 +4,6 @@ import cz.mg.collections.Clump;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.parts.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
@@ -21,8 +20,8 @@ public class MgBuildDeclarationBlockTask extends MgBuildBlockTask {
     @Output
     private MgLogicalVariable declaration;
 
-    public MgBuildDeclarationBlockTask(Part part, Block block) {
-        super(part, block);
+    public MgBuildDeclarationBlockTask(Block block) {
+        super(block);
     }
 
     public MgLogicalVariable getDeclaration() {
