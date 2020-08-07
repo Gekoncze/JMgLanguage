@@ -15,9 +15,8 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
     @Output
     private MgLogicalExpression expression;
 
-    public MgBuildExpressionPartTask(List<Part> parts, MgLogicalExpression expression) {
+    public MgBuildExpressionPartTask(List<Part> parts) {
         super(parts);
-        this.expression = expression;
     }
 
     public MgLogicalExpression getExpression() {

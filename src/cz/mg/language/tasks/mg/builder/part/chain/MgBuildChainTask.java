@@ -23,6 +23,7 @@ public abstract class MgBuildChainTask extends MgBuildPartTask {
         for(Part part : getParts()){
             if(isSeparator(part)){
                 buildParts(parts);
+                parts = new List<>();
             } else {
                 parts.addLast(part);
             }

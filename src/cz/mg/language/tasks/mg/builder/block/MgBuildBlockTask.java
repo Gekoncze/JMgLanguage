@@ -76,7 +76,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
 
     private MgBuildBlockTask create(Class<? extends MgBuildBlockTask> clazz, Block block){
         try {
-            return clazz.getConstructor(Block.class).newInstance(block); // todo - update all constructors
+            return clazz.getConstructor(Block.class).newInstance(block);
         } catch (ReflectiveOperationException e){
             throw new RuntimeException(e);
         }
@@ -84,7 +84,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
 
     private MgBuildPartTask create(Class<? extends MgBuildPartTask> clazz, List<Part> parts){
         try {
-            return clazz.getConstructor(List.class).newInstance(parts); // todo - update all constructors
+            return clazz.getConstructor(List.class).newInstance(parts);
         } catch (ReflectiveOperationException e){
             throw new RuntimeException(e);
         }
