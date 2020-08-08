@@ -38,10 +38,10 @@ public class Matcher {
     }
 
     private static boolean matches(MgDatatype lvalue, MgDatatype rvalue){
-        boolean type = matches(lvalue.getType(), rvalue.getType());
-        boolean requirement = matches(lvalue.getRequirement(), rvalue.getRequirement());
-        boolean storage = matches(lvalue.getStorage(), rvalue.getStorage());
-        return type && requirement && storage;
+        if(!matches(lvalue.getType(), rvalue.getType())) return false;
+        if(!matches(lvalue.getRequirement(), rvalue.getRequirement())) return false;
+        if(!matches(lvalue.getStorage(), rvalue.getStorage())) return false;
+        return true;
     }
 
     private static boolean matches(MgType lvalue, MgType rvalue){

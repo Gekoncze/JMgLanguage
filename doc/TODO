@@ -3,6 +3,9 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+commands have expression as part, right?
+    is it still hte toplevel group one?
+
 maybe replication will need to be distinguished somehow?
     for example with some brackets
         a, b, c [=] d, e, f
