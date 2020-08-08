@@ -93,31 +93,29 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent){
         if(logicalExpression instanceof MgLogicalGroupExpression){
-            logicalExpression =
+            return new MgResolveGroupExpressionTask(context, (MgLogicalGroupExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalNameExpression) {
-            todo;
+            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
         }
 
-        else if(logicalExpression instanceof MgLogicalOperatorExpression){
-            todo;
+        if(logicalExpression instanceof MgLogicalOperatorExpression){
+            throw new LanguageException("Orphan operator.");
         }
 
-        else if(logicalExpression instanceof MgLogicalValueExpression){
-            todo;
+        if(logicalExpression instanceof MgLogicalValueExpression){
+            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression, parent);
         }
 
-        else if(logicalExpression instanceof MgLogicalFunctionCallExpression){
-            todo;
+        if(logicalExpression instanceof MgLogicalFunctionCallExpression){
+            return new MgResolveFunctionCallExressionTask(context, (MgLogicalFunctionCallExpression) logicalExpression, parent);
         }
 
-        else if(logicalExpression instanceof MgLogicalOperatorCallExpression){
-            todo;
+        if(logicalExpression instanceof MgLogicalOperatorCallExpression){
+            return new MgResolveOperatorCallExpressionTask(context, (MgLogicalOperatorCallExpression) logicalExpression, parent);
         }
 
-        else {
-            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
-        }
+        throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
     }
 }
