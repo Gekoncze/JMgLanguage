@@ -40,6 +40,8 @@ public class OperatorCache {
                 if(function.getOperator() != null){
                     int i = function.getPriority() - minOperatorPriority;
                     this.functions.get(i).addLast(function);
+                } else {
+                    this.functions.get(0).addLast(function);
                 }
             }
         } else {
