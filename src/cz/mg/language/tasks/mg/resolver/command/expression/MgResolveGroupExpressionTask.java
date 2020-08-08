@@ -9,6 +9,7 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.operator.Operator;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
 
