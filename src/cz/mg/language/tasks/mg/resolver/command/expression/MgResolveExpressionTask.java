@@ -10,14 +10,19 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public abstract class MgResolveExpressionTask extends MgResolverTask {
+public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogicalExpression> extends MgResolverTask {
     @Input
     protected final CommandContext context;
+
+    @Input
+    protected final LogicalExpression logicalExpression;
 
     @Input
     protected final Expression parent;
@@ -28,8 +33,9 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     @Subtask
     private final List<MgResolveExpressionTask> subtasks = new List<>();
 
-    public MgResolveExpressionTask(CommandContext context, Expression parent) {
+    public MgResolveExpressionTask(CommandContext context, LogicalExpression logicalExpression, Expression parent) {
         this.context = context;
+        this.logicalExpression = logicalExpression;
         this.parent = parent;
     }
 
@@ -39,21 +45,30 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
 
     @Override
     protected final void onRun() {
+        expression = new Expression(logicalExpression);
+        expression.setOutput(parent.getInput());
+
         ReadableCollection<MgLogicalExpression> children = onResolveEnter();
+        expression.setInput(todo);
 
         for(MgLogicalExpression child : children){
             expression.getExpressions().addLast(
                 onResolveChild(child)
             );
         }
+        expression.setInput(todo);
 
         onResolveLeave();
+        expression.setOutput(todo);
+
+        if(expression.getInput() == null) throw new RuntimeException();
+        if(expression.getOutput() == null) throw new RuntimeException();
     }
 
     protected abstract ReadableCollection<MgLogicalExpression> onResolveEnter();
 
     protected Expression onResolveChild(MgLogicalExpression child){
-        subtasks.addLast(create(context, child));
+        subtasks.addLast(create(context, child, expression));
         subtasks.getLast().run();
         return subtasks.getLast().getExpression();
     }
@@ -77,33 +92,32 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     }
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent){
-        if(logicalExpression instanceof MgLogicalValueExpression){
-            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression, parent);
+        if(logicalExpression instanceof MgLogicalGroupExpression){
+            logicalExpression =
         }
 
         if(logicalExpression instanceof MgLogicalNameExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
+            todo;
         }
 
-        if(logicalExpression instanceof MgLogicalDeclarationExpression){
-            return new MgResolveDeclarationExpressionTask(context, (MgLogicalDeclarationExpression) logicalExpression, parent);
+        else if(logicalExpression instanceof MgLogicalOperatorExpression){
+            todo;
         }
 
-        if(logicalExpression instanceof MgLogicalOperatorExpression){
-            if(optional) return null;
-            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalOperatorExpression) logicalExpression).getTarget() + "' for resolve.");
+        else if(logicalExpression instanceof MgLogicalValueExpression){
+            todo;
         }
 
-        if(logicalExpression instanceof MgLogicalSymbolExpression){
-            if(optional) return null;
-            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " '" + ((MgLogicalSymbolExpression) logicalExpression).getSymbol() + "' for resolve.");
+        else if(logicalExpression instanceof MgLogicalFunctionCallExpression){
+            todo;
         }
 
-        if(logicalExpression instanceof MgLogicalGroupExpression){
-            return new MgResolveOperatorExpressionTask(context, (MgLogicalGroupExpression) logicalExpression, parent);
+        else if(logicalExpression instanceof MgLogicalOperatorCallExpression){
+            todo;
         }
 
-        if(optional) return null;
-        throw new LanguageException("Unsupported expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
+        else {
+            throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
+        }
     }
 }

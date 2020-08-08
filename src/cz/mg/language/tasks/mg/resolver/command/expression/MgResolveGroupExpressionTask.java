@@ -1,5 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
+import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
 import cz.mg.language.LanguageException;
@@ -7,37 +8,41 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.operator.LeafOperator;
+import cz.mg.language.tasks.mg.resolver.command.expression.operator.LunaryOperator;
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.Operator;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
 
 
-public class MgResolveGroupExpressionTask extends MgResolverTask {
-    @Input
-    private final CommandContext context;
-
+public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalGroupExpression logicalGroupExpression;
 
     @Output
-    private MgLogicalExpression logicalExpression;
+    private Expression expression;
 
     @Subtask
     private final List<MgResolveGroupExpressionTask> subtasks = new List<>();
 
-    public MgResolveGroupExpressionTask(CommandContext context, MgLogicalGroupExpression logicalGroupExpression) {
-        this.context = context;
+    public MgResolveGroupExpressionTask(CommandContext context, MgLogicalGroupExpression logicalGroupExpression, Expression parent) {
+        super(context, parent);
         this.logicalGroupExpression = logicalGroupExpression;
     }
 
-    public MgLogicalExpression getLogicalExpression() {
-        return logicalExpression;
+    @Override
+    protected ReadableCollection<MgLogicalExpression> onResolveEnter() {
+        todo;
     }
 
     @Override
-    protected void onRun() {
+    protected void onResolveLeave() {
+        todo;
+    }
+
+    private MgLogicalExpression () {
         List<Operator> operators = createOperators(logicalGroupExpression);
 
         OperatorCache operatorCache = context.getOperatorCache();
@@ -62,22 +67,29 @@ public class MgResolveGroupExpressionTask extends MgResolverTask {
                 subtasks.addLast(new MgResolveGroupExpressionTask(context, (MgLogicalGroupExpression) expression));
                 subtasks.getLast().run();
                 expression = subtasks.getLast().getLogicalExpression();
-                operators
             }
 
-            else if(expression instanceof MgLogicalNameExpression){
-                todo;
-            }
-
-            else if(expression instanceof MgLogicalOperatorExpression){
-                todo;
-            }
-
-            else if(expression instanceof MgLogicalValueExpression){
-                todo;
-            }
-
-            else {
+            if(expression instanceof MgLogicalCallExpression){
+                operators.addLast(new LeafOperator(expression));
+            } else if(expression instanceof MgLogicalNameExpression){
+                if(hasParameters()){
+                    operators.addLast(new LunaryOperator(expression));
+                } else {
+                    operators.addLast(new LeafOperator(expression));
+                }
+            } else if(expression instanceof MgLogicalOperatorExpression){
+                if(binary){
+                    todo;
+                } else if(lunary){
+                    todo;
+                } else if(runarny){
+                    todo;
+                } else {
+                    throw new RuntimeException();
+                }
+            } else if(expression instanceof MgLogicalValueExpression){
+                operators.addLast(new LeafOperator(expression));
+            } else {
                 throw new LanguageException("Unexpected expression " + expression.getClass().getSimpleName() + " in group.");
             }
         }

@@ -3,10 +3,7 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-commands have expression as part, right?
-    is it still hte toplevel group one?
-
-maybe replication will need to be distinguished somehow?
+maybe replication will need to be distinguished somehow? probably not needed ...
     for example with some brackets
         a, b, c [=] d, e, f
         or
@@ -71,6 +68,12 @@ function resolution
             path resolution
                 context need to be changed only for root expression
 
+mg operator replication
+    list part / list expression would "return multiple values"
+    if input and ouptut lists matches, then operator is called for each corresponding input/output pair
+
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
 change mg types into class objects
     then inside they could have an optional type definition
     which would contain variable declarations
@@ -78,17 +81,8 @@ change mg types into class objects
     or we could just rename them to type variables and handle them differently in text and data structures
     will need to think a bit more about type inheritance for both variables and functions
 
-add support for function overriding - alternative implementation of function table
-
 take into account access modifiers during resolve
-fix runtime test
 
-mg operator replication
-    list part / list expression would "return multiple values"
-    if input and ouptut lists matches, then operator is called for each corresponding input/output pair
-
-
-### SOON ### -----------------------------------------------------------------------------------------------------------
 make MgCore work
 think about new object creation
     there would be probably some default allocator
@@ -170,6 +164,7 @@ improve compiler exceptions
 limit file size parameter
 add entity validations
 during resolution, inner context cannot shadow outer context results
+during resolution, some local variables created by expressions can be reused
 
 mg language - required vs optional input and output variables for functions
     can be implemented as syntactical sugar
