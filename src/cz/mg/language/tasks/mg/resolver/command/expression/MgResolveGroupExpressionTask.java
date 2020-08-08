@@ -4,8 +4,6 @@ import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
@@ -17,19 +15,12 @@ import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
 
 
-public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
-    @Input
-    private final MgLogicalGroupExpression logicalGroupExpression;
-
-    @Output
-    private Expression expression;
-
+public class MgResolveGroupExpressionTask extends MgResolveExpressionTask<MgLogicalGroupExpression> {
     @Subtask
     private final List<MgResolveGroupExpressionTask> subtasks = new List<>();
 
-    public MgResolveGroupExpressionTask(CommandContext context, MgLogicalGroupExpression logicalGroupExpression, Expression parent) {
-        super(context, parent);
-        this.logicalGroupExpression = logicalGroupExpression;
+    public MgResolveGroupExpressionTask(CommandContext context, MgLogicalGroupExpression logicalExpression, Expression parent) {
+        super(context, logicalExpression, parent);
     }
 
     @Override
@@ -42,8 +33,8 @@ public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
         todo;
     }
 
-    private MgLogicalExpression () {
-        List<Operator> operators = createOperators(logicalGroupExpression);
+    private void buildOperatorTree(){
+        List<Operator> operators = createOperators(logicalExpression);
 
         OperatorCache operatorCache = context.getOperatorCache();
         for(int p = operatorCache.getFunctions().count() - 1; p >= 0; p--){
@@ -56,8 +47,6 @@ public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
                 //todo;
             }
         }
-
-        logicalExpression = ?;
     }
 
     private List<Operator> createOperators(MgLogicalGroupExpression logicalGroupExpression){
