@@ -7,26 +7,25 @@ how to implement resolution with connections
     [output]parent[input] <-connection-> [output]expression[input] ... <-connections-> [output]child[input]
 
     onEnter:
-        resolve is optional (successfull when there is exactly 1 match)
+        resolve is optional (successful when there is exactly 1 match)
 
-        we are resolving epression, so we dont know its output and input yet
+        we are resolving expression, so we don't know its output and input yet
         we might know parent input, so we can filter by that if not null
-        we dont know child output, so we cannot filter by that
+        we don't know child output, so we cannot filter by that
 
     resolve children and add children to expression.expressions
         if expression is resolved, then we connect child to expression
 
     onLeave:
-        resolve is mandatory (successfull when there is exactly 1 match)
+        resolve is mandatory (successful when there is exactly 1 match)
+        resolve is not run if already resolved
 
-        if expression is not resolved:
-            we are resolving epression, so we dont know its output and input yet
-            we might know parent input, so we can filter by that if not null
-            we know child output, so we can always filter by that
-            we connect children to expression
+        we are resolving expression, so we don't know its output and input yet
+        we might know parent input, so we can filter by that if not null
+        we know child output, so we can always filter by that
 
-        if expression is resolved:
-            nothing to do
+    afterLeave:
+        we connect children to expression if needed
 
     at the end of all resolution, we run validate on all expressions
 
