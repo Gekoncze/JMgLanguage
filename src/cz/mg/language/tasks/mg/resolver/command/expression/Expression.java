@@ -6,6 +6,8 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.Connection;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.Connector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
@@ -72,6 +74,16 @@ public class Expression {
         outputInterface.validate();
         for(Expression expression : expressions){
             expression.validate();
+        }
+    }
+
+    public static void connect(Expression parent, Expression child){
+        for(Connector connector : child.getOutputInterface().getConnectors()){
+            Connection.connect(
+                parent.getInputInterface().getRemainingConnectors().getFirst(),
+                connector,
+                connectionVariable // todo
+            );
         }
     }
 }

@@ -35,6 +35,9 @@ public class Connection {
     }
 
     public static Connection connect(InputConnector inputConnector, OutputConnector outputConnector, MgVariable connectionVariable){
+        if(outputConnector.getConnection() == inputConnector.getConnection()) return outputConnector.getConnection();
+        if(outputConnector.getConnection() != null) throw new RuntimeException();
+        if(inputConnector.getConnection() != null) throw new RuntimeException();
         if(!Matcher.matches(inputConnector.getRequestedDatatype(), connectionVariable.getDatatype())) throw new RuntimeException();
         if(!Matcher.matches(outputConnector.getRequestedDatatype(), connectionVariable.getDatatype())) throw new RuntimeException();
         Connection connection = new Connection(inputConnector, outputConnector, connectionVariable);

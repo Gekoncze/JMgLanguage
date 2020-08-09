@@ -1,11 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.array.Array;
-import cz.mg.collections.array.ArrayView;
-import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
-import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
@@ -13,7 +9,6 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalOperatorCallExpression;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -47,23 +42,17 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     @Override
     protected final void onRun() {
         expression = new Expression(logicalExpression);
-        expression.setOutput(getRemainingInput(parent));
 
         ReadableCollection<MgLogicalExpression> logicalChildren = onResolveEnter();
 
-        List<MgVariable> actualInput = new List<>();
         for(MgLogicalExpression logicalChild : logicalChildren){
             Expression child = onResolveChild(logicalChild);
             expression.getExpressions().addLast(child);
-            actualInput.addCollectionLast(child.getOutput());
+            if(expression.getInputInterface() != null) Expression.connect(expression, child);
         }
-        if(expression.getInput() == null) expression.setInput(actualInput);
 
         onResolveLeave();
-        expression.setOutput(todo);
-
-        if(!Matcher.matches(expression.getInput(), actualInput)) throw new RuntimeException(); // optional
-        if(!Matcher.matchesPartial(parent.getRemainingInput(), expression.getOutput())) throw new RuntimeException(); // optional
+        for(Expression child : expression.getExpressions()) Expression.connect(expression, child);
     }
 
     protected abstract ReadableCollection<MgLogicalExpression> onResolveEnter();
@@ -75,26 +64,6 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     }
 
     protected abstract void onResolveLeave();
-
-    protected ReadableArray<MgVariable> getRemainingInput(Expression parent){
-
-    }
-
-    protected ReadableArray<MgVariable> io(){
-        return new Array<>();
-    }
-
-    protected ReadableArray<MgVariable> io(MgVariable... io){
-        return new Array<>(io);
-    }
-
-    protected ReadableArray<MgVariable> io(ReadableArray<MgVariable> io){
-        return io;
-    }
-
-    protected ReadableArray<MgVariable> io(ReadableList<MgVariable> io){
-        return new Array(io);
-    }
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent){
         if(logicalExpression instanceof MgLogicalGroupExpression){
