@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
+import cz.mg.collections.array.ArrayView;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
@@ -46,23 +47,23 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     @Override
     protected final void onRun() {
         expression = new Expression(logicalExpression);
-        expression.setOutput(parent.getInput());
+        expression.setOutput(getRemainingInput(parent));
 
-        ReadableCollection<MgLogicalExpression> children = onResolveEnter();
-        expression.setInput(todo);
+        ReadableCollection<MgLogicalExpression> logicalChildren = onResolveEnter();
 
-        for(MgLogicalExpression child : children){
-            expression.getExpressions().addLast(
-                onResolveChild(child)
-            );
+        List<MgVariable> actualInput = new List<>();
+        for(MgLogicalExpression logicalChild : logicalChildren){
+            Expression child = onResolveChild(logicalChild);
+            expression.getExpressions().addLast(child);
+            actualInput.addCollectionLast(child.getOutput());
         }
-        expression.setInput(todo);
+        if(expression.getInput() == null) expression.setInput(actualInput);
 
         onResolveLeave();
         expression.setOutput(todo);
 
-        if(expression.getInput() == null) throw new RuntimeException();
-        if(expression.getOutput() == null) throw new RuntimeException();
+        if(!Matcher.matches(expression.getInput(), actualInput)) throw new RuntimeException(); // optional
+        if(!Matcher.matchesPartial(parent.getRemainingInput(), expression.getOutput())) throw new RuntimeException(); // optional
     }
 
     protected abstract ReadableCollection<MgLogicalExpression> onResolveEnter();
@@ -74,6 +75,15 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     }
 
     protected abstract void onResolveLeave();
+
+    protected ReadableArray<MgVariable> getRemainingInput(Expression parent){
+        if(parent.getInput() == null) return null;
+        int offset = 0;
+        for(Expression expression : parent.getExpressions()){
+            offset += expression.getOutput().count();
+        }
+        return new ArrayView<>(input, offset, input.count());
+    }
 
     protected ReadableArray<MgVariable> io(){
         return new Array<>();

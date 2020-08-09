@@ -1,13 +1,13 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
-import cz.mg.collections.array.ArrayView;
-import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
 public class Expression {
@@ -23,11 +23,11 @@ public class Expression {
     @Part
     private final List<MgVariable> declaredVariables = new List<>();
 
-    @Link
-    private ReadableArray<MgVariable> input;
+    @Part
+    private InputInterface inputInterface;
 
     @Link
-    private ReadableArray<MgVariable> output;
+    private OutputInterface outputInterface;
 
     public Expression(MgLogicalExpression logicalExpression) {
         this.logicalExpression = logicalExpression;
@@ -49,27 +49,26 @@ public class Expression {
         return declaredVariables;
     }
 
-    public ReadableArray<MgVariable> getInput() {
-        return input;
+    public InputInterface getInputInterface() {
+        return inputInterface;
     }
 
-    public void setInput(ReadableArray<MgVariable> input) {
-        this.input = input;
+    public void setInputInterface(InputInterface inputInterface) {
+        this.inputInterface = inputInterface;
     }
 
-    public ReadableArray<MgVariable> getOutput() {
-        return output;
+    public OutputInterface getOutputInterface() {
+        return outputInterface;
     }
 
-    public void setOutput(ReadableArray<MgVariable> output) {
-        this.output = output;
+    public void setOutputInterface(OutputInterface outputInterface) {
+        this.outputInterface = outputInterface;
     }
 
-    public ReadableArray<MgVariable> getRemainingInput(){
-        int offset = 0;
-        for(Expression expression : expressions){
-            offset += expression.getOutput().count();
-        }
-        return new ArrayView<>(input, offset, input.count());
+    public void validate(){
+        if(inputInterface == null) throw new RuntimeException();
+        if(outputInterface == null) throw new RuntimeException();
+        inputInterface.validate();
+        outputInterface.validate();
     }
 }
