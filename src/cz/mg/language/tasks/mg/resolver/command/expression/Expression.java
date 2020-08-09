@@ -70,5 +70,8 @@ public class Expression {
         if(outputInterface == null) throw new RuntimeException();
         inputInterface.validate();
         outputInterface.validate();
+        for(Expression expression : expressions){
+            expression.validate();
+        }
     }
 }

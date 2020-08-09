@@ -1,40 +1,41 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
-import cz.mg.collections.array.ReadableArray;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.collections.ReadableCollection;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
+import java.util.Iterator;
+
 
 public class Matcher {
-//    public static boolean matchesPartial(ReadableArray<MgVariable> lvalue, MgVariable rvalue){
-//        if(lvalue == null || rvalue == null) return true;
-//        if(lvalue.count() < 1) return false;
-//        if(!matches(lvalue.getFirst(), rvalue)) return false;
-//        return true;
-//    }
-//
-//    public static boolean matchesPartial(ReadableArray<MgVariable> lvalue, ReadableArray<MgVariable> rvalue){
-//        if(lvalue == null || rvalue == null) return true;
-//        if(lvalue.count() < rvalue.count()) return false;
-//        for(int i = 0; i < rvalue.count(); i++){
-//            if(!matches(lvalue.get(i), rvalue.get(i))) return false;
-//        }
-//        return true;
-//    }
-//
-//    public static boolean matches(ReadableArray<MgVariable> lvalue, ReadableArray<MgVariable> rvalue){
-//        if(lvalue == null || rvalue == null) return true;
-//        if(lvalue.count() != rvalue.count()) return false;
-//        for(int i = 0; i < lvalue.count(); i++){
-//            if(!matches(lvalue.get(i), rvalue.get(i))) return false;
-//        }
-//        return true;
-//    }
-
-    public static boolean matches(MgVariable lvalue, MgVariable rvalue){
+    public static boolean matchesPartial(ReadableCollection<MgDatatype> lvalue, MgDatatype rvalue){
         if(lvalue == null || rvalue == null) return true;
-        return matches(lvalue.getDatatype(), rvalue.getDatatype());
+        if(lvalue.count() < 1) return false;
+        Iterator<MgDatatype> literator = lvalue.iterator();
+        if(!matches(literator.next(), rvalue)) return false;
+        return true;
+    }
+
+    public static boolean matchesPartial(ReadableCollection<MgDatatype> lvalue, ReadableCollection<MgDatatype> rvalue){
+        if(lvalue == null || rvalue == null) return true;
+        if(lvalue.count() < rvalue.count()) return false;
+        Iterator<MgDatatype> literator = lvalue.iterator();
+        Iterator<MgDatatype> riterator = rvalue.iterator();
+        while(literator.hasNext() && riterator.hasNext()){
+            if(!matches(literator.next(), riterator.next())) return false;
+        }
+        return true;
+    }
+
+    public static boolean matches(ReadableCollection<MgDatatype> lvalue, ReadableCollection<MgDatatype> rvalue){
+        if(lvalue == null || rvalue == null) return true;
+        if(lvalue.count() != rvalue.count()) return false;
+        Iterator<MgDatatype> literator = lvalue.iterator();
+        Iterator<MgDatatype> riterator = rvalue.iterator();
+        while(literator.hasNext() && riterator.hasNext()){
+            if(!matches(literator.next(), riterator.next())) return false;
+        }
+        return true;
     }
 
     public static boolean matches(MgDatatype lvalue, MgDatatype rvalue){

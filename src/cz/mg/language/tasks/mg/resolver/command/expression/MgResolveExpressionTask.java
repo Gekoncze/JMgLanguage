@@ -77,12 +77,7 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     protected abstract void onResolveLeave();
 
     protected ReadableArray<MgVariable> getRemainingInput(Expression parent){
-        if(parent.getInput() == null) return null;
-        int offset = 0;
-        for(Expression expression : parent.getExpressions()){
-            offset += expression.getOutput().count();
-        }
-        return new ArrayView<>(input, offset, input.count());
+
     }
 
     protected ReadableArray<MgVariable> io(){
