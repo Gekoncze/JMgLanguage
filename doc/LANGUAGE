@@ -14,3 +14,10 @@ calling of super method:
     let class FooBar extend Bar and override print function
     instead of fooBar.print
     call Foo.print: fooBar
+
+resolver:
+    variable:
+        [output]parent[input]{?}n ... <-connection-> 1[output]expression[input]
+
+    function:
+        [output]parent[input]{?}n ... <-connection-> n[output]expression[input]{?}n ... <-connections-> n[output]child[input]

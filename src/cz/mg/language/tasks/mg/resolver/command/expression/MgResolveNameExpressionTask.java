@@ -25,14 +25,11 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogic
 
     @Override
     protected void onResolveLeave() {
-        expression.setInput(io()); todo; // todo
         MgComponent component = resolveName(logicalExpression.getName());
         if(component instanceof MgVariable){
             MgVariable variable = (MgVariable) component;
-            expression.setOutput(io(variable)); todo; // todo
         } else if(component instanceof MgFunction){
             MgFunction function = (MgFunction) component;
-            expression.setOutput(function.getOutput()); todo; // todo
             expression.getInstructions().addLast(new MgCreateFunctionInstruction(function, new Array<>()));
         } else {
             throw new RuntimeException();

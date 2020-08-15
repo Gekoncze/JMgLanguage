@@ -44,7 +44,7 @@ public class MgResolveGroupExpressionTask extends MgResolveExpressionTask<MgLogi
                 operatorItem != null;
                 operatorItem = operatorItem.getNextItem()
             ){
-                //todo;
+                todo;
             }
         }
     }

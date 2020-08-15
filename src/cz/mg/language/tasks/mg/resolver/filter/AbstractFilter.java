@@ -3,13 +3,14 @@ package cz.mg.language.tasks.mg.resolver.filter;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.tasks.mg.resolver.Context;
 
 
 public abstract class AbstractFilter<C extends MgComponent> {
-    @Part
+    @Optional @Link
     private final Context context;
 
     public AbstractFilter(Context context) {
@@ -24,6 +25,17 @@ public abstract class AbstractFilter<C extends MgComponent> {
             return components.getFirst();
         } else {
             throw new LanguageException(ambiguousMessage());
+        }
+    }
+
+    public C findOptional(){
+        ReadableList<C> components = findAll();
+        if(components.count() <= 0){
+            return null;
+        } else if(components.count() == 1){
+            return components.getFirst();
+        } else {
+            return null;
         }
     }
 

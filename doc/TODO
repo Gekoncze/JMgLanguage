@@ -1,17 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-finished expression filter (hopefully)
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 todo - expression resolvers
 
 how to implement resolution with connections
-    variable:
-        [output]parent[input]{?}n ... <-connection-> 1[output]expression[input]
-
-    function:
-        [output]parent[input]{?}n ... <-connection-> n[output]expression[input]{?}n ... <-connections-> n[output]child[input]
-
     onEnter:
         resolve is optional (successful when there is exactly 1 match)
 

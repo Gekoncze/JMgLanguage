@@ -6,10 +6,7 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Connection;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Connector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
 
 
 public class Expression {
@@ -22,8 +19,8 @@ public class Expression {
     @Part
     private final List<MgInstruction> instructions = new List<>();
 
-    @Part
-    private final List<MgVariable> declaredVariables = new List<>();
+    @Link
+    private final List<MgVariable> output = new List<>();
 
     @Part
     private InputInterface inputInterface;
@@ -47,8 +44,8 @@ public class Expression {
         return instructions;
     }
 
-    public List<MgVariable> getDeclaredVariables() {
-        return declaredVariables;
+    public List<MgVariable> getOutput() {
+        return output;
     }
 
     public InputInterface getInputInterface() {
@@ -78,11 +75,11 @@ public class Expression {
     }
 
     public static void connect(Expression parent, Expression child){
-        for(Connector connector : child.getOutputInterface().getConnectors()){
+        for(OutputConnector connector : child.getOutputInterface().getConnectors()){
             Connection.connect(
                 parent.getInputInterface().getRemainingConnectors().getFirst(),
                 connector,
-                connectionVariable // todo
+                child.getOutput().
             );
         }
     }
