@@ -4,21 +4,23 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalOperator;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 
 
 public class MgLogicalFunction extends MgLogicalComponent {
-    @Part
+    @Mandatory @Part
     private final List<MgLogicalVariable> input = new List<>();
 
-    @Part
+    @Mandatory @Part
     private final List<MgLogicalVariable> output = new List<>();
 
-    @Part
+    @Mandatory @Part
     private final List<MgLogicalCommand> commands = new List<>();
 
-    @Value
+    @Optional @Value
     private MgLogicalOperator operator;
 
     public MgLogicalFunction() {

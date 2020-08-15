@@ -1,9 +1,12 @@
 package cz.mg.language.entities.mg.runtime.components.types;
 
+import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
@@ -13,16 +16,16 @@ import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 public class MgFunction extends MgInterface {
     private static final MgType TYPE = new MgType("Function");
 
-    @Part
-    private ReadableArray<MgVariable> local;
+    @Mandatory @Part
+    private ReadableArray<MgVariable> local = new Array<>();
 
-    @Part
-    private ReadableArray<MgGlobalVariable> globalVariables;
+    @Mandatory @Part
+    private ReadableArray<MgGlobalVariable> globalVariables = new Array<>();
 
-    @Part
-    private ReadableArray<MgInstruction> instructions;
+    @Mandatory @Part
+    private ReadableArray<MgInstruction> instructions = new Array<>();
 
-    @Value
+    @Optional @Value
     private MgOperator operator;
 
     @Value
@@ -61,10 +64,12 @@ public class MgFunction extends MgInterface {
     }
 
     public void setLocal(ReadableArray<MgVariable> local) {
+        if(local == null) throw new IllegalArgumentException();
         this.local = local;
     }
 
     public void setInstructions(ReadableArray<MgInstruction> instructions) {
+        if(instructions == null) throw new IllegalArgumentException();
         this.instructions = instructions;
     }
 

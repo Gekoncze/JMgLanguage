@@ -6,7 +6,6 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.text.structured.Block;
-import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.*;
 import cz.mg.language.tasks.mg.builder.block.root.command.*;
