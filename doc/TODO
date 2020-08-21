@@ -1,24 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-simplifications (for now)
-    lets have only single inheritance
-    lets have the language more c-like
-    lets not have overriding
-    lets not deal with types of types
 
-implemented some stuff around operator resolution
-work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-
-
-strategy for building expression tree / operator tree
-    check available list of operators
-    if it is name:
-        check if it is in the list of operators
-            if it is in the list, then treat it as operator
-            otherwise treat it as function
-
 priorities:
     functions
     dot operator

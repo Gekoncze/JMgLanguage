@@ -8,6 +8,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.Context;
@@ -15,6 +16,12 @@ import cz.mg.language.tasks.mg.resolver.filter.OperatorFilter;
 
 
 public class OperatorCache {
+    @Value
+    private final int minPriority;
+
+    @Value
+    private final int maxPriority;
+
     @Part
     private final Array<List<MgFunction>> functions;
 
@@ -34,6 +41,8 @@ public class OperatorCache {
                 minOperatorPriority = Math.min(minOperatorPriority, operator.getOperator().getPriority());
                 maxOperatorPriority = Math.max(maxOperatorPriority, operator.getOperator().getPriority());
             }
+            this.minPriority = minOperatorPriority;
+            this.maxPriority = maxOperatorPriority;
 
             // create array of prioritized function lists
             this.functions = new Array<>(maxOperatorPriority - minOperatorPriority + 1);
@@ -43,20 +52,35 @@ public class OperatorCache {
 
             // fill the prioritized function list with found operator functions
             for(MgFunction function : availableOperators){
-                if(function.getOperator() != null){
-                    int i = function.getOperator().getPriority() - minOperatorPriority;
-                    this.functions.get(i).addLast(function);
-                } else {
-                    this.functions.get(0).addLast(function);
-                }
+                int priority = function.getOperator().getPriority();
+                this.functions.get(p2i(priority)).addLast(function);
             }
         } else {
             this.functions = new Array<>();
+            this.minPriority = 0;
+            this.maxPriority = 0;
         }
     }
 
-    public Array<List<MgFunction>> getFunctions() {
-        return functions;
+    public int getMinPriority(){
+        return minPriority;
+    }
+
+    public int getMaxPriority(){
+        return maxPriority;
+    }
+
+    public List<MgFunction> getFunctions(int priority) {
+        if(functions.isEmpty()) return null;
+        else return functions.get(p2i(priority));
+    }
+
+    private final int p2i(int p){
+        return p - minPriority;
+    }
+
+    private final int i2p(int i){
+        return minPriority + i;
     }
 
     private static final MgOperator UNKNOWN = new MgOperator(new ReadonlyText(""));

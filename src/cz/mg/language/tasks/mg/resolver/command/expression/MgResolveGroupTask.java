@@ -40,16 +40,19 @@ public class MgResolveGroupTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
+        OperatorCache operatorCache = context.getOperatorCache();
         List<Operator> operators = createOperators(logicalGroupExpression);
 
-        OperatorCache operatorCache = context.getOperatorCache();
-        for(int p = operatorCache.getFunctions().count() - 1; p >= 0; p--){
-            List<MgFunction> functions = operatorCache.getFunctions().get(p);
+        todo; // todo - first gather all function calls - ??? how ? we might need to add a sign for function call ... probably !
+
+        for(int p = operatorCache.getMaxPriority(); p >= operatorCache.getMinPriority(); p--){
+            List<MgFunction> functions = operatorCache.getFunctions(p);
             for(
                 ListItem operatorItem = operators.getFirstItem();
                 operatorItem != null;
                 operatorItem = operatorItem.getNextItem()
             ){
+                if()
                 todo;
             }
         }
