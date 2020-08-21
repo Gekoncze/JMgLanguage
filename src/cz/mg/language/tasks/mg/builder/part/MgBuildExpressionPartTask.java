@@ -49,7 +49,7 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
         throw new LanguageException("Unsupported part " + part.getClass().getSimpleName() + " in expression.");
     }
 
-    private static MgLogicalExpression buildOperator(Operator operator) {
+    private static MgLogicalOperatorExpression buildOperator(Operator operator) {
         return new MgLogicalOperatorExpression(operator.getText());
     }
 

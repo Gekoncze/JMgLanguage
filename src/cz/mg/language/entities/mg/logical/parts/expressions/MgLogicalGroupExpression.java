@@ -4,19 +4,19 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
 
 
-public class MgLogicalGroupExpression extends MgLogicalExpression {
+public class MgLogicalGroupExpression extends MgLogicalAbstractExpression {
     @Part
-    private final List<MgLogicalExpression> expressions;
+    private final List<MgLogicalAbstractExpression> expressions;
 
     public MgLogicalGroupExpression() {
         expressions = new List<>();
     }
 
-    public MgLogicalGroupExpression(List<MgLogicalExpression> expressions) {
+    public MgLogicalGroupExpression(List<MgLogicalAbstractExpression> expressions) {
         this.expressions = expressions;
     }
 
-    public List<MgLogicalExpression> getExpressions() {
+    public List<MgLogicalAbstractExpression> getExpressions() {
         return expressions;
     }
 }

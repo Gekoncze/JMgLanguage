@@ -19,9 +19,10 @@ public class MgClassObject extends MgObject<MgClass> {
     }
 
     private static Array<MgObject> generateArray(MgClass clazz){
-        int count = clazz.getVariables().count();
-        for(MgClass base : clazz.getClasses()){
-            count += base.getVariables().count();
+        int count = 0;
+        while(clazz != null){
+            count += clazz.getVariables().count();
+            clazz = clazz.getBaseClass();
         }
         return new Array<>(count);
     }

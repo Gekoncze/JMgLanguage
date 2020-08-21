@@ -24,7 +24,7 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     protected final Expression parent;
 
     @Output
-    protected Expression expression;
+    protected final Expression expression;
 
     @Subtask
     private final List<MgResolveExpressionTask> subtasks = new List<>();
@@ -33,6 +33,7 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
         this.context = context;
         this.logicalExpression = logicalExpression;
         this.parent = parent;
+        this.expression = new Expression(logicalExpression);
     }
 
     public final Expression getExpression() {
@@ -41,8 +42,6 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
 
     @Override
     protected final void onRun() {
-        expression = new Expression(logicalExpression);
-
         ReadableCollection<MgLogicalExpression> logicalChildren = onResolveEnter();
 
         for(MgLogicalExpression logicalChild : logicalChildren){
@@ -66,16 +65,8 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     protected abstract void onResolveLeave();
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent){
-        if(logicalExpression instanceof MgLogicalGroupExpression){
-            return new MgResolveGroupExpressionTask(context, (MgLogicalGroupExpression) logicalExpression, parent);
-        }
-
         if(logicalExpression instanceof MgLogicalNameExpression) {
             return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalOperatorExpression){
-            throw new LanguageException("Orphan operator.");
         }
 
         if(logicalExpression instanceof MgLogicalValueExpression){

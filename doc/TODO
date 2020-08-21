@@ -1,8 +1,30 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
+simplifications (for now)
+    lets have only single inheritance
+    lets have the language more c-like
+    lets not have overriding
+    lets not deal with types of types
 
+implemented some stuff around operator resolution
+work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+
+
+strategy for building expression tree / operator tree
+    check available list of operators
+    if it is name:
+        check if it is in the list of operators
+            if it is in the list, then treat it as operator
+            otherwise treat it as function
+
+priorities:
+    functions
+    dot operator
+    ...
+    comma operator
+
 todo - expression resolvers
 
 how to implement resolution with connections
@@ -100,13 +122,6 @@ mg operator replication
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
-change mg types into class objects
-    then inside they could have an optional type definition
-    which would contain variable declarations
-    this way we could get rid of mg global variable class
-    or we could just rename them to type variables and handle them differently in text and data structures
-    will need to think a bit more about type inheritance for both variables and functions
-
 take into account access modifiers during resolve
 
 make MgCore work
@@ -197,6 +212,8 @@ mg language - required vs optional input and output variables for functions
 
 move all subtasks to Task class ???
     we could then have execute and try to execute methods
+
+add external (user) exception vs internal exception
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------

@@ -15,11 +15,10 @@ public class Connection {
     @Link
     private final MgVariable connectionVariable;
 
-    Connection(InputConnector inputConnector, OutputConnector outputConnector, MgVariable connectionVariable) {
+    private Connection(InputConnector inputConnector, OutputConnector outputConnector, MgVariable connectionVariable) {
         this.inputConnector = inputConnector;
         this.outputConnector = outputConnector;
         this.connectionVariable = connectionVariable;
-
     }
 
     public InputConnector getInputConnector() {

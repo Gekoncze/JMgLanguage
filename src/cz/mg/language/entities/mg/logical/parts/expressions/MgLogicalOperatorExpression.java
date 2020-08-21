@@ -2,24 +2,20 @@ package cz.mg.language.entities.mg.logical.parts.expressions;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
+import java.util.Objects;
 
 
-public class MgLogicalOperatorExpression extends MgLogicalExpression {
-    @Value
-    private ReadableText target;
+public class MgLogicalOperatorExpression extends MgLogicalLessAbstractExpression {
+    @Mandatory @Value
+    private final ReadableText signs;
 
-    public MgLogicalOperatorExpression() {
+    public MgLogicalOperatorExpression(ReadableText signs) {
+        Objects.nonNull(signs);
+        this.signs = signs;
     }
 
-    public MgLogicalOperatorExpression(ReadableText target) {
-        this.target = target;
-    }
-
-    public ReadableText getTarget() {
-        return target;
-    }
-
-    public void setTarget(ReadableText target) {
-        this.target = target;
+    public ReadableText getSigns() {
+        return signs;
     }
 }

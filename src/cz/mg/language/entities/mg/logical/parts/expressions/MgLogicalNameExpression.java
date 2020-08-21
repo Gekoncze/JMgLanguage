@@ -2,24 +2,20 @@ package cz.mg.language.entities.mg.logical.parts.expressions;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
+import java.util.Objects;
 
 
 public class MgLogicalNameExpression extends MgLogicalExpression {
-    @Value
-    private ReadableText name;
-
-    public MgLogicalNameExpression() {
-    }
+    @Mandatory @Value
+    private final ReadableText name;
 
     public MgLogicalNameExpression(ReadableText name) {
+        Objects.nonNull(name);
         this.name = name;
     }
 
     public ReadableText getName() {
         return name;
-    }
-
-    public void setName(ReadableText name) {
-        this.name = name;
     }
 }

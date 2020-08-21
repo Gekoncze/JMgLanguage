@@ -75,12 +75,14 @@ public class Expression {
     }
 
     public static void connect(Expression parent, Expression child){
+        int i = 0;
         for(OutputConnector connector : child.getOutputInterface().getConnectors()){
             Connection.connect(
                 parent.getInputInterface().getRemainingConnectors().getFirst(),
                 connector,
-                child.getOutput().
+                child.getOutput().get(i)
             );
+            i++;
         }
     }
 }

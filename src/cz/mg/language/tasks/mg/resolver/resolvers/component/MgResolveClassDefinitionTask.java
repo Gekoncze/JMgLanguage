@@ -35,7 +35,7 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
         createAndPostponeMore(
             MgResolveClassInheritanceTask.class,
             logicalClass.getBaseClasses(),
-            classes -> clazz.setClasses(classes)
+            classes -> clazz.setBaseClass(classes)
         );
 
         createAndPostponeMore(

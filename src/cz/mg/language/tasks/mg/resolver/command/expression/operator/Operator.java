@@ -2,22 +2,22 @@ package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalLessAbstractExpression;
 
 
 public abstract class Operator {
     @Link
-    private final MgLogicalExpression expression;
+    private final MgLogicalLessAbstractExpression expression;
 
     @Value
     private final int priority;
 
-    public Operator(MgLogicalExpression expression, int priority) {
+    public Operator(MgLogicalLessAbstractExpression expression, int priority) {
         this.expression = expression;
         this.priority = priority;
     }
 
-    public MgLogicalExpression getExpression() {
+    public MgLogicalLessAbstractExpression getExpression() {
         return expression;
     }
 

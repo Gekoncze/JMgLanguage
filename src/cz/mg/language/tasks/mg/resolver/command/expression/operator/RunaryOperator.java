@@ -1,14 +1,14 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalLessAbstractExpression;
 
 
 public class RunaryOperator extends Operator {
     @Part
     private Operator left;
 
-    public RunaryOperator(MgLogicalExpression expression, int priority) {
+    public RunaryOperator(MgLogicalLessAbstractExpression expression, int priority) {
         super(expression, priority);
     }
 

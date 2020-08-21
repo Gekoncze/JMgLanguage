@@ -37,6 +37,6 @@ public class MgCore extends MgArchitectureObject implements Runnable {
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException(); // TODO
+        throw new UnsupportedOperationException();
     }
 }

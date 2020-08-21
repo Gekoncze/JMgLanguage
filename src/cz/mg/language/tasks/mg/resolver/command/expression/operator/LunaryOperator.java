@@ -1,14 +1,14 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalLessAbstractExpression;
 
 
 public class LunaryOperator extends Operator {
     @Part
     private Operator right;
 
-    public LunaryOperator(MgLogicalExpression expression, int priority) {
+    public LunaryOperator(MgLogicalLessAbstractExpression expression, int priority) {
         super(expression, priority);
     }
 

@@ -23,7 +23,7 @@ public class MgRuntimeTest {
 
         MgClass clazz = new MgClass(new ReadonlyText("Class"));
 
-        clazz.setClasses(new Array<>());
+        clazz.setBaseClass(new Array<>());
         clazz.setFunctions(new Array<>());
         clazz.setVariables(new Array<>(
             new MgVariable(new ReadonlyText("foo"), new MgDatatype(MgIntObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.OPTIONAL)), // 0
