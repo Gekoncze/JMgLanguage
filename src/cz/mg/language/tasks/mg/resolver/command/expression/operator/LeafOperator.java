@@ -1,10 +1,10 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 
 
 public class LeafOperator extends Operator {
-    public LeafOperator(MgLogicalExpression expression) {
+    public LeafOperator(MgLogicalCallExpression expression) {
         super(expression, 0);
     }
 

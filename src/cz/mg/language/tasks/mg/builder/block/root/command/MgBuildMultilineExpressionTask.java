@@ -4,7 +4,6 @@ import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Cache;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalGroupExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalOperatorExpression;
 import cz.mg.language.entities.text.structured.Block;
@@ -29,7 +28,7 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
     );
 
     @Cache
-    private List<MgLogicalExpression> lineExpressions;
+    private List<MgLogicalExpressionOld> lineExpressions;
 
     public MgBuildMultilineExpressionTask(Block block) {
         super(block);
@@ -51,7 +50,7 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
 
     private MgLogicalGroupExpression createListExpression(){
         MgLogicalGroupExpression expression = new MgLogicalGroupExpression();
-        for(MgLogicalExpression lineExpression : lineExpressions){
+        for(MgLogicalExpressionOld lineExpression : lineExpressions){
             expression.getExpressions().addLast(lineExpression);
             expression.getExpressions().addLast(new MgLogicalOperatorExpression(new ReadonlyText(",")));
         }
@@ -64,6 +63,6 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
         return PATTERNS;
     }
 
-    public abstract MgLogicalExpression getExpression();
-    public abstract void setExpression(MgLogicalExpression expression);
+    public abstract MgLogicalExpressionOld getExpression();
+    public abstract void setExpression(MgLogicalExpressionOld expression);
 }

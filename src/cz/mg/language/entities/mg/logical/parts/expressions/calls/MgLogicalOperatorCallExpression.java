@@ -1,6 +1,10 @@
 package cz.mg.language.entities.mg.logical.parts.expressions.calls;
 
-public class MgLogicalOperatorCallExpression extends MgLogicalCallExpression {
-    public MgLogicalOperatorCallExpression() {
+import cz.mg.collections.text.ReadableText;
+
+
+public class MgLogicalOperatorCallExpression extends MgLogicalFunctionCallExpression {
+    public MgLogicalOperatorCallExpression(ReadableText name) {
+        super(name);
     }
 }

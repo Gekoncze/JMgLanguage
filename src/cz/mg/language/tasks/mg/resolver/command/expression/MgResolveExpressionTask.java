@@ -8,7 +8,9 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalOperatorCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -42,9 +44,9 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
 
     @Override
     protected final void onRun() {
-        ReadableCollection<MgLogicalExpression> logicalChildren = onResolveEnter();
+        ReadableCollection<MgLogicalExpressionOld> logicalChildren = onResolveEnter();
 
-        for(MgLogicalExpression logicalChild : logicalChildren){
+        for(MgLogicalExpressionOld logicalChild : logicalChildren){
             Expression child = onResolveChild(logicalChild);
             expression.getExpressions().addLast(child);
             if(expression.getInputInterface() != null) Expression.connect(expression, child);
@@ -54,9 +56,9 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
         for(Expression child : expression.getExpressions()) Expression.connect(expression, child);
     }
 
-    protected abstract ReadableCollection<MgLogicalExpression> onResolveEnter();
+    protected abstract ReadableCollection<MgLogicalExpressionOld> onResolveEnter();
 
-    protected Expression onResolveChild(MgLogicalExpression child){
+    protected Expression onResolveChild(MgLogicalExpressionOld child){
         subtasks.addLast(create(context, child, expression));
         subtasks.getLast().run();
         return subtasks.getLast().getExpression();
@@ -64,13 +66,13 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
 
     protected abstract void onResolveLeave();
 
-    public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpression logicalExpression, Expression parent){
-        if(logicalExpression instanceof MgLogicalNameExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalNameExpression) logicalExpression, parent);
+    public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpressionOld logicalExpression, Expression parent){
+        if(logicalExpression instanceof MgLogicalVariableCallExpression) {
+            return new MgResolveNameExpressionTask(context, (MgLogicalVariableCallExpression) logicalExpression, parent);
         }
 
-        if(logicalExpression instanceof MgLogicalValueExpression){
-            return new MgResolveValueExpressionTask(context, (MgLogicalValueExpression) logicalExpression, parent);
+        if(logicalExpression instanceof MgLogicalValueCallExpression){
+            return new MgResolveValueExpressionTask(context, (MgLogicalValueCallExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalFunctionCallExpression){

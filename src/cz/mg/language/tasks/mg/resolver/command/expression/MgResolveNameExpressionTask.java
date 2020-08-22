@@ -3,8 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalNameExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
@@ -13,13 +12,13 @@ import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.ExpressionFilter;
 
 
-public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogicalNameExpression> {
-    public MgResolveNameExpressionTask(CommandContext context, MgLogicalNameExpression logicalExpression, Expression parent) {
+public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogicalVariableCallExpression> {
+    public MgResolveNameExpressionTask(CommandContext context, MgLogicalVariableCallExpression logicalExpression, Expression parent) {
         super(context, logicalExpression, parent);
     }
 
     @Override
-    protected ReadableCollection<MgLogicalExpression> onResolveEnter() {
+    protected ReadableCollection<MgLogicalExpressionOld> onResolveEnter() {
         todo;
     }
 

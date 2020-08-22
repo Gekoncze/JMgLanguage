@@ -6,7 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import java.util.Objects;
 
 
-public class MgLogicalOperatorExpression extends MgLogicalLessAbstractExpression {
+public class MgLogicalOperatorExpression extends MgLogicalExpression {
     @Mandatory @Value
     private final ReadableText signs;
 

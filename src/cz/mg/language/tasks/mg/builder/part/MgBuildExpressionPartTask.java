@@ -4,6 +4,8 @@ import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
 import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.entities.text.structured.parts.Group;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
@@ -13,13 +15,13 @@ import cz.mg.language.entities.text.structured.parts.leaves.Value;
 
 public class MgBuildExpressionPartTask extends MgBuildPartTask {
     @Output
-    private MgLogicalExpression expression;
+    private MgLogicalExpressionOld expression;
 
     public MgBuildExpressionPartTask(List<Part> parts) {
         super(parts);
     }
 
-    public MgLogicalExpression getExpression() {
+    public MgLogicalExpressionOld getExpression() {
         return expression;
     }
 
@@ -29,7 +31,7 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
         expression = buildGroup(parts);
     }
 
-    private static MgLogicalExpression build(Part part){
+    private static MgLogicalExpressionOld build(Part part){
         if(part instanceof Name){
             return buildName((Name) part);
         }
@@ -53,12 +55,12 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
         return new MgLogicalOperatorExpression(operator.getText());
     }
 
-    private static MgLogicalNameExpression buildName(Name name){
-        return new MgLogicalNameExpression(name.getText());
+    private static MgLogicalVariableCallExpression buildName(Name name){
+        return new MgLogicalVariableCallExpression(name.getText());
     }
 
-    private static MgLogicalValueExpression buildValue(Value value){
-        return new MgLogicalValueExpression(value.getText());
+    private static MgLogicalValueCallExpression buildValue(Value value){
+        return new MgLogicalValueCallExpression(value.getText());
     }
 
     private static MgLogicalGroupExpression buildGroup(Group group){
@@ -66,7 +68,7 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
     }
 
     private static MgLogicalGroupExpression buildGroup(List<Part> parts){
-        List<MgLogicalExpression> expressions = new List<>();
+        List<MgLogicalExpressionOld> expressions = new List<>();
         for(Part part : parts){
             expressions.addLast(build(part));
         }
