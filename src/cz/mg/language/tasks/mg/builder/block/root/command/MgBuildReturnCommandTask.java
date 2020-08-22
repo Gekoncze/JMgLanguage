@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.builder.block.root.command;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalReturnCommand;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.part.MgBuildExpressionPartTask;
@@ -47,12 +48,12 @@ public class MgBuildReturnCommandTask extends MgBuildMultilineExpressionTask {
     }
 
     @Override
-    public MgLogicalExpressionOld getExpression() {
+    public MgLogicalExpression getExpression() {
         return command.getExpression();
     }
 
     @Override
-    public void setExpression(MgLogicalExpressionOld expression) {
+    public void setExpression(MgLogicalExpression expression) {
         command.setExpression(expression);
     }
 }

@@ -1,25 +1,25 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalGroupExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalClumpExpression;
 
 
 public class MgLogicalExpressionCommand extends MgLogicalCommand {
     @Part
-    private MgLogicalGroupExpression expression;
+    private MgLogicalClumpExpression expression;
 
     public MgLogicalExpressionCommand() {
     }
 
-    public MgLogicalExpressionCommand(MgLogicalGroupExpression expression) {
+    public MgLogicalExpressionCommand(MgLogicalClumpExpression expression) {
         this.expression = expression;
     }
 
-    public MgLogicalGroupExpression getExpression() {
+    public MgLogicalClumpExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(MgLogicalGroupExpression expression) {
+    public void setExpression(MgLogicalClumpExpression expression) {
         this.expression = expression;
     }
 }

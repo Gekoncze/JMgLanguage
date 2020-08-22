@@ -22,7 +22,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     private final CommandContext context;
 
     @Input
-    private final MgLogicalGroupExpression logicalGroupExpression;
+    private final MgLogicalClumpExpression logicalGroupExpression;
 
     @Output
     private MgLogicalCallExpression logicalCallExpression;
@@ -30,7 +30,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     @Subtask
     private final List<MgResolveExpressionTreeTask> subtasks = new List<>();
 
-    public MgResolveExpressionTreeTask(CommandContext context, MgLogicalGroupExpression logicalGroupExpression) {
+    public MgResolveExpressionTreeTask(CommandContext context, MgLogicalClumpExpression logicalGroupExpression) {
         this.context = context;
         this.logicalGroupExpression = logicalGroupExpression;
     }
@@ -44,7 +44,9 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         List<Operator> operators = createOperators(logicalGroupExpression);
 
         resolveFunctionCalls(operators);
+        resolveMemberCalls(operators);
         resolveOperatorCalls(operators);
+        resolveGroupCalls(operators);
 
         if(operators.count() != 1) {
             throw new LanguageException("Illegal expression.");
@@ -58,7 +60,23 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     }
 
     private void resolveFunctionCalls(List<Operator> operators){
-        todo; // todo - first gather all function calls - two variable calls next to each other
+        for(
+            ListItem operatorItem = operators.getFirstItem();
+            operatorItem != null;
+            operatorItem = operatorItem.getNextItem()
+        ){
+            ttodo; // todo - two variable calls next to each other
+        }
+    }
+
+    private void resolveMemberCalls(List<Operator> operators){
+        for(
+            ListItem operatorItem = operators.getFirstItem();
+            operatorItem != null;
+            operatorItem = operatorItem.getNextItem()
+        ){
+            todo;
+        }
     }
 
     private void resolveOperatorCalls(List<Operator> operators){
@@ -70,13 +88,22 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
                 operatorItem != null;
                 operatorItem = operatorItem.getNextItem()
             ){
-                if()
-                    todo;
+                todo;
             }
         }
     }
 
-    private List<Operator> createOperators(MgLogicalGroupExpression logicalGroupExpression){
+    private void resolveGroupCalls(List<Operator> operators){
+        for(
+            ListItem operatorItem = operators.getFirstItem();
+            operatorItem != null;
+            operatorItem = operatorItem.getNextItem()
+        ){
+            todo;
+        }
+    }
+
+    private List<Operator> createOperators(MgLogicalClumpExpression logicalGroupExpression){
         List<Operator> operators = new List<>();
         for(MgLogicalExpression logicalAbstractExpression : logicalGroupExpression.getExpressions()){
             operators.addLast(createOperator(resolveNestedGroups(logicalAbstractExpression)));
@@ -140,8 +167,8 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     }
 
     private MgLogicalExpression resolveNestedGroups(MgLogicalExpression logicalExpression){
-        if(logicalExpression instanceof MgLogicalGroupExpression){
-            subtasks.addLast(new MgResolveExpressionTreeTask(context, (MgLogicalGroupExpression) logicalExpression));
+        if(logicalExpression instanceof MgLogicalClumpExpression){
+            subtasks.addLast(new MgResolveExpressionTreeTask(context, (MgLogicalClumpExpression) logicalExpression));
             subtasks.getLast().run();
             return subtasks.getLast().getLogicalCallExpression();
         } else {

@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
 import cz.mg.language.entities.text.structured.Part;
-import cz.mg.language.entities.text.structured.parts.Group;
+import cz.mg.language.entities.text.structured.parts.Clump;
 import cz.mg.language.entities.text.structured.parts.leaves.Name;
 import cz.mg.language.entities.text.structured.parts.leaves.Operator;
 import cz.mg.language.entities.text.structured.parts.leaves.Value;
@@ -44,8 +44,8 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
             return buildValue((Value) part);
         }
 
-        if(part instanceof Group){
-            return buildGroup((Group) part);
+        if(part instanceof Clump){
+            return buildGroup((Clump) part);
         }
 
         throw new LanguageException("Unsupported part " + part.getClass().getSimpleName() + " in expression.");
@@ -63,15 +63,15 @@ public class MgBuildExpressionPartTask extends MgBuildPartTask {
         return new MgLogicalValueCallExpression(value.getText());
     }
 
-    private static MgLogicalGroupExpression buildGroup(Group group){
-        return buildGroup(group.getParts());
+    private static MgLogicalClumpExpression buildGroup(Clump clump){
+        return buildGroup(clump.getParts());
     }
 
-    private static MgLogicalGroupExpression buildGroup(List<Part> parts){
+    private static MgLogicalClumpExpression buildGroup(List<Part> parts){
         List<MgLogicalExpressionOld> expressions = new List<>();
         for(Part part : parts){
             expressions.addLast(build(part));
         }
-        return new MgLogicalGroupExpression(expressions);
+        return new MgLogicalClumpExpression(expressions);
     }
 }

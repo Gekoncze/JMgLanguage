@@ -4,15 +4,15 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
 
 
-public class MgLogicalGroupExpression extends MgLogicalExpression {
+public class MgLogicalClumpExpression extends MgLogicalExpression {
     @Part
     private final List<MgLogicalExpression> expressions;
 
-    public MgLogicalGroupExpression() {
+    public MgLogicalClumpExpression() {
         expressions = new List<>();
     }
 
-    public MgLogicalGroupExpression(List<MgLogicalExpression> expressions) {
+    public MgLogicalClumpExpression(List<MgLogicalExpression> expressions) {
         this.expressions = expressions;
     }
 
