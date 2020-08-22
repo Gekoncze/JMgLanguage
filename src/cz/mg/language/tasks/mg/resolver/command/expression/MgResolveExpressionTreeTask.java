@@ -41,11 +41,28 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
-        OperatorCache operatorCache = context.getOperatorCache();
         List<Operator> operators = createOperators(logicalGroupExpression);
 
-        todo; // todo - first gather all function calls - ??? how ? we might need to add a sign for function call ... probably !
+        resolveFunctionCalls(operators);
+        resolveOperatorCalls(operators);
 
+        if(operators.count() != 1) {
+            throw new LanguageException("Illegal expression.");
+        }
+
+        if(!(operators.getFirst().getExpression() instanceof MgLogicalCallExpression)) {
+            throw new LanguageException("Illegal expression.");
+        }
+
+        logicalCallExpression = (MgLogicalCallExpression) operators.getFirst().getExpression();
+    }
+
+    private void resolveFunctionCalls(List<Operator> operators){
+        todo; // todo - first gather all function calls - two variable calls next to each other
+    }
+
+    private void resolveOperatorCalls(List<Operator> operators){
+        OperatorCache operatorCache = context.getOperatorCache();
         for(int p = operatorCache.getMaxPriority(); p >= operatorCache.getMinPriority(); p--){
             List<MgFunction> functions = operatorCache.getFunctions(p);
             for(
@@ -54,11 +71,9 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
                 operatorItem = operatorItem.getNextItem()
             ){
                 if()
-                todo;
+                    todo;
             }
         }
-
-        logicalCallExpression = ?;
     }
 
     private List<Operator> createOperators(MgLogicalGroupExpression logicalGroupExpression){
