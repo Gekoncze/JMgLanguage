@@ -61,7 +61,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     private void resolveFunctionCalls(List<Operator> operators){
         for(
-            ListItem operatorItem = operators.getFirstItem();
+            ListItem<Operator> operatorItem = operators.getFirstItem();
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
@@ -71,7 +71,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     private void resolveMemberCalls(List<Operator> operators){
         for(
-            ListItem operatorItem = operators.getFirstItem();
+            ListItem<Operator> operatorItem = operators.getFirstItem();
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
@@ -84,7 +84,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         for(int p = operatorCache.getMaxPriority(); p >= operatorCache.getMinPriority(); p--){
             List<MgFunction> functions = operatorCache.getFunctions(p);
             for(
-                ListItem operatorItem = operators.getFirstItem();
+                ListItem<Operator> operatorItem = operators.getFirstItem();
                 operatorItem != null;
                 operatorItem = operatorItem.getNextItem()
             ){
@@ -95,7 +95,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     private void resolveGroupCalls(List<Operator> operators){
         for(
-            ListItem operatorItem = operators.getFirstItem();
+            ListItem<Operator> operatorItem = operators.getFirstItem();
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
@@ -117,7 +117,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         }
 
         if(logicalExpression instanceof MgLogicalVariableCallExpression){
-            createVariableCallExpression((MgLogicalVariableCallExpression) logicalExpression);
+            return createVariableCallExpression((MgLogicalVariableCallExpression) logicalExpression);
         }
 
         if(logicalExpression instanceof MgLogicalOperatorExpression){
