@@ -27,7 +27,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     private final CommandContext context;
 
     @Input
-    private final MgLogicalClumpExpression logicalGroupExpression;
+    private final MgLogicalClumpExpression logicalClumpExpression;
 
     @Output
     private MgLogicalCallExpression logicalCallExpression;
@@ -35,9 +35,9 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     @Subtask
     private final List<MgResolveExpressionTreeTask> subtasks = new List<>();
 
-    public MgResolveExpressionTreeTask(CommandContext context, MgLogicalClumpExpression logicalGroupExpression) {
+    public MgResolveExpressionTreeTask(CommandContext context, MgLogicalClumpExpression logicalClumpExpression) {
         this.context = context;
-        this.logicalGroupExpression = logicalGroupExpression;
+        this.logicalClumpExpression = logicalClumpExpression;
     }
 
     public MgLogicalCallExpression getLogicalCallExpression() {
@@ -46,7 +46,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
-        List<MgLogicalExpression> expressions = prepareExpressions(logicalGroupExpression);
+        List<MgLogicalExpression> expressions = prepareExpressions(logicalClumpExpression);
 
         resolveFunctionCalls(expressions);
         resolveMemberCalls(expressions);

@@ -5,7 +5,9 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalWhileCommand;
 import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -18,6 +20,9 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
 
     @Output
     private Command command;
+
+    @Subtask
+    private MgResolveExpressionTreeTask resolveExpressionTreeTask;
 
     @Subtask
     private MgResolveExpressionTask resolveExpressionTask;
@@ -39,7 +44,10 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
     protected void onRun() {
         command = new Command(context, logicalCommand);
 
-        resolveExpressionTask = MgResolveExpressionTask.create(context, logicalCommand.getExpression());
+        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
+        resolveExpressionTreeTask.run();
+
+        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createBooleanParentExpression());
         resolveExpressionTask.run();
         command.setExpression(resolveExpressionTask.getExpression());
 
@@ -48,5 +56,10 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
         command.getCommands().addCollectionLast(resolveCommandsTask.getCommands());
 
         //todo;
+    }
+
+    private Expression createBooleanParentExpression(){
+        //todo
+        return null;
     }
 }

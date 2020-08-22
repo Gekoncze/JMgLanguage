@@ -28,6 +28,6 @@ public class MgResolveComponentStampTask extends MgResolveTask<MgStamp> {
 
     @Override
     protected MgStamp onResolve() {
-        return new ClassFilter<>(getContext(), logicalStamp, MgStamp.class).find();
+        return stamp = new ClassFilter<>(getContext(), logicalStamp, MgStamp.class).find();
     }
 }

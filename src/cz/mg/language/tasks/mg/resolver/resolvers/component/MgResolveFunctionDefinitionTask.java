@@ -52,7 +52,7 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
 
         postpone(
             new MgResolveFunctionCommandsTask(
-                getContext(),
+                (FunctionContext) getContext(),
                 logicalFunction,
                 function
             )

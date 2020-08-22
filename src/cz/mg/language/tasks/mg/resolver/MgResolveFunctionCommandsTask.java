@@ -7,11 +7,12 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.command.Command;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.contexts.FunctionContext;
 
 
 public class MgResolveFunctionCommandsTask extends MgResolverTask {
     @Input
-    private final Context context;
+    private final FunctionContext context;
 
     @Input
     private final MgLogicalFunction logicalFunction;
@@ -22,7 +23,7 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
     @Subtask
     private MgResolveCommandsTask subtask;
 
-    public MgResolveFunctionCommandsTask(Context context, MgLogicalFunction logicalFunction, MgFunction function) {
+    public MgResolveFunctionCommandsTask(FunctionContext context, MgLogicalFunction logicalFunction, MgFunction function) {
         this.context = context;
         this.logicalFunction = logicalFunction;
         this.function = function;

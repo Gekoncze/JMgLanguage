@@ -13,11 +13,12 @@ public class MgResolveValueExpressionTask extends MgResolveExpressionTask<MgLogi
 
     @Override
     protected ReadableCollection<MgLogicalCallExpression> onResolveEnter() {
-        todo;
+        // todo
+        return null;
     }
 
     @Override
     protected void onResolveLeave() {
-        todo;
+        // todo
     }
 }

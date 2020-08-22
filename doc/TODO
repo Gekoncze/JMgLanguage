@@ -1,14 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-priorities:
-    functions
-    dot operator
-    ...
-    comma operator
-
 todo - expression resolvers
 
 how to implement resolution with connections
@@ -40,19 +34,6 @@ maybe replication will need to be distinguished somehow? probably not needed ...
         a, b, c [=] d, e, f
         or
         a, b, c {=} d, e, f
-
-(global) function and variable overriding
-    VARIABLE Int32 foo
-    vs
-    OVERRIDE foo VARIABLE Int32 bar
-    vs
-    VARIABLE Int32 bar OVERRIDE foo
-    -
-    FUNCTION foo INPUT ... OUTPUT ...
-    vs
-    OVERRIDE foo FUNCTION bar INPUT ... OUTPUT ...
-    vs
-    FUNCTION bar INPUT ... OUTPUT ... OVERRIDE foo
 
 matcher
     how to handle operators?
@@ -198,6 +179,19 @@ move all subtasks to Task class ???
     we could then have execute and try to execute methods
 
 add external (user) exception vs internal exception
+
+(global) function and variable overriding
+    VARIABLE Int32 foo
+    vs
+    OVERRIDE foo VARIABLE Int32 bar
+    vs
+    VARIABLE Int32 bar OVERRIDE foo
+    -
+    FUNCTION foo INPUT ... OUTPUT ...
+    vs
+    OVERRIDE foo FUNCTION bar INPUT ... OUTPUT ...
+    vs
+    FUNCTION bar INPUT ... OUTPUT ... OVERRIDE foo
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------

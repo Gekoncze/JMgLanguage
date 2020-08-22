@@ -20,11 +20,13 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogic
 
     @Override
     protected ReadableCollection<MgLogicalCallExpression> onResolveEnter() {
-        todo;
+        //todo;
+        return null;
     }
 
     @Override
     protected void onResolveLeave() {
+        // todo
         MgComponent component = resolveName(logicalExpression.getName());
         if(component instanceof MgVariable){
             MgVariable variable = (MgVariable) component;
@@ -37,6 +39,7 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogic
     }
 
     private MgComponent resolveName(ReadableText name){
-        return new ExpressionFilter(context, name, new Array<>(), parent.getInput()).find();
+        // todo: return new ExpressionFilter(context, name, new Array<>(), parent.getInput()).find();
+        return null;
     }
 }
