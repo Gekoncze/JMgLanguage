@@ -4,7 +4,7 @@ import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
@@ -13,8 +13,8 @@ import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.ExpressionFilter;
 
 
-public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogicalVariableCallExpression> {
-    public MgResolveNameExpressionTask(CommandContext context, MgLogicalVariableCallExpression logicalExpression, Expression parent) {
+public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogicalNameCallExpression> {
+    public MgResolveNameExpressionTask(CommandContext context, MgLogicalNameCallExpression logicalExpression, Expression parent) {
         super(context, logicalExpression, parent);
     }
 

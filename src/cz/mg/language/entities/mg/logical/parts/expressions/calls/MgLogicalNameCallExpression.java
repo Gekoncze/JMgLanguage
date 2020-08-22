@@ -6,11 +6,11 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import java.util.Objects;
 
 
-public class MgLogicalVariableCallExpression extends MgLogicalCallExpression {
+public class MgLogicalNameCallExpression extends MgLogicalCallExpression {
     @Mandatory @Value
     private final ReadableText name;
 
-    public MgLogicalVariableCallExpression(ReadableText name) {
+    public MgLogicalNameCallExpression(ReadableText name) {
         Objects.nonNull(name);
         this.name = name;
     }

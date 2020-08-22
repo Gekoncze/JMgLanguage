@@ -23,7 +23,7 @@ public class OperatorCache {
     private final int maxPriority;
 
     @Part
-    private final Array<List<MgFunction>> functions;
+    private final Array<List<MgOperator>> operatorArray;
 
     @Part
     private final Map<ReadableText, MgOperator> operatorMap = new Map<>();
@@ -45,18 +45,18 @@ public class OperatorCache {
             this.maxPriority = maxOperatorPriority;
 
             // create array of prioritized function lists
-            this.functions = new Array<>(maxOperatorPriority - minOperatorPriority + 1);
-            for(int i = 0; i < this.functions.count(); i++){
-                this.functions.set(new List<>(), i);
+            this.operatorArray = new Array<>(maxOperatorPriority - minOperatorPriority + 1);
+            for(int i = 0; i < this.operatorArray.count(); i++){
+                this.operatorArray.set(new List<>(), i);
             }
 
             // fill the prioritized function list with found operator functions
             for(MgFunction function : availableOperators){
                 int priority = function.getOperator().getPriority();
-                this.functions.get(p2i(priority)).addLast(function);
+                this.operatorArray.get(p2i(priority)).addLast(function.getOperator());
             }
         } else {
-            this.functions = new Array<>();
+            this.operatorArray = new Array<>();
             this.minPriority = 0;
             this.maxPriority = 0;
         }
@@ -70,9 +70,9 @@ public class OperatorCache {
         return maxPriority;
     }
 
-    public List<MgFunction> getFunctions(int priority) {
-        if(functions.isEmpty()) return null;
-        else return functions.get(p2i(priority));
+    public List<MgOperator> getOperators(int priority) {
+        if(operatorArray.isEmpty()) return null;
+        else return operatorArray.get(p2i(priority));
     }
 
     private final int p2i(int p){
@@ -85,25 +85,25 @@ public class OperatorCache {
 
     private static final MgOperator UNKNOWN = new MgOperator(new ReadonlyText(""));
     public MgOperator findOperator(ReadableText operatorName){
-        MgOperator operator = operatorMap.get(operatorName, UNKNOWN);
-        if(operator == UNKNOWN){
-            for(List<MgFunction> array : functions){
-                for(MgFunction function : array){
-                    if(function.getOperator().getName().equals(operatorName)){
-                        if(operator == UNKNOWN){
-                            operator = function.getOperator();
+        MgOperator cachedOperator = operatorMap.get(operatorName, UNKNOWN);
+        if(cachedOperator == UNKNOWN){
+            for(List<MgOperator> array : operatorArray){
+                for(MgOperator operator : array){
+                    if(operator.getName().equals(operatorName)){
+                        if(cachedOperator == UNKNOWN){
+                            cachedOperator = operator;
                         } else {
-                            if(!isCompatible(operator, function.getOperator())){
+                            if(!isCompatible(cachedOperator, operator)){
                                 throw new LanguageException("Ambiguous operator '" + operatorName + "'.");
                             }
                         }
                     }
                 }
             }
-            if(operator == UNKNOWN) operator = null;
-            operatorMap.set(operatorName, operator);
+            if(cachedOperator == UNKNOWN) cachedOperator = null;
+            operatorMap.set(operatorName, cachedOperator);
         }
-        return operator;
+        return cachedOperator;
     }
 
     private static boolean isCompatible(MgOperator first, MgOperator second){

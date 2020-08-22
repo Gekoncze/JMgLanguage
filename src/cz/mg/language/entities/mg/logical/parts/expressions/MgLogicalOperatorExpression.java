@@ -8,14 +8,14 @@ import java.util.Objects;
 
 public class MgLogicalOperatorExpression extends MgLogicalExpression {
     @Mandatory @Value
-    private final ReadableText signs;
+    private final ReadableText name;
 
-    public MgLogicalOperatorExpression(ReadableText signs) {
-        Objects.nonNull(signs);
-        this.signs = signs;
+    public MgLogicalOperatorExpression(ReadableText name) {
+        Objects.nonNull(name);
+        this.name = name;
     }
 
-    public ReadableText getSigns() {
-        return signs;
+    public ReadableText getName() {
+        return name;
     }
 }

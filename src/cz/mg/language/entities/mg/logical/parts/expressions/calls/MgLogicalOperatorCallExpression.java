@@ -9,7 +9,11 @@ public class MgLogicalOperatorCallExpression extends MgLogicalFunctionCallExpres
         super(name);
     }
 
-    public MgLogicalOperatorCallExpression(ReadableText name, List<MgLogicalCallExpression> expressions) {
-        super(name, expressions);
+    public MgLogicalOperatorCallExpression(ReadableText name, MgLogicalCallExpression expression) {
+        super(name, new List<>(expression));
+    }
+
+    public MgLogicalOperatorCallExpression(ReadableText name, MgLogicalCallExpression left, MgLogicalCallExpression right) {
+        super(name, new List<>(left, right));
     }
 }

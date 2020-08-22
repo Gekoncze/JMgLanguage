@@ -6,7 +6,6 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
@@ -64,8 +63,8 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
     protected abstract void onResolveLeave();
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalCallExpression logicalExpression, Expression parent){
-        if(logicalExpression instanceof MgLogicalVariableCallExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalVariableCallExpression) logicalExpression, parent);
+        if(logicalExpression instanceof MgLogicalNameCallExpression) {
+            return new MgResolveNameExpressionTask(context, (MgLogicalNameCallExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalValueCallExpression){

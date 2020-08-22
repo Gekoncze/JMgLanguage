@@ -43,7 +43,7 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
 
     private void addLineExpressions(){
         if(lineExpressions != null){
-            MgLogicalClumpExpression expression = (MgLogicalClumpExpression) getExpression();
+            MgLogicalClumpExpression expression = getExpression();
             if(expression == null) setExpression(expression = new MgLogicalClumpExpression());
             expression.getExpressions().addLast(createListExpression());
         }
@@ -64,6 +64,6 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
         return PATTERNS;
     }
 
-    public abstract MgLogicalExpression getExpression();
-    public abstract void setExpression(MgLogicalExpression expression);
+    public abstract MgLogicalClumpExpression getExpression();
+    public abstract void setExpression(MgLogicalClumpExpression expression);
 }

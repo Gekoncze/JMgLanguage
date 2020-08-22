@@ -10,7 +10,6 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.*;
@@ -69,13 +68,13 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
-            if(isVariable(operatorItem)){
+            if(isName(operatorItem)){
                 if(isCall(operatorItem.getNextItem())){
-                    MgLogicalVariableCallExpression variableCallExpression = (MgLogicalVariableCallExpression) operatorItem.get().getExpression();
+                    MgLogicalNameCallExpression nameCallExpression = (MgLogicalNameCallExpression) operatorItem.get().getExpression();
                     mergeUnaryLeft(
                         operatorItem,
                         expression -> new MgLogicalFunctionCallExpression(
-                            variableCallExpression.getName(),
+                            nameCallExpression.getName(),
                             asGroupList(expression)
                         )
                     );
@@ -107,13 +106,25 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     private void resolveOperatorCalls(List<Operator> operators){
         OperatorCache operatorCache = context.getOperatorCache();
         for(int p = operatorCache.getMaxPriority(); p >= operatorCache.getMinPriority(); p--){
-            List<MgFunction> functions = operatorCache.getFunctions(p);
             for(
                 ListItem<Operator> operatorItem = operators.getFirstItem();
                 operatorItem != null;
                 operatorItem = operatorItem.getNextItem()
             ){
-                todo;
+                Operator operator = operatorItem.get();
+                if(operator.getPriority() == p){
+                    if(operator instanceof BinaryOperator){
+                        mergeBinary(operatorItem, (leftExpression, rightExpression) -> {
+                            return new MgLogicalOperatorCallExpression(
+                                operator.
+                            );
+                        });
+                    } else if(operator instanceof LunaryOperator){
+                        todo;
+                    } else if(operator instanceof RunaryOperator){
+                        todo;
+                    }
+                }
             }
         }
     }
@@ -150,11 +161,13 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         return false;
     }
 
-    private boolean isVariable(ListItem<Operator> item){
+    private boolean isName(ListItem<Operator> item){
         if(item == null) return false;
-        MgLogicalExpression logicalExpression = item.get().getExpression();
-        if(logicalExpression instanceof MgLogicalVariableCallExpression){
-            return true;
+        if(item.get() instanceof LeafOperator){
+            MgLogicalExpression logicalExpression = item.get().getExpression();
+            if(logicalExpression instanceof MgLogicalNameCallExpression){
+                return true;
+            }
         }
         return false;
     }
@@ -176,7 +189,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         if(item == null) return false;
         MgLogicalExpression logicalExpression = item.get().getExpression();
         if(logicalExpression instanceof MgLogicalOperatorExpression){
-            return ((MgLogicalOperatorExpression) logicalExpression).getSigns().equals(name);
+            return ((MgLogicalOperatorExpression) logicalExpression).getName().equals(name);
         }
         return false;
     }
@@ -242,8 +255,8 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             return createLeafOperator((MgLogicalFunctionCallExpression)logicalExpression);
         }
 
-        if(logicalExpression instanceof MgLogicalVariableCallExpression){
-            return createVariableCallExpression((MgLogicalVariableCallExpression) logicalExpression);
+        if(logicalExpression instanceof MgLogicalNameCallExpression){
+            return createNameCallExpression((MgLogicalNameCallExpression) logicalExpression);
         }
 
         if(logicalExpression instanceof MgLogicalOperatorExpression){
@@ -257,7 +270,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " in group.");
     }
 
-    private Operator createVariableCallExpression(MgLogicalVariableCallExpression expression){
+    private Operator createNameCallExpression(MgLogicalNameCallExpression expression){
         MgOperator operator = findOperator(expression.getName());
         if(operator != null){
             return createOtherOperator(expression, operator);
@@ -267,11 +280,11 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     }
 
     private Operator createOperatorOperator(MgLogicalOperatorExpression expression){
-        MgOperator operator = findOperator(expression.getSigns());
+        MgOperator operator = findOperator(expression.getName());
         if(operator != null){
             return createOtherOperator(expression, operator);
         } else {
-            throw new LanguageException("Could not find operator '" + expression.getSigns() + "'.");
+            throw new LanguageException("Could not find operator '" + expression.getName() + "'.");
         }
     }
 
@@ -283,7 +296,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         return new LeafOperator(expression);
     }
 
-    private Operator createOtherOperator(MgLogicalExpression expression, MgOperator operator){
+    private Operator createOtherOperator(MgLogicalOperatorExpression expression, MgOperator operator){
         switch (operator.getType()){
             case BINARY: return new BinaryOperator(expression, operator.getPriority());
             case LEFT: return new LunaryOperator(expression, operator.getPriority());
