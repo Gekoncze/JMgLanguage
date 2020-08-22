@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -11,7 +12,7 @@ public class MgResolveFunctionCallExressionTask extends MgResolveExpressionTask<
     }
 
     @Override
-    protected ReadableCollection<MgLogicalExpressionOld> onResolveEnter() {
+    protected ReadableCollection<MgLogicalCallExpression> onResolveEnter() {
         todo;
     }
 

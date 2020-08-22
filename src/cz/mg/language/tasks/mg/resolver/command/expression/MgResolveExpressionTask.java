@@ -7,15 +7,12 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalOperatorCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogicalExpression> extends MgResolverTask {
+public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogicalCallExpression> extends MgResolverTask {
     @Input
     protected final CommandContext context;
 
@@ -44,9 +41,9 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
 
     @Override
     protected final void onRun() {
-        ReadableCollection<MgLogicalExpressionOld> logicalChildren = onResolveEnter();
+        ReadableCollection<MgLogicalCallExpression> logicalChildren = onResolveEnter();
 
-        for(MgLogicalExpressionOld logicalChild : logicalChildren){
+        for(MgLogicalCallExpression logicalChild : logicalChildren){
             Expression child = onResolveChild(logicalChild);
             expression.getExpressions().addLast(child);
             if(expression.getInputInterface() != null) Expression.connect(expression, child);
@@ -56,9 +53,9 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
         for(Expression child : expression.getExpressions()) Expression.connect(expression, child);
     }
 
-    protected abstract ReadableCollection<MgLogicalExpressionOld> onResolveEnter();
+    protected abstract ReadableCollection<MgLogicalCallExpression> onResolveEnter();
 
-    protected Expression onResolveChild(MgLogicalExpressionOld child){
+    protected Expression onResolveChild(MgLogicalCallExpression child){
         subtasks.addLast(create(context, child, expression));
         subtasks.getLast().run();
         return subtasks.getLast().getExpression();
@@ -66,7 +63,7 @@ public abstract class MgResolveExpressionTask<LogicalExpression extends MgLogica
 
     protected abstract void onResolveLeave();
 
-    public static MgResolveExpressionTask create(CommandContext context, MgLogicalExpressionOld logicalExpression, Expression parent){
+    public static MgResolveExpressionTask create(CommandContext context, MgLogicalCallExpression logicalExpression, Expression parent){
         if(logicalExpression instanceof MgLogicalVariableCallExpression) {
             return new MgResolveNameExpressionTask(context, (MgLogicalVariableCallExpression) logicalExpression, parent);
         }

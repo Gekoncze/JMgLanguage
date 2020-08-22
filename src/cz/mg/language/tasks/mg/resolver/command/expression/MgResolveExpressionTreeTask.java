@@ -69,7 +69,26 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
-            ttodo; // todo - two variable calls next to each other
+            if(isVariable(operatorItem)){
+                if(isCall(operatorItem.getNextItem())){
+                    MgLogicalVariableCallExpression variableCallExpression = (MgLogicalVariableCallExpression) operatorItem.get().getExpression();
+                    mergeUnaryLeft(
+                        operatorItem,
+                        expression -> new MgLogicalFunctionCallExpression(
+                            variableCallExpression.getName(),
+                            asGroupList(expression)
+                        )
+                    );
+                }
+            }
+        }
+    }
+
+    private List<MgLogicalCallExpression> asGroupList(MgLogicalCallExpression expression){
+        if(expression instanceof MgLogicalGroupCallExpression){
+            return ((MgLogicalGroupCallExpression) expression).getExpressions();
+        } else {
+            return new List<>(expression);
         }
     }
 
@@ -83,10 +102,6 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
                 mergeBinary(operatorItem, MgLogicalMemberCallExpression::new);
             }
         }
-    }
-
-    private boolean isDot(ListItem<Operator> item){
-        return isOperator(item, DOT);
     }
 
     private void resolveOperatorCalls(List<Operator> operators){
@@ -110,9 +125,47 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             operatorItem = operatorItem.getNextItem()
         ){
             if(isComma(operatorItem)){
-                mergeBinary(operatorItem, MgLogicalGroupCallExpression::new);
+                ListItem<Operator> leftItem = operatorItem.getPreviousItem();
+                if(isGroup(leftItem)){
+                    mergeBinary(operatorItem, (leftExpression, rightExpression) -> {
+                        MgLogicalGroupCallExpression group = (MgLogicalGroupCallExpression) leftExpression;
+                        group.getExpressions().addLast(rightExpression);
+                        return group;
+                    });
+                } else {
+                    mergeBinary(operatorItem, (leftExpression, rightExpression) -> {
+                        return new MgLogicalGroupCallExpression(new List<>(leftExpression, rightExpression));
+                    });
+                }
             }
         }
+    }
+
+    private boolean isGroup(ListItem<Operator> item){
+        if(item == null) return false;
+        MgLogicalExpression logicalExpression = item.get().getExpression();
+        if(logicalExpression instanceof MgLogicalGroupCallExpression){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isVariable(ListItem<Operator> item){
+        if(item == null) return false;
+        MgLogicalExpression logicalExpression = item.get().getExpression();
+        if(logicalExpression instanceof MgLogicalVariableCallExpression){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isCall(ListItem<Operator> item){
+        if(item == null) return false;
+        return item.get() instanceof LeafOperator;
+    }
+
+    private boolean isDot(ListItem<Operator> item){
+        return isOperator(item, DOT);
     }
 
     private boolean isComma(ListItem<Operator> item){
@@ -120,6 +173,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     }
 
     private boolean isOperator(ListItem<Operator> item, ReadableText name){
+        if(item == null) return false;
         MgLogicalExpression logicalExpression = item.get().getExpression();
         if(logicalExpression instanceof MgLogicalOperatorExpression){
             return ((MgLogicalOperatorExpression) logicalExpression).getSigns().equals(name);

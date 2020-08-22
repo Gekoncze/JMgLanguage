@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalVariableCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
@@ -18,7 +19,7 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogic
     }
 
     @Override
-    protected ReadableCollection<MgLogicalExpressionOld> onResolveEnter() {
+    protected ReadableCollection<MgLogicalCallExpression> onResolveEnter() {
         todo;
     }
 

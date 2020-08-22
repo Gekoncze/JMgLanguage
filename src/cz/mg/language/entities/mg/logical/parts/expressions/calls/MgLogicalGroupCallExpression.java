@@ -1,26 +1,18 @@
 package cz.mg.language.entities.mg.logical.parts.expressions.calls;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.annotations.requirement.Mandatory;
 
 
 public class MgLogicalGroupCallExpression extends MgLogicalCallExpression {
-    @Mandatory @Part
-    private final MgLogicalCallExpression left;
+    @Part
+    private final List<MgLogicalCallExpression> expressions;
 
-    @Mandatory @Part
-    private final MgLogicalCallExpression right;
-
-    public MgLogicalGroupCallExpression(MgLogicalCallExpression left, MgLogicalCallExpression right) {
-        this.left = left;
-        this.right = right;
+    public MgLogicalGroupCallExpression(List<MgLogicalCallExpression> expressions) {
+        this.expressions = expressions;
     }
 
-    public MgLogicalCallExpression getLeft() {
-        return left;
-    }
-
-    public MgLogicalCallExpression getRight() {
-        return right;
+    public List<MgLogicalCallExpression> getExpressions() {
+        return expressions;
     }
 }

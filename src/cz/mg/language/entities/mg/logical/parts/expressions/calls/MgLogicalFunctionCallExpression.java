@@ -11,10 +11,16 @@ public class MgLogicalFunctionCallExpression extends MgLogicalCallExpression {
     private final ReadableText name;
 
     @Part
-    private final List<MgLogicalCallExpression> expressions = new List<>();
+    private final List<MgLogicalCallExpression> expressions;
 
     public MgLogicalFunctionCallExpression(ReadableText name) {
         this.name = name;
+        this.expressions = new List<>();
+    }
+
+    public MgLogicalFunctionCallExpression(ReadableText name, List<MgLogicalCallExpression> expressions) {
+        this.name = name;
+        this.expressions = expressions;
     }
 
     public ReadableText getName() {

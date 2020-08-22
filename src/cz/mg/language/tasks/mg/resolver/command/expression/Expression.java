@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
@@ -10,7 +11,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
 
 public class Expression {
     @Link
-    private final MgLogicalExpressionOld logicalExpression;
+    private final MgLogicalCallExpression logicalExpression;
 
     @Part
     private final List<Expression> expressions = new List<>();
@@ -27,11 +28,11 @@ public class Expression {
     @Link
     private OutputInterface outputInterface;
 
-    public Expression(MgLogicalExpressionOld logicalExpression) {
+    public Expression(MgLogicalCallExpression logicalExpression) {
         this.logicalExpression = logicalExpression;
     }
 
-    public MgLogicalExpressionOld getLogicalExpression() {
+    public MgLogicalCallExpression getLogicalExpression() {
         return logicalExpression;
     }
 
