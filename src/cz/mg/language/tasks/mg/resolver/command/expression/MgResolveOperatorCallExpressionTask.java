@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalOperatorCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 

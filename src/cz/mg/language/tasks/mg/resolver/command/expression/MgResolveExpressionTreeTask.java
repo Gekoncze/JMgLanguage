@@ -10,9 +10,11 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.operator.*;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
 
@@ -44,35 +46,35 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
-        List<Operator> operators = createOperators(logicalGroupExpression);
+        List<MgLogicalExpression> expressions = prepareExpressions(logicalGroupExpression);
 
-        resolveFunctionCalls(operators);
-        resolveMemberCalls(operators);
-        resolveOperatorCalls(operators);
-        resolveGroupCalls(operators);
+        resolveFunctionCalls(expressions);
+        resolveMemberCalls(expressions);
+        resolveOperatorCalls(expressions);
+        resolveGroupCalls(expressions);
 
-        if(operators.count() != 1) {
+        if(expressions.count() != 1) {
             throw new LanguageException("Illegal expression.");
         }
 
-        if(!(operators.getFirst().getExpression() instanceof MgLogicalCallExpression)) {
+        if(!(expressions.getFirst() instanceof MgLogicalCallExpression)) {
             throw new LanguageException("Illegal expression.");
         }
 
-        logicalCallExpression = (MgLogicalCallExpression) operators.getFirst().getExpression();
+        logicalCallExpression = (MgLogicalCallExpression) expressions.getFirst();
     }
 
-    private void resolveFunctionCalls(List<Operator> operators){
+    private void resolveFunctionCalls(List<MgLogicalExpression> operators){
         for(
-            ListItem<Operator> operatorItem = operators.getFirstItem();
-            operatorItem != null;
-            operatorItem = operatorItem.getNextItem()
+            ListItem<MgLogicalExpression> item = operators.getFirstItem();
+            item != null;
+            item = item.getNextItem()
         ){
-            if(isName(operatorItem)){
-                if(isCall(operatorItem.getNextItem())){
-                    MgLogicalNameCallExpression nameCallExpression = (MgLogicalNameCallExpression) operatorItem.get().getExpression();
-                    mergeUnaryLeft(
-                        operatorItem,
+            if(isName(item)){
+                if(isCall(item.getNextItem())){
+                    MgLogicalNameCallExpression nameCallExpression = (MgLogicalNameCallExpression) item.get();
+                    mergeLunary(
+                        item,
                         expression -> new MgLogicalFunctionCallExpression(
                             nameCallExpression.getName(),
                             asGroupList(expression)
@@ -91,60 +93,81 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         }
     }
 
-    private void resolveMemberCalls(List<Operator> operators){
+    private void resolveMemberCalls(List<MgLogicalExpression> operators){
         for(
-            ListItem<Operator> operatorItem = operators.getFirstItem();
-            operatorItem != null;
-            operatorItem = operatorItem.getNextItem()
+            ListItem<MgLogicalExpression> item = operators.getFirstItem();
+            item != null;
+            item = item.getNextItem()
         ){
-            if(isDot(operatorItem)){
-                mergeBinary(operatorItem, MgLogicalMemberCallExpression::new);
+            if(isDot(item)){
+                mergeBinary(item, MgLogicalMemberCallExpression::new);
             }
         }
     }
 
-    private void resolveOperatorCalls(List<Operator> operators){
+    private void resolveOperatorCalls(List<MgLogicalExpression> operators){
         OperatorCache operatorCache = context.getOperatorCache();
         for(int p = operatorCache.getMaxPriority(); p >= operatorCache.getMinPriority(); p--){
             for(
-                ListItem<Operator> operatorItem = operators.getFirstItem();
-                operatorItem != null;
-                operatorItem = operatorItem.getNextItem()
+                ListItem<MgLogicalExpression> item = operators.getFirstItem();
+                item != null;
+                item = item.getNextItem()
             ){
-                Operator operator = operatorItem.get();
-                if(operator.getPriority() == p){
-                    if(operator instanceof BinaryOperator){
-                        mergeBinary(operatorItem, (leftExpression, rightExpression) -> {
-                            return new MgLogicalOperatorCallExpression(
-                                operator.
-                            );
-                        });
-                    } else if(operator instanceof LunaryOperator){
-                        todo;
-                    } else if(operator instanceof RunaryOperator){
-                        todo;
+                MgLogicalExpression expression = item.get();
+                if(expression instanceof MgLogicalOperatorExpression){
+                    MgLogicalOperatorExpression logicalOperatorExpression = (MgLogicalOperatorExpression) expression;
+                    MgOperator operator = logicalOperatorExpression.getOperator();
+                    if(operator.getPriority() == p){
+                        switch(operator.getType()){
+                            case BINARY:
+                                mergeBinary(item, (leftOperand, rightOperand) -> {
+                                    return new MgLogicalBinaryOperatorCallExpression(
+                                        logicalOperatorExpression.getName(),
+                                        leftOperand,
+                                        rightOperand
+                                    );
+                                });
+                                break;
+                            case LEFT:
+                                mergeLunary(item, operand -> {
+                                    return new MgLogicalLunaryOperatorCallExpression(
+                                        logicalOperatorExpression.getName(),
+                                        operand
+                                    );
+                                });
+                                break;
+                            case RIGHT:
+                                mergeRunary(item, operand -> {
+                                    return new MgLogicalRunaryOperatorCallExpression(
+                                        logicalOperatorExpression.getName(),
+                                        operand
+                                    );
+                                });
+                                break;
+                            default: throw new RuntimeException();
+                        }
                     }
                 }
             }
         }
     }
 
-    private void resolveGroupCalls(List<Operator> operators){
+    private void resolveGroupCalls(List<MgLogicalExpression> operators){
         for(
-            ListItem<Operator> operatorItem = operators.getFirstItem();
-            operatorItem != null;
-            operatorItem = operatorItem.getNextItem()
+            ListItem<MgLogicalExpression> item = operators.getFirstItem();
+            item != null;
+            item = item.getNextItem()
         ){
-            if(isComma(operatorItem)){
-                ListItem<Operator> leftItem = operatorItem.getPreviousItem();
+            if(isComma(item)){
+                ListItem<MgLogicalExpression> leftItem = item.getPreviousItem();
                 if(isGroup(leftItem)){
-                    mergeBinary(operatorItem, (leftExpression, rightExpression) -> {
+                    mergeBinary(item, (leftExpression, rightExpression) -> {
                         MgLogicalGroupCallExpression group = (MgLogicalGroupCallExpression) leftExpression;
                         group.getExpressions().addLast(rightExpression);
                         return group;
                     });
                 } else {
-                    mergeBinary(operatorItem, (leftExpression, rightExpression) -> {
+                    mergeBinary(item, (leftExpression, rightExpression) -> {
                         return new MgLogicalGroupCallExpression(new List<>(leftExpression, rightExpression));
                     });
                 }
@@ -152,72 +175,61 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         }
     }
 
-    private boolean isGroup(ListItem<Operator> item){
+    private boolean isGroup(ListItem<MgLogicalExpression> item){
         if(item == null) return false;
-        MgLogicalExpression logicalExpression = item.get().getExpression();
-        if(logicalExpression instanceof MgLogicalGroupCallExpression){
-            return true;
-        }
-        return false;
+        return item.get() instanceof MgLogicalGroupCallExpression;
     }
 
-    private boolean isName(ListItem<Operator> item){
+    private boolean isName(ListItem<MgLogicalExpression> item){
         if(item == null) return false;
-        if(item.get() instanceof LeafOperator){
-            MgLogicalExpression logicalExpression = item.get().getExpression();
-            if(logicalExpression instanceof MgLogicalNameCallExpression){
-                return true;
-            }
-        }
-        return false;
+        return item.get() instanceof MgLogicalNameCallExpression;
     }
 
-    private boolean isCall(ListItem<Operator> item){
+    private boolean isCall(ListItem<MgLogicalExpression> item){
         if(item == null) return false;
-        return item.get() instanceof LeafOperator;
+        return item.get() instanceof MgLogicalCallExpression;
     }
 
-    private boolean isDot(ListItem<Operator> item){
+    private boolean isDot(ListItem<MgLogicalExpression> item){
         return isOperator(item, DOT);
     }
 
-    private boolean isComma(ListItem<Operator> item){
+    private boolean isComma(ListItem<MgLogicalExpression> item){
         return isOperator(item, COMMA);
     }
 
-    private boolean isOperator(ListItem<Operator> item, ReadableText name){
+    private boolean isOperator(ListItem<MgLogicalExpression> item, ReadableText name){
         if(item == null) return false;
-        MgLogicalExpression logicalExpression = item.get().getExpression();
-        if(logicalExpression instanceof MgLogicalOperatorExpression){
-            return ((MgLogicalOperatorExpression) logicalExpression).getName().equals(name);
+        if(item.get() instanceof MgLogicalOperatorExpression){
+            return ((MgLogicalOperatorExpression) item.get()).getName().equals(name);
         }
         return false;
     }
 
-    private void mergeBinary(ListItem<Operator> item, LogicalBinaryExpressionCallFactory factory){
-        ListItem<Operator> leftItem = item.getPreviousItem();
-        ListItem<Operator> rightItem = item.getNextItem();
-        item.setData(new LeafOperator(factory.create(
-            getOperandCall(leftItem, "left"),
-            getOperandCall(rightItem, "right")
-        )));
+    private void mergeBinary(ListItem<MgLogicalExpression> item, LogicalBinaryExpressionCallFactory factory){
+        ListItem<MgLogicalExpression> leftItem = item.getPreviousItem();
+        ListItem<MgLogicalExpression> rightItem = item.getNextItem();
+        item.setData(factory.create(
+            getCall(leftItem, "left"),
+            getCall(rightItem, "right")
+        ));
         leftItem.remove();
         rightItem.remove();
     }
 
-    private void mergeUnaryLeft(ListItem<Operator> item, LogicalUnaryExpressionCallFactory factory){
-        ListItem<Operator> rightItem = item.getNextItem();
-        item.setData(new LeafOperator(factory.create(
-            getOperandCall(rightItem, "right")
-        )));
+    private void mergeLunary(ListItem<MgLogicalExpression> item, LogicalUnaryExpressionCallFactory factory){
+        ListItem<MgLogicalExpression> rightItem = item.getNextItem();
+        item.setData(factory.create(
+            getCall(rightItem, "right")
+        ));
         rightItem.remove();
     }
 
-    private void mergeUnaryRight(ListItem<Operator> item, LogicalUnaryExpressionCallFactory factory){
-        ListItem<Operator> leftItem = item.getPreviousItem();
-        item.setData(new LeafOperator(factory.create(
-            getOperandCall(leftItem, "left")
-        )));
+    private void mergeRunary(ListItem<MgLogicalExpression> item, LogicalUnaryExpressionCallFactory factory){
+        ListItem<MgLogicalExpression> leftItem = item.getPreviousItem();
+        item.setData(factory.create(
+            getCall(leftItem, "left")
+        ));
         leftItem.remove();
     }
 
@@ -229,11 +241,10 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         MgLogicalCallExpression create(MgLogicalCallExpression expression);
     }
 
-    private MgLogicalCallExpression getOperandCall(ListItem<Operator> item, String sideLabel){
+    private MgLogicalCallExpression getCall(ListItem<MgLogicalExpression> item, String sideLabel){
         if(item != null){
-            MgLogicalExpression logicalExpression = item.get().getExpression();
-            if(logicalExpression instanceof MgLogicalCallExpression){
-                return (MgLogicalCallExpression) logicalExpression;
+            if(item.get() instanceof MgLogicalCallExpression){
+                return (MgLogicalCallExpression) item.get();
             } else {
                 throw new LanguageException("Illegal " + sideLabel + " operand.");
             }
@@ -242,47 +253,40 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         }
     }
 
-    private List<Operator> createOperators(MgLogicalClumpExpression logicalGroupExpression){
-        List<Operator> operators = new List<>();
-        for(MgLogicalExpression logicalAbstractExpression : logicalGroupExpression.getExpressions()){
-            operators.addLast(createOperator(resolveNestedGroups(logicalAbstractExpression)));
+    private List<MgLogicalExpression> prepareExpressions(MgLogicalClumpExpression logicalGroupExpression){
+        List<MgLogicalExpression> expressions = new List<>();
+        for(MgLogicalExpression logicalExpression : logicalGroupExpression.getExpressions()){
+            expressions.addLast(prepareExpression(resolveNestedGroups(logicalExpression)));
         }
-        return operators;
+        return expressions;
     }
 
-    private Operator createOperator(MgLogicalExpression logicalExpression){
-        if(logicalExpression instanceof MgLogicalFunctionCallExpression){
-            return createLeafOperator((MgLogicalFunctionCallExpression)logicalExpression);
-        }
-
+    private MgLogicalExpression prepareExpression(MgLogicalExpression logicalExpression){
         if(logicalExpression instanceof MgLogicalNameCallExpression){
-            return createNameCallExpression((MgLogicalNameCallExpression) logicalExpression);
+            return prepareNameExpression((MgLogicalNameCallExpression) logicalExpression);
         }
 
         if(logicalExpression instanceof MgLogicalOperatorExpression){
-            return createOperatorOperator((MgLogicalOperatorExpression) logicalExpression);
+            return prepareOperatorExpression((MgLogicalOperatorExpression) logicalExpression);
         }
 
-        if(logicalExpression instanceof MgLogicalValueCallExpression){
-            return createLeafOperator((MgLogicalValueCallExpression) logicalExpression);
-        }
-
-        throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " in group.");
+        return logicalExpression;
     }
 
-    private Operator createNameCallExpression(MgLogicalNameCallExpression expression){
+    private MgLogicalExpression prepareNameExpression(MgLogicalNameCallExpression expression){
         MgOperator operator = findOperator(expression.getName());
         if(operator != null){
-            return createOtherOperator(expression, operator);
+            return new MgLogicalOperatorExpression(expression.getName(), operator);
         } else {
-            return new LeafOperator(expression);
+            return expression;
         }
     }
 
-    private Operator createOperatorOperator(MgLogicalOperatorExpression expression){
+    private MgLogicalExpression prepareOperatorExpression(MgLogicalOperatorExpression expression){
         MgOperator operator = findOperator(expression.getName());
         if(operator != null){
-            return createOtherOperator(expression, operator);
+            expression.setOperator(operator);
+            return expression;
         } else {
             throw new LanguageException("Could not find operator '" + expression.getName() + "'.");
         }
@@ -290,19 +294,6 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     private MgOperator findOperator(ReadableText name){
         return context.getOperatorCache().findOperator(name);
-    }
-
-    private LeafOperator createLeafOperator(MgLogicalCallExpression expression){
-        return new LeafOperator(expression);
-    }
-
-    private Operator createOtherOperator(MgLogicalOperatorExpression expression, MgOperator operator){
-        switch (operator.getType()){
-            case BINARY: return new BinaryOperator(expression, operator.getPriority());
-            case LEFT: return new LunaryOperator(expression, operator.getPriority());
-            case RIGHT: return new RunaryOperator(expression, operator.getPriority());
-            default: throw new RuntimeException();
-        }
     }
 
     private MgLogicalExpression resolveNestedGroups(MgLogicalExpression logicalExpression){
