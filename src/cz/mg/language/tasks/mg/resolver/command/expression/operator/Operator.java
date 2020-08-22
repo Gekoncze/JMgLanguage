@@ -24,6 +24,4 @@ public abstract class Operator {
     public int getPriority() {
         return priority;
     }
-
-    public abstract boolean isResolved();
 }

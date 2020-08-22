@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
@@ -18,6 +19,9 @@ import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
 
 
 public class MgResolveExpressionTreeTask extends MgResolverTask {
+    private static final ReadableText DOT = new ReadonlyText(".");
+    private static final ReadableText COMMA = new ReadonlyText(",");
+
     @Input
     private final CommandContext context;
 
@@ -75,8 +79,14 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
-            todo;
+            if(isDot(operatorItem)){
+                mergeBinary(operatorItem, MgLogicalMemberCallExpression::new);
+            }
         }
+    }
+
+    private boolean isDot(ListItem<Operator> item){
+        return isOperator(item, DOT);
     }
 
     private void resolveOperatorCalls(List<Operator> operators){
@@ -99,7 +109,69 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             operatorItem != null;
             operatorItem = operatorItem.getNextItem()
         ){
-            todo;
+            if(isComma(operatorItem)){
+                mergeBinary(operatorItem, MgLogicalGroupCallExpression::new);
+            }
+        }
+    }
+
+    private boolean isComma(ListItem<Operator> item){
+        return isOperator(item, COMMA);
+    }
+
+    private boolean isOperator(ListItem<Operator> item, ReadableText name){
+        MgLogicalExpression logicalExpression = item.get().getExpression();
+        if(logicalExpression instanceof MgLogicalOperatorExpression){
+            return ((MgLogicalOperatorExpression) logicalExpression).getSigns().equals(name);
+        }
+        return false;
+    }
+
+    private void mergeBinary(ListItem<Operator> item, LogicalBinaryExpressionCallFactory factory){
+        ListItem<Operator> leftItem = item.getPreviousItem();
+        ListItem<Operator> rightItem = item.getNextItem();
+        item.setData(new LeafOperator(factory.create(
+            getOperandCall(leftItem, "left"),
+            getOperandCall(rightItem, "right")
+        )));
+        leftItem.remove();
+        rightItem.remove();
+    }
+
+    private void mergeUnaryLeft(ListItem<Operator> item, LogicalUnaryExpressionCallFactory factory){
+        ListItem<Operator> rightItem = item.getNextItem();
+        item.setData(new LeafOperator(factory.create(
+            getOperandCall(rightItem, "right")
+        )));
+        rightItem.remove();
+    }
+
+    private void mergeUnaryRight(ListItem<Operator> item, LogicalUnaryExpressionCallFactory factory){
+        ListItem<Operator> leftItem = item.getPreviousItem();
+        item.setData(new LeafOperator(factory.create(
+            getOperandCall(leftItem, "left")
+        )));
+        leftItem.remove();
+    }
+
+    private interface LogicalBinaryExpressionCallFactory {
+        MgLogicalCallExpression create(MgLogicalCallExpression leftExpression, MgLogicalCallExpression rightExpression);
+    }
+
+    private interface LogicalUnaryExpressionCallFactory {
+        MgLogicalCallExpression create(MgLogicalCallExpression expression);
+    }
+
+    private MgLogicalCallExpression getOperandCall(ListItem<Operator> item, String sideLabel){
+        if(item != null){
+            MgLogicalExpression logicalExpression = item.get().getExpression();
+            if(logicalExpression instanceof MgLogicalCallExpression){
+                return (MgLogicalCallExpression) logicalExpression;
+            } else {
+                throw new LanguageException("Illegal " + sideLabel + " operand.");
+            }
+        } else {
+            throw new LanguageException("Missing " + sideLabel + " operand.");
         }
     }
 

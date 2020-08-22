@@ -7,9 +7,4 @@ public class LeafOperator extends Operator {
     public LeafOperator(MgLogicalCallExpression expression) {
         super(expression, 0);
     }
-
-    @Override
-    public boolean isResolved() {
-        return true;
-    }
 }
