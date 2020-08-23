@@ -17,7 +17,7 @@ public class MgLogicalOperatorExpression extends MgLogicalExpression {
     private MgOperator operator;
 
     public MgLogicalOperatorExpression(ReadableText name) {
-        Objects.nonNull(name);
+        Objects.requireNonNull(name);
         this.name = name;
     }
 

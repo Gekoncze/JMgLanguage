@@ -11,7 +11,7 @@ public class MgLogicalValueCallExpression extends MgLogicalCallExpression {
     private final ReadableText value;
 
     public MgLogicalValueCallExpression(ReadableText value) {
-        Objects.nonNull(value);
+        Objects.requireNonNull(value);
         this.value = value;
     }
 

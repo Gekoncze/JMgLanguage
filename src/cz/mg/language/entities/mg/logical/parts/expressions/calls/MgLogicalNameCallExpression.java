@@ -11,7 +11,7 @@ public class MgLogicalNameCallExpression extends MgLogicalCallExpression {
     private final ReadableText name;
 
     public MgLogicalNameCallExpression(ReadableText name) {
-        Objects.nonNull(name);
+        Objects.requireNonNull(name);
         this.name = name;
     }
 

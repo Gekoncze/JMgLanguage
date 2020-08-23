@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.components.types;
 
-import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
+import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
@@ -12,10 +12,10 @@ public class MgInterface extends MgType {
     private static final MgType TYPE = new MgType("Interface");
 
     @Mandatory @Part
-    private ReadableArray<MgVariable> input = new Array<>();
+    private ArrayList<MgVariable> input = new ArrayList<>();
 
     @Mandatory @Part
-    private ReadableArray<MgVariable> output = new Array<>();
+    private ArrayList<MgVariable> output = new ArrayList<>();
 
     protected MgInterface(MgType type, ReadableText name) {
         super(type, name);
@@ -31,15 +31,5 @@ public class MgInterface extends MgType {
 
     public ReadableArray<MgVariable> getOutput() {
         return output;
-    }
-
-    public void setInput(ReadableArray<MgVariable> input) {
-        if(input == null) throw new IllegalArgumentException();
-        this.input = input;
-    }
-
-    public void setOutput(ReadableArray<MgVariable> output) {
-        if(output == null) throw new IllegalArgumentException();
-        this.output = output;
     }
 }

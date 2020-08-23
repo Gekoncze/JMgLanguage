@@ -1,6 +1,5 @@
 package cz.mg.language.entities.mg.runtime.architecture;
 
-import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.entity.Part;
@@ -14,11 +13,11 @@ public class MgApplication extends MgArchitectureObject {
     @Part
     private final MgLocation root = new MgLocation(new ReadonlyText(""));
 
-    @Part
-    private final List<MgCore> cores = new List<>();
-
-    @Part
-    private final List<MgThread> threads = new List<>();
+//    @Part
+//    private final List<MgCore> cores = new List<>();
+//
+//    @Part
+//    private final List<MgThread> threads = new List<>();
 
     public MgApplication(ReadableText name) {
         super(TYPE, name);
@@ -28,11 +27,11 @@ public class MgApplication extends MgArchitectureObject {
         return root;
     }
 
-    public List<MgCore> getCores() {
-        return cores;
-    }
-
-    public List<MgThread> getThreads() {
-        return threads;
-    }
+//    public List<MgCore> getCores() {
+//        return cores;
+//    }
+//
+//    public List<MgThread> getThreads() {
+//        return threads;
+//    }
 }

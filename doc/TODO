@@ -11,7 +11,14 @@ maybe thread is not needed after all
     a new function object could be created and executed
         it could be just passes to function run method as parameter and used inside!
 
-expression resolvers
+implementation of the new simplified runtime model
+    add runtime commands
+    add runtime expressions
+    make resolvers create runtime commands and runtime expressions
+        remove instructions from resolvers
+
+    break, return and continue could be implemented using exceptions
+        not ideal, but for now is ok I think
 
 how to implement resolution with connections
     onEnter:
@@ -121,6 +128,8 @@ mg stamps definitions
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
+add context for function execution
+
 mg logic entity versioning ?
 mg runtime entity versioning ?
 mg global variable - add runtime validation for type?
@@ -158,6 +167,19 @@ improve compiler exceptions
             1) might use optional setter, that shall be set for all newly created objects
                 origin would be taken from one of the input objects
             2) shouldnt a stack trace be enough? implying we have a tree of entities
+
+make platform independent threads
+    this will require:
+        more effort from my side
+        generating instructions for functions from its commands and expressions
+        add MgThread and MgCore objects
+    this will allow:
+        more flexibility
+        any number of threads in application
+        easier manipulation (thread can be started, paused, stopped, etc)
+        better memory management (not so much on stack, more on heap)
+    not sure:
+        if better or worse performance
 
 
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
