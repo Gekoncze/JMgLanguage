@@ -15,10 +15,6 @@ public abstract class MgResolveCommandTask extends MgResolverTask {
             return new MgResolveExpressionCommandTask(context, (MgLogicalExpressionCommand) logicalCommand);
         } else if(logicalCommand instanceof MgLogicalIfCommand){
             return new MgResolveIfCommandTask(context, (MgLogicalIfCommand) logicalCommand);
-        } else if(logicalCommand instanceof MgLogicalElseIfCommand){
-            return new MgResolveElseIfCommandTask(context, (MgLogicalElseIfCommand) logicalCommand);
-        } else if(logicalCommand instanceof MgLogicalElseCommand){
-            return new MgResolveElseCommandTask(context, (MgLogicalElseCommand) logicalCommand);
         } else if(logicalCommand instanceof MgLogicalWhileCommand){
             return new MgResolveWhileCommandTask(context, (MgLogicalWhileCommand) logicalCommand);
         } else if(logicalCommand instanceof MgLogicalContinueCommand){

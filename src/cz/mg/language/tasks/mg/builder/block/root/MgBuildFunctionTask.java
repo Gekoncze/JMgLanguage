@@ -148,32 +148,6 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             "IF"
         ),
 
-        // build else if command
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildElseIfCommandTask.class,
-                MgBuildFunctionTask.class,
-                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            ),
-            "ELSE", "IF"
-        ),
-
-        // build else command
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildElseCommandTask.class,
-                MgBuildFunctionTask.class,
-                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
-            ),
-            "ELSE"
-        ),
-
         // build while command
         new Pattern(
             Order.RANDOM,

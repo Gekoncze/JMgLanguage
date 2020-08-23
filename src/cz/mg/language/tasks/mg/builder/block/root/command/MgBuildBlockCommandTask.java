@@ -49,32 +49,6 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             "IF"
         ),
 
-        // build else if command
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildElseIfCommandTask.class,
-                MgBuildBlockCommandTask.class,
-                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            ),
-            "ELSE", "IF"
-        ),
-
-        // build else command
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildElseCommandTask.class,
-                MgBuildBlockCommandTask.class,
-                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
-            ),
-            "ELSE"
-        ),
-
         // build while command
         new Pattern(
             Order.RANDOM,

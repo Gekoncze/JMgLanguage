@@ -25,11 +25,11 @@ public class MgInterface extends MgType {
         super(TYPE, name);
     }
 
-    public ReadableArray<MgVariable> getInput() {
+    public ArrayList<MgVariable> getInput() {
         return input;
     }
 
-    public ReadableArray<MgVariable> getOutput() {
+    public ArrayList<MgVariable> getOutput() {
         return output;
     }
 }

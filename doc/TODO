@@ -1,13 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
 command optimization
-removed else if and else commands
-added switch-case and checkpoint-try-catch-finally commands
+cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-maybe change if command to some kind of switch command?
-    we could keep normal if
-    and add switch for if-elseif-else cases
+command optimization
     there could be two kinds of switches
         for any kind of condition (switch without expression)
         for object equality condition (switch with expression)
@@ -21,6 +18,11 @@ maybe change if command to some kind of switch command?
                 ...
             FINALLY
                 ...
+
+    add new commands to:
+        MgBuildFunctionTask
+        MgBuildBlockCommandTask
+        MgResolveCommandTask
 
 maybe thread is not needed after all
     we will only need a context object being passed

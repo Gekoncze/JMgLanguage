@@ -41,13 +41,13 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
         createAndPostponeMore(
             MgResolveVariableDefinitionTask.class,
             logicalFunction.getInput(),
-            variables -> function.setInput(variables)
+            variables -> function.getInput().addCollectionLast(variables)
         );
 
         createAndPostponeMore(
             MgResolveVariableDefinitionTask.class,
             logicalFunction.getOutput(),
-            variables -> function.setOutput(variables)
+            variables -> function.getOutput().addCollectionLast(variables)
         );
 
         postpone(

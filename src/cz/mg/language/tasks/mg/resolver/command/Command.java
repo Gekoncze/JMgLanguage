@@ -6,7 +6,6 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Shared;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -20,9 +19,6 @@ public class Command {
 
     @Part
     private final List<Command> commands = new List<>();
-
-    @Part
-    private final List<MgInstruction> instructions = new List<>();
 
     @Part
     private final List<MgVariable> declaredVariables = new List<>();
@@ -45,10 +41,6 @@ public class Command {
 
     public List<Command> getCommands() {
         return commands;
-    }
-
-    public List<MgInstruction> getInstructions() {
-        return instructions;
     }
 
     public List<MgVariable> getDeclaredVariables() {

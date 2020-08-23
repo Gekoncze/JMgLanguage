@@ -5,7 +5,6 @@ import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.instructions.MgInstruction;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
 
 
@@ -15,9 +14,6 @@ public class Expression {
 
     @Part
     private final List<Expression> expressions = new List<>();
-
-    @Part
-    private final List<MgInstruction> instructions = new List<>();
 
     @Link
     private final List<MgVariable> output = new List<>();
@@ -38,10 +34,6 @@ public class Expression {
 
     public List<Expression> getExpressions() {
         return expressions;
-    }
-
-    public List<MgInstruction> getInstructions() {
-        return instructions;
     }
 
     public List<MgVariable> getOutput() {
