@@ -17,18 +17,31 @@ public class MgBuildSwitchCommandTask extends MgBuildCommandTask {
         (source, destination) -> destination.command = new MgLogicalSwitchCommand(source.getExpression())
     );
     
-     private static final List<Pattern> PATTERNS = new List<>(
+    private static final List<Pattern> PATTERNS = new List<>(
         // build case command
         new Pattern(
             Order.STRICT,
             Requirement.OPTIONAL,
-            Count.SINGLE,
+            Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildCaseCommandTask.class,
                 MgBuildSwitchCommandTask.class,
                 (source, destination) -> destination.command.getCommands().addLast(source.getCommand())
             ),
             "CASE"
+        ),
+
+        // build else command
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildElseCommandTask.class,
+                MgBuildSwitchCommandTask.class,
+                (source, destination) -> destination.command.getCommands().addLast(source.getCommand())
+            ),
+            "ELSE"
         )
     );
 

@@ -9,20 +9,18 @@ command optimization
         for any kind of condition (switch without expression)
         for object equality condition (switch with expression)
 
-    how about exceptions?
-        maybe something like:
-        CHECKPOINT
-            TRY
-                ...
-            CATCH ---
-                ...
-            FINALLY
-                ...
+    new commands:
+        switch-case-else
+        checkpoint-try-catch-finally
+        rollback
 
     add new commands to:
         MgBuildFunctionTask
+            done: switch-case-else
         MgBuildBlockCommandTask
+            done: switch-case-else
         MgResolveCommandTask
+            done: none
 
 maybe thread is not needed after all
     we will only need a context object being passed
