@@ -148,6 +148,19 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             "IF"
         ),
 
+        // build switch command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildSwitchCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            ),
+            "SWITCH"
+        ),
+
         // build while command
         new Pattern(
             Order.RANDOM,
