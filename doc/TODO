@@ -1,5 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added build rollback, checkpoint, try, catch, finally tasks
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -34,6 +34,8 @@ implementation of the new simplified runtime model
     break, return and continue could be implemented using exceptions
         not ideal, but for now is ok I think
 
+
+### SOON ### -----------------------------------------------------------------------------------------------------------
 how to implement resolution with connections
     onEnter:
         resolve is optional (successful when there is exactly 1 match)
@@ -101,7 +103,8 @@ mg operator replication
     if input and ouptut lists matches, then operator is called for each corresponding input/output pair
 
 
-### SOON ### -----------------------------------------------------------------------------------------------------------
+
+
 take into account access modifiers during resolve
 
 make MgCore work
