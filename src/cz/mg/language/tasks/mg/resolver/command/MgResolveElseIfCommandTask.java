@@ -3,7 +3,6 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalElseIfCommand;
 import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;

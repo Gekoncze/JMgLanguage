@@ -1,17 +1,18 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalClumpExpression;
 
 
-public class MgLogicalElseIfCommand extends MgLogicalBlockCommand {
-    @Part
+public class MgLogicalCaseCommand extends MgLogicalBlockCommand {
+    @Optional @Part
     private MgLogicalClumpExpression expression;
 
-    public MgLogicalElseIfCommand() {
+    public MgLogicalCaseCommand() {
     }
 
-    public MgLogicalElseIfCommand(MgLogicalClumpExpression expression) {
+    public MgLogicalCaseCommand(MgLogicalClumpExpression expression) {
         this.expression = expression;
     }
 
