@@ -211,6 +211,32 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
             ),
             "BREAK"
+        ),
+
+        // build rollback command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildRollbackCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            ),
+            "ROLLBACK"
+        ),
+
+        // build checkpoint command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildCheckpointCommandTask.class,
+                MgBuildFunctionTask.class,
+                (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
+            ),
+            "CHECKPOINT"
         )
     );
 

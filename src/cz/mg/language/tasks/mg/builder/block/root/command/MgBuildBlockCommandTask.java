@@ -6,7 +6,6 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBlockCommand;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builder.block.MgBuildBlockTask;
 import cz.mg.language.tasks.mg.builder.block.part.MgBuildNameBlockTask;
-import cz.mg.language.tasks.mg.builder.block.root.MgBuildFunctionTask;
 import cz.mg.language.tasks.mg.builder.pattern.*;
 
 
@@ -113,6 +112,32 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
             ),
             "BREAK"
+        ),
+
+        // build rollback command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildRollbackCommandTask.class,
+                MgBuildBlockCommandTask.class,
+                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
+            ),
+            "ROLLBACK"
+        ),
+
+        // build checkpoint command
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildCheckpointCommandTask.class,
+                MgBuildBlockCommandTask.class,
+                (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
+            ),
+            "CHECKPOINT"
         )
     );
 

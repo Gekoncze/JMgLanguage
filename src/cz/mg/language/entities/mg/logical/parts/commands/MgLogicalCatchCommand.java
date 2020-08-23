@@ -12,6 +12,10 @@ public class MgLogicalCatchCommand extends MgLogicalBlockCommand {
     public MgLogicalCatchCommand() {
     }
 
+    public MgLogicalCatchCommand(MgLogicalVariable variable) {
+        this.variable = variable;
+    }
+
     public MgLogicalVariable getVariable() {
         return variable;
     }

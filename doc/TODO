@@ -1,6 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-command optimization
-
+added build rollback, checkpoint, try, catch, finally tasks
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -15,12 +14,7 @@ command optimization
         rollback
 
     add new commands to:
-        MgBuildFunctionTask
-            done: switch-case-else
-        MgBuildBlockCommandTask
-            done: switch-case-else
         MgResolveCommandTask
-            done: none
 
 maybe thread is not needed after all
     we will only need a context object being passed
