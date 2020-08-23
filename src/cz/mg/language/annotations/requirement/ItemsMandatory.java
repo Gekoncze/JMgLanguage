@@ -6,10 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-// Applicable only to entity fields.
-// Annotated field must not be null.
-// If applied to collection, then it is the same as if CollectionMandatory and ItemsMandatory annotations were applied.
+// Applicable only to collection entity fields.
+// See Mandatory for more details.
+// Applies only to collection items, not to the collection itself.
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Mandatory {
+public @interface ItemsMandatory {
 }

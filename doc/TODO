@@ -2,7 +2,16 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-todo - expression resolvers
+maybe thread is not needed after all
+    we will only need a context object being passed
+        passed in two ways:
+            implicitly - current function context will be used
+            explicitly - user provided context will be used
+
+    a new function object could be created and executed
+        it could be just passes to function run method as parameter and used inside!
+
+expression resolvers
 
 how to implement resolution with connections
     onEnter:

@@ -6,10 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-// Applicable only to entity fields.
-// Annotated field just holds reference to another object (no ownership).
-// If applied to collection, then it is the same as if CollectionLink and ItemsLink annotations were applied.
+// Applicable only to collection entity fields.
+// See Link for more details.
+// Applies only to collection itself, not to its items.
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Link {
+public @interface CollectionLink {
 }
