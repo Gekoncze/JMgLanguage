@@ -4,7 +4,7 @@
 //import cz.mg.language.entities.mg.runtime.architecture.MgThread;
 //
 //
-//public abstract class MgInstruction extends MgRuntimeEntity {
+//public abstract class MgInstruction extends MgPart {
 //    public MgInstruction() {
 //    }
 //

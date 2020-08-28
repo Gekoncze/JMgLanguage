@@ -6,11 +6,11 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
-public class MgExpressionCommand extends MgCommand {
+public class MgRollbackCommand extends MgCommand {
     @Mandatory @Part
     private final MgExpression expression;
 
-    public MgExpressionCommand(MgExpression expression) {
+    public MgRollbackCommand(MgExpression expression) {
         this.expression = expression;
     }
 
@@ -20,6 +20,6 @@ public class MgExpressionCommand extends MgCommand {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        expression.run(functionObject);
+        // todo
     }
 }

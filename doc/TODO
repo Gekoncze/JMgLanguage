@@ -1,10 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+added runtime commands
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 implementation of the new simplified runtime model
-    add runtime commands
+    add runtime commands implementation
     add runtime expressions
     make resolvers create runtime commands and runtime expressions
         remove instructions from resolvers
