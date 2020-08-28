@@ -1,22 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added runtime commands
+added runtime expressions
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-implementation of the new simplified runtime model
-    add runtime commands implementation
-    add runtime expressions
-    make resolvers create runtime commands and runtime expressions
-        remove instructions from resolvers
-
-    break, return and continue could be implemented using exceptions
-        not ideal, but for now is ok I think
-
-    we will only need a context object being passed
-        passed in two ways:
-            implicitly - current function context will be used
-            explicitly - user provided context will be used
-
+make resolvers create runtime commands and runtime expressions
+    remove instructions from resolvers
 
 how to implement resolution with connections
     onEnter:
@@ -77,6 +65,19 @@ command resolver
         they cannot have separate list, because they are located by index in instructions as regular variables
         they will be stored probably at the end, after input, output and locals
             will need to pass starting index at a point where the index is stored in instruction
+
+implementation of the new simplified runtime model
+    runtime commands and expressions might still need to touch up a little bit
+    add runtime commands implementation
+    add runtime expressions implementation
+
+    break, return and continue could be implemented using exceptions
+        not ideal, but for now is ok I think
+
+    we will only need a context object being passed
+        passed in two ways:
+            implicitly - current function context will be used
+            explicitly - user provided context will be used
 
 mg operator replication
     list part / list expression would "return multiple values"
