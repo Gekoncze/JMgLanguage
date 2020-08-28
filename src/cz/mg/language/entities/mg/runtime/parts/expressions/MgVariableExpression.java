@@ -1,26 +1,25 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions;
 
-
-import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 
-public class MgLogicalUnaryOperatorExpression extends MgExpression {
+public class MgVariableExpression extends MgExpression {
     @Mandatory @Part
-    private final List<MgExpression> operandGroup;
+    private final int variableIndex;
 
-    public MgLogicalUnaryOperatorExpression(List<MgExpression> operandGroup) {
-        this.operandGroup = operandGroup;
+    public MgVariableExpression(int variableIndex) {
+        this.variableIndex = variableIndex;
     }
 
-    public List<MgExpression> getOperandGroup() {
-        return operandGroup;
+    public int getVariableIndex() {
+        return variableIndex;
     }
 
     @Override
     public void run(MgFunctionObject functionObject) {
+        // todo - consideration - maybe could also pass source object somehow?
         // todo
     }
 }

@@ -5,14 +5,14 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 
-public class MgLogicalMemberExpression extends MgExpression {
+public class MgMemberExpression extends MgExpression {
     @Mandatory @Part
     private final MgExpression expression;
 
     @Mandatory @Part
     private final int variableIndex;
 
-    public MgLogicalMemberExpression(MgExpression expression, int variableIndex) {
+    public MgMemberExpression(MgExpression expression, int variableIndex) {
         this.expression = expression;
         this.variableIndex = variableIndex;
     }
