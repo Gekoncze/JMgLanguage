@@ -1,21 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+finished command optimalization + new commands
+added resolve tasks for new commands
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-command optimization
-    there could be two kinds of switches
-        for any kind of condition (switch without expression)
-        for object equality condition (switch with expression)
-
-    new commands:
-        switch-case-else
-        checkpoint-try-catch-finally
-        rollback
-
-    add new commands to:
-        MgResolveCommandTask
-
 maybe thread is not needed after all
     we will only need a context object being passed
         passed in two ways:
