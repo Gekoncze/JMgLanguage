@@ -4,6 +4,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalWhileCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgWhileCommand;
 import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
@@ -19,7 +20,7 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
     private final MgLogicalWhileCommand logicalCommand;
 
     @Output
-    private Command command;
+    private MgWhileCommand command;
 
     @Subtask
     private MgResolveExpressionTreeTask resolveExpressionTreeTask;
@@ -36,24 +37,24 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
     }
 
     @Override
-    public Command getCommand() {
+    public MgWhileCommand getCommand() {
         return command;
     }
 
     @Override
     protected void onRun() {
-        command = new Command(context, logicalCommand);
-
-        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
-        resolveExpressionTreeTask.run();
-
-        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createBooleanParentExpression());
-        resolveExpressionTask.run();
-        command.setExpression(resolveExpressionTask.getExpression());
-
-        resolveCommandsTask = new MgResolveCommandsTask(context, logicalCommand.getCommands());
-        resolveCommandsTask.run();
-        command.getCommands().addCollectionLast(resolveCommandsTask.getCommands());
+//        command = new Command(context, logicalCommand);
+//
+//        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
+//        resolveExpressionTreeTask.run();
+//
+//        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createBooleanParentExpression());
+//        resolveExpressionTask.run();
+//        command.setExpression(resolveExpressionTask.getExpression());
+//
+//        resolveCommandsTask = new MgResolveCommandsTask(context, logicalCommand.getCommands());
+//        resolveCommandsTask.run();
+//        command.getCommands().addCollectionLast(resolveCommandsTask.getCommands());
 
         //todo;
     }

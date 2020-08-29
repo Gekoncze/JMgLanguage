@@ -2,17 +2,18 @@ package cz.mg.language.entities.mg.runtime.parts;
 
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgDatatype extends MgPart {
-    @Link
+    @Mandatory @Link
     private final MgType type;
 
-    @Value
+    @Mandatory @Value
     private final Storage storage;
 
-    @Value
+    @Mandatory @Value
     private final Requirement requirement;
 
     public MgDatatype(MgType type, Storage storage, Requirement requirement) {

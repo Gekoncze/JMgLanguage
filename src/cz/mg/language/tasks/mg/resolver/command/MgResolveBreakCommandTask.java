@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBreakCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgBreakCommand;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -14,7 +15,7 @@ public class MgResolveBreakCommandTask extends MgResolveCommandTask {
     private final MgLogicalBreakCommand logicalCommand;
 
     @Output
-    private Command command;
+    private MgBreakCommand command;
 
     public MgResolveBreakCommandTask(CommandContext context, MgLogicalBreakCommand logicalCommand) {
         this.context = context;
@@ -22,7 +23,7 @@ public class MgResolveBreakCommandTask extends MgResolveCommandTask {
     }
 
     @Override
-    public Command getCommand() {
+    public MgBreakCommand getCommand() {
         return command;
     }
 

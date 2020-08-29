@@ -22,6 +22,11 @@ public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinit
     }
 
     @Override
+    protected CollectionContext getContext() {
+        return (CollectionContext) super.getContext();
+    }
+
+    @Override
     public MgCollection getOutput() {
         return collection;
     }
@@ -29,7 +34,7 @@ public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinit
     @Override
     protected MgCollection onResolveComponent() {
         collection = new MgCollection(logicalCollection.getName());
-        ((CollectionContext)getContext()).setCollection(collection);
+        getContext().setCollection(collection);
 
         // TODO
         /*createAndPostponeMore(

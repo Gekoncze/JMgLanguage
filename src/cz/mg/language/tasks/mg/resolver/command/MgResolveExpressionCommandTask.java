@@ -4,6 +4,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalExpressionCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgExpressionCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
@@ -18,7 +19,7 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
     private final MgLogicalExpressionCommand logicalCommand;
 
     @Output
-    private Command command;
+    private MgExpressionCommand command;
 
     @Subtask
     private MgResolveExpressionTreeTask resolveExpressionTreeTask;
@@ -32,20 +33,21 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
     }
 
     @Override
-    public Command getCommand() {
+    public MgExpressionCommand getCommand() {
         return command;
     }
 
     @Override
     protected void onRun() {
-        command = new Command(context, logicalCommand);
-
-        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
-        resolveExpressionTreeTask.run();
-
-        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createVoidParentExpression());
-        resolveExpressionTask.run();
-        command.setExpression(resolveExpressionTask.getExpression());
+//        command = new MgExpressionCommand(expression);
+//
+//
+//        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
+//        resolveExpressionTreeTask.run();
+//
+//        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createVoidParentExpression());
+//        resolveExpressionTask.run();
+//        command.setExpression(resolveExpressionTask.getExpression());
 
         //todo;
     }

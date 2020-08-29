@@ -6,7 +6,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
-import cz.mg.language.tasks.mg.resolver.command.Command;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -19,7 +19,7 @@ public class MgResolveCommandsTask extends MgResolverTask {
     private final ReadableCollection<MgLogicalCommand> commands;
 
     @Output
-    private List<Command> nodes = new List<>();
+    private List<MgCommand> nodes = new List<>();
 
     @Subtask
     private final List<MgResolveCommandTask> subtasks = new List<>();
@@ -29,7 +29,7 @@ public class MgResolveCommandsTask extends MgResolverTask {
         this.commands = commands;
     }
 
-    public List<Command> getCommands() {
+    public List<MgCommand> getCommands() {
         return nodes;
     }
 

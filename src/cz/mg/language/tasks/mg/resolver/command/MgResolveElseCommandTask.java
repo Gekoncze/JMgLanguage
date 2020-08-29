@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalElseCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgElseCommand;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -14,7 +15,7 @@ public class MgResolveElseCommandTask extends MgResolveCommandTask {
     private final MgLogicalElseCommand logicalCommand;
 
     @Output
-    private Command command;
+    private MgElseCommand command;
 
     public MgResolveElseCommandTask(CommandContext context, MgLogicalElseCommand logicalCommand) {
         this.context = context;
@@ -22,7 +23,7 @@ public class MgResolveElseCommandTask extends MgResolveCommandTask {
     }
 
     @Override
-    public Command getCommand() {
+    public MgElseCommand getCommand() {
         return command;
     }
 

@@ -2,6 +2,7 @@ package cz.mg.language.entities.mg.runtime.components;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
@@ -9,7 +10,7 @@ import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 public class MgVariable extends MgComponent {
     private static final MgType TYPE = new MgType("Variable");
 
-    @Value
+    @Mandatory @Value
     private MgDatatype datatype;
 
     protected MgVariable(MgType type, ReadableText name) {

@@ -9,6 +9,7 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.Context;
@@ -16,16 +17,16 @@ import cz.mg.language.tasks.mg.resolver.filter.OperatorFilter;
 
 
 public class OperatorCache {
-    @Value
+    @Mandatory @Value
     private final int minPriority;
 
-    @Value
+    @Mandatory @Value
     private final int maxPriority;
 
-    @Part
+    @Mandatory @Part
     private final Array<List<MgOperator>> operatorArray;
 
-    @Part
+    @Mandatory @Part
     private final Map<ReadableText, MgOperator> operatorMap = new Map<>();
 
     public OperatorCache(Context context) {

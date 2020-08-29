@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalContinueCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgContinueCommand;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -14,7 +15,7 @@ public class MgResolveContinueCommandTask extends MgResolveCommandTask {
     private final MgLogicalContinueCommand logicalCommand;
 
     @Output
-    private Command command;
+    private MgContinueCommand command;
 
     public MgResolveContinueCommandTask(CommandContext context, MgLogicalContinueCommand logicalCommand) {
         this.context = context;
@@ -22,7 +23,7 @@ public class MgResolveContinueCommandTask extends MgResolveCommandTask {
     }
 
     @Override
-    public Command getCommand() {
+    public MgContinueCommand getCommand() {
         return command;
     }
 

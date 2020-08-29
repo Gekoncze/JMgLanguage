@@ -24,6 +24,11 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
     }
 
     @Override
+    protected FunctionContext getContext() {
+        return (FunctionContext) super.getContext();
+    }
+
+    @Override
     public MgFunction getOutput() {
         return function;
     }
@@ -31,12 +36,13 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
     @Override
     protected MgFunction onResolveComponent() {
         function = new MgFunction(logicalFunction.getName());
+        getContext().setFunction(function);
+
         function.setOperator(new MgOperator(
             logicalFunction.getOperator().getName()
         ));
         function.getOperator().setType(MgOperator.Type.valueOf(logicalFunction.getOperator().getType().name()));
         function.getOperator().setPriority(logicalFunction.getOperator().getPriority());
-        ((FunctionContext)getContext()).setFunction(function);
 
         createAndPostponeMore(
             MgResolveVariableDefinitionTask.class,

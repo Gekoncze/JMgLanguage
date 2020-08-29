@@ -1,10 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+command resolver preparations
+made resolvers create runtime commands
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-make resolvers create runtime commands and runtime expressions
-    remove instructions from resolvers
+make resolvers create runtime expressions
 
 how to implement resolution with connections
     onEnter:

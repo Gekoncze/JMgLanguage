@@ -23,6 +23,11 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
     }
 
     @Override
+    protected ClassContext getContext() {
+        return (ClassContext) super.getContext();
+    }
+
+    @Override
     public MgClass getOutput() {
         return clazz;
     }
@@ -30,7 +35,7 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
     @Override
     protected MgClass onResolveComponent() {
         clazz = new MgClass(logicalClass.getName());
-        ((ClassContext)getContext()).setClazz(clazz);
+        getContext().setClazz(clazz);
 
         createAndPostpone(
             MgResolveClassInheritanceTask.class,

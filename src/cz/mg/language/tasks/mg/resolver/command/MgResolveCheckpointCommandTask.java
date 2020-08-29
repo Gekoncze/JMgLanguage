@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCheckpointCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgCheckpointCommand;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -14,7 +15,7 @@ public class MgResolveCheckpointCommandTask extends MgResolveCommandTask {
     private final MgLogicalCheckpointCommand logicalCommand;
 
     @Output
-    private Command command;
+    private MgCheckpointCommand command;
 
     public MgResolveCheckpointCommandTask(CommandContext context, MgLogicalCheckpointCommand logicalCommand) {
         this.context = context;
@@ -22,7 +23,7 @@ public class MgResolveCheckpointCommandTask extends MgResolveCommandTask {
     }
 
     @Override
-    public Command getCommand() {
+    public MgCheckpointCommand getCommand() {
         return command;
     }
 

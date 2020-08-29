@@ -3,6 +3,7 @@ package cz.mg.language.tasks.mg.resolver.contexts;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.special.CompositeCollection;
 import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
@@ -10,7 +11,7 @@ import cz.mg.language.tasks.mg.resolver.Context;
 
 
 public class FunctionContext extends Context {
-    @Link
+    @Optional @Link
     private MgFunction function;
 
     @Cache
