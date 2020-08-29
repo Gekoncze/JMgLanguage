@@ -51,7 +51,7 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
         resolveComponentStamps();
         resolveClassInheritance();
         resolveVariableDatatypes();
-        resolveInstructions();
+        resolveCommands();
 
         return application;
     }
@@ -103,7 +103,7 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
         resolve(MgResolveVariableDatatypeTask.class);
     }
 
-    private void resolveInstructions(){
+    private void resolveCommands(){
         resolve(MgResolveFunctionCommandsTask.class);
     }
 

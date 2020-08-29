@@ -3,11 +3,13 @@ package cz.mg.language.tasks.mg.resolver.contexts;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.special.CompositeCollection;
 import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.Context;
+import cz.mg.language.tasks.mg.resolver.VariableHelper;
 
 
 public class FunctionContext extends Context {
@@ -16,6 +18,9 @@ public class FunctionContext extends Context {
 
     @Cache
     private OperatorCache operatorCache;
+
+    @Part
+    private final VariableHelper variableHelper = new VariableHelper();
 
     public FunctionContext(Context outerContext) {
         super(outerContext);
@@ -32,6 +37,10 @@ public class FunctionContext extends Context {
     public OperatorCache getOperatorCache() {
         if(operatorCache == null) operatorCache = new OperatorCache(this);
         return operatorCache;
+    }
+
+    public VariableHelper getVariableHelper() {
+        return variableHelper;
     }
 
     @Override
