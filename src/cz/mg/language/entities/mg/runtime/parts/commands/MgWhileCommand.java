@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
-public class MgWhileCommand extends MgCommand {
+public class MgWhileCommand extends MgCommand implements Breakable, Continuable {
     @Optional @Part
     private final ReadableText name;
 

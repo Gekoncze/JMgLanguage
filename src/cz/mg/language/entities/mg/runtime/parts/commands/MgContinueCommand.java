@@ -1,6 +1,5 @@
 package cz.mg.language.entities.mg.runtime.parts.commands;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
@@ -8,14 +7,14 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 public class MgContinueCommand extends MgCommand {
     @Optional @Part
-    private final ReadableText name;
+    private final MgCommand command;
 
-    public MgContinueCommand(ReadableText name) {
-        this.name = name;
+    public MgContinueCommand(MgCommand command) {
+        this.command = command;
     }
 
-    public ReadableText getName() {
-        return name;
+    public MgCommand getCommand() {
+        return command;
     }
 
     @Override
