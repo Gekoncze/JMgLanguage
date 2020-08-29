@@ -1,5 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added resolve break and resolve continue tasks
+added runtime expressions implementation
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -68,7 +68,6 @@ command resolver
 implementation of the new simplified runtime model
     runtime commands and expressions might still need to touch up a little bit
     add runtime commands implementation
-    add runtime expressions implementation
 
     break, return and continue could be implemented using exceptions
         not ideal, but for now is ok I think

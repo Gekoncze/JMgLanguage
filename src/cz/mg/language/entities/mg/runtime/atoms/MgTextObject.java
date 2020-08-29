@@ -4,27 +4,27 @@ import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
-public class MgIntObject extends MgAtom {
-    public static final MgType TYPE = new MgType("Integer");
+public class MgTextObject extends MgAtom {
+    public static final MgType TYPE = new MgType("Text");
 
     @Value
-    private int value;
+    private String value;
 
-    public MgIntObject(int value) {
+    public MgTextObject(String value) {
         super(TYPE);
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
     @Override
-    public MgIntObject copy() {
-        return new MgIntObject(value);
+    public MgTextObject copy() {
+        return new MgTextObject(value);
     }
 }

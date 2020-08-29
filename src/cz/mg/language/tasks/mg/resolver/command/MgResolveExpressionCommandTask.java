@@ -28,7 +28,7 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
     private MgResolveExpressionTask resolveExpressionTask;
 
     public MgResolveExpressionCommandTask(CommandContext context, MgLogicalExpressionCommand logicalCommand) {
-        this.context = context;
+        this.context = new CommandContext(context);
         this.logicalCommand = logicalCommand;
     }
 
@@ -39,17 +39,14 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-//        command = new MgExpressionCommand(expression);
-//
-//
 //        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
 //        resolveExpressionTreeTask.run();
 //
 //        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createVoidParentExpression());
 //        resolveExpressionTask.run();
-//        command.setExpression(resolveExpressionTask.getExpression());
-
-        //todo;
+//
+//        command = new MgExpressionCommand(resolveExpressionTask.getExpression());
+//        context.setCommand(command); todo
     }
 
     private Expression createVoidParentExpression(){

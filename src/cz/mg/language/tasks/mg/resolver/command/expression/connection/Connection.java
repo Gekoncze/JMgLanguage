@@ -1,18 +1,19 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 
 import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
 
 
 public class Connection {
-    @Link
+    @Mandatory @Link
     private final InputConnector inputConnector;
 
-    @Link
+    @Mandatory @Link
     private final OutputConnector outputConnector;
 
-    @Link
+    @Mandatory @Link
     private final MgVariable connectionVariable;
 
     private Connection(InputConnector inputConnector, OutputConnector outputConnector, MgVariable connectionVariable) {

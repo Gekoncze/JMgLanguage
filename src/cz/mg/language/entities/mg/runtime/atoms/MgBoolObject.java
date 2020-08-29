@@ -22,4 +22,9 @@ public class MgBoolObject extends MgAtom {
     public void setValue(boolean value) {
         this.value = value;
     }
+
+    @Override
+    public MgBoolObject copy() {
+        return new MgBoolObject(value);
+    }
 }

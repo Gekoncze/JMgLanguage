@@ -4,8 +4,10 @@ import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
-public class MgAtom extends MgObject {
+public abstract class MgAtom extends MgObject {
     public MgAtom(MgType type) {
         super(type);
     }
+
+    public abstract MgAtom copy();
 }

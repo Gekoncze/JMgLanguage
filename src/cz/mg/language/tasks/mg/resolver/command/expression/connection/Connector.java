@@ -2,14 +2,16 @@ package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Shared;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
 public abstract class Connector {
-    @Link
+    @Mandatory @Link
     private final MgDatatype requestedDatatype;
 
-    @Shared
+    @Optional @Shared
     private Connection connection;
 
     Connector(MgDatatype requestedDatatype) {

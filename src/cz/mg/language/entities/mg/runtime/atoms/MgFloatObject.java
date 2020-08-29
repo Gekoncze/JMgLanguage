@@ -22,4 +22,9 @@ public class MgFloatObject extends MgAtom {
     public void setValue(float value) {
         this.value = value;
     }
+
+    @Override
+    public MgFloatObject copy() {
+        return new MgFloatObject(value);
+    }
 }

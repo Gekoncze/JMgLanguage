@@ -1,25 +1,38 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions;
 
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 
-public class MgVariableExpression extends MgExpression {
-    @Mandatory @Part
-    private final int variableIndex;
+public class MgVariableExpression extends MgMemberAccessibleExpression {
+    @Mandatory @Value
+    private final int input;
 
-    public MgVariableExpression(int variableIndex) {
-        this.variableIndex = variableIndex;
+    @Mandatory @Value
+    private final int output;
+
+    public MgVariableExpression(int input, int output) {
+        this.input = input;
+        this.output = output;
     }
 
-    public int getVariableIndex() {
-        return variableIndex;
+    public int getInput() {
+        return input;
+    }
+
+    public int getOutput() {
+        return output;
     }
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        // todo - consideration - maybe could also pass source object somehow?
-        // todo
+        functionObject.getObjects().set(functionObject.getObjects().get(input), output);
+    }
+
+    @Override
+    public void run(MgFunctionObject functionObject, MgClassObject classObject){
+        functionObject.getObjects().set(classObject.getObjects().get(input), output);
     }
 }
