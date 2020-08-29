@@ -3,6 +3,7 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.BreakException;
 
 
 public class MgBreakCommand extends MgCommand {
@@ -19,6 +20,6 @@ public class MgBreakCommand extends MgCommand {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        // todo
+        throw new BreakException(target);
     }
 }

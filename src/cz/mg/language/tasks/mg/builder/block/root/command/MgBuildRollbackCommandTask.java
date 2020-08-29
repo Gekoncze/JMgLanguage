@@ -10,7 +10,7 @@ import cz.mg.language.tasks.mg.builder.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
 
 
-public class MgBuildRollbackCommandTask extends MgBuildMultilineExpressionTask {
+public class MgBuildRollbackCommandTask extends MgBuildMultilineExpressionCommandTask {
     private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
         MgBuildRollbackCommandTask.class,

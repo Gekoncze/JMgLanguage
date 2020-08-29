@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.builder.block.root.command;
 
 import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
+import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalSwitchCommand;
 import cz.mg.language.entities.text.structured.Block;
@@ -11,12 +12,6 @@ import cz.mg.language.tasks.mg.builder.pattern.*;
 
 
 public class MgBuildSwitchCommandTask extends MgBuildCommandTask {
-    private static final PartProcessor PROCESSOR = new PartProcessor<>(
-        MgBuildExpressionPartTask.class,
-        MgBuildSwitchCommandTask.class,
-        (source, destination) -> destination.command = new MgLogicalSwitchCommand(source.getExpression())
-    );
-    
     private static final List<Pattern> PATTERNS = new List<>(
         // build case command
         new Pattern(
@@ -63,7 +58,7 @@ public class MgBuildSwitchCommandTask extends MgBuildCommandTask {
 
     @Override
     protected PartProcessor getProcessor() {
-        return PROCESSOR;
+        return null;
     }
 
     @Override
@@ -73,8 +68,8 @@ public class MgBuildSwitchCommandTask extends MgBuildCommandTask {
 
     @Override
     protected void buildParts(List<Part> parts) {
-        if(parts != null){
-            super.buildParts(parts);
+        if(!parts.isEmpty()){
+            throw new LanguageException("Unexpected part(s).");
         } else {
             command = new MgLogicalSwitchCommand();
         }

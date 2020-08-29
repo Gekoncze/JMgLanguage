@@ -11,7 +11,7 @@ import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.tasks.mg.builder.pattern.*;
 
 
-public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask {
+public abstract class MgBuildMultilineExpressionCommandTask extends MgBuildCommandTask {
     private static final Clump<Pattern> PATTERNS = new List<>(
         new Pattern(
             Order.RANDOM,
@@ -19,7 +19,7 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
             Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildExpressionCommand.class,
-                MgBuildMultilineExpressionTask.class,
+                MgBuildMultilineExpressionCommandTask.class,
                 (source, destination) -> {
                     if(destination.lineExpressions == null) destination.lineExpressions = new List<>();
                     destination.lineExpressions.addLast(source.getCommand().getExpression());
@@ -31,7 +31,7 @@ public abstract class MgBuildMultilineExpressionTask extends MgBuildCommandTask 
     @Cache
     private List<MgLogicalExpression> lineExpressions;
 
-    public MgBuildMultilineExpressionTask(Block block) {
+    public MgBuildMultilineExpressionCommandTask(Block block) {
         super(block);
     }
 

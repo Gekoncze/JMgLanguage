@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.builder.block.root.command;
 
 import cz.mg.collections.list.List;
+import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalBlockCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalTryCommand;
@@ -33,6 +34,10 @@ public class MgBuildTryCommandTask extends MgBuildBlockCommandTask {
 
     @Override
     protected void buildParts(List<Part> parts) {
-        command = new MgLogicalTryCommand();
+        if(!parts.isEmpty()){
+            throw new LanguageException("Unexpected part(s).");
+        } else {
+            command = new MgLogicalTryCommand();
+        }
     }
 }

@@ -8,7 +8,7 @@ import cz.mg.language.tasks.mg.builder.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
 
 
-public class MgBuildExpressionCommand extends MgBuildMultilineExpressionTask {
+public class MgBuildExpressionCommand extends MgBuildMultilineExpressionCommandTask {
     private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
         MgBuildExpressionCommand.class,

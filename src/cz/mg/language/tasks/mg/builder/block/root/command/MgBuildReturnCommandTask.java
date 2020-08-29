@@ -10,7 +10,7 @@ import cz.mg.language.tasks.mg.builder.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
 
 
-public class MgBuildReturnCommandTask extends MgBuildMultilineExpressionTask {
+public class MgBuildReturnCommandTask extends MgBuildMultilineExpressionCommandTask {
     private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
         MgBuildReturnCommandTask.class,
@@ -40,7 +40,7 @@ public class MgBuildReturnCommandTask extends MgBuildMultilineExpressionTask {
 
     @Override
     protected void buildParts(List<Part> parts) {
-        if(parts.count() > 0){
+        if(!parts.isEmpty()){
             super.buildParts(parts);
         } else {
             command = new MgLogicalReturnCommand();

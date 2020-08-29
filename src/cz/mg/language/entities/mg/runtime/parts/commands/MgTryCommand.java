@@ -20,6 +20,8 @@ public class MgTryCommand extends MgCommand {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        // todo
+        for(MgCommand command : commands){
+            command.run(functionObject);
+        }
     }
 }

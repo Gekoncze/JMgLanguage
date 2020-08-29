@@ -10,6 +10,7 @@ import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
+import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 
 
 public class MgFunction extends MgInterface implements MgRunnable {
@@ -50,8 +51,11 @@ public class MgFunction extends MgInterface implements MgRunnable {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        for(MgCommand command : commands){
-            command.run(functionObject);
+        try {
+            for(MgCommand command : commands){
+                command.run(functionObject);
+            }
+        } catch (ReturnException e){
         }
     }
 }

@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.builder.block.root.command;
 
 import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
+import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCheckpointCommand;
 import cz.mg.language.entities.text.structured.Block;
@@ -79,6 +80,10 @@ public class MgBuildCheckpointCommandTask extends MgBuildCommandTask {
 
     @Override
     protected void buildParts(List<Part> parts) {
-        command = new MgLogicalCheckpointCommand();
+        if(!parts.isEmpty()){
+            throw new LanguageException("Unexpected part(s).");
+        } else {
+            command = new MgLogicalCheckpointCommand();
+        }
     }
 }

@@ -20,12 +20,19 @@ public class MgCaseCommand extends MgCommand {
         this.commands = commands;
     }
 
+    public MgExpression getExpression() {
+        return expression;
+    }
+
     public List<MgCommand> getCommands() {
         return commands;
     }
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        // todo
+        // expression should be handled by switch command
+        for(MgCommand command : commands){
+            command.run(functionObject);
+        }
     }
 }

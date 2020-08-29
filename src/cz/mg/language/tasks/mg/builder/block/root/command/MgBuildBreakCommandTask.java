@@ -46,7 +46,7 @@ public class MgBuildBreakCommandTask extends MgBuildCommandTask {
 
     @Override
     protected void buildParts(List<Part> parts) {
-        if(parts != null){
+        if(!parts.isEmpty()){
             super.buildParts(parts);
         } else {
             command = new MgLogicalBreakCommand();
