@@ -1,6 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added runtime commands implementation
-fixed builders
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -58,24 +57,11 @@ command resolver
                 if root to leave resolution, we skip and continue
                 if leaf to root resolution, we throw an ambiguous error
 
-    store literal values in function global variables
-        how to handle converters for literals? when are those called? at startup? or during compilation?
-
-    how to store expression variables in function?
-        they cannot have separate list, because they are located by index in instructions as regular variables
-        they will be stored probably at the end, after input, output and locals
-            will need to pass starting index at a point where the index is stored in instruction
-
-implementation of the new simplified runtime model
-    runtime commands and expressions might still need to touch up a little bit
-
-    break, return and continue could be implemented using exceptions
-        not ideal, but for now is ok I think
-
-    we will only need a context object being passed
-        passed in two ways:
-            implicitly - current function context will be used
-            explicitly - user provided context will be used
+    store literal values in function comands ... ?
+        how to handle converters for literals?
+            when are those called?
+                at application startup?
+                or during compilation?
 
 mg operator replication
     list part / list expression would "return multiple values"
@@ -84,6 +70,12 @@ mg operator replication
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
 take into account access modifiers during resolve
+
+implementation of the new simplified runtime model
+    we might need a context object being passed
+        passed in two ways:
+            implicitly - current function context will be used
+            explicitly - user provided context will be used
 
 make MgCore work
 think about new object creation
