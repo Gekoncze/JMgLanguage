@@ -1,21 +1,23 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-re-done expression resolve architecture
-todo cleanup
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-reimplement mg expression resolvers
+reimplement mg expression resolvers ...
 reimplement mg command resolvers
 make sure member call handles context correctly - it needs to change somehow, or give additional member access context !!!
 
 matcher
-    how to handle operators?
-    how to handle operator replication?
-    how to handle member access matching for auto passing self?
+    how to handle operators? - should be easy
+    how to handle operator replication? - should be easy, we only care about Node.output and Node.OutputInterface
+    how to handle member access matching for auto passing self? !!!
+        also, should dot be always followed by name expression?
+            I think yes, this could make it easier ... check
+            we would then have special implementation for matching in mg name expression only
 
 operator replication
     list part / list expression would "return multiple values"
-    if input and ouptut lists matches, then operator is called for each corresponding input/output pair
+    if input and output lists matches, then operator is called for each corresponding input/output pair
 
 literal values
     maybe these can be redone
