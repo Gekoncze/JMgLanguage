@@ -1,11 +1,11 @@
 package cz.mg.language.tasks.mg.resolver;
 
-import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
@@ -13,20 +13,10 @@ public class VariableHelper {
     private static final ReadableText EXPRESSION_VARIABLE_NAME = new ReadonlyText("");
 
     @Mandatory @Part
-    private final List<MgVariable> declaredVariables = new List<>();
+    private final MgFunction function;
 
-    @Mandatory @Part
-    private final List<MgVariable> expressionVariables = new List<>();
-
-    public VariableHelper() {
-    }
-
-    public List<MgVariable> getDeclaredVariables() {
-        return declaredVariables;
-    }
-
-    public List<MgVariable> getExpressionVariables() {
-        return expressionVariables;
+    public VariableHelper(MgFunction function) {
+        this.function = function;
     }
 
     public void sink(){
@@ -37,16 +27,20 @@ public class VariableHelper {
         // todo - can be used for optimization
     }
 
-    public MgVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype){
-        MgVariable variable = new MgVariable(name, datatype);
-        declaredVariables.addLast(variable);
-        return variable;
+    public int nextDeclaredVariable(ReadableText name, MgDatatype datatype){
+        // todo - can be optimized (maybe)
+        function.getLocal().addLast(new MgVariable(name, datatype));
+        return function.getInput().count() + function.getOutput().count() + function.getLocal().count();
     }
 
-    public MgVariable nextExpressionVariable(MgDatatype datatype){
+    public int nextExpressionVariable(MgDatatype datatype){
         // todo - can be optimized
-        MgVariable variable = new MgVariable(EXPRESSION_VARIABLE_NAME, datatype);
-        expressionVariables.addLast(variable);
-        return variable;
+        function.getLocal().addLast(new MgVariable(EXPRESSION_VARIABLE_NAME, datatype));
+        return function.getInput().count() + function.getOutput().count() + function.getLocal().count();
+    }
+
+    public MgVariable getLocalVariable(int index){
+        int i = index - function.getInput().count() - function.getOutput().count();
+        return function.getLocal().get(i);
     }
 }

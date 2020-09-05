@@ -32,7 +32,5 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
         subtask = new MgResolveCommandsTask(new CommandContext(context), logicalFunction.getCommands());
         subtask.run();
         function.getCommands().addCollectionLast(subtask.getCommands());
-        function.getLocal().addCollectionLast(context.getVariableHelper().getDeclaredVariables());
-        function.getLocal().addCollectionLast(context.getVariableHelper().getExpressionVariables());
     }
 }

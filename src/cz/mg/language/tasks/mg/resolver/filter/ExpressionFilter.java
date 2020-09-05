@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
 import cz.mg.collections.array.Array;
-import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Value;
@@ -16,7 +15,6 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInte
 
 
 public class ExpressionFilter extends ClassFilter<MgComponent> {
-    private static final ReadableArray<MgVariable> EMPTY = new Array<>();
     @Optional @Value
     private final Integer parentOffset;
 

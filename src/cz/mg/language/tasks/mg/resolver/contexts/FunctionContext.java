@@ -20,7 +20,7 @@ public class FunctionContext extends Context {
     private OperatorCache operatorCache;
 
     @Part
-    private final VariableHelper variableHelper = new VariableHelper();
+    private VariableHelper variableHelper;
 
     public FunctionContext(Context outerContext) {
         super(outerContext);
@@ -32,6 +32,7 @@ public class FunctionContext extends Context {
 
     public void setFunction(MgFunction function) {
         this.function = function;
+        this.variableHelper = new VariableHelper(function);
     }
 
     public OperatorCache getOperatorCache() {

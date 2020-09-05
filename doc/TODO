@@ -1,9 +1,33 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+re-done expression resolve architecture
+todo cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-make resolvers create runtime expressions
+reimplement mg expression resolvers
+reimplement mg command resolvers
+make sure member call handles context correctly - it needs to change somehow, or give additional member access context !!!
+
+matcher
+    how to handle operators?
+    how to handle operator replication?
+    how to handle member access matching for auto passing self?
+
+operator replication
+    list part / list expression would "return multiple values"
+    if input and ouptut lists matches, then operator is called for each corresponding input/output pair
+
+literal values
+    maybe these can be redone
+        better make them always return text
+        and use converters to make actual values from them - function calls
+        this will also slightly force people to use constants
+
+    store them in function expression ... ?
+        how to handle converters for literals?
+            when are those called?
+                at application startup?
+                or during compilation?
 
 how to implement resolution with connections
     onEnter:
@@ -27,25 +51,13 @@ how to implement resolution with connections
     afterLeave:
         we connect children to expression if needed
 
-    at the end of all resolution, we run validate on all expressions
-
 command resolver
     expression resolver
         each expression element will:
-            1) generate instructions and variables into Expression
-            2) put a list of return values into Expression
-            3) those will be then later converted to indexes of local variables
+            1) generate local variables (using variable helper)
+            2) put a list of output values into Node
 
-        make sure mg logical context is correctly handled by resolver
-            it might need to be handled also for nested components
-            make sure member call handles context correctly
-
-        matcher
-            how to handle operators?
-            how to handle operator replication?
-            how to handle member access matching for auto passing self?
-
-    function resolution
+    resolution
         first from root to leaves
         then from leaves to root
         at both steps we will check what is available based on filter
@@ -56,16 +68,6 @@ command resolver
             if multiple matches then
                 if root to leave resolution, we skip and continue
                 if leaf to root resolution, we throw an ambiguous error
-
-    store literal values in function comands ... ?
-        how to handle converters for literals?
-            when are those called?
-                at application startup?
-                or during compilation?
-
-mg operator replication
-    list part / list expression would "return multiple values"
-    if input and ouptut lists matches, then operator is called for each corresponding input/output pair
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

@@ -5,7 +5,6 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalReturnCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgReturnCommand;
-import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
@@ -51,8 +50,8 @@ public class MgResolveReturnCommandTask extends MgResolveCommandTask {
         //todo;
     }
 
-    private Expression createReturnParentExpression(){
-        //todo
-        return null;
-    }
+//    private Expression createReturnParentExpression(){
+//        //todo - //todo - add command-level expression resolver, so we can reuse its connect logic
+//        return null;
+//    }
 }

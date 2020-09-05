@@ -6,7 +6,6 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalWhileCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgWhileCommand;
 import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.Expression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
@@ -59,8 +58,8 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
         //todo;
     }
 
-    private Expression createBooleanParentExpression(){
-        //todo
-        return null;
-    }
+//    private Expression createBooleanParentExpression(){
+//        //todo - //todo - add command-level expression resolver, so we can reuse its connect logic
+//        return null;
+//    }
 }

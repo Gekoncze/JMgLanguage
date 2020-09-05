@@ -2,15 +2,31 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.annotations.task.Input;
+import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public class MgResolveNameExpressionTask extends MgResolveExpressionTask<MgLogicalNameCallExpression> {
-    public MgResolveNameExpressionTask(CommandContext context, MgLogicalNameCallExpression logicalExpression, Expression parent) {
-        super(context, logicalExpression, parent);
+public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
+    @Input
+    private final MgLogicalNameCallExpression logicalExpression;
+
+    @Output
+    private MgExpression expression;
+
+    public MgResolveNameExpressionTask(CommandContext context, MgLogicalNameCallExpression logicalExpression, Node parent) {
+        super(context, parent);
+        this.logicalExpression = logicalExpression;
+    }
+
+    @Override
+    public MgExpression getExpression() {
+        return expression;
     }
 
     @Override
