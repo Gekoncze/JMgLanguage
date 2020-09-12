@@ -44,21 +44,21 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
         );
 
         createAndPostponeMore(
-            MgResolveVariableDefinitionTask.class,
+            MgResolveMemberVariableDefinitionTask.class,
             logicalClass.getVariables(),
-            variables -> clazz.setVariables(variables)
+            variables -> {clazz.getVariables().addCollectionLast(variables); clazz.updateCache();}
         );
 
         createAndPostponeMore(
             MgResolveFunctionDefinitionTask.class,
             logicalClass.getFunctions(),
-            functions -> clazz.setFunctions(functions)
+            functions -> clazz.getFunctions().addCollectionLast(functions)
         );
 
         createAndPostponeMore(
             MgResolveGlobalVariableDefinitionTask.class,
             logicalClass.getGlobalVariables(),
-            variables -> clazz.setGlobalVariables(variables)
+            variables -> clazz.getGlobalVariables().addCollectionLast(variables)
         );
 
         return clazz;

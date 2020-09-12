@@ -3,7 +3,6 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
@@ -11,9 +10,10 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunct
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -22,10 +22,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     protected final CommandContext context;
 
     @Input
-    protected final Node parent;
-
-    @Part
-    private final Node node = new Node();
+    private final Node parent;
 
     @Subtask
     private final List<MgResolveExpressionTask> subtasks = new List<>();
@@ -35,36 +32,44 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         this.parent = parent;
     }
 
-    public abstract MgExpression getExpression();
+    protected abstract Node getNode();
+    protected abstract ReadableCollection<MgLogicalCallExpression> getLogicalChildren();
 
     @Override
     protected final void onRun() {
         context.getVariableHelper().sink();
 
-        ReadableCollection<MgLogicalCallExpression> logicalChildren = onResolveEnter();
+        InputInterface parentInputInterface = parent == null ? null : parent.getInputInterface();
+        onResolveEnter(parentInputInterface);
 
         List<Node> children = new List<>();
-        for(MgLogicalCallExpression logicalChild : logicalChildren){
+        List<OutputInterface> childrenOutputInterface = new List<>();
+        for(MgLogicalCallExpression logicalChild : getLogicalChildren()){
             Node child = onResolveChild(logicalChild);
             children.addLast(child);
-            if(node.getInputInterface() != null) connect(node, child);
+            childrenOutputInterface.addLast(child.getOutputInterface());
+            if(getNode().getInputInterface() != null) connect(getNode(), child);
         }
 
-        onResolveLeave();
-        for(Node child : children) connect(node, child);
+        onResolveLeave(parentInputInterface, childrenOutputInterface);
+
+        for(Node child : children){
+            getNode().getInput().addLast(child);
+            connect(getNode(), child);
+        }
 
         context.getVariableHelper().raise();
     }
 
-    protected abstract ReadableCollection<MgLogicalCallExpression> onResolveEnter();
+    protected abstract void onResolveEnter(InputInterface parentInputInterface);
 
     protected Node onResolveChild(MgLogicalCallExpression child){
-        subtasks.addLast(create(context, child, node));
+        subtasks.addLast(create(context, child, getNode()));
         subtasks.getLast().run();
-        return subtasks.getLast().node;
+        return subtasks.getLast().getNode();
     }
 
-    protected abstract void onResolveLeave();
+    protected abstract void onResolveLeave(InputInterface parentInputInterface, List<OutputInterface> childrenOutputInterface);
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalCallExpression logicalExpression, Node parent){
         if(logicalExpression instanceof MgLogicalNameCallExpression) {

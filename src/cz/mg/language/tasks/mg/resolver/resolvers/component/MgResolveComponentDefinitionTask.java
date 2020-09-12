@@ -3,7 +3,6 @@ package cz.mg.language.tasks.mg.resolver.resolvers.component;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgResolveUsagesTask;
 import cz.mg.language.tasks.mg.resolver.Store;

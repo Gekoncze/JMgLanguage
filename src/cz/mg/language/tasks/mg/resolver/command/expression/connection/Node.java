@@ -2,48 +2,43 @@ package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.task.Utility;
+import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.VariableHelper;
 
 
-public class Node {
-    @Optional @Utility
-    private InputInterface inputInterface;
+public abstract class Node {
+    @Mandatory @Part
+    private final InputInterface inputInterface;
 
-    @Optional @Utility
-    private OutputInterface outputInterface;
+    @Mandatory @Part
+    private final OutputInterface outputInterface;
 
-    @Optional @Value
-    private List<Integer> output;
+    @Mandatory @Part
+    private final List<Node> input = new List<>();
 
-    public Node() {
+    public Node(
+        @Mandatory InputInterface inputInterface,
+        @Mandatory OutputInterface outputInterface
+    ) {
+        this.inputInterface = inputInterface;
+        this.outputInterface = outputInterface;
     }
+
+    public abstract MgExpression createExpression();
 
     public InputInterface getInputInterface() {
         return inputInterface;
-    }
-
-    public void setInputInterface(InputInterface inputInterface) {
-        this.inputInterface = inputInterface;
     }
 
     public OutputInterface getOutputInterface() {
         return outputInterface;
     }
 
-    public void setOutputInterface(OutputInterface outputInterface) {
-        this.outputInterface = outputInterface;
-    }
-
-    public List<Integer> getOutput() {
-        return output;
-    }
-
-    public void setOutput(List<Integer> output) {
-        this.output = output;
+    public List<Node> getInput() {
+        return input;
     }
 
     public static void connect(
@@ -53,14 +48,10 @@ public class Node {
     ){
         if(child.getOutputInterface() == null) throw new LanguageException("Cannot connect expressions. Child expression has no output values.");
         if(parent.getInputInterface() == null) throw new LanguageException("Cannot connect expressions. Parent expression has no input values.");
-        int i = 0;
-        for(OutputConnector connector : child.getOutputInterface().getConnectors()){
-            Connection.connect(
-                parent.getInputInterface().getRemainingConnectors().getFirst(),
-                connector,
-                variableHelper.getLocalVariable(child.getOutput().get(i))
-            );
-            i++;
+        for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
+            InputConnector inputConnector = parent.getInputInterface().getRemainingConnectors().getFirst();
+            MgLocalVariable connectionVariable = variableHelper.nextExpressionVariable(parent, inputConnector, child, outputConnector);
+            Connection.connect(inputConnector, outputConnector, connectionVariable);
         }
     }
 }

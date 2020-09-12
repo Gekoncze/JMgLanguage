@@ -32,7 +32,7 @@ public class FunctionContext extends Context {
 
     public void setFunction(MgFunction function) {
         this.function = function;
-        this.variableHelper = new VariableHelper(function);
+        this.variableHelper = VariableHelper.create(function);
     }
 
     public OperatorCache getOperatorCache() {

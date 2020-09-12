@@ -1,6 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
-import cz.mg.collections.array.Array;
+import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
@@ -18,13 +18,13 @@ public class FunctionExpressionFilter extends ClassFilter<MgFunction> {
     private final InputInterface parentInputInterface;
 
     @Optional @Link
-    private final Array<OutputInterface> childrenOutputInterface;
+    private final List<OutputInterface> childrenOutputInterface;
 
     public FunctionExpressionFilter(
         @Mandatory Context context,
         @Optional ReadableText name,
         @Optional InputInterface parentInputInterface,
-        @Optional Array<OutputInterface> childrenOutputInterface
+        @Optional List<OutputInterface> childrenOutputInterface
     ) {
         super(context, name, MgFunction.class);
         this.parentInputInterface = parentInputInterface;

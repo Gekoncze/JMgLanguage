@@ -1,0 +1,72 @@
+package cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes;
+
+import cz.mg.collections.array.Array;
+import cz.mg.collections.list.List;
+import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgFunctionExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
+
+
+public class FunctionNode extends Node {
+    @Mandatory @Link
+    private final MgFunction function;
+
+    public FunctionNode(@Mandatory MgFunction function) {
+        super(createInputInterface(function), createOutputInterface(function));
+        this.function = function;
+    }
+
+    @Override
+    public MgFunctionExpression createExpression(){
+        return new MgFunctionExpression(
+            function,
+            createExpressions(getInput()),
+            gatherInputOffset(),
+            gatherOutputOffset()
+        );
+    }
+
+    private List<MgExpression> createExpressions(@Mandatory List<Node> input){
+        List<MgExpression> expressions = new List<>();
+        for(Node in : input){
+            expressions.addLast(in.createExpression());
+        }
+        return expressions;
+    }
+
+    private static InputInterface createInputInterface(@Mandatory MgFunction function){
+        Array<InputConnector> connectors = new Array<>(function.getInput().count());
+        for(int i = 0; i < connectors.count(); i++){
+            connectors.set(new InputConnector(function.getInput().get(i).getDatatype()), i);
+        }
+        return new InputInterface(connectors);
+    }
+
+    private static OutputInterface createOutputInterface(@Mandatory MgFunction function){
+        if(function == null) throw new RuntimeException();
+        Array<OutputConnector> connectors = new Array<>(function.getOutput().count());
+        for(int i = 0; i < connectors.count(); i++){
+            connectors.set(new OutputConnector(function.getOutput().get(i).getDatatype()), i);
+        }
+        return new OutputInterface(connectors);
+    }
+
+    public List<Integer> gatherInputOffset(){
+        List<Integer> offset = new List<>();
+        for(InputConnector in : getInputInterface().getConnectors()){
+            offset.addLast(in.getConnection().getConnectionVariable().getOffset());
+        }
+        return offset;
+    }
+
+    public List<Integer> gatherOutputOffset(){
+        List<Integer> offset = new List<>();
+        for(OutputConnector out : getOutputInterface().getConnectors()){
+            offset.addLast(out.getConnection().getConnectionVariable().getOffset());
+        }
+        return offset;
+    }
+}

@@ -4,7 +4,7 @@ import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
 public class InputConnector extends Connector {
-    InputConnector(MgDatatype requestedDatatype) {
+    public InputConnector(MgDatatype requestedDatatype) {
         super(requestedDatatype);
     }
 }

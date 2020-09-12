@@ -45,7 +45,8 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
         resolveStampDefinitions();
         resolveClassDefinitions();
         resolveCollectionDefinitions();
-        resolveVariableDefinitions();
+        resolveLocalVariableDefinitions();
+        resolveMemberVariableDefinitions();
         resolveFunctionDefinitions();
         resolveUsages();
         resolveComponentStamps();
@@ -79,8 +80,12 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
         resolve(MgResolveCollectionDefinitionTask.class);
     }
 
-    private void resolveVariableDefinitions(){
-        resolve(MgResolveVariableDefinitionTask.class);
+    private void resolveLocalVariableDefinitions(){
+        resolve(MgResolveLocalVariableDefinitionTask.class);
+    }
+
+    private void resolveMemberVariableDefinitions(){
+        resolve(MgResolveMemberVariableDefinitionTask.class);
     }
 
     private void resolveFunctionDefinitions(){
@@ -139,14 +144,6 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
         if(logicalComponent instanceof MgLogicalFunction){
             createAndPostpone(
                 MgResolveFunctionDefinitionTask.class,
-                logicalComponent,
-                object -> location.getObjects().addLast(object)
-            );
-        }
-
-        if(logicalComponent instanceof MgLogicalVariable){
-            createAndPostpone(
-                MgResolveVariableDefinitionTask.class,
                 logicalComponent,
                 object -> location.getObjects().addLast(object)
             );

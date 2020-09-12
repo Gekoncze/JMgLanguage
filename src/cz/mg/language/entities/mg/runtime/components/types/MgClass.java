@@ -1,12 +1,13 @@
 package cz.mg.language.entities.mg.runtime.components.types;
 
-import cz.mg.collections.array.ReadableArray;
+import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
 
 
 public class MgClass extends MgType {
@@ -15,14 +16,14 @@ public class MgClass extends MgType {
     @Optional @Link
     private MgClass baseClass;
 
-    @Part
-    private ReadableArray<MgVariable> variables;
+    @Mandatory @Part
+    private ArrayList<MgMemberVariable> variables;
 
-    @Part
-    private ReadableArray<MgFunction> functions;
+    @Mandatory @Part
+    private ArrayList<MgFunction> functions;
 
-    @Part
-    private ReadableArray<MgGlobalVariable> globalVariables;
+    @Mandatory @Part
+    private ArrayList<MgGlobalVariable> globalVariables;
 
     protected MgClass(MgType type, ReadableText name) {
         super(type, name);
@@ -36,15 +37,15 @@ public class MgClass extends MgType {
         return baseClass;
     }
 
-    public ReadableArray<MgVariable> getVariables() {
+    public ArrayList<MgMemberVariable> getVariables() {
         return variables;
     }
 
-    public ReadableArray<MgFunction> getFunctions() {
+    public ArrayList<MgFunction> getFunctions() {
         return functions;
     }
 
-    public ReadableArray<MgGlobalVariable> getGlobalVariables() {
+    public ArrayList<MgGlobalVariable> getGlobalVariables() {
         return globalVariables;
     }
 
@@ -52,16 +53,12 @@ public class MgClass extends MgType {
         this.baseClass = baseClass;
     }
 
-    public void setVariables(ReadableArray<MgVariable> variables) {
-        this.variables = variables;
-    }
-
-    public void setFunctions(ReadableArray<MgFunction> functions) {
-        this.functions = functions;
-    }
-
-    public void setGlobalVariables(ReadableArray<MgGlobalVariable> globalVariables) {
-        this.globalVariables = globalVariables;
+    public void updateCache(){
+        int i = 0;
+        for(MgMemberVariable variable : getVariables()){
+            variable.setOffset(i);
+            i++;
+        }
     }
 
     @Override

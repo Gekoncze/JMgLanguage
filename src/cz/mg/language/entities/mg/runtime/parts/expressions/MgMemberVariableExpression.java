@@ -2,24 +2,25 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.language.annotations.entity.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 
-public class MgVariableExpression extends MgMemberAccessibleExpression {
+public class MgMemberVariableExpression extends MgMemberAccessibleExpression {
     @Mandatory @Value
-    private final int input;
+    private final MgMemberVariable variable;
 
     @Mandatory @Value
     private final int output;
 
-    public MgVariableExpression(int input, int output) {
-        this.input = input;
+    public MgMemberVariableExpression(MgMemberVariable variable, int output) {
+        this.variable = variable;
         this.output = output;
     }
 
-    public int getInput() {
-        return input;
+    public MgMemberVariable getVariable() {
+        return variable;
     }
 
     public int getOutput() {
@@ -28,11 +29,11 @@ public class MgVariableExpression extends MgMemberAccessibleExpression {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        functionObject.getObjects().set(functionObject.getObjects().get(input), output);
+        throw new RuntimeException();
     }
 
     @Override
     public void run(MgFunctionObject functionObject, MgClassObject classObject){
-        functionObject.getObjects().set(classObject.getObjects().get(input), output);
+        functionObject.getObjects().set(classObject.getObjects().get(variable.getOffset()), output);
     }
 }

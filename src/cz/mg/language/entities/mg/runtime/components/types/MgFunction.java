@@ -6,7 +6,7 @@ import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
@@ -17,7 +17,7 @@ public class MgFunction extends MgInterface implements MgRunnable {
     private static final MgType TYPE = new MgType("Function");
 
     @Mandatory @Part
-    private final ArrayList<MgVariable> local = new ArrayList<>();
+    private final ArrayList<MgLocalVariable> local = new ArrayList<>();
 
     @Optional @Part
     private MgOperator operator;
@@ -33,7 +33,7 @@ public class MgFunction extends MgInterface implements MgRunnable {
         super(TYPE, name);
     }
 
-    public ArrayList<MgVariable> getLocal() {
+    public ArrayList<MgLocalVariable> getLocal() {
         return local;
     }
 
@@ -47,6 +47,22 @@ public class MgFunction extends MgInterface implements MgRunnable {
 
     public ArrayList<MgCommand> getCommands() {
         return commands;
+    }
+
+    public void updateCache(){
+        int i = 0;
+        for(MgLocalVariable variable : getInput()){
+            variable.setOffset(i);
+            i++;
+        }
+        for(MgLocalVariable variable : getOutput()){
+            variable.setOffset(i);
+            i++;
+        }
+        for(MgLocalVariable variable : getLocal()){
+            variable.setOffset(i);
+            i++;
+        }
     }
 
     @Override

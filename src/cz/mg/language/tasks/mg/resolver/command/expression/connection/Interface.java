@@ -11,7 +11,7 @@ public abstract class Interface<InterfaceConnector extends Connector> {
     @Mandatory @Part
     private final Array<InterfaceConnector> connectors;
 
-    Interface(Array<InterfaceConnector> connectors) {
+    Interface(@Mandatory Array<InterfaceConnector> connectors) {
         this.connectors = connectors;
     }
 

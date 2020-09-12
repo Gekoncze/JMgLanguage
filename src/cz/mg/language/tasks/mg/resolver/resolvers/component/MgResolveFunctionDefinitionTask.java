@@ -45,15 +45,15 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
         function.getOperator().setPriority(logicalFunction.getOperator().getPriority());
 
         createAndPostponeMore(
-            MgResolveVariableDefinitionTask.class,
+            MgResolveLocalVariableDefinitionTask.class,
             logicalFunction.getInput(),
-            variables -> function.getInput().addCollectionLast(variables)
+            variables -> {function.getInput().addCollectionLast(variables); function.updateCache();}
         );
 
         createAndPostponeMore(
-            MgResolveVariableDefinitionTask.class,
+            MgResolveLocalVariableDefinitionTask.class,
             logicalFunction.getOutput(),
-            variables -> function.getOutput().addCollectionLast(variables)
+            variables -> {function.getOutput().addCollectionLast(variables); function.updateCache();}
         );
 
         postpone(

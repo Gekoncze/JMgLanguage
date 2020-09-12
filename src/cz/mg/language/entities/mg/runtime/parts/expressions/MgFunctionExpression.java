@@ -21,7 +21,12 @@ public class MgFunctionExpression extends MgMemberAccessibleExpression {
     @Mandatory @Part
     private final List<Integer> output;
 
-    public MgFunctionExpression(MgFunction function, List<MgExpression> expressions, List<Integer> input, List<Integer> output) {
+    public MgFunctionExpression(
+        MgFunction function,
+        List<MgExpression> expressions,
+        List<Integer> input,
+        List<Integer> output
+    ) {
         this.function = function;
         this.expressions = expressions;
         this.input = input;

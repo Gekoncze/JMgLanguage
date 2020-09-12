@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
 import cz.mg.language.entities.mg.runtime.atoms.MgFloatObject;
 import cz.mg.language.entities.mg.runtime.atoms.MgIntObject;
-import cz.mg.language.entities.mg.runtime.components.MgGlobalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;

@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
-public class MgVariable extends MgComponent {
+public abstract class MgVariable extends MgComponent {
     private static final MgType TYPE = new MgType("Variable");
 
     @Mandatory @Value

@@ -1,7 +1,8 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime.components.variables;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;

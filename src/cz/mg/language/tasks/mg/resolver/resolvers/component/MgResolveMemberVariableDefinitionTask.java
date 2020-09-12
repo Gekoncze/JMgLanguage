@@ -3,32 +3,32 @@ package cz.mg.language.tasks.mg.resolver.resolvers.component;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveVariableDatatypeTask;
 
 
-public class MgResolveVariableDefinitionTask extends MgResolveComponentDefinitionTask<MgVariable> {
+public class MgResolveMemberVariableDefinitionTask extends MgResolveComponentDefinitionTask<MgMemberVariable> {
     @Input
     private final MgLogicalVariable logicalVariable;
 
     @Output
-    private MgVariable variable;
+    private MgMemberVariable variable;
 
-    public MgResolveVariableDefinitionTask(Store<MgVariable> store, Context context, MgLogicalVariable logicalVariable) {
+    public MgResolveMemberVariableDefinitionTask(Store<MgMemberVariable> store, Context context, MgLogicalVariable logicalVariable) {
         super(store, context, logicalVariable);
         this.logicalVariable = logicalVariable;
     }
 
     @Override
-    public MgVariable getOutput() {
+    public MgMemberVariable getOutput() {
         return variable;
     }
 
     @Override
-    protected MgVariable onResolveComponent() {
-        this.variable = new MgVariable(logicalVariable.getName());
+    protected MgMemberVariable onResolveComponent() {
+        this.variable = new MgMemberVariable(logicalVariable.getName());
 
         createAndPostpone(
             MgResolveVariableDatatypeTask.class,
