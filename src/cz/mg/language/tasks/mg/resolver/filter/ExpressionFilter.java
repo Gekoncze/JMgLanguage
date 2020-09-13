@@ -1,6 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
-import cz.mg.collections.array.Array;
+import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
@@ -15,12 +15,6 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInte
 
 
 public class ExpressionFilter extends ClassFilter<MgComponent> {
-    @Optional @Link
-    private final InputInterface parentInputInterface;
-
-    @Optional @Link
-    private final Array<OutputInterface> childrenOutputInterface;
-
     @Mandatory @Part
     private final VariableExpressionFilter variableExpressionFilter;
 
@@ -31,11 +25,9 @@ public class ExpressionFilter extends ClassFilter<MgComponent> {
         @Mandatory Context context,
         @Optional ReadableText name,
         @Optional InputInterface parentInputInterface,
-        @Optional Array<OutputInterface> childrenOutputInterface
+        @Optional List<OutputInterface> childrenOutputInterface
     ) {
         super(context, name, MgVariable.class, MgFunction.class);
-        this.parentInputInterface = parentInputInterface;
-        this.childrenOutputInterface = childrenOutputInterface;
         this.variableExpressionFilter = new VariableExpressionFilter(
             context,
             name,

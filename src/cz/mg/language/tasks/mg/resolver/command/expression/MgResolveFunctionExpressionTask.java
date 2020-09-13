@@ -15,14 +15,14 @@ import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.FunctionExpressionFilter;
 
 
-public class MgResolveFunctionCallExressionTask extends MgResolveExpressionTask {
+public class MgResolveFunctionExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalFunctionCallExpression logicalExpression;
 
     @Output
     private FunctionNode node;
 
-    public MgResolveFunctionCallExressionTask(
+    public MgResolveFunctionExpressionTask(
         CommandContext context,
         MgLogicalFunctionCallExpression logicalExpression,
         Node parent
@@ -43,14 +43,14 @@ public class MgResolveFunctionCallExressionTask extends MgResolveExpressionTask 
 
     @Override
     protected void onResolveEnter(InputInterface parentInputInterface) {
-        FunctionExpressionFilter expressionFilter = new FunctionExpressionFilter(
+        FunctionExpressionFilter filter = new FunctionExpressionFilter(
             context,
             logicalExpression.getName(),
             parentInputInterface,
             null
         );
 
-        MgFunction function = expressionFilter.findOptional();
+        MgFunction function = filter.findOptional();
         if(function != null){
             node = new FunctionNode(function);
         }
@@ -58,13 +58,13 @@ public class MgResolveFunctionCallExressionTask extends MgResolveExpressionTask 
 
     @Override
     protected void onResolveLeave(InputInterface parentInputInterface, List<OutputInterface> childrenOutputInterface) {
-        FunctionExpressionFilter expressionFilter = new FunctionExpressionFilter(
+        FunctionExpressionFilter filter = new FunctionExpressionFilter(
             context,
             logicalExpression.getName(),
             parentInputInterface,
             childrenOutputInterface
         );
 
-        node = new FunctionNode(expressionFilter.find());
+        node = new FunctionNode(filter.find());
     }
 }

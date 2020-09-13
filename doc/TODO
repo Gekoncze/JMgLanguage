@@ -1,16 +1,23 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-major expression resolve improvements
-+ some minor runtime entity (variable) improvements
+added implementation of some expression resolvers
+function expression
+name expression
+value expression
+operator expression preparations (in progress)
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 reimplement mg expression resolvers ...
+    operator expression resolver
+        operator expression filter
+            dont forget to correctly handle replication
+    member access expression resolver
+    group expression resolver
+
 reimplement mg command resolvers
 make sure member call handles context correctly - it needs to change somehow, or give additional member access context !!!
 
 matcher
-    how to handle operators? - should be easy
-    how to handle operator replication? - should be easy, we only care about Node.output and Node.OutputInterface
     how to handle member access matching for auto passing self? !!!
         also, should dot be always followed by name expression?
             I think yes, this could make it easier ... check

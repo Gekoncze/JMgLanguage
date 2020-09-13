@@ -23,15 +23,15 @@ public class FunctionNode extends Node {
     public MgFunctionExpression createExpression(){
         return new MgFunctionExpression(
             function,
-            createExpressions(getInput()),
+            createExpressions(),
             gatherInputOffset(),
             gatherOutputOffset()
         );
     }
 
-    private List<MgExpression> createExpressions(@Mandatory List<Node> input){
+    private List<MgExpression> createExpressions(){
         List<MgExpression> expressions = new List<>();
-        for(Node in : input){
+        for(Node in : getInput()){
             expressions.addLast(in.createExpression());
         }
         return expressions;
@@ -54,7 +54,7 @@ public class FunctionNode extends Node {
         return new OutputInterface(connectors);
     }
 
-    public List<Integer> gatherInputOffset(){
+    private List<Integer> gatherInputOffset(){
         List<Integer> offset = new List<>();
         for(InputConnector in : getInputInterface().getConnectors()){
             offset.addLast(in.getConnection().getConnectionVariable().getOffset());
@@ -62,7 +62,7 @@ public class FunctionNode extends Node {
         return offset;
     }
 
-    public List<Integer> gatherOutputOffset(){
+    private List<Integer> gatherOutputOffset(){
         List<Integer> offset = new List<>();
         for(OutputConnector out : getOutputInterface().getConnectors()){
             offset.addLast(out.getConnection().getConnectionVariable().getOffset());

@@ -21,7 +21,12 @@ public class MgUnaryOperatorExpression extends MgOperatorExpression {
     @Mandatory @Part
     private final Array<Integer> output;
 
-    public MgUnaryOperatorExpression(MgFunction function, List<MgExpression> expressions, Array<Integer> input, Array<Integer> output) {
+    public MgUnaryOperatorExpression(
+        MgFunction function,
+        List<MgExpression> expressions,
+        Array<Integer> input,
+        Array<Integer> output
+    ) {
         if(input.count() != output.count()) throw new IllegalArgumentException();
         this.function = function;
         this.expressions = expressions;
