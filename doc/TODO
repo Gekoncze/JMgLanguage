@@ -1,83 +1,42 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added implementation of some expression resolvers
-function expression
-name expression
-value expression
-operator expression preparations (in progress)
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-reimplement mg expression resolvers ...
+issue for operator replication
+    when returning multiple values, these can have different types
+        resolution: instead of replication count pass list of functions
+            this will also require rewriting of operator expression implementation
+
+reimplement expression resolvers ...
+    make sure that node is not resolved on both on enter and on leave events
+        need to resolve only once
+
     operator expression resolver
         operator expression filter
             dont forget to correctly handle replication
+
     member access expression resolver
+        make sure member call handles context correctly
+            it needs to change somehow, or give additional member access context !
+
+        how to handle member access matching for auto passing self? !!!
+            also, should dot be always followed by name expression?
+                I think yes, this could make it easier ... check
+                we would then have special implementation for matching in mg name expression only
+
     group expression resolver
 
-reimplement mg command resolvers
-make sure member call handles context correctly - it needs to change somehow, or give additional member access context !!!
-
-matcher
-    how to handle member access matching for auto passing self? !!!
-        also, should dot be always followed by name expression?
-            I think yes, this could make it easier ... check
-            we would then have special implementation for matching in mg name expression only
-
-operator replication
-    list part / list expression would "return multiple values"
-    if input and output lists matches, then operator is called for each corresponding input/output pair
-
 literal values
-    maybe these can be redone
-        better make them always return text
-        and use converters to make actual values from them - function calls
-        this will also slightly force people to use constants
+    always return text
+    provide feature for implicit conversion of literals
+    conversion using *as* operator
 
-    store them in function expression ... ?
-        how to handle converters for literals?
-            when are those called?
-                at application startup?
-                or during compilation?
+    idea - there can be two types:
+        '' - converted at startup when code is loaded
+        "" - converted at runtime during expression execution
 
-how to implement resolution with connections
-    onEnter:
-        resolve is optional (successful when there is exactly 1 match)
-
-        we are resolving expression, so we don't know its output and input yet
-        we might know parent input, so we can filter by that if not null
-        we don't know child output, so we cannot filter by that
-
-    resolve children and add children to expression.expressions
-        if expression is resolved, then we connect child to expression
-
-    onLeave:
-        resolve is mandatory (successful when there is exactly 1 match)
-        resolve is not run if already resolved
-
-        we are resolving expression, so we don't know its output and input yet
-        we might know parent input, so we can filter by that if not null
-        we know child output, so we can always filter by that
-
-    afterLeave:
-        we connect children to expression if needed
-
-command resolver
-    expression resolver
-        each expression element will:
-            1) generate local variables (using variable helper)
-            2) put a list of output values into Node
-
-    resolution
-        first from root to leaves
-        then from leaves to root
-        at both steps we will check what is available based on filter
-            if a single match is made, we select it as target object
-            if no match then
-                if root to leave resolution, we skip and continue
-                if leaf to root resolution, we throw a not found error
-            if multiple matches then
-                if root to leave resolution, we skip and continue
-                if leaf to root resolution, we throw an ambiguous error
+reimplement command resolvers
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
@@ -89,7 +48,6 @@ implementation of the new simplified runtime model
             implicitly - current function context will be used
             explicitly - user provided context will be used
 
-make MgCore work
 think about new object creation
     there would be probably some default allocator
     and default factory, which would automatically call function
@@ -101,14 +59,6 @@ complete support for collections
 
 mg add support for relative "../" usages ???
 mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
-
-add support for operator definitions
-    operators are build on top of functions, as an optional syntactical sugar
-    you should still be able to call the function by its name with parameters
-    investigate the best way how to express it in the mg language
-    add builder for it
-    priority can be set in the definition too
-    how to import the operators ???
 
 add support for variable number of parameters of functions ?
 
@@ -124,6 +74,8 @@ mg stamps definitions
     when used, the "instances" cannot hold any values, those will be just references to the definition
     can be mandatory or optional ? or maybe it could be called critical or something like that
         for mandatory stamps, the compiler has to throw an error if it cannot handle them
+            I dont actually know how much the compiler should be handling those...
+                maybe its not a good idea, investigate
 
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
@@ -160,6 +112,7 @@ c writer
 function pointers in mg - will be called interfaces (java like interfaces might be called roles)
 
 improve compiler exceptions
+    add external (user) exception vs internal exception
     add more exception types
     add some kind of tracing
         how to trace origin for error messages?
@@ -180,6 +133,8 @@ make platform independent threads
     not sure:
         if better or worse performance
 
+make MgCore work
+
 
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
 limit file size parameter
@@ -191,9 +146,6 @@ mg language - required vs optional input and output variables for functions
     can be implemented as syntactical sugar
 
 move all subtasks to Task class ???
-    we could then have execute and try to execute methods
-
-add external (user) exception vs internal exception
 
 (global) function and variable overriding
     VARIABLE Int32 foo
@@ -229,4 +181,4 @@ very interesting idea
 aliases for modules in application - ie remapping module locations
     this step would probably take in place after the module itself and its dependencies are resolved
 
-if operator
+if ternary operator ?
