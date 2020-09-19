@@ -1,7 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-implemented group expression and its resolver
-+ simplified function expression
-+ simplified and improved operator expressions
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -15,10 +13,7 @@ reimplement expression resolvers ...
                 I think yes, this could make it easier ... check
                 we would then have special implementation for matching in mg name expression only
 
-concern:
-    how to handle groups properly, for example:
-        (a, b, fooBar(c, d, e)) - if foo bar returns 3 values, then group should return 5
-        function should have only one argument I think, like one expression, just like unary oeprator
+reimplement command resolvers
 
 literal values
     always return text
@@ -28,8 +23,6 @@ literal values
     idea - there can be two types:
         '' - converted at startup when code is loaded
         "" - converted at runtime during expression execution
-
-reimplement command resolvers
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
