@@ -10,11 +10,13 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.BinaryOperatorNode;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.UnaryOperatorNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.filter.UnaryOperatorExpressionFilter;
 
 
 public class MgResolveUnaryOperatorExpression extends MgResolveOperatorExpressionTask {
@@ -22,7 +24,7 @@ public class MgResolveUnaryOperatorExpression extends MgResolveOperatorExpressio
     private final MgLogicalUnaryOperatorCallExpression logicalExpression;
 
     @Output
-    private BinaryOperatorNode node;
+    private UnaryOperatorNode node;
 
     public MgResolveUnaryOperatorExpression(CommandContext context, MgLogicalUnaryOperatorCallExpression logicalExpression, Node parent) {
         super(context, parent);
@@ -49,11 +51,25 @@ public class MgResolveUnaryOperatorExpression extends MgResolveOperatorExpressio
 
     @Override
     protected void onResolveEnter(InputInterface parentInputInterface) {
-        //todo;
+        // need to resolve children first
     }
 
     @Override
     protected void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface) {
-        //todo;
+        int replication = childrenOutputInterface.getConnectors().count();
+        List<MgFunction> functions = new List<>();
+        for(int r = 0; r < replication; r++){
+            UnaryOperatorExpressionFilter filter = new UnaryOperatorExpressionFilter(
+                context,
+                logicalExpression.getName(),
+                parentInputInterface,
+                childrenOutputInterface,
+                r
+            );
+
+            functions.addLast(filter.find());
+        }
+
+        node = new UnaryOperatorNode(functions);
     }
 }

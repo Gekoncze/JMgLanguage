@@ -52,7 +52,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
                 Node child = onResolveChild(logicalChild);
 
                 if(getNode() != null){
-                    getNode().getInput().addLast(child);
+                    getNode().getChildren().addLast(child);
                     connect(getNode(), child);
                 } else {
                     children.addLast(child);
@@ -65,7 +65,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
             onResolveLeave(parentInputInterface, flatten(childrenOutputInterface));
 
             for(Node child : children){
-                getNode().getInput().addLast(child);
+                getNode().getChildren().addLast(child);
                 connect(getNode(), child);
             }
         }
@@ -73,7 +73,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         context.getVariableHelper().raise();
     }
 
-    private static OutputInterface flatten(List<OutputInterface> outputInterfaces){
+    protected OutputInterface flatten(List<OutputInterface> outputInterfaces){
         List<OutputConnector> outputInterfaceConnectors = new List<>();
         for(OutputInterface outputInterface : outputInterfaces){
             for(OutputConnector outputConnector : outputInterface.getConnectors()){

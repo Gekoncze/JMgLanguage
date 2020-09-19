@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
@@ -15,7 +14,7 @@ public abstract class OperatorNode extends Node {
 
     protected List<MgExpression> createExpressions(){
         List<MgExpression> expressions = new List<>();
-        for(Node in : getInput()){
+        for(Node in : getChildren()){
             expressions.addLast(in.createExpression());
         }
         return expressions;

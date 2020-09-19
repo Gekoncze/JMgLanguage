@@ -1,14 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+finished operator expression resolvers (hopefully)
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 reimplement expression resolvers ...
-    operator expression resolver
-        when handling input parameters for binary operator expression
-            left and right input is united in one, but there should be check
-            that left or right does not overflow to the other one
-
     member access expression resolver
         make sure member call handles context correctly
             it needs to change somehow, or give additional member access context !

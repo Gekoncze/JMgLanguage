@@ -17,7 +17,7 @@ public abstract class Node {
     private final OutputInterface outputInterface;
 
     @Mandatory @Part
-    private final List<Node> input = new List<>();
+    private final List<Node> children = new List<>();
 
     public Node(
         @Mandatory InputInterface inputInterface,
@@ -37,8 +37,8 @@ public abstract class Node {
         return outputInterface;
     }
 
-    public List<Node> getInput() {
-        return input;
+    public List<Node> getChildren() {
+        return children;
     }
 
     public static void connect(

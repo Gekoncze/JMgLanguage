@@ -31,7 +31,7 @@ public class FunctionNode extends Node {
 
     private List<MgExpression> createExpressions(){
         List<MgExpression> expressions = new List<>();
-        for(Node in : getInput()){
+        for(Node in : getChildren()){
             expressions.addLast(in.createExpression());
         }
         return expressions;
