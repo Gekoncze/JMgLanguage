@@ -1,17 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed problems with operator replication
-operator replication can now use N different functions
+made sure that node is not resolved on both on enter and on leave events
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-concern:
-    how to handle groups properly, for example:
-        (a, b, fooBar(c, d, e)) - if foo bar returns 3 values, then group should return 5
-        function should have only one argument I think, like one expression, just like unary oeprator
-
 reimplement expression resolvers ...
-    make sure that node is not resolved on both on enter and on leave events
-        need to resolve only once
+
 
     operator expression resolver
         operator expression filter
@@ -27,6 +20,11 @@ reimplement expression resolvers ...
                 we would then have special implementation for matching in mg name expression only
 
     group expression resolver
+
+concern:
+    how to handle groups properly, for example:
+        (a, b, fooBar(c, d, e)) - if foo bar returns 3 values, then group should return 5
+        function should have only one argument I think, like one expression, just like unary oeprator
 
 literal values
     always return text

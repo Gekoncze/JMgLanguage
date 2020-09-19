@@ -44,20 +44,28 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
 
         List<Node> children = new List<>();
         List<OutputInterface> childrenOutputInterface = new List<>();
+
         if(getLogicalChildren() != null){
             for(MgLogicalCallExpression logicalChild : getLogicalChildren()){
                 Node child = onResolveChild(logicalChild);
-                children.addLast(child);
-                childrenOutputInterface.addLast(child.getOutputInterface());
-                if(getNode().getInputInterface() != null) connect(getNode(), child);
+
+                if(getNode() != null){
+                    getNode().getInput().addLast(child);
+                    connect(getNode(), child);
+                } else {
+                    children.addLast(child);
+                    childrenOutputInterface.addLast(child.getOutputInterface());
+                }
             }
         }
 
-        onResolveLeave(parentInputInterface, childrenOutputInterface);
+        if(getNode() == null){
+            onResolveLeave(parentInputInterface, childrenOutputInterface);
 
-        for(Node child : children){
-            getNode().getInput().addLast(child);
-            connect(getNode(), child);
+            for(Node child : children){
+                getNode().getInput().addLast(child);
+                connect(getNode(), child);
+            }
         }
 
         context.getVariableHelper().raise();
