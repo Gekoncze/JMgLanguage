@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
@@ -17,7 +16,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.Func
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.LocalVariableNode;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.MemberVariableNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
-import cz.mg.language.tasks.mg.resolver.filter.ExpressionFilter;
+import cz.mg.language.tasks.mg.resolver.filter.NameExpressionFilter;
 
 
 public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
@@ -48,7 +47,7 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface) {
-        ExpressionFilter filter = new ExpressionFilter(
+        NameExpressionFilter filter = new NameExpressionFilter(
             context,
             logicalExpression.getName(),
             parentInputInterface,

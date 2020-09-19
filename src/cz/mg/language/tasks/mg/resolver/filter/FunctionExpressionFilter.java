@@ -1,5 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
+import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
@@ -9,16 +10,18 @@ import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
 public class FunctionExpressionFilter extends ClassFilter<MgFunction> {
     @Optional @Link
-    private final InputInterface parentInputInterface;
+    private final ReadableArray<InputConnector> parentInputInterface;
 
     @Optional @Link
-    private final OutputInterface childrenOutputInterface;
+    private final ReadableArray<OutputConnector> childrenOutputInterface;
 
     public FunctionExpressionFilter(
         @Mandatory Context context,
@@ -27,8 +30,8 @@ public class FunctionExpressionFilter extends ClassFilter<MgFunction> {
         @Optional OutputInterface childrenOutputInterface
     ) {
         super(context, name, MgFunction.class);
-        this.parentInputInterface = parentInputInterface;
-        this.childrenOutputInterface = childrenOutputInterface;
+        this.parentInputInterface = parentInputInterface != null ? parentInputInterface.getRemainingConnectors() : null;
+        this.childrenOutputInterface = childrenOutputInterface != null ? childrenOutputInterface.getConnectors() : null;
     }
 
     @Override
@@ -43,19 +46,19 @@ public class FunctionExpressionFilter extends ClassFilter<MgFunction> {
 
     private boolean filterFunction(MgFunction function){
         if(parentInputInterface != null){
-            if(function.getOutput().count() > parentInputInterface.getRemainingConnectors().count()) return false;
+            if(function.getOutput().count() > parentInputInterface.count()) return false;
             for(int i = 0; i < function.getOutput().count(); i++){
-                MgDatatype inputDatatype = parentInputInterface.getRemainingConnectors().get(i).getRequestedDatatype();
+                MgDatatype inputDatatype = parentInputInterface.get(i).getRequestedDatatype();
                 MgDatatype outputDatatype = function.getOutput().get(i).getDatatype();
                 if(!Matcher.matches(inputDatatype, outputDatatype)) return false;
             }
         }
 
         if(childrenOutputInterface != null){
-            if(function.getInput().count() != childrenOutputInterface.getConnectors().count()) return false;
+            if(function.getInput().count() != childrenOutputInterface.count()) return false;
             for(int i = 0; i < function.getInput().count(); i++){
                 MgDatatype inputDatatype = function.getInput().get(i).getDatatype();
-                MgDatatype outputDatatype = childrenOutputInterface.getConnectors().get(i).getRequestedDatatype();
+                MgDatatype outputDatatype = childrenOutputInterface.get(i).getRequestedDatatype();
                 if(!Matcher.matches(inputDatatype, outputDatatype)) return false;
             }
         }

@@ -14,14 +14,14 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInter
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
-public class ExpressionFilter extends ClassFilter<MgComponent> {
+public class NameExpressionFilter extends ClassFilter<MgComponent> {
     @Mandatory @Part
     private final VariableExpressionFilter variableExpressionFilter;
 
     @Mandatory @Part
     private final FunctionExpressionFilter functionExpressionFilter;
 
-    public ExpressionFilter(
+    public NameExpressionFilter(
         @Mandatory Context context,
         @Optional ReadableText name,
         @Optional InputInterface parentInputInterface,
