@@ -1,6 +1,5 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions;
 
-import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
@@ -10,60 +9,72 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 public class MgUnaryOperatorExpression extends MgOperatorExpression {
     @Mandatory @Part
-    private final MgFunction function;
+    private final List<MgExpression> expressions = new List<>();
 
     @Mandatory @Part
-    private final List<MgExpression> expressions;
+    private final List<Replication> replications = new List<>();
 
-    @Mandatory @Part
-    private final Array<Integer> input;
-
-    @Mandatory @Part
-    private final Array<Integer> output;
-
-    public MgUnaryOperatorExpression(
-        MgFunction function,
-        List<MgExpression> expressions,
-        Array<Integer> input,
-        Array<Integer> output
-    ) {
-        if(input.count() != output.count()) throw new IllegalArgumentException();
-        this.function = function;
-        this.expressions = expressions;
-        this.input = input;
-        this.output = output;
+    public MgUnaryOperatorExpression() {
     }
 
-    public List<MgExpression> getExpressions() {
-        return expressions;
-    }
-
-    public Array<Integer> getInput() {
-        return input;
-    }
-
-    public Array<Integer> getOutput() {
-        return output;
+    public MgUnaryOperatorExpression(List<MgExpression> expressions, List<Replication> replications) {
+        this.expressions.addCollectionLast(expressions);
+        this.replications.addCollectionLast(replications);
     }
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        for(MgExpression operand : expressions){
-            operand.run(functionObject);
+        for(MgExpression expression : expressions){
+            expression.run(functionObject);
         }
 
-        for(int i = 0; i < input.count(); i++){
+        for(Replication replication : replications){
             // create new function object
-            MgFunctionObject newFunctionObject = new MgFunctionObject(function);
+            MgFunctionObject newFunctionObject = new MgFunctionObject(replication.getFunction());
 
             // set input for newly created function object
-            newFunctionObject.getObjects().set(functionObject.getObjects().get(input.get(i)), 0);
+            newFunctionObject.getObjects().set(functionObject.getObjects().get(replication.getInput()), 0);
 
             // run the function
-            function.run(newFunctionObject);
+            replication.getFunction().run(newFunctionObject);
 
             // get output of the newly created function object
-            functionObject.getObjects().set(newFunctionObject.getObjects().get(1), output.get(i));
+            functionObject.getObjects().set(newFunctionObject.getObjects().get(1), replication.getOutput());
+        }
+    }
+
+    public static class Replication {
+        @Mandatory @Part
+        private final MgFunction function;
+
+        @Mandatory @Part
+        private final int input;
+
+        @Mandatory @Part
+        private final int output;
+
+        public Replication(
+            MgFunction function,
+            int input,
+            int output
+        ) {
+            this.function = function;
+            this.input = input;
+            this.output = output;
+            if(function.getInput().count() != 1) throw new RuntimeException();
+            if(function.getOutput().count() != 1) throw new RuntimeException();
+        }
+
+        public MgFunction getFunction() {
+            return function;
+        }
+
+        public int getInput() {
+            return input;
+        }
+
+        public int getOutput() {
+            return output;
         }
     }
 }

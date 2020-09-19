@@ -36,7 +36,7 @@ public class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected void onResolveEnter(InputInterface parentInputInterface) {
-        OperatorExpressionFilter filter = new ?;
+        //OperatorExpressionFilter filter = new ?; todo
     }
 
     @Override

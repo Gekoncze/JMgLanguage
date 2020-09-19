@@ -1,12 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+fixed problems with operator replication
+operator replication can now use N different functions
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-issue for operator replication
-    when returning multiple values, these can have different types
-        resolution: instead of replication count pass list of functions
-            this will also require rewriting of operator expression implementation
+concern:
+    how to handle groups properly, for example:
+        (a, b, fooBar(c, d, e)) - if foo bar returns 3 values, then group should return 5
+        function should have only one argument I think, like one expression, just like unary oeprator
 
 reimplement expression resolvers ...
     make sure that node is not resolved on both on enter and on leave events
