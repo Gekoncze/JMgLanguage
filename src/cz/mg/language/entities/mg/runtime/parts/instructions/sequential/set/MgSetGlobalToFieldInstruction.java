@@ -32,4 +32,4 @@
 //        target.getObjects().set(globalVariable.getObject(), targetVariableIndex);
 //        return getNextInstruction();
 //    }
-//} todo
+//}
