@@ -47,7 +47,7 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
     }
 
     @Override
-    protected void onResolveLeave(InputInterface parentInputInterface, List<OutputInterface> childrenOutputInterface) {
+    protected void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface) {
         ExpressionFilter filter = new ExpressionFilter(
             context,
             logicalExpression.getName(),

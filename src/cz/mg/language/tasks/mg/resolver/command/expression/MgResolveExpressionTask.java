@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
+import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
@@ -13,6 +14,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -60,7 +62,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         }
 
         if(getNode() == null){
-            onResolveLeave(parentInputInterface, childrenOutputInterface);
+            onResolveLeave(parentInputInterface, flatten(childrenOutputInterface));
 
             for(Node child : children){
                 getNode().getInput().addLast(child);
@@ -71,6 +73,16 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         context.getVariableHelper().raise();
     }
 
+    private static OutputInterface flatten(List<OutputInterface> outputInterfaces){
+        List<OutputConnector> outputInterfaceConnectors = new List<>();
+        for(OutputInterface outputInterface : outputInterfaces){
+            for(OutputConnector outputConnector : outputInterface.getConnectors()){
+                outputInterfaceConnectors.addLast(outputConnector);
+            }
+        }
+        return new OutputInterface(new Array<>(outputInterfaceConnectors));
+    }
+
     protected abstract void onResolveEnter(InputInterface parentInputInterface);
 
     protected Node onResolveChild(MgLogicalCallExpression child){
@@ -79,7 +91,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         return subtasks.getLast().getNode();
     }
 
-    protected abstract void onResolveLeave(InputInterface parentInputInterface, List<OutputInterface> childrenOutputInterface);
+    protected abstract void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface);
 
     public static MgResolveExpressionTask create(CommandContext context, MgLogicalCallExpression logicalExpression, Node parent){
         if(logicalExpression instanceof MgLogicalNameCallExpression) {
@@ -95,7 +107,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         }
 
         if(logicalExpression instanceof MgLogicalOperatorCallExpression){
-            return new MgResolveOperatorExpressionTask(context, (MgLogicalOperatorCallExpression) logicalExpression, parent);
+            return MgResolveOperatorExpressionTask.create(context, (MgLogicalOperatorCallExpression) logicalExpression, parent);
         }
 
         throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");

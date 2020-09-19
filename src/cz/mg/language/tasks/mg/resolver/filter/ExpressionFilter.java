@@ -25,7 +25,7 @@ public class ExpressionFilter extends ClassFilter<MgComponent> {
         @Mandatory Context context,
         @Optional ReadableText name,
         @Optional InputInterface parentInputInterface,
-        @Optional List<OutputInterface> childrenOutputInterface
+        @Optional OutputInterface childrenOutputInterface
     ) {
         super(context, name, MgVariable.class, MgFunction.class);
         this.variableExpressionFilter = new VariableExpressionFilter(

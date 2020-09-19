@@ -57,7 +57,7 @@ public class MgResolveFunctionExpressionTask extends MgResolveExpressionTask {
     }
 
     @Override
-    protected void onResolveLeave(InputInterface parentInputInterface, List<OutputInterface> childrenOutputInterface) {
+    protected void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface) {
         FunctionExpressionFilter filter = new FunctionExpressionFilter(
             context,
             logicalExpression.getName(),

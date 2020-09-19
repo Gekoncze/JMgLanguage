@@ -1,14 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-made sure that node is not resolved on both on enter and on leave events
+simplified filters a little bit
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 reimplement expression resolvers ...
-
-
     operator expression resolver
         operator expression filter
             dont forget to correctly handle replication
+                especially when handling input parameters for binary operator expression
+                    left and right input is united in one, but there should be check
+                    that left or right does not overflow to hte other one
 
     member access expression resolver
         make sure member call handles context correctly
