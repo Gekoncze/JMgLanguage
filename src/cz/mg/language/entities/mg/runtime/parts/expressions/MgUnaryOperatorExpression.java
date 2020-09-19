@@ -9,24 +9,19 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 public class MgUnaryOperatorExpression extends MgOperatorExpression {
     @Mandatory @Part
-    private final List<MgExpression> expressions = new List<>();
+    private final MgExpression expression;
 
     @Mandatory @Part
     private final List<Replication> replications = new List<>();
 
-    public MgUnaryOperatorExpression() {
-    }
-
-    public MgUnaryOperatorExpression(List<MgExpression> expressions, List<Replication> replications) {
-        this.expressions.addCollectionLast(expressions);
+    public MgUnaryOperatorExpression(MgExpression expression, List<Replication> replications) {
+        this.expression = expression;
         this.replications.addCollectionLast(replications);
     }
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        for(MgExpression expression : expressions){
-            expression.run(functionObject);
-        }
+        expression.run(functionObject);
 
         for(Replication replication : replications){
             // create new function object

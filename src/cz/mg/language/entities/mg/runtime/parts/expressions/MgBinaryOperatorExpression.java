@@ -9,16 +9,21 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 public class MgBinaryOperatorExpression extends MgOperatorExpression {
     @Mandatory @Part
-    private final List<MgExpression> expressions = new List<>();
+    private final MgExpression leftExpression;
+
+    @Mandatory @Part
+    private final MgExpression rightExpression;
 
     @Mandatory @Part
     private final List<Replication> replications = new List<>();
 
-    public MgBinaryOperatorExpression() {
-    }
-
-    public MgBinaryOperatorExpression(List<MgExpression> expressions, List<Replication> replications) {
-        this.expressions.addCollectionLast(expressions);
+    public MgBinaryOperatorExpression(
+        MgExpression leftExpression,
+        MgExpression rightExpression,
+        List<Replication> replications
+    ) {
+        this.leftExpression = leftExpression;
+        this.rightExpression = rightExpression;
         this.replications.addCollectionLast(replications);
     }
 
@@ -28,9 +33,8 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        for(MgExpression expression : expressions){
-            expression.run(functionObject);
-        }
+        leftExpression.run(functionObject);
+        rightExpression.run(functionObject);
 
         // Note: It is guaranteed that for every function object
         //       input variables are first in their order and then output variables in their order.

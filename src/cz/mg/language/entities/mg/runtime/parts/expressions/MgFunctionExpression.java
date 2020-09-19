@@ -13,7 +13,7 @@ public class MgFunctionExpression extends MgMemberAccessibleExpression {
     private final MgFunction function;
 
     @Mandatory @Part
-    private final List<MgExpression> expressions;
+    private final MgExpression expression;
 
     @Mandatory @Part
     private final List<Integer> input;
@@ -23,12 +23,12 @@ public class MgFunctionExpression extends MgMemberAccessibleExpression {
 
     public MgFunctionExpression(
         MgFunction function,
-        List<MgExpression> expressions,
+        MgExpression expression,
         List<Integer> input,
         List<Integer> output
     ) {
         this.function = function;
-        this.expressions = expressions;
+        this.expression = expression;
         this.input = input;
         this.output = output;
     }
@@ -37,8 +37,8 @@ public class MgFunctionExpression extends MgMemberAccessibleExpression {
         return function;
     }
 
-    public List<MgExpression> getExpressions() {
-        return expressions;
+    public MgExpression getExpression() {
+        return expression;
     }
 
     public List<Integer> getInput() {
@@ -51,9 +51,7 @@ public class MgFunctionExpression extends MgMemberAccessibleExpression {
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        for(MgExpression expression : expressions){
-            expression.run(functionObject);
-        }
+        expression.run(functionObject);
 
         int local = 0;
 
@@ -78,7 +76,7 @@ public class MgFunctionExpression extends MgMemberAccessibleExpression {
 
     @Override
     public void run(MgFunctionObject functionObject, MgClassObject classObject) {
-        for(MgExpression expression : expressions){
+        if(expression != null){
             expression.run(functionObject);
         }
 

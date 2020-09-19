@@ -77,19 +77,11 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
                         item,
                         expression -> new MgLogicalFunctionCallExpression(
                             nameCallExpression.getName(),
-                            asGroupList(expression)
+                            expression
                         )
                     );
                 }
             }
-        }
-    }
-
-    private List<MgLogicalCallExpression> asGroupList(MgLogicalCallExpression expression){
-        if(expression instanceof MgLogicalGroupCallExpression){
-            return ((MgLogicalGroupCallExpression) expression).getExpressions();
-        } else {
-            return new List<>(expression);
         }
     }
 

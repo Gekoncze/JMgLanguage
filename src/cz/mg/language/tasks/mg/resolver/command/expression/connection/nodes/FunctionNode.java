@@ -29,12 +29,18 @@ public class FunctionNode extends Node {
         );
     }
 
-    private List<MgExpression> createExpressions(){
+    private MgExpression createExpressions(){
         List<MgExpression> expressions = new List<>();
         for(Node in : getChildren()){
             expressions.addLast(in.createExpression());
         }
-        return expressions;
+        if(expressions.count() < 0){
+            return null;
+        } else if(expressions.count() == 1){
+            return expressions.getFirst();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     private static InputInterface createInputInterface(@Mandatory MgFunction function){

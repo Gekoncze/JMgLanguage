@@ -4,23 +4,22 @@ import cz.mg.collections.ReadableCollection;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
-import cz.mg.language.entities.mg.runtime.atoms.MgTextObject;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalGroupCallExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.ValueNode;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.nodes.GroupNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public class MgResolveValueExpressionTask extends MgResolveExpressionTask {
+public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
     @Input
-    private final MgLogicalValueCallExpression logicalExpression;
+    private final MgLogicalGroupCallExpression logicalExpression;
 
     @Output
-    private ValueNode node;
+    private GroupNode node;
 
-    public MgResolveValueExpressionTask(CommandContext context, MgLogicalValueCallExpression logicalExpression, Node parent) {
+    public MgResolveGroupExpressionTask(CommandContext context, MgLogicalGroupCallExpression logicalExpression, Node parent) {
         super(context, parent);
         this.logicalExpression = logicalExpression;
     }
@@ -32,15 +31,18 @@ public class MgResolveValueExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected ReadableCollection<MgLogicalCallExpression> getLogicalChildren() {
-        return null;
+        return logicalExpression.getExpressions();
     }
 
     @Override
     protected void onResolveEnter(InputInterface parentInputInterface) {
+        if(parentInputInterface != null){
+            node = new GroupNode(parentInputInterface);
+        }
     }
 
     @Override
     protected void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface) {
-        node = new ValueNode(new MgTextObject(logicalExpression.getValue().toString()));
+        node = new GroupNode(childrenOutputInterface);
     }
 }

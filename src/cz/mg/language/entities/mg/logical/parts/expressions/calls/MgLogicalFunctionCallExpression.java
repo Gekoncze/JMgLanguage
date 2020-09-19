@@ -4,30 +4,26 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.requirement.Mandatory;
 
 
 public class MgLogicalFunctionCallExpression extends MgLogicalCallExpression {
-    @Value
+    @Mandatory @Value
     private final ReadableText name;
 
-    @Part
-    private final List<MgLogicalCallExpression> expressions;
+    @Mandatory @Part
+    private final MgLogicalCallExpression expression;
 
-    public MgLogicalFunctionCallExpression(ReadableText name) {
+    public MgLogicalFunctionCallExpression(ReadableText name, MgLogicalCallExpression expression) {
         this.name = name;
-        this.expressions = new List<>();
-    }
-
-    public MgLogicalFunctionCallExpression(ReadableText name, List<MgLogicalCallExpression> expressions) {
-        this.name = name;
-        this.expressions = expressions;
+        this.expression = expression;
     }
 
     public ReadableText getName() {
         return name;
     }
 
-    public List<MgLogicalCallExpression> getExpressions() {
-        return expressions;
+    public MgLogicalCallExpression getExpression() {
+        return expression;
     }
 }

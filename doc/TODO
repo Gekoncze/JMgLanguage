@@ -1,5 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-finished operator expression resolvers (hopefully)
+implemented group expression and its resolver
++ simplified function expression
++ simplified and improved operator expressions
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -12,8 +14,6 @@ reimplement expression resolvers ...
             also, should dot be always followed by name expression?
                 I think yes, this could make it easier ... check
                 we would then have special implementation for matching in mg name expression only
-
-    group expression resolver
 
 concern:
     how to handle groups properly, for example:

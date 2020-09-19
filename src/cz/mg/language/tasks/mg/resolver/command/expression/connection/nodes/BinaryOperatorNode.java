@@ -41,7 +41,12 @@ public class BinaryOperatorNode extends OperatorNode {
             i++;
         }
 
-        return new MgBinaryOperatorExpression(createExpressions(), replications);
+        if(getChildren().count() != 2) throw new RuntimeException();
+        return new MgBinaryOperatorExpression(
+            getChildren().getFirst().createExpression(),
+            getChildren().getLast().createExpression(),
+            replications
+        );
     }
 
     private static InputInterface createInputInterface(@Mandatory List<MgFunction> functions){

@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.list.List;
+import cz.mg.collections.array.Array;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
@@ -38,7 +38,7 @@ public class MgResolveFunctionExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected ReadableCollection<MgLogicalCallExpression> getLogicalChildren() {
-        return logicalExpression.getExpressions();
+        return new Array<>(logicalExpression.getExpression());
     }
 
     @Override

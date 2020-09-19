@@ -40,7 +40,11 @@ public class UnaryOperatorNode extends OperatorNode {
             i++;
         }
 
-        return new MgUnaryOperatorExpression(createExpressions(), replications);
+        if(getChildren().count() != 1) throw new RuntimeException();
+        return new MgUnaryOperatorExpression(
+            getChildren().getFirst().createExpression(),
+            replications
+        );
     }
 
     private static InputInterface createInputInterface(@Mandatory List<MgFunction> functions){
