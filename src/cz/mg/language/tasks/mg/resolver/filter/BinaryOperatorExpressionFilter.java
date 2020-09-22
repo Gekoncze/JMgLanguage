@@ -26,7 +26,10 @@ public class BinaryOperatorExpressionFilter extends AbstractFilter<MgFunction> {
     private final ReadableArray<InputConnector> parentInputInterface;
 
     @Optional @Link
-    private final ReadableArray<OutputConnector> childrenOutputInterface;
+    private final ReadableArray<OutputConnector> leftChildrenOutputInterface;
+
+    @Optional @Link
+    private final ReadableArray<OutputConnector> rightChildrenOutputInterface;
 
     @Mandatory @Value
     private final int replication;
@@ -35,13 +38,15 @@ public class BinaryOperatorExpressionFilter extends AbstractFilter<MgFunction> {
         Context context,
         ReadableText name,
         InputInterface parentInputInterface,
-        OutputInterface childrenOutputInterface,
+        OutputInterface leftChildrenOutputInterface,
+        OutputInterface rightChildrenOutputInterface,
         int replication
     ) {
         super(context);
         this.name = name;
         this.parentInputInterface = parentInputInterface != null ? parentInputInterface.getRemainingConnectors() : null;
-        this.childrenOutputInterface = childrenOutputInterface != null ? childrenOutputInterface.getConnectors() : null;
+        this.leftChildrenOutputInterface = leftChildrenOutputInterface != null ? leftChildrenOutputInterface.getConnectors() : null;
+        this.rightChildrenOutputInterface = rightChildrenOutputInterface != null ? rightChildrenOutputInterface.getConnectors() : null;
         this.replication = replication;
     }
 
@@ -68,12 +73,11 @@ public class BinaryOperatorExpressionFilter extends AbstractFilter<MgFunction> {
             if(!Matcher.matches(parentInputDatatype, functionOutputDatatype)) return false;
         }
 
-        if(childrenOutputInterface != null){
+        if(leftChildrenOutputInterface != null && rightChildrenOutputInterface != null){
             // binary operator function must have exactly two input values
             if(function.getInput().count() != 2) return false;
-            int half = childrenOutputInterface.count() / 2;
-            MgDatatype childrenOutputDatatypeLeft = childrenOutputInterface.get(replication).getRequestedDatatype();
-            MgDatatype childrenOutputDatatypeRight = childrenOutputInterface.get(replication + half).getRequestedDatatype();
+            MgDatatype childrenOutputDatatypeLeft = leftChildrenOutputInterface.get(replication).getRequestedDatatype();
+            MgDatatype childrenOutputDatatypeRight = rightChildrenOutputInterface.get(replication).getRequestedDatatype();
             MgDatatype functionInputDatatypeLeft = function.getOutput().getFirst().getDatatype();
             MgDatatype functionInputDatatypeRight = function.getOutput().getLast().getDatatype();
             if(!Matcher.matches(functionInputDatatypeLeft, childrenOutputDatatypeLeft)) return false;

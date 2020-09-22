@@ -1,14 +1,19 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
-import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
+import cz.mg.language.annotations.task.Utility;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgBasicExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.member.MgMemberExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.basic.MgResolveBasicExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -21,100 +26,109 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     protected final CommandContext context;
 
     @Input
-    private final Node parent;
+    private final MgResolveExpressionTask parent;
+
+    @Utility
+    private Node node;
 
     @Subtask
-    private final List<MgResolveExpressionTask> subtasks = new List<>();
+    private final List<MgResolveExpressionTask> children = new List<>();
 
-    public MgResolveExpressionTask(CommandContext context, Node parent) {
+    public MgResolveExpressionTask(CommandContext context, MgResolveExpressionTask parent) {
         this.context = context;
         this.parent = parent;
     }
 
-    protected abstract Node getNode();
-    protected abstract ReadableCollection<MgLogicalCallExpression> getLogicalChildren();
-
-    @Override
-    protected final void onRun() {
-        context.getVariableHelper().sink();
-
-        InputInterface parentInputInterface = parent == null ? null : parent.getInputInterface();
-        onResolveEnter(parentInputInterface);
-
-        List<Node> children = new List<>();
-        List<OutputInterface> childrenOutputInterface = new List<>();
-
-        if(getLogicalChildren() != null){
-            for(MgLogicalCallExpression logicalChild : getLogicalChildren()){
-                Node child = onResolveChild(logicalChild);
-
-                if(getNode() != null){
-                    getNode().getChildren().addLast(child);
-                    connect(getNode(), child);
-                } else {
-                    children.addLast(child);
-                    childrenOutputInterface.addLast(child.getOutputInterface());
-                }
-            }
-        }
-
-        if(getNode() == null){
-            onResolveLeave(parentInputInterface, flatten(childrenOutputInterface));
-
-            for(Node child : children){
-                getNode().getChildren().addLast(child);
-                connect(getNode(), child);
-            }
-        }
-
-        context.getVariableHelper().raise();
+    public Node getNode() {
+        return node;
     }
 
-    protected OutputInterface flatten(List<OutputInterface> outputInterfaces){
+    public InputInterface getInputInterface(){
+        if(node == null) return null;
+        return node.getInputInterface();
+    }
+
+    public OutputInterface getOutputInterface(){
+        if(node == null) return null;
+        return node.getOutputInterface();
+    }
+
+    public MgResolveExpressionTask getParent() {
+        return parent;
+    }
+
+    public InputInterface getParentInputInterface(){
+        if(parent == null) return null;
+        return parent.getInputInterface();
+    }
+
+    public List<MgResolveExpressionTask> getChildren() {
+        return children;
+    }
+
+    public OutputInterface getChildrenOutputInterface(){
         List<OutputConnector> outputInterfaceConnectors = new List<>();
-        for(OutputInterface outputInterface : outputInterfaces){
-            for(OutputConnector outputConnector : outputInterface.getConnectors()){
+        for(MgResolveExpressionTask child : children){
+            for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
                 outputInterfaceConnectors.addLast(outputConnector);
             }
         }
         return new OutputInterface(new Array<>(outputInterfaceConnectors));
     }
 
-    protected abstract void onResolveEnter(InputInterface parentInputInterface);
+    @Override
+    protected final void onRun() {
+        context.getVariableHelper().sink();
 
-    protected Node onResolveChild(MgLogicalCallExpression child){
-        subtasks.addLast(create(context, child, getNode()));
-        subtasks.getLast().run();
-        return subtasks.getLast().getNode();
+        setNode(onResolveEnter());
+        onResolveChildren();
+        if(node == null) setNode(onResolveLeave());
+
+        context.getVariableHelper().raise();
     }
 
-    protected abstract void onResolveLeave(InputInterface parentInputInterface, OutputInterface childrenOutputInterface);
+    protected abstract @Optional Node onResolveEnter();
 
-    public static MgResolveExpressionTask create(CommandContext context, MgLogicalCallExpression logicalExpression, Node parent){
-        if(logicalExpression instanceof MgLogicalNameCallExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalNameCallExpression) logicalExpression, parent);
-        }
+    protected abstract void onResolveChildren();
 
-        if(logicalExpression instanceof MgLogicalValueCallExpression){
-            return new MgResolveValueExpressionTask(context, (MgLogicalValueCallExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalFunctionCallExpression){
-            return new MgResolveFunctionExpressionTask(context, (MgLogicalFunctionCallExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalOperatorCallExpression){
-            return MgResolveOperatorExpressionTask.create(context, (MgLogicalOperatorCallExpression) logicalExpression, parent);
-        }
-
-        if(logicalExpression instanceof MgLogicalGroupCallExpression){
-            return new MgResolveGroupExpressionTask(context, (MgLogicalGroupCallExpression) logicalExpression, parent);
-        }
-
-        throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
+    protected Node onResolveChild(MgLogicalCallExpression childLogicalExpression){
+        MgResolveExpressionTask child = onCreateChildResolver(context, childLogicalExpression, this);
+        children.addLast(child);
+        child.run();
+        if(node != null) Node.connect(context, node, child.node);
+        return child.node;
     }
 
-    private void connect(Node parent, Node child){
-        Node.connect(context.getVariableHelper(), parent, child);
+    protected abstract @Mandatory Node onResolveLeave();
+
+    private void setNode(Node node){
+        if(node == null) return;
+        if(this.node != null) throw new RuntimeException();
+        this.node = node;
+        for(MgResolveExpressionTask child : children){
+            Node.connect(context, node, child.node);
+        }
+    }
+
+    protected MgResolveExpressionTask onCreateChildResolver(CommandContext context, MgLogicalCallExpression logicalExpression, MgResolveExpressionTask parent){
+        return MgResolveBasicExpressionTask.create(context, logicalExpression, parent);
+    }
+
+    public abstract MgExpression createExpression();
+
+    protected MgBasicExpression asBasicExpression(MgExpression expression){
+        if(expression instanceof MgBasicExpression){
+            return (MgBasicExpression) expression;
+        } else {
+            throw new LanguageException("Expected " + MgBasicExpression.class.getSimpleName() + " but got " + expression.getClass().getSimpleName() + ".");
+        }
+    }
+
+    protected MgMemberExpression asMemberExpression(MgExpression expression){
+        if(expression instanceof MgMemberExpression){
+            return (MgMemberExpression) expression;
+        } else {
+            throw new LanguageException("Expected " + MgMemberExpression.class.getSimpleName() + " but got " + expression.getClass().getSimpleName() + ".");
+        }
     }
 }

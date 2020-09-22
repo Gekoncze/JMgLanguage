@@ -6,7 +6,7 @@ import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalExpressionCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgExpressionCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.basic.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 

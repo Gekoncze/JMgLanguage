@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalWhileCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgWhileCommand;
 import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.basic.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 

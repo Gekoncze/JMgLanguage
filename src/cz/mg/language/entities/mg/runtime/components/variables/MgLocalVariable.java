@@ -20,12 +20,10 @@ public class MgLocalVariable extends MgVariable {
 
     public MgLocalVariable(ReadableText name) {
         super(TYPE, name);
-        this.offset = offset;
     }
 
     public MgLocalVariable(ReadableText name, MgDatatype datatype) {
         super(TYPE, name);
-        this.offset = offset;
         setDatatype(datatype);
     }
 

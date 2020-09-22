@@ -13,7 +13,11 @@ public class MgLogicalBinaryOperatorCallExpression extends MgLogicalOperatorCall
     @Mandatory @Part
     private final MgLogicalCallExpression right;
 
-    public MgLogicalBinaryOperatorCallExpression(ReadableText name, MgLogicalCallExpression left, MgLogicalCallExpression right) {
+    public MgLogicalBinaryOperatorCallExpression(
+        ReadableText name,
+        MgLogicalCallExpression left,
+        MgLogicalCallExpression right
+    ) {
         super(name);
         this.left = left;
         this.right = right;

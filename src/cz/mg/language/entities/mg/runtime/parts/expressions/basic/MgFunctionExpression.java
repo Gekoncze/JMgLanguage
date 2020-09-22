@@ -1,0 +1,81 @@
+package cz.mg.language.entities.mg.runtime.parts.expressions.basic;
+
+import cz.mg.collections.list.List;
+import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+
+
+public class MgFunctionExpression extends MgBasicExpression {
+    @Mandatory @Part
+    private final MgFunction function;
+
+    @Optional @Part
+    private final MgBasicExpression expression;
+
+    @Mandatory @Link
+    private final List<MgLocalVariable> input;
+
+    @Mandatory @Link
+    private final List<MgLocalVariable> output;
+
+    public MgFunctionExpression(
+        MgFunction function,
+        MgBasicExpression expression,
+        List<MgLocalVariable> input,
+        List<MgLocalVariable> output
+    ) {
+        this.function = function;
+        this.expression = expression;
+        this.input = input;
+        this.output = output;
+    }
+
+    public MgFunction getFunction() {
+        return function;
+    }
+
+    public MgExpression getExpression() {
+        return expression;
+    }
+
+    public List<MgLocalVariable> getInput() {
+        return input;
+    }
+
+    public List<MgLocalVariable> getOutput() {
+        return output;
+    }
+
+    @Override
+    public void run(MgFunctionObject functionObject) {
+        if(expression!= null){
+            expression.run(functionObject);
+        }
+
+        int local = 0;
+
+        // create new function object
+        MgFunctionObject newFunctionObject = new MgFunctionObject(function);
+
+        // set input for newly created function object
+        for(MgLocalVariable in : input){
+            newFunctionObject.getObjects().set(functionObject.getObjects().get(in.getOffset()), local);
+            local++;
+        }
+
+        // run the function
+        function.run(functionObject);
+
+        // get output of the newly created function object
+        for(MgLocalVariable out : output){
+            functionObject.getObjects().set(newFunctionObject.getObjects().get(local), out.getOffset());
+            local++;
+        }
+    }
+}

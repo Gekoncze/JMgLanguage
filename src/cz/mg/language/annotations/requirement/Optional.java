@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 // Annotated field can be null.
 // If applied to collection, then it is the same as if CollectionOptional and ItemsOptional annotations were applied.
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 public @interface Optional {
 }

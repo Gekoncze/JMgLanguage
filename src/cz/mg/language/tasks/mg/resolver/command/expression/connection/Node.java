@@ -1,23 +1,19 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 
-import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.VariableHelper;
+import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public abstract class Node {
+public class Node {
     @Mandatory @Part
     private final InputInterface inputInterface;
 
     @Mandatory @Part
     private final OutputInterface outputInterface;
-
-    @Mandatory @Part
-    private final List<Node> children = new List<>();
 
     public Node(
         @Mandatory InputInterface inputInterface,
@@ -27,8 +23,6 @@ public abstract class Node {
         this.outputInterface = outputInterface;
     }
 
-    public abstract MgExpression createExpression();
-
     public InputInterface getInputInterface() {
         return inputInterface;
     }
@@ -37,15 +31,12 @@ public abstract class Node {
         return outputInterface;
     }
 
-    public List<Node> getChildren() {
-        return children;
-    }
-
     public static void connect(
-        @Mandatory VariableHelper variableHelper,
+        @Mandatory CommandContext context,
         @Mandatory Node parent,
         @Mandatory Node child
     ){
+        VariableHelper variableHelper = context.getVariableHelper();
         if(child.getOutputInterface() == null) throw new LanguageException("Cannot connect expressions. Child expression has no output values.");
         if(parent.getInputInterface() == null) throw new LanguageException("Cannot connect expressions. Parent expression has no input values.");
         for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
