@@ -1,10 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-major changes + member access work in progress
-using local variables instead of offsets in runtime expressions
-split unary operators to left and right
-rewritten expression resolver
-moved create expression from nodes to resolvers
-member access work in progress ...
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------

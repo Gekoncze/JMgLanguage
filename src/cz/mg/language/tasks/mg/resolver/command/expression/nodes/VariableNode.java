@@ -14,11 +14,11 @@ public class VariableNode extends Node {
         super(createInputInterface(variable), createOutputInterface(variable));
     }
 
-    private static InputInterface createInputInterface(@Mandatory MgVariable variable){
+    public static InputInterface createInputInterface(@Mandatory MgVariable variable){
         return new InputInterface(new Array<>()); // no input for variables
     }
 
-    private static OutputInterface createOutputInterface(@Mandatory MgVariable variable){
+    public static OutputInterface createOutputInterface(@Mandatory MgVariable variable){
         return new OutputInterface(new Array<>(new OutputConnector(variable.getDatatype())));
     }
 }

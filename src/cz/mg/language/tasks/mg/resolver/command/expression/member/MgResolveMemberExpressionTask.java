@@ -5,21 +5,28 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
 public abstract class MgResolveMemberExpressionTask extends MgResolveExpressionTask {
-    public MgResolveMemberExpressionTask(CommandContext context, Node parent) {
+    public MgResolveMemberExpressionTask(CommandContext context, MgResolveExpressionTask parent) {
         super(context, parent);
     }
 
     @Override
-    protected MgResolveExpressionTask onCreateChildResolver(CommandContext context, MgLogicalCallExpression logicalExpression, Node parent) {
+    protected MgResolveExpressionTask onCreateChildResolver(
+        CommandContext context,
+        MgLogicalCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ) {
         return create(context, logicalExpression, parent);
     }
 
-    public static MgResolveMemberExpressionTask create(CommandContext context, MgLogicalCallExpression logicalExpression, Node parent){
+    public static MgResolveMemberExpressionTask create(
+        CommandContext context,
+        MgLogicalCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ){
         if(logicalExpression instanceof MgLogicalNameCallExpression) {
             return new MgResolveMemberNameExpressionTask(context, (MgLogicalNameCallExpression) logicalExpression, parent);
         }

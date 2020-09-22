@@ -29,7 +29,7 @@ public class FunctionNode extends Node {
         return new InputInterface(connectors);
     }
 
-    private static OutputInterface createOutputInterface(@Mandatory MgFunction function){
+    public static OutputInterface createOutputInterface(@Mandatory MgFunction function){
         if(function == null) throw new RuntimeException();
         Array<OutputConnector> connectors = new Array<>(function.getOutput().count());
         for(int i = 0; i < connectors.count(); i++){

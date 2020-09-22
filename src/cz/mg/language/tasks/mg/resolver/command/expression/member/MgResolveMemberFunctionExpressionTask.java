@@ -1,13 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.member;
 
-import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalFunctionCallExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.member.MgMemberFunctionExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.MemberFunctionNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
@@ -16,7 +14,11 @@ public class MgResolveMemberFunctionExpressionTask extends MgResolveMemberExpres
     @Input
     private final MgLogicalFunctionCallExpression logicalExpression;
 
-    public MgResolveMemberFunctionExpressionTask(CommandContext context, MgLogicalFunctionCallExpression logicalExpression, Node parent) {
+    public MgResolveMemberFunctionExpressionTask(
+        CommandContext context,
+        MgLogicalFunctionCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ) {
         super(context, parent);
         this.logicalExpression = logicalExpression;
     }
@@ -27,17 +29,27 @@ public class MgResolveMemberFunctionExpressionTask extends MgResolveMemberExpres
     }
 
     @Override
-    protected ReadableCollection<MgLogicalCallExpression> getLogicalChildren() {
-        return todo;
-    }
-
-    @Override
-    protected void onResolveEnter(InputInterface parentInputInterface) {
+    protected Node onResolveEnter() {
         todo;
     }
 
     @Override
-    protected void onResolveLeave(InputInterface parentInputInterface, List<OutputInterface> childrenOutputInterface) {
+    protected void onResolveChildren() {
+        onResolveChild(logicalExpression.getExpression());
+    }
+
+    @Override
+    protected Node onResolveLeave() {
         todo;
+    }
+
+    @Override
+    public MgExpression createExpression() {
+        return new MgMemberFunctionExpression(
+            function,
+            createExpressions(),
+            gatherInputOffset(),
+            gatherOutputOffset()
+        );
     }
 }
