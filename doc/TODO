@@ -2,6 +2,13 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+another problem with contexts
+    I think that when creting class resolver for example, there is missing a root context - cerify
+    it seems that root context is unused anyway, search if it could be created indirectly somehow
+    this is related to the problem with contexts aliases below
+    actually, I think that this is handled by component context, which should be created in the abstract task
+    so only root context creation is missing somewhere?
+
 problem with contexts
     aliases are not handled correctly
     components are imported with their real names
