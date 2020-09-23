@@ -1,14 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-some major changes and finished member access resolver, yay
-merged logical name and function call
-changed the logic of member access resolution completely
-before I was resolving the dot alone, now I resolve dot and name at once
-this approach simplifies both resolver and runtime entities
-prevented empty expressions for children output interface
+changed context for resolver to use for each instead of read
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-for context add a for each function instead of current read - it adds an overheat of creating composite collections
 reimplement command resolvers
 
 literal values

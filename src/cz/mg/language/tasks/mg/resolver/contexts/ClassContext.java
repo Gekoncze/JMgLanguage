@@ -1,7 +1,5 @@
 package cz.mg.language.tasks.mg.resolver.contexts;
 
-import cz.mg.collections.array.Array;
-import cz.mg.collections.special.CompositeCollection;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
@@ -13,7 +11,7 @@ public class ClassContext extends Context {
     @Optional @Link
     private MgClass clazz;
 
-    public ClassContext(Context outerContext) {
+    public ClassContext(@Optional Context outerContext) {
         super(outerContext);
     }
 
@@ -26,8 +24,13 @@ public class ClassContext extends Context {
     }
 
     @Override
-    public Iterable<? extends MgComponent> read() {
-        if(clazz == null) return new Array<>();
-        return new CompositeCollection(clazz.getVariables(), clazz.getFunctions());
+    public void forEachComponent(ComponentVisitor visitor) {
+        for(MgComponent component : clazz.getVariables()){
+            visitor.onVisitComponent(component);
+        }
+
+        for(MgComponent component : clazz.getFunctions()){
+            visitor.onVisitComponent(component);
+        }
     }
 }

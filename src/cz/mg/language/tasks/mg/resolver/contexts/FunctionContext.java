@@ -1,7 +1,5 @@
 package cz.mg.language.tasks.mg.resolver.contexts;
 
-import cz.mg.collections.array.Array;
-import cz.mg.collections.special.CompositeCollection;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Optional;
@@ -16,13 +14,13 @@ public class FunctionContext extends Context {
     @Optional @Link
     private MgFunction function;
 
-    @Cache
+    @Optional @Cache
     private OperatorCache operatorCache;
 
-    @Part
+    @Optional @Part
     private VariableHelper variableHelper;
 
-    public FunctionContext(Context outerContext) {
+    public FunctionContext(@Optional Context outerContext) {
         super(outerContext);
     }
 
@@ -31,8 +29,9 @@ public class FunctionContext extends Context {
     }
 
     public void setFunction(MgFunction function) {
+        if(this.operatorCache != null) throw new RuntimeException();
+        if(this.variableHelper != null) throw new RuntimeException();
         this.function = function;
-        this.variableHelper = VariableHelper.create(function);
     }
 
     public OperatorCache getOperatorCache() {
@@ -41,12 +40,24 @@ public class FunctionContext extends Context {
     }
 
     public VariableHelper getVariableHelper() {
+        if(this.variableHelper == null) this.variableHelper = VariableHelper.create(function);
         return variableHelper;
     }
 
     @Override
-    public Iterable<? extends MgComponent> read() {
-        if(function == null) return new Array<>();
-        return new CompositeCollection(function.getInput(), function.getOutput(), function.getLocal());
+    public void forEachComponent(ComponentVisitor visitor) {
+        if(function != null){
+            for(MgComponent component : function.getInput()){
+                visitor.onVisitComponent(component);
+            }
+
+            for(MgComponent component : function.getOutput()){
+                visitor.onVisitComponent(component);
+            }
+
+            for(MgComponent component : function.getLocal()){
+                visitor.onVisitComponent(component);
+            }
+        }
     }
 }

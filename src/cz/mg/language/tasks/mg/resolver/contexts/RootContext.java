@@ -2,7 +2,6 @@ package cz.mg.language.tasks.mg.resolver.contexts;
 
 import cz.mg.collections.array.Array;
 import cz.mg.language.annotations.entity.Link;
-import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.tasks.mg.resolver.Context;
@@ -11,9 +10,6 @@ import cz.mg.language.tasks.mg.resolver.Context;
 public class RootContext extends Context {
     @Link
     private final MgLocation location;
-
-    @Cache
-    private OperatorCache operatorCache;
 
     public RootContext(MgLocation location) {
         super(null);
@@ -26,7 +22,6 @@ public class RootContext extends Context {
     }
 
     @Override
-    public Iterable<? extends MgComponent> read() {
-        return new Array<>();
+    public void forEachComponent(ComponentVisitor visitor) {
     }
 }

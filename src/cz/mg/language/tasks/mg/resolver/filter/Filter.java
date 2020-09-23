@@ -44,11 +44,11 @@ public abstract class Filter<C extends MgComponent> {
         List<C> components = new List<>();
         Context currentContext = context;
         while(currentContext != null){
-            for(MgComponent component : currentContext.read()){
+            currentContext.forEachComponent((component) -> {
                 if(filter(component)){
                     components.addLast((C) component);
                 }
-            }
+            });
             currentContext = currentContext.getOuterContext();
         }
         return components;

@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.contexts;
 
 import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
@@ -12,12 +13,12 @@ public class CommandContext extends Context {
     @Optional @Link
     private MgCommand command;
 
-    public CommandContext(CommandContext outerContext) {
-        super(notNull(outerContext));
+    public CommandContext(@Mandatory CommandContext outerContext) {
+        super(outerContext);
     }
 
-    public CommandContext(FunctionContext outerContext) {
-        super(notNull(outerContext));
+    public CommandContext(@Mandatory FunctionContext outerContext) {
+        super(outerContext);
     }
 
     public MgCommand getCommand() {
@@ -47,12 +48,9 @@ public class CommandContext extends Context {
     }
 
     @Override
-    public Iterable<? extends MgComponent> read() {
-        return command.getDeclaredVariables();
-    }
-
-    private static Context notNull(Context context){
-        if(context == null) throw new IllegalArgumentException();
-        else return context;
+    public void forEachComponent(ComponentVisitor visitor) {
+        for(MgComponent variable : command.getDeclaredVariables()){
+            visitor.onVisitComponent(variable);
+        }
     }
 }

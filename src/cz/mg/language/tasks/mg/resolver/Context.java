@@ -26,5 +26,9 @@ public abstract class Context {
         }
     }
 
-    public abstract Iterable<? extends MgComponent> read();
+    public abstract void forEachComponent(ComponentVisitor visitor);
+
+    public interface ComponentVisitor {
+        void onVisitComponent(MgComponent component);
+    }
 }
