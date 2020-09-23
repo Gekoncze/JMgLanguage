@@ -20,6 +20,12 @@ problem with contexts
     operators should not allow aliases
     after this is resolved, we should be able to handle also to-do in collection context
 
+while onto resolving problems with contexts, take a look at:
+    take into account access modifiers during resolve
+    add support for aliases in usages if not already
+    add support for relative "../" usages ???
+    add support for multiple (star) usages - is it going to be just a syntactical sugar?
+
 reimplement command resolvers
     commands need to have special expression resolver which will provide node with expected datatype
 
@@ -32,6 +38,9 @@ literal values
         '' - converted at startup when code is loaded
         "" - converted at runtime during expression execution
 
+    there will be buildin converters for buildin types
+    user should be able to provide his own converters for his own types
+
 test
     test what expression like this will do:
         (a * b)(c, d, e)
@@ -40,8 +49,6 @@ test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
-take into account access modifiers during resolve
-
 implementation of the new simplified runtime model
     we might need a context object being passed
         passed in two ways:
@@ -56,9 +63,6 @@ think about new object creation
 complete support for collections
     for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)
     they should definitely be distinguished as readable, writeable, readonly, nonnull somehow
-
-mg add support for relative "../" usages ???
-mg add support for multiple (star) usages - is it going to be just a syntactical sugar?
 
 add support for variable number of parameters of functions ?
 
