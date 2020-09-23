@@ -21,7 +21,7 @@ public class FunctionNode extends Node {
         return function;
     }
 
-    private static InputInterface createInputInterface(@Mandatory MgFunction function){
+    public static InputInterface createInputInterface(@Mandatory MgFunction function){
         Array<InputConnector> connectors = new Array<>(function.getInput().count());
         for(int i = 0; i < connectors.count(); i++){
             connectors.set(new InputConnector(function.getInput().get(i).getDatatype()), i);

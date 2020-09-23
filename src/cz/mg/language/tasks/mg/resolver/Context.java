@@ -1,19 +1,20 @@
 package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 
 
 public abstract class Context {
-    @Part
+    @Optional @Part
     private final Context outerContext;
 
-    public Context(Context outerContext) {
+    public Context(@Optional Context outerContext) {
         this.outerContext = outerContext;
     }
 
-    public Context getOuterContext() {
+    public @Optional Context getOuterContext() {
         return outerContext;
     }
 

@@ -31,6 +31,11 @@ public class Node {
         return outputInterface;
     }
 
+    public void validate(){
+        inputInterface.validate();
+        outputInterface.validate();
+    }
+
     public static void connect(
         @Mandatory CommandContext context,
         @Mandatory Node parent,

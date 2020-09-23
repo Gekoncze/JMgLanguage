@@ -8,12 +8,10 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.annotations.task.Utility;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgBasicExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.member.MgMemberExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.basic.MgResolveBasicExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -69,6 +67,9 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     public OutputInterface getChildrenOutputInterface(){
         List<OutputConnector> outputInterfaceConnectors = new List<>();
         for(MgResolveExpressionTask child : children){
+            if(child.getOutputInterface().getConnectors().count() == 0){
+                throw new LanguageException("Empty expression output in a group is not allowed.");
+            }
             for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
                 outputInterfaceConnectors.addLast(outputConnector);
             }
@@ -80,11 +81,22 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     protected final void onRun() {
         context.getVariableHelper().sink();
 
-        setNode(onResolveEnter());
-        onResolveChildren();
-        if(node == null) setNode(onResolveLeave());
+        onResolve();
+        verify();
 
         context.getVariableHelper().raise();
+    }
+
+    protected void onResolve(){
+        if(node == null) setNode(onResolveEnter());
+        onResolveChildren();
+        if(node == null) setNode(onResolveLeave());
+    }
+
+    private void verify(){
+        if(node == null){
+            throw new LanguageException("Could not resolve expression.");
+        }
     }
 
     protected abstract @Optional Node onResolveEnter();
@@ -92,7 +104,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     protected abstract void onResolveChildren();
 
     protected Node onResolveChild(MgLogicalCallExpression childLogicalExpression){
-        MgResolveExpressionTask child = onCreateChildResolver(context, childLogicalExpression, this);
+        MgResolveExpressionTask child = create(context, childLogicalExpression, this);
         children.addLast(child);
         child.run();
         if(node != null) Node.connect(context, node, child.node);
@@ -101,7 +113,7 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
 
     protected abstract @Mandatory Node onResolveLeave();
 
-    private void setNode(Node node){
+    protected void setNode(Node node){
         if(node == null) return;
         if(this.node != null) throw new RuntimeException();
         this.node = node;
@@ -110,25 +122,38 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
         }
     }
 
-    protected MgResolveExpressionTask onCreateChildResolver(CommandContext context, MgLogicalCallExpression logicalExpression, MgResolveExpressionTask parent){
-        return MgResolveBasicExpressionTask.create(context, logicalExpression, parent);
+    public MgExpression createExpression(){
+        node.validate();
+        return onCreateExpression();
     }
 
-    public abstract MgExpression createExpression();
+    protected abstract MgExpression onCreateExpression();
 
-    protected MgBasicExpression asBasicExpression(MgExpression expression){
-        if(expression instanceof MgBasicExpression){
-            return (MgBasicExpression) expression;
-        } else {
-            throw new LanguageException("Expected " + MgBasicExpression.class.getSimpleName() + " but got " + expression.getClass().getSimpleName() + ".");
+    public static MgResolveExpressionTask create(
+        CommandContext context,
+        MgLogicalCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ){
+        if(logicalExpression instanceof MgLogicalNameCallExpression) {
+            return new MgResolveNameExpressionTask(context, (MgLogicalNameCallExpression) logicalExpression, parent);
         }
-    }
 
-    protected MgMemberExpression asMemberExpression(MgExpression expression){
-        if(expression instanceof MgMemberExpression){
-            return (MgMemberExpression) expression;
-        } else {
-            throw new LanguageException("Expected " + MgMemberExpression.class.getSimpleName() + " but got " + expression.getClass().getSimpleName() + ".");
+        if(logicalExpression instanceof MgLogicalValueCallExpression){
+            return new MgResolveValueExpressionTask(context, (MgLogicalValueCallExpression) logicalExpression, parent);
         }
+
+        if(logicalExpression instanceof MgLogicalOperatorCallExpression){
+            return MgResolveOperatorExpressionTask.create(context, (MgLogicalOperatorCallExpression) logicalExpression, parent);
+        }
+
+        if(logicalExpression instanceof MgLogicalGroupCallExpression){
+            return new MgResolveGroupExpressionTask(context, (MgLogicalGroupCallExpression) logicalExpression, parent);
+        }
+
+        if(logicalExpression instanceof MgLogicalMemberAccessCallExpression){
+            return new MgResolveMemberAccessExpression(context, (MgLogicalMemberAccessCallExpression) logicalExpression, parent);
+        }
+
+        throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");
     }
 }

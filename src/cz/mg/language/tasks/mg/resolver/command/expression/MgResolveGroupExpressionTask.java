@@ -1,19 +1,17 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalGroupCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgBasicExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgGroupExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgGroupExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.GroupNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public class MgResolveGroupExpressionTask extends MgResolveBasicExpressionTask {
+public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalGroupCallExpression logicalExpression;
 
@@ -47,14 +45,14 @@ public class MgResolveGroupExpressionTask extends MgResolveBasicExpressionTask {
     }
 
     @Override
-    public MgExpression createExpression() {
+    public cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression onCreateExpression() {
         return new MgGroupExpression(createExpressions());
     }
 
-    private List<MgBasicExpression> createExpressions(){
-        List<MgBasicExpression> expressions = new List<>();
+    private List<MgExpression> createExpressions(){
+        List<MgExpression> expressions = new List<>();
         for(MgResolveExpressionTask child : getChildren()){
-            expressions.addLast(asBasicExpression(child.createExpression()));
+            expressions.addLast(child.createExpression());
         }
         return expressions;
     }

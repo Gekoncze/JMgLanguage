@@ -1,6 +1,7 @@
-package cz.mg.language.entities.mg.runtime.parts.expressions.basic;
+package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.collections.list.List;
+import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
@@ -10,17 +11,17 @@ import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
     @Mandatory @Part
-    private final MgBasicExpression expression;
+    private final MgExpression expression;
 
     @Mandatory @Part
     private final List<Replication> replications = new List<>();
 
-    public MgUnaryOperatorExpression(MgBasicExpression expression, List<Replication> replications) {
+    public MgUnaryOperatorExpression(MgExpression expression, List<Replication> replications) {
         this.expression = expression;
         this.replications.addCollectionLast(replications);
     }
 
-    public MgBasicExpression getExpression() {
+    public MgExpression getExpression() {
         return expression;
     }
 
@@ -48,13 +49,13 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
     }
 
     public static class Replication {
-        @Mandatory @Part
+        @Mandatory @Link
         private final MgFunction function;
 
-        @Mandatory @Part
+        @Mandatory @Link
         private final MgLocalVariable input;
 
-        @Mandatory @Part
+        @Mandatory @Link
         private final MgLocalVariable output;
 
         public Replication(

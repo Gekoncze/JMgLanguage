@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
@@ -8,8 +8,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgBinaryOperatorExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgBinaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -81,7 +80,7 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
     }
 
     @Override
-    public MgExpression createExpression() {
+    public MgExpression onCreateExpression() {
         List<MgBinaryOperatorExpression.Replication> replications = new List<>();
 
         Array<MgLocalVariable>[] input = gatherInputOffset();
@@ -102,8 +101,8 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
 
         if(getChildren().count() != 2) throw new RuntimeException();
         return new MgBinaryOperatorExpression(
-            asBasicExpression(getChildren().getFirst().createExpression()),
-            asBasicExpression(getChildren().getLast().createExpression()),
+            getChildren().getFirst().onCreateExpression(),
+            getChildren().getLast().onCreateExpression(),
             replications
         );
     }

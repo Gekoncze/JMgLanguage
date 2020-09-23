@@ -1,23 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+some major changes and finished member access resolver, yay
+merged logical name and function call
+changed the logic of member access resolution completely
+before I was resolving the dot alone, now I resolve dot and name at once
+this approach simplifies both resolver and runtime entities
+prevented empty expressions for children output interface
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-reimplement expression resolvers ...
-    member access expression resolver
-        make sure member call handles context correctly
-            it needs to change somehow, or give additional member access context !
-
-        how to handle member access matching for auto passing self? !!!
-            also, should dot be always followed by name expression?
-                I think yes, this could make it easier ... check
-                we would then have special implementation for matching in mg name expression only
-
+for context add a for each function instead of current read - it adds an overheat of creating composite collections
 reimplement command resolvers
-prevent empty expressions in groups
-add implementation for variable and function member accessible resolvers
-change static create implementations
-    make it so the classes registers themselves in a static block
 
 literal values
     always return text
@@ -27,6 +19,12 @@ literal values
     idea - there can be two types:
         '' - converted at startup when code is loaded
         "" - converted at runtime during expression execution
+
+test
+    test what expression like this will do:
+        (a * b)(c, d, e)
+        what error will be thrown?
+        this is something like a parametrized call, but without a name on the left
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
@@ -70,6 +68,9 @@ mg stamps definitions
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
 add context for function execution
+
+change static create implementations
+    make it so the classes registers themselves in a static block
 
 mg logic entity versioning ?
 mg runtime entity versioning ?

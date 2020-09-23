@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
@@ -70,12 +70,13 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             item != null;
             item = item.getNextItem()
         ){
-            if(isName(item)){
+            if(isPlainName(item)){
                 if(isCall(item.getNextItem())){
+                    // todo - can be simplified - just add expression to already existing name call (dont forget to still remove next)
                     MgLogicalNameCallExpression nameCallExpression = (MgLogicalNameCallExpression) item.get();
                     mergeLunary(
                         item,
-                        expression -> new MgLogicalFunctionCallExpression(
+                        expression -> new MgLogicalNameCallExpression(
                             nameCallExpression.getName(),
                             expression
                         )
@@ -172,9 +173,13 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         return item.get() instanceof MgLogicalGroupCallExpression;
     }
 
-    private boolean isName(ListItem<MgLogicalExpression> item){
+    private boolean isPlainName(ListItem<MgLogicalExpression> item){
         if(item == null) return false;
-        return item.get() instanceof MgLogicalNameCallExpression;
+        if(item.get() instanceof MgLogicalNameCallExpression){
+            // todo - might be redundant, parametrized should not be created yet
+            return ((MgLogicalNameCallExpression) item.get()).getExpression() == null;
+        }
+        return false;
     }
 
     private boolean isCall(ListItem<MgLogicalExpression> item){
@@ -255,7 +260,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     private MgLogicalExpression prepareExpression(MgLogicalExpression logicalExpression){
         if(logicalExpression instanceof MgLogicalNameCallExpression){
-            return prepareNameExpression((MgLogicalNameCallExpression) logicalExpression);
+            return prepareOperatorExpression((MgLogicalNameCallExpression) logicalExpression);
         }
 
         if(logicalExpression instanceof MgLogicalOperatorExpression){
@@ -265,7 +270,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         return logicalExpression;
     }
 
-    private MgLogicalExpression prepareNameExpression(MgLogicalNameCallExpression expression){
+    private MgLogicalExpression prepareOperatorExpression(MgLogicalNameCallExpression expression){
         MgOperator operator = findOperator(expression.getName());
         if(operator != null){
             return new MgLogicalOperatorExpression(expression.getName(), operator);

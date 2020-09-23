@@ -18,7 +18,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConn
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
-public class UnaryOperatorExpressionFilter extends AbstractFilter<MgFunction> {
+public class UnaryOperatorExpressionFilter extends Filter<MgFunction> {
     @Mandatory @Value
     private final ReadableText name;
 

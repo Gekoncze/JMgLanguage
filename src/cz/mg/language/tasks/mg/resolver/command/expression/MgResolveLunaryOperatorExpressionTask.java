@@ -1,10 +1,9 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgLunaryOperatorExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgLunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.LunaryOperatorNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
@@ -34,7 +33,7 @@ public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperato
     }
 
     @Override
-    public MgExpression createExpression() {
+    public MgExpression onCreateExpression() {
         return new MgLunaryOperatorExpression(
             createChildExpression(),
             createReplications()

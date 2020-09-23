@@ -31,7 +31,6 @@ public abstract class Interface<InterfaceConnector extends Connector> {
 
     public void validate(){
         for(InterfaceConnector connector : connectors){
-            if(connector == null) throw new RuntimeException();
             connector.validate();
         }
     }

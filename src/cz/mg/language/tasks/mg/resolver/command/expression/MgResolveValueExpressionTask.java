@@ -1,17 +1,17 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
 import cz.mg.language.entities.mg.runtime.atoms.MgTextObject;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgValueExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgValueExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.ValueNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public class MgResolveValueExpressionTask extends MgResolveBasicExpressionTask {
+public class MgResolveValueExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalValueCallExpression logicalExpression;
 
@@ -44,7 +44,7 @@ public class MgResolveValueExpressionTask extends MgResolveBasicExpressionTask {
     }
 
     @Override
-    public MgExpression createExpression() {
+    public MgExpression onCreateExpression() {
         return new MgValueExpression(
             getNode().getValue(),
             getOutputInterface().getConnectors().getFirst().getConnection().getConnectionVariable()

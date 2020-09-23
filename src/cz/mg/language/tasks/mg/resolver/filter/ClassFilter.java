@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.tasks.mg.resolver.Context;
 
 
-public class ClassFilter<C extends MgComponent> extends AbstractFilter<C> {
+public class ClassFilter<C extends MgComponent> extends Filter<C> {
     @Value
     private final ReadableText name;
 

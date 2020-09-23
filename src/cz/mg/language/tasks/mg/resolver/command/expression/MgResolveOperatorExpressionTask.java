@@ -1,14 +1,13 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
-public abstract class MgResolveOperatorExpressionTask extends MgResolveBasicExpressionTask {
+public abstract class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
     public MgResolveOperatorExpressionTask(CommandContext context, MgResolveExpressionTask parent) {
         super(context, parent);
     }

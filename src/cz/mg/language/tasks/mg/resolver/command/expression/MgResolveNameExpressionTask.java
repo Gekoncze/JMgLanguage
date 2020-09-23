@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
@@ -9,9 +9,9 @@ import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgFunctionExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgLocalVariableExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgFunctionExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgLocalVariableExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.FunctionNode;
@@ -20,7 +20,7 @@ import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.NameExpressionFilter;
 
 
-public class MgResolveNameExpressionTask extends MgResolveMemberAccessibleExpressionTask {
+public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalNameCallExpression logicalExpression;
 
@@ -35,35 +35,52 @@ public class MgResolveNameExpressionTask extends MgResolveMemberAccessibleExpres
 
     @Override
     protected Node onResolveEnter() {
-        return null;
+        return createNode(createFilter().findOptional());
     }
 
     @Override
     protected void onResolveChildren() {
+        if(logicalExpression.getExpression() != null){
+            onResolveChild(logicalExpression.getExpression());
+        }
     }
 
     @Override
     protected Node onResolveLeave() {
-        NameExpressionFilter filter = new NameExpressionFilter(
+        return createNode(createFilter().find());
+    }
+
+    private NameExpressionFilter createFilter(){
+        return new NameExpressionFilter(
             context,
             logicalExpression.getName(),
             getParentInputInterface(),
             getChildrenOutputInterface()
         );
-        MgComponent component = filter.find();
+    }
+
+    private Node createNode(MgComponent component){
+        if(component == null){
+            return null;
+        }
+
         if(component instanceof MgLocalVariable){
             return new LocalVariableNode((MgLocalVariable) component);
-        } else if(component instanceof MgMemberVariable){
-            throw new LanguageException("Member variables are not accessible directly from function body.");
-        } else if(component instanceof MgFunction){
-            return new FunctionNode((MgFunction) component);
-        } {
-            throw new RuntimeException();
         }
+
+        if(component instanceof MgMemberVariable){
+            throw new LanguageException("Member variables are not accessible directly from function body.");
+        }
+
+        if(component instanceof MgFunction){
+            return new FunctionNode((MgFunction) component);
+        }
+
+        throw new RuntimeException();
     }
 
     @Override
-    public MgExpression createExpression() {
+    public MgExpression onCreateExpression() {
         if(getNode() instanceof LocalVariableNode){
             return new MgLocalVariableExpression(
                 ((LocalVariableNode) getNode()).getVariable()
@@ -73,8 +90,8 @@ public class MgResolveNameExpressionTask extends MgResolveMemberAccessibleExpres
         if(getNode() instanceof FunctionNode){
             return new MgFunctionExpression(
                 ((FunctionNode) getNode()).getFunction(),
-                null,
-                new List<>(),
+                createChildExpression(),
+                gatherInput(),
                 gatherOutput()
             );
         }
@@ -82,11 +99,24 @@ public class MgResolveNameExpressionTask extends MgResolveMemberAccessibleExpres
         throw new RuntimeException();
     }
 
-    public List<MgLocalVariable> gatherOutput(){
-        List<MgLocalVariable> offset = new List<>();
-        for(OutputConnector out : getOutputInterface().getConnectors()){
-            offset.addLast(out.getConnection().getConnectionVariable());
+    private MgExpression createChildExpression(){
+        if(getChildren().count() < 1) return null;
+        return getChildren().getFirst().onCreateExpression();
+    }
+
+    private List<MgLocalVariable> gatherInput(){
+        List<MgLocalVariable> input = new List<>();
+        for(InputConnector in : getInputInterface().getConnectors()){
+            input.addLast(in.getConnection().getConnectionVariable());
         }
-        return offset;
+        return input;
+    }
+
+    private List<MgLocalVariable> gatherOutput(){
+        List<MgLocalVariable> output = new List<>();
+        for(OutputConnector out : getOutputInterface().getConnectors()){
+            output.addLast(out.getConnection().getConnectionVariable());
+        }
+        return output;
     }
 }

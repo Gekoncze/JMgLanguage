@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
@@ -10,9 +10,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgBasicExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgUnaryOperatorExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgUnaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -65,8 +63,8 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
         return functions;
     }
 
-    protected MgBasicExpression createChildExpression(){
-        return asBasicExpression(getChildren().getFirst().createExpression());
+    protected MgExpression createChildExpression(){
+        return getChildren().getFirst().onCreateExpression();
     }
 
     protected List<MgUnaryOperatorExpression.Replication> createReplications(){

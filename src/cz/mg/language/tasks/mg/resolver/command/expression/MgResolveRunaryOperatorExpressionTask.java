@@ -1,10 +1,9 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.basic;
+package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.basic.MgRunaryOperatorExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgRunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.RunaryOperatorNode;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
@@ -39,7 +38,7 @@ public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperato
     }
 
     @Override
-    public MgExpression createExpression() {
+    public MgExpression onCreateExpression() {
         return new MgRunaryOperatorExpression(
             createChildExpression(),
             createReplications()

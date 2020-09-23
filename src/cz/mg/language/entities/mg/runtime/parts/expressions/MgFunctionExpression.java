@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.parts.expressions.basic;
+package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Link;
@@ -8,15 +8,14 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
-public class MgFunctionExpression extends MgBasicExpression {
+public class MgFunctionExpression extends MgExpression {
     @Mandatory @Part
     private final MgFunction function;
 
     @Optional @Part
-    private final MgBasicExpression expression;
+    private final MgExpression expression;
 
     @Mandatory @Link
     private final List<MgLocalVariable> input;
@@ -26,7 +25,7 @@ public class MgFunctionExpression extends MgBasicExpression {
 
     public MgFunctionExpression(
         MgFunction function,
-        MgBasicExpression expression,
+        MgExpression expression,
         List<MgLocalVariable> input,
         List<MgLocalVariable> output
     ) {
@@ -40,7 +39,7 @@ public class MgFunctionExpression extends MgBasicExpression {
         return function;
     }
 
-    public MgExpression getExpression() {
+    public cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression getExpression() {
         return expression;
     }
 

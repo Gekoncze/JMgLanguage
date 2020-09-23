@@ -4,20 +4,21 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.tasks.mg.resolver.Context;
 
 
-public abstract class AbstractFilter<C extends MgComponent> {
+public abstract class Filter<C extends MgComponent> {
     @Optional @Link
     private final Context context;
 
-    public AbstractFilter(Context context) {
+    public Filter(@Optional Context context) {
         this.context = context;
     }
 
-    public C find(){
+    public @Mandatory C find(){
         ReadableList<C> components = findAll();
         if(components.count() <= 0){
             throw new LanguageException(notFoundMessage());
@@ -28,7 +29,7 @@ public abstract class AbstractFilter<C extends MgComponent> {
         }
     }
 
-    public C findOptional(){
+    public @Optional C findOptional(){
         ReadableList<C> components = findAll();
         if(components.count() <= 0){
             return null;
@@ -39,7 +40,7 @@ public abstract class AbstractFilter<C extends MgComponent> {
         }
     }
 
-    public ReadableList<C> findAll(){
+    public @Mandatory ReadableList<C> findAll(){
         List<C> components = new List<>();
         Context currentContext = context;
         while(currentContext != null){
@@ -53,9 +54,9 @@ public abstract class AbstractFilter<C extends MgComponent> {
         return components;
     }
 
-    protected abstract boolean filter(MgComponent component);
+    protected abstract boolean filter(@Mandatory MgComponent component);
 
-    protected abstract String notFoundMessage();
+    protected abstract @Mandatory String notFoundMessage();
 
-    protected abstract String ambiguousMessage();
+    protected abstract @Mandatory String ambiguousMessage();
 }

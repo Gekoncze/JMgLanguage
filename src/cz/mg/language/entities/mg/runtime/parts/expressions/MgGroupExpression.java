@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.parts.expressions.basic;
+package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.entity.Part;
@@ -6,17 +6,17 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 
 
-public class MgGroupExpression extends MgBasicExpression {
+public class MgGroupExpression extends MgExpression {
     @Mandatory @Part
-    private final List<MgBasicExpression> expressions;
+    private final List<MgExpression> expressions;
 
-    public MgGroupExpression(List<MgBasicExpression> expressions) {
+    public MgGroupExpression(List<MgExpression> expressions) {
         this.expressions = expressions;
     }
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        for(MgBasicExpression expression : expressions){
+        for(MgExpression expression : expressions){
             expression.run(functionObject);
         }
     }
