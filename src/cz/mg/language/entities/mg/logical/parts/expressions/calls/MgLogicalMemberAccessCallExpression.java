@@ -11,9 +11,9 @@ public class MgLogicalMemberAccessCallExpression extends MgLogicalCallExpression
     @Mandatory @Part
     private final MgLogicalNameCallExpression right;
 
-    public MgLogicalMemberAccessCallExpression(MgLogicalCallExpression left, MgLogicalCallExpression right) {
+    public MgLogicalMemberAccessCallExpression(MgLogicalCallExpression left, MgLogicalNameCallExpression right) {
         this.left = left;
-        this.right = (MgLogicalNameCallExpression) right; // todo
+        this.right = right;
     }
 
     public MgLogicalCallExpression getLeft() {

@@ -1,9 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-changed context for resolver to use for each instead of read
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 reimplement command resolvers
+    commands need to have special expression resolver which will provide node with expected datatype
 
 literal values
     always return text

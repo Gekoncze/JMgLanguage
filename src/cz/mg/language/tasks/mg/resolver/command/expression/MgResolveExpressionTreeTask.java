@@ -93,7 +93,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
             item = item.getNextItem()
         ){
             if(isDot(item)){
-                mergeBinary(item, MgLogicalMemberAccessCallExpression::new);
+                mergeBinary(item, MgResolveExpressionTreeTask::createMemberAccessCallExpression);
             }
         }
     }
@@ -301,5 +301,12 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         } else {
             return logicalExpression;
         }
+    }
+
+    private static MgLogicalMemberAccessCallExpression createMemberAccessCallExpression(
+        MgLogicalCallExpression left,
+        MgLogicalCallExpression right
+    ){
+        return new MgLogicalMemberAccessCallExpression(left, (MgLogicalNameCallExpression) right);
     }
 }
