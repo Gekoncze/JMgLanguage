@@ -1,13 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-removed log and subtask annotations
-also removed all unnecessary subtask fields
+removed collection annotations
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-remove subtask annotation
-    remove all subtask variables
-        except the ones which are needed
-
 reimplement command resolvers
     commands need to have special expression resolver which will provide node with expected datatype
 
