@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.components.types;
 
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.parts.MgParameter;
 
 

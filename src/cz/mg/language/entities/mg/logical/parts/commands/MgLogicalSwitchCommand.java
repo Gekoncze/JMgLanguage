@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 
 

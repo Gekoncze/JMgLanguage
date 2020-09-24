@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Value;
 
 
 public class MgLogicalBreakCommand extends MgLogicalCommand {

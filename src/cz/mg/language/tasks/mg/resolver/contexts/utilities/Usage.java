@@ -1,8 +1,8 @@
 package cz.mg.language.tasks.mg.resolver.contexts.utilities;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Link;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Link;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;

@@ -1,4 +1,4 @@
-package cz.mg.language.annotations.entity;
+package cz.mg.language.annotations.storage;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -2,8 +2,8 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;

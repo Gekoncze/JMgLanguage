@@ -2,7 +2,7 @@ package cz.mg.language.entities.c.logical.elements.statements.declarations;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Value;
 
 
 public class CStructureForwardDeclaration extends CForwardDeclaration implements Named {

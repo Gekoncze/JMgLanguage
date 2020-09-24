@@ -1,6 +1,6 @@
 package cz.mg.language.entities.mg.runtime.objects;
 
-import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.MgRuntimeEntity;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 

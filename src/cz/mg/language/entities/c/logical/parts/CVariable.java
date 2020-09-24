@@ -2,8 +2,8 @@ package cz.mg.language.entities.c.logical.parts;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.annotations.storage.Value;
 
 
 public class CVariable extends CPart implements Named {

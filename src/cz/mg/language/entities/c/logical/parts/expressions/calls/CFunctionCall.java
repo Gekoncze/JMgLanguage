@@ -2,8 +2,8 @@ package cz.mg.language.entities.c.logical.parts.expressions.calls;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Part;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.c.logical.parts.expressions.CExpression;
 
 

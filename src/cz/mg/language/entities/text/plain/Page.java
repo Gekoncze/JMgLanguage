@@ -3,7 +3,7 @@ package cz.mg.language.entities.text.plain;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.Text;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.text.TextEntity;
 
 

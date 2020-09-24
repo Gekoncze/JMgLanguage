@@ -1,7 +1,7 @@
 package cz.mg.language.entities.c.logical.parts;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 
 
 public class CFunctionType extends CPart {

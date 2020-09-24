@@ -7,16 +7,16 @@ import cz.mg.language.entities.text.TextEntity;
 
 
 public class Block implements TextEntity {
-    @Mandatory @cz.mg.language.annotations.entity.Part
+    @Mandatory @cz.mg.language.annotations.storage.Part
     private final List<ReadableText> stamps = new List<>();
 
-    @Mandatory @cz.mg.language.annotations.entity.Part
+    @Mandatory @cz.mg.language.annotations.storage.Part
     private final List<ReadableText> keywords = new List<>();
 
-    @Mandatory @cz.mg.language.annotations.entity.Part
+    @Mandatory @cz.mg.language.annotations.storage.Part
     private final List<Part> parts = new List<>();
 
-    @Mandatory @cz.mg.language.annotations.entity.Part
+    @Mandatory @cz.mg.language.annotations.storage.Part
     private final List<Block> blocks = new List<>();
 
     public Block() {

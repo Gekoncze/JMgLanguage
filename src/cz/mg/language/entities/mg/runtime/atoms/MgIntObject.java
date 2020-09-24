@@ -1,6 +1,6 @@
 package cz.mg.language.entities.mg.runtime.atoms;
 
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 

@@ -2,8 +2,8 @@ package cz.mg.language.tasks.mg.resolver.resolvers;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.map.Map;
-import cz.mg.language.annotations.entity.Link;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Link;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;

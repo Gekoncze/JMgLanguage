@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;

@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.logical.parts.expressions.calls.operator;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 

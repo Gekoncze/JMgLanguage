@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;

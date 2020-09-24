@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ArrayView;
 import cz.mg.collections.array.ReadableArray;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 
 

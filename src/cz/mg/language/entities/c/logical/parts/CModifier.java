@@ -3,7 +3,7 @@ package cz.mg.language.entities.c.logical.parts;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Value;
 
 
 public class CModifier extends CPart implements Named {

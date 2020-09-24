@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 

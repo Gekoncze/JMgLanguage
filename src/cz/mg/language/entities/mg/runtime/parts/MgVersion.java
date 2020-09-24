@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.parts;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Value;
 
 
 public class MgVersion extends MgPart {

@@ -4,13 +4,13 @@ import cz.mg.language.tasks.mg.builder.MgBuildTask;
 
 
 public abstract class Processor<S extends MgBuildTask, D extends MgBuildTask> {
-    @cz.mg.language.annotations.entity.Part
+    @cz.mg.language.annotations.storage.Part
     private final Class<S> sourceBuildTaskClass;
 
-    @cz.mg.language.annotations.entity.Part
+    @cz.mg.language.annotations.storage.Part
     private final Class<D> destinationBuildTaskClass;
 
-    @cz.mg.language.annotations.entity.Part
+    @cz.mg.language.annotations.storage.Part
     private final Setter<S, D> setter;
 
     public Processor(Class<S> sourceBuildTaskClass, Class<D> destinationBuildTaskClass, Setter<S, D> setter) {

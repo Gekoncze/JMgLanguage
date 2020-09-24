@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.entity.Part;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Input;

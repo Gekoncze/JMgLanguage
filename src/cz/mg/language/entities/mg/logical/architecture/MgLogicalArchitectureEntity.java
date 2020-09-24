@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.logical.architecture;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.logical.MgLogicalEntity;
 
 

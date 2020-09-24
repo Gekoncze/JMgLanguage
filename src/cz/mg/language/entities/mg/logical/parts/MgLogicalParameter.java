@@ -2,8 +2,8 @@ package cz.mg.language.entities.mg.logical.parts;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.Link;
-import cz.mg.language.annotations.entity.Value;
+import cz.mg.language.annotations.storage.Link;
+import cz.mg.language.annotations.storage.Value;
 
 
 public class MgLogicalParameter extends MgLogicalPart implements Named {
