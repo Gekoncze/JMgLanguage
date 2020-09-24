@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.resolver.filter;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
+import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
@@ -44,8 +45,8 @@ public abstract class Filter<C extends MgComponent> {
         List<C> components = new List<>();
         Context currentContext = context;
         while(currentContext != null){
-            currentContext.forEachComponent((component) -> {
-                if(filter(component)){
+            currentContext.forEachComponent((component, alias) -> {
+                if(filter(component, alias)){
                     components.addLast((C) component);
                 }
             });
@@ -54,7 +55,7 @@ public abstract class Filter<C extends MgComponent> {
         return components;
     }
 
-    protected abstract boolean filter(@Mandatory MgComponent component);
+    protected abstract boolean filter(@Mandatory MgComponent component, ReadableText alias);
 
     protected abstract @Mandatory String notFoundMessage();
 

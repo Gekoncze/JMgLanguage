@@ -51,7 +51,7 @@ public class CommandContext extends Context {
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
         for(MgComponent variable : command.getDeclaredVariables()){
-            visitor.onVisitComponent(variable);
+            visitor.onVisitComponent(variable, null);
         }
     }
 }

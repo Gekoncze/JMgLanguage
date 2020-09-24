@@ -1,5 +1,6 @@
 package cz.mg.language.tasks.mg.resolver;
 
+import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
@@ -20,6 +21,6 @@ public abstract class Context {
     public abstract void forEachComponent(ComponentVisitor visitor);
 
     public interface ComponentVisitor {
-        void onVisitComponent(MgComponent component);
+        void onVisitComponent(MgComponent component, ReadableText alias);
     }
 }

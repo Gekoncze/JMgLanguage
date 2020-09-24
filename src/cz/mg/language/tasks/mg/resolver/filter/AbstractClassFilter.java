@@ -23,13 +23,21 @@ public abstract class AbstractClassFilter<C extends MgComponent> extends Filter<
     }
 
     @Override
-    protected boolean filter(MgComponent component) {
+    protected boolean filter(MgComponent component, ReadableText alias) {
         for(Class<? extends C> clazz : classes){
             if(clazz.isInstance(component)){
                 if(name == null){
                     return true;
-                } else if(name.equals(component)){
-                    return true;
+                } else {
+                    if(alias == null){
+                        if(name.equals(component.getName())){
+                            return true;
+                        }
+                    } else {
+                        if(name.equals(alias)){
+                            return true;
+                        }
+                    }
                 }
             }
         }

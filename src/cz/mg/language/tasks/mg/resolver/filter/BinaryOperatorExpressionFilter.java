@@ -51,7 +51,7 @@ public class BinaryOperatorExpressionFilter extends Filter<MgFunction> {
     }
 
     @Override
-    protected boolean filter(MgComponent component) {
+    protected boolean filter(MgComponent component, ReadableText alias) {
         if(component instanceof MgFunction){
             MgFunction function = (MgFunction) component;
             if(function.getOperator() != null){

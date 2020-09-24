@@ -49,8 +49,8 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
     }
 
     @Override
-    protected boolean filter(MgComponent component) {
-        if(super.filter(component)){
+    protected boolean filter(MgComponent component, ReadableText alias) {
+        if(super.filter(component, alias)){
             if(component instanceof MgFunction){
                 return filterFunction((MgFunction) component);
             }

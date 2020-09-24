@@ -1,22 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-major changes in (mainly component) resolvers
-simplified resolvers architecture - using less reflection, was confusing
-resolved problems with contexts partially
-simplified Task class a bit
+fixed aliasing for context and filters
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-problem with contexts
-    aliases are not handled correctly
-    components are imported with their real names
-    but in code we try to refer to them using an alias
-    this way we will not find aliases
-    there has to be some special kind of alias handling mechanism for names
-    I think that context for each component has to have name as mandatory
-    and all components must have name anyway
-    operators should not allow aliases
-    after this is resolved, we should be able to handle also to-do in collection context
-
 while onto resolving problems with contexts, take a look at:
     take into account access modifiers during resolve
     add support for aliases in usages if not already

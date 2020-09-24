@@ -33,15 +33,15 @@ public class CollectionContext extends ComponentContext {
     public void forEachComponent(ComponentVisitor visitor) {
         if(collection != null){
             for(MgComponent variable : collection.getVariables()){
-                visitor.onVisitComponent(variable);
+                visitor.onVisitComponent(variable, null);
             }
 
             for(MgComponent function : collection.getFunctions()){
-                visitor.onVisitComponent(function);
+                visitor.onVisitComponent(function, null);
             }
 
             for(MgParameter parameter : collection.getParameters()){
-                //visitor.onVisitComponent(parameter); // todo
+                visitor.onVisitComponent(parameter.getType(), parameter.getName());
             }
         }
     }

@@ -31,11 +31,11 @@ public class ClassContext extends ComponentContext {
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
         for(MgComponent component : clazz.getVariables()){
-            visitor.onVisitComponent(component);
+            visitor.onVisitComponent(component, null);
         }
 
         for(MgComponent component : clazz.getFunctions()){
-            visitor.onVisitComponent(component);
+            visitor.onVisitComponent(component, null);
         }
     }
 }

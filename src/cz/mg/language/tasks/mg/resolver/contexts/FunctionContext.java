@@ -54,15 +54,15 @@ public class FunctionContext extends ComponentContext {
     public void forEachComponent(ComponentVisitor visitor) {
         if(function != null){
             for(MgComponent component : function.getInput()){
-                visitor.onVisitComponent(component);
+                visitor.onVisitComponent(component, null);
             }
 
             for(MgComponent component : function.getOutput()){
-                visitor.onVisitComponent(component);
+                visitor.onVisitComponent(component, null);
             }
 
             for(MgComponent component : function.getLocal()){
-                visitor.onVisitComponent(component);
+                visitor.onVisitComponent(component, null);
             }
         }
     }

@@ -59,13 +59,13 @@ public class NameExpressionFilter extends AbstractClassFilter<MgComponent> {
     }
 
     @Override
-    protected boolean filter(MgComponent component) {
-        if(super.filter(component)){
-            if(variableExpressionFilter.filter(component)){
+    protected boolean filter(MgComponent component, ReadableText alias) {
+        if(super.filter(component, alias)){
+            if(variableExpressionFilter.filter(component, alias)){
                 return true;
             }
 
-            if(functionExpressionFilter.filter(component)){
+            if(functionExpressionFilter.filter(component, alias)){
                 return true;
             }
         }
