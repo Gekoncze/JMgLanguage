@@ -4,6 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.entities.text.structured.parts.leaves.Operator;
 import cz.mg.language.entities.text.structured.parts.leaves.names.ObjectName;
@@ -29,29 +30,32 @@ public class MgBuildDeclarationTask extends MgBuildPartTask {
         Operator operator = get(Operator.class, 1);
         ObjectName objectName = get(ObjectName.class, 2);
 
-        MgLogicalVariable.Storage storage;
-        MgLogicalVariable.Requirement requirement;
+        MgLogicalDatatype.Storage storage;
+        MgLogicalDatatype.Requirement requirement;
         switch (operator.getText().toString()){
             case "&":
-                storage = MgLogicalVariable.Storage.INDIRECT;
-                requirement = MgLogicalVariable.Requirement.MANDATORY;
+                storage = MgLogicalDatatype.Storage.INDIRECT;
+                requirement = MgLogicalDatatype.Requirement.MANDATORY;
                 break;
             case "&?":
-                storage = MgLogicalVariable.Storage.INDIRECT;
-                requirement = MgLogicalVariable.Requirement.OPTIONAL;
+                storage = MgLogicalDatatype.Storage.INDIRECT;
+                requirement = MgLogicalDatatype.Requirement.OPTIONAL;
                 break;
             case "$":
-                storage = MgLogicalVariable.Storage.DIRECT;
-                requirement = MgLogicalVariable.Requirement.MANDATORY;
+                storage = MgLogicalDatatype.Storage.DIRECT;
+                requirement = MgLogicalDatatype.Requirement.MANDATORY;
                 break;
             case "$?":
-                storage = MgLogicalVariable.Storage.DIRECT;
-                requirement = MgLogicalVariable.Requirement.OPTIONAL;
+                storage = MgLogicalDatatype.Storage.DIRECT;
+                requirement = MgLogicalDatatype.Requirement.OPTIONAL;
                 break;
             default:
                 throw new LanguageException("Expected '&', '&?', '$', '$?'. Got '" + operator.getText() + "'.");
         }
 
-        variable = new MgLogicalVariable(objectName.getText(), typeName.getText(), storage, requirement);
+        variable = new MgLogicalVariable(
+            objectName.getText(),
+            new MgLogicalDatatype(typeName.getText(), storage, requirement)
+        );
     }
 }

@@ -1,14 +1,11 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
+major changes in (mainly component) resolvers
+simplified resolvers architecture - using less reflection, was confusing
+resolved problems with contexts partially
+simplified Task class a bit
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-another problem with contexts
-    I think that when creting class resolver for example, there is missing a root context - cerify
-    it seems that root context is unused anyway, search if it could be created indirectly somehow
-    this is related to the problem with contexts aliases below
-    actually, I think that this is handled by component context, which should be created in the abstract task
-    so only root context creation is missing somewhere?
-
 problem with contexts
     aliases are not handled correctly
     components are imported with their real names
@@ -28,6 +25,12 @@ while onto resolving problems with contexts, take a look at:
 
 reimplement command resolvers
     commands need to have special expression resolver which will provide node with expected datatype
+
+remove subtask annotation
+    remove all subtask variables
+        except the ones which are needed
+
+global variable object resolution
 
 literal values
     always return text

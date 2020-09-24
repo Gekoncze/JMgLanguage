@@ -5,20 +5,19 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Store;
-import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
+import cz.mg.language.tasks.mg.resolver.filter.StampFilter;
 import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 
 
-public class MgResolveComponentStampTask extends MgResolveTask<MgStamp> {
+public class MgResolveComponentStampTask extends MgResolveTask {
     @Input
     private final ReadableText logicalStamp;
 
     @Output
     private MgStamp stamp;
 
-    public MgResolveComponentStampTask(Store<MgStamp> store, Context context, ReadableText logicalStamp) {
-        super(store, context);
+    public MgResolveComponentStampTask(Context context, ReadableText logicalStamp) {
+        super(context);
         this.logicalStamp = logicalStamp;
     }
 
@@ -27,7 +26,7 @@ public class MgResolveComponentStampTask extends MgResolveTask<MgStamp> {
     }
 
     @Override
-    protected MgStamp onResolve() {
-        return stamp = new ClassFilter<>(getContext(), logicalStamp, MgStamp.class).find();
+    protected void onRun() {
+        stamp = new StampFilter(getContext(), logicalStamp).find();
     }
 }

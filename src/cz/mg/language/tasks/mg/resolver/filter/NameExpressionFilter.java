@@ -13,7 +13,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInter
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
-public class NameExpressionFilter extends ClassFilter<MgComponent> {
+public class NameExpressionFilter extends AbstractClassFilter<MgComponent> {
     @Mandatory @Part
     private final VariableExpressionFilter variableExpressionFilter;
 

@@ -7,12 +7,17 @@ import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 import cz.mg.language.tasks.mg.resolver.Context;
 
 
-public class ClassContext extends Context {
+public class ClassContext extends ComponentContext {
     @Optional @Link
     private MgClass clazz;
 
     public ClassContext(@Optional Context outerContext) {
         super(outerContext);
+    }
+
+    @Override
+    public MgComponent getComponent() {
+        return clazz;
     }
 
     public MgClass getClazz() {

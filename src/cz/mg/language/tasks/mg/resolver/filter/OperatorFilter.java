@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.Context;
 
 
-public class OperatorFilter extends ClassFilter<MgFunction> {
+public class OperatorFilter extends AbstractClassFilter<MgFunction> {
     public OperatorFilter(Context context) {
         super(context, null, MgFunction.class);
     }

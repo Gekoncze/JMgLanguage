@@ -1,13 +1,11 @@
 package cz.mg.language.entities.mg.runtime.components;
 
-import cz.mg.collections.array.ReadableArray;
+import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.entity.CollectionPart;
-import cz.mg.language.annotations.entity.ItemsLink;
+import cz.mg.language.annotations.entity.Link;
+import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.entity.Value;
-import cz.mg.language.annotations.requirement.CollectionMandatory;
-import cz.mg.language.annotations.requirement.ItemsMandatory;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
@@ -17,9 +15,8 @@ public abstract class MgComponent extends MgObject implements Named {
     @Mandatory @Value
     private final ReadableText name;
 
-    @CollectionMandatory @CollectionPart
-    @ItemsMandatory @ItemsLink
-    private ReadableArray<MgStamp> stamps;
+    @Mandatory @Part
+    private ArrayList<@Link MgStamp> stamps = new ArrayList<>();
 
     public MgComponent(MgType type, ReadableText name) {
         super(type);
@@ -31,11 +28,7 @@ public abstract class MgComponent extends MgObject implements Named {
         return name;
     }
 
-    public ReadableArray<MgStamp> getStamps() {
+    public ArrayList<MgStamp> getStamps() {
         return stamps;
-    }
-
-    public void setStamps(ReadableArray<MgStamp> stamps) {
-        this.stamps = stamps;
     }
 }

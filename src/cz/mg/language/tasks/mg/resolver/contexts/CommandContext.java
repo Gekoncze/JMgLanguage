@@ -7,6 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.VariableHelper;
+import cz.mg.language.tasks.mg.resolver.contexts.utilities.OperatorCache;
 
 
 public class CommandContext extends Context {

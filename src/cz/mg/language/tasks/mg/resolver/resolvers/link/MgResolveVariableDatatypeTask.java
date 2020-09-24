@@ -2,25 +2,25 @@ package cz.mg.language.tasks.mg.resolver.resolvers.link;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Store;
-import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
+import cz.mg.language.tasks.mg.resolver.filter.AbstractClassFilter;
+import cz.mg.language.tasks.mg.resolver.filter.TypeFilter;
 import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 
 
-public class MgResolveVariableDatatypeTask extends MgResolveTask<MgDatatype> {
+public class MgResolveVariableDatatypeTask extends MgResolveTask {
     @Input
-    private final MgLogicalVariable logicalVariable;
+    private final MgLogicalDatatype logicalDatatype;
 
     @Output
     private MgDatatype datatype;
 
-    public MgResolveVariableDatatypeTask(Store<MgDatatype> store, Context context, MgLogicalVariable logicalVariable) {
-        super(store, context);
-        this.logicalVariable = logicalVariable;
+    public MgResolveVariableDatatypeTask(Context context, MgLogicalDatatype logicalDatatype) {
+        super(context);
+        this.logicalDatatype = logicalDatatype;
     }
 
     public MgDatatype getDatatype() {
@@ -28,13 +28,12 @@ public class MgResolveVariableDatatypeTask extends MgResolveTask<MgDatatype> {
     }
 
     @Override
-    protected MgDatatype onResolve() {
-        ClassFilter<MgType> filter = new ClassFilter<>(getContext(), logicalVariable.getType(), MgType.class);
+    protected void onRun() {
+        AbstractClassFilter<MgType> filter = new TypeFilter(getContext(), logicalDatatype.getName());
         this.datatype = new MgDatatype(
             filter.find(),
-            MgDatatype.Storage.valueOf(logicalVariable.getStorage().name()),
-            MgDatatype.Requirement.valueOf(logicalVariable.getRequirement().name())
+            MgDatatype.Storage.valueOf(logicalDatatype.getStorage().name()),
+            MgDatatype.Requirement.valueOf(logicalDatatype.getRequirement().name())
         );
-        return datatype;
     }
 }

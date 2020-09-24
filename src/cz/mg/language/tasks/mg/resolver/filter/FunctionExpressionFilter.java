@@ -16,7 +16,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConn
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
-public class FunctionExpressionFilter extends ClassFilter<MgFunction> {
+public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
     @Optional @Link
     private final ReadableArray<InputConnector> parentInputInterface;
 

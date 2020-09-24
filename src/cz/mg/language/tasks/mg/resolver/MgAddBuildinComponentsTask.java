@@ -5,9 +5,10 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
 import cz.mg.language.entities.mg.runtime.atoms.MgFloatObject;
 import cz.mg.language.entities.mg.runtime.atoms.MgIntObject;
-import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
+import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
@@ -22,28 +23,46 @@ public class MgAddBuildinComponentsTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
-        MgLocation cz = new MgLocation(new ReadonlyText("cz"));
-        MgLocation mg = new MgLocation(new ReadonlyText("mg"));
-        MgLocation types = new MgLocation(new ReadonlyText("types"));
-        MgLocation stamps = new MgLocation(new ReadonlyText("stamps"));
-        cz.getObjects().addLast(mg);
-        mg.getObjects().addLast(types);
-        mg.getObjects().addLast(stamps);
-        root.getObjects().addLast(cz);
+        MgLocation mg = open(root, "cz", "mg");
+        MgLocation types = open(root, "cz", "mg", "types");
+        MgLocation stamps = open(root, "cz", "mg", "stamps");
 
-        MgDatatype nullDatatype = new MgDatatype(MgObject.TYPE, MgDatatype.Storage.INDIRECT, MgDatatype.Requirement.OPTIONAL);
-        mg.getObjects().addLast(new MgGlobalVariable(new ReadonlyText("null"), nullDatatype, null));
+        MgDatatype voidDatatype = new MgDatatype(MgObject.TYPE, MgDatatype.Storage.INDIRECT, MgDatatype.Requirement.OPTIONAL);
+        MgGlobalVariable voidVariable = new MgGlobalVariable(new ReadonlyText("void"), voidDatatype, null);
+        mg.getComponents().addLast(voidVariable);
 
-        types.getObjects().addLast(MgBoolObject.TYPE);
-        types.getObjects().addLast(MgIntObject.TYPE);
-        types.getObjects().addLast(MgFloatObject.TYPE);
+        types.getComponents().addLast(MgBoolObject.TYPE);
+        types.getComponents().addLast(MgIntObject.TYPE);
+        types.getComponents().addLast(MgFloatObject.TYPE);
 
-        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("public")));
-        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("private")));
+        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("public")));
+        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("private")));
 
-        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("value")));
-        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("part")));
-        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("shared")));
-        stamps.getObjects().addLast(new MgStamp(new ReadonlyText("link")));
+        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("value")));
+        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("part")));
+        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("shared")));
+        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("link")));
+    }
+
+    private static MgLocation open(MgLocation root, String... path){
+        MgLocation cwd = root;
+        for(String name : path){
+            cwd = open(cwd, name);
+        }
+        return cwd;
+    }
+
+    private static MgLocation open(MgLocation parent, String name){
+        for(MgComponent component : parent.getComponents()){
+            if(component instanceof MgLocation){
+                MgLocation location = (MgLocation) component;
+                if(location.getName().toString().equals(name)){
+                    return location;
+                }
+            }
+        }
+        MgLocation newLocation = new MgLocation(new ReadonlyText(name));
+        parent.getComponents().addLast(newLocation);
+        return newLocation;
     }
 }

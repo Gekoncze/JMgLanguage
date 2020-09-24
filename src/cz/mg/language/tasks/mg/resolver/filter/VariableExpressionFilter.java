@@ -16,7 +16,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConn
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
-public class VariableExpressionFilter extends ClassFilter<MgVariable> {
+public class VariableExpressionFilter extends AbstractClassFilter<MgVariable> {
     @Optional @Link
     private final ReadableArray<InputConnector> parentInputInterface;
 

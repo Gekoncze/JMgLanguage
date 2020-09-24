@@ -7,28 +7,31 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 
 
-public class MgResolveClassInheritanceTask extends MgResolveTask<MgClass> {
+public class MgResolveBaseClassesTask extends MgResolveTask {
     @Input
     private final List<ReadableText> logicalClasses;
 
     @Output
-    private MgClass clazz;
+    private MgClass baseClass;
 
-    public MgResolveClassInheritanceTask(Store<MgClass> store, Context context, List<ReadableText> logicalClasses) {
-        super(store, context);
-        this.logicalClasses = logicalClasses;
+    public MgResolveBaseClassesTask(Context context, List<ReadableText> logicalBaseClasses) {
+        super(context);
+        this.logicalClasses = logicalBaseClasses;
+    }
+
+    public MgClass getBaseClass() {
+        return baseClass;
     }
 
     @Override
-    protected MgClass onResolve() {
-        if(logicalClasses.count() < 1) return null;
-        if(logicalClasses.count() > 1) throw new LanguageException("Multiple inheritance is not supported.");
+    protected void onRun() {
+        if(logicalClasses.count() < 1) return;
+        if(logicalClasses.count() > 1) throw new LanguageException("Multiple inheritance is not supported (yet?).");
         ReadableText logicalClass = logicalClasses.getFirst();
-        return clazz = new ClassFilter<>(getContext(), logicalClass, MgClass.class).find();
+        baseClass = new ClassFilter(getContext(), logicalClass).find();
     }
 }

@@ -5,37 +5,43 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Store;
+import cz.mg.language.tasks.mg.resolver.contexts.ComponentContext;
+import cz.mg.language.tasks.mg.resolver.contexts.GlobalVariableContext;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveVariableDatatypeTask;
 
 
-public class MgResolveGlobalVariableDefinitionTask extends MgResolveComponentDefinitionTask<MgGlobalVariable> {
+public class MgResolveGlobalVariableDefinitionTask extends MgResolveComponentDefinitionTask {
     @Input
     private final MgLogicalVariable logicalVariable;
 
     @Output
     private MgGlobalVariable variable;
 
-    public MgResolveGlobalVariableDefinitionTask(Store<MgGlobalVariable> store, Context context, MgLogicalVariable logicalVariable) {
-        super(store, context, logicalVariable);
+    public MgResolveGlobalVariableDefinitionTask(Context context, MgLogicalVariable logicalVariable) {
+        super(new GlobalVariableContext(context), logicalVariable);
         this.logicalVariable = logicalVariable;
     }
 
     @Override
-    public MgGlobalVariable getOutput() {
+    protected GlobalVariableContext getContext() {
+        return (GlobalVariableContext) super.getContext();
+    }
+
+    public MgGlobalVariable getVariable() {
         return variable;
     }
 
     @Override
-    protected MgGlobalVariable onResolveComponent() {
-        this.variable = new MgGlobalVariable(logicalVariable.getName());
+    protected void onResolveComponent() {
+        variable = new MgGlobalVariable(logicalVariable.getName());
+        getContext().setGlobalVariable(variable);
 
-        createAndPostpone(
-            MgResolveVariableDatatypeTask.class,
-            logicalVariable,
-            datatype -> variable.setDatatype(datatype)
-        );
+        postpone(MgResolveVariableDatatypeTask.class, () -> {
+            MgResolveVariableDatatypeTask task = new MgResolveVariableDatatypeTask(getContext(), logicalVariable.getDatatype());
+            task.run();
+            variable.setDatatype(task.getDatatype());
+        });
 
-        return variable;
+        // todo - resolve object ?
     }
 }

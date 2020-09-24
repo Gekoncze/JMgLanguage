@@ -10,34 +10,46 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.tasks.mg.resolver.contexts.ApplicationContext;
+import cz.mg.language.tasks.mg.resolver.contexts.utilities.Usage;
+import cz.mg.language.tasks.mg.resolver.resolvers.MgResolveTask;
 
 
-public class MgResolveUsageTask extends MgResolverTask {
+public class MgResolveUsageTask extends MgResolveTask {
     @Input
-    private final MgLogicalUsage usage;
-
-    @Input
-    private final MgLocation location;
+    private final MgLogicalUsage logicalUsage;
 
     @Output
-    private MgComponent component;
+    private Usage usage;
 
-    public MgResolveUsageTask(MgLogicalUsage usage, MgLocation location) {
-        this.usage = usage;
-        this.location = location;
+    public MgResolveUsageTask(Context context, MgLogicalUsage logicalUsage) {
+        super(context);
+        this.logicalUsage = logicalUsage;
     }
 
-    public MgComponent getComponent() {
-        return component;
+    public Usage getUsage() {
+        return usage;
+    }
+
+    private ApplicationContext getApplicationContext(){
+        Context context = getContext();
+        while(context != null){
+            if(context instanceof ApplicationContext){
+                return (ApplicationContext) context;
+            }
+            context = context.getOuterContext();
+        }
+        throw new RuntimeException("Missing application context for usage resolution.");
     }
 
     @Override
     protected void onRun() {
-        MgLocation currentLocation = location;
-        for(ListItem<ReadableText> nameItem = usage.getPath().getFirstItem(); nameItem != null; nameItem = nameItem.getNextItem()){
+        MgComponent component = null;
+        MgLocation currentLocation = getApplicationContext().getApplication().getRoot();
+        for(ListItem<ReadableText> nameItem = logicalUsage.getPath().getFirstItem(); nameItem != null; nameItem = nameItem.getNextItem()){
             ReadableText name = nameItem.get();
             MgComponent currentComponent = find(currentLocation, name);
-            if(nameItem == usage.getPath().getLastItem()){
+            if(nameItem == logicalUsage.getPath().getLastItem()){
                 component = currentComponent;
             } else {
                 if(currentComponent instanceof MgLocation){
@@ -48,9 +60,8 @@ public class MgResolveUsageTask extends MgResolverTask {
             }
         }
 
-        if(component == null){
-            throw new LanguageException(notFoundMessage());
-        }
+        if(component == null) throw new LanguageException(notFoundMessage());
+        usage = new Usage(component, logicalUsage.getAlias());
     }
 
     private MgComponent find(MgLocation location, ReadableText name){
@@ -66,7 +77,7 @@ public class MgResolveUsageTask extends MgResolverTask {
 
     private List<MgComponent> findAll(MgLocation location, ReadableText name){
         List<MgComponent> results = new List<>();
-        for(MgObject object : location.getObjects()){
+        for(MgObject object : location.getComponents()){
             if(object instanceof MgComponent){
                 MgComponent component = (MgComponent) object;
                 if(component.getName().equals(name)){
@@ -86,6 +97,6 @@ public class MgResolveUsageTask extends MgResolverTask {
     }
 
     private String usageMessage(){
-        return "'" + usage.getPath().toText(".") + "'";
+        return "'" + logicalUsage.getPath().toText(".") + "'";
     }
 }

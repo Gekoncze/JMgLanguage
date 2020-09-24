@@ -8,9 +8,10 @@ import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.VariableHelper;
+import cz.mg.language.tasks.mg.resolver.contexts.utilities.OperatorCache;
 
 
-public class FunctionContext extends Context {
+public class FunctionContext extends ComponentContext {
     @Optional @Link
     private MgFunction function;
 
@@ -22,6 +23,11 @@ public class FunctionContext extends Context {
 
     public FunctionContext(@Optional Context outerContext) {
         super(outerContext);
+    }
+
+    @Override
+    public MgComponent getComponent() {
+        return function;
     }
 
     public MgFunction getFunction() {

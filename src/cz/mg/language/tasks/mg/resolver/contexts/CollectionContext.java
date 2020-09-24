@@ -1,22 +1,24 @@
 package cz.mg.language.tasks.mg.resolver.contexts;
 
-import cz.mg.collections.array.Array;
-import cz.mg.collections.special.CompositeCollection;
 import cz.mg.language.annotations.entity.Link;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgCollection;
 import cz.mg.language.entities.mg.runtime.parts.MgParameter;
 import cz.mg.language.tasks.mg.resolver.Context;
 
 
-public class CollectionContext extends Context {
+public class CollectionContext extends ComponentContext {
     @Optional @Link
     private MgCollection collection;
 
     public CollectionContext(Context outerContext) {
         super(outerContext);
+    }
+
+    @Override
+    public MgComponent getComponent() {
+        return collection;
     }
 
     public MgCollection getCollection() {

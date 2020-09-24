@@ -5,28 +5,33 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalStamp;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Store;
+import cz.mg.language.tasks.mg.resolver.contexts.StampContext;
 
 
-public class MgResolveStampDefinitionTask extends MgResolveComponentDefinitionTask<MgStamp> {
+public class MgResolveStampDefinitionTask extends MgResolveComponentDefinitionTask {
     @Input
     private final MgLogicalStamp logicalStamp;
 
     @Output
     private MgStamp stamp;
 
-    public MgResolveStampDefinitionTask(Store<MgStamp> store, Context context, MgLogicalStamp logicalStamp) {
-        super(store, context, logicalStamp);
+    public MgResolveStampDefinitionTask(Context context, MgLogicalStamp logicalStamp) {
+        super(new StampContext(context), logicalStamp);
         this.logicalStamp = logicalStamp;
     }
 
     @Override
-    public MgStamp getOutput() {
+    protected StampContext getContext() {
+        return (StampContext) super.getContext();
+    }
+
+    public MgStamp getStamp() {
         return stamp;
     }
 
     @Override
-    protected MgStamp onResolveComponent() {
-        return this.stamp = new MgStamp(logicalStamp.getName());
+    protected void onResolveComponent() {
+        stamp = new MgStamp(logicalStamp.getName());
+        getContext().setStamp(stamp);
     }
 }

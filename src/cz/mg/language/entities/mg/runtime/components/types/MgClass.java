@@ -17,13 +17,13 @@ public class MgClass extends MgType {
     private MgClass baseClass;
 
     @Mandatory @Part
+    private ArrayList<MgGlobalVariable> globalVariables;
+
+    @Mandatory @Part
     private ArrayList<MgMemberVariable> variables;
 
     @Mandatory @Part
     private ArrayList<MgFunction> functions;
-
-    @Mandatory @Part
-    private ArrayList<MgGlobalVariable> globalVariables;
 
     protected MgClass(MgType type, ReadableText name) {
         super(type, name);
@@ -37,16 +37,16 @@ public class MgClass extends MgType {
         return baseClass;
     }
 
+    public ArrayList<MgGlobalVariable> getGlobalVariables() {
+        return globalVariables;
+    }
+
     public ArrayList<MgMemberVariable> getVariables() {
         return variables;
     }
 
     public ArrayList<MgFunction> getFunctions() {
         return functions;
-    }
-
-    public ArrayList<MgGlobalVariable> getGlobalVariables() {
-        return globalVariables;
     }
 
     public void setBaseClass(MgClass baseClass) {

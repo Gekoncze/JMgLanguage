@@ -5,19 +5,18 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalCollection;
 import cz.mg.language.entities.mg.runtime.components.types.MgCollection;
 import cz.mg.language.tasks.mg.resolver.Context;
-import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.contexts.CollectionContext;
 
 
-public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinitionTask<MgCollection> {
+public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinitionTask {
     @Input
     private final MgLogicalCollection logicalCollection;
 
     @Output
     private MgCollection collection;
 
-    public MgResolveCollectionDefinitionTask(Store<MgCollection> store, Context context, MgLogicalCollection logicalCollection) {
-        super(store, new CollectionContext(context), logicalCollection);
+    public MgResolveCollectionDefinitionTask(Context context, MgLogicalCollection logicalCollection) {
+        super(new CollectionContext(context), logicalCollection);
         this.logicalCollection = logicalCollection;
     }
 
@@ -26,13 +25,12 @@ public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinit
         return (CollectionContext) super.getContext();
     }
 
-    @Override
-    public MgCollection getOutput() {
+    public MgCollection getCollection() {
         return collection;
     }
 
     @Override
-    protected MgCollection onResolveComponent() {
+    protected void onResolveComponent() {
         collection = new MgCollection(logicalCollection.getName());
         getContext().setCollection(collection);
 
@@ -60,7 +58,5 @@ public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinit
             logicalClass.getFunctions(),
             functions -> clazz.setFunctions(functions)
         );*/
-
-        return collection;
     }
 }

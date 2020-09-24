@@ -16,7 +16,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
-import cz.mg.language.tasks.mg.resolver.contexts.OperatorCache;
+import cz.mg.language.tasks.mg.resolver.contexts.utilities.OperatorCache;
 
 
 public class MgResolveExpressionTreeTask extends MgResolverTask {

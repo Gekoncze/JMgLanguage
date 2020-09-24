@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.contexts;
+package cz.mg.language.tasks.mg.resolver.contexts.utilities;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;

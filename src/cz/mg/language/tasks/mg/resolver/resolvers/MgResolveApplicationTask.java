@@ -1,35 +1,35 @@
 package cz.mg.language.tasks.mg.resolver.resolvers;
 
-import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.architecture.MgLogicalApplication;
-import cz.mg.language.entities.mg.logical.components.*;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
-import cz.mg.language.entities.mg.runtime.components.MgLocation;
+import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgAddBuildinComponentsTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveFunctionCommandsTask;
-import cz.mg.language.tasks.mg.resolver.MgResolveUsagesTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveUsageTask;
+import cz.mg.language.tasks.mg.resolver.contexts.ApplicationContext;
 import cz.mg.language.tasks.mg.resolver.resolvers.component.*;
-import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveClassInheritanceTask;
+import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveBaseClassesTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveComponentStampTask;
 import cz.mg.language.tasks.mg.resolver.resolvers.link.MgResolveVariableDatatypeTask;
 
 
-public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
+public class MgResolveApplicationTask extends MgResolveTask {
     @Input
     private final MgLogicalApplication logicalApplication;
 
     @Output
     private MgApplication application;
 
-    @Subtask
-    private MgAddBuildinComponentsTask addBuildinComponentsTask;
-
-    public MgResolveApplicationTask(MgLogicalApplication logicalApplication) {
-        super((output)->{}, null);
+    public MgResolveApplicationTask(Context context, MgLogicalApplication logicalApplication) {
+        super(new ApplicationContext(context));
         this.logicalApplication = logicalApplication;
+    }
+
+    @Override
+    protected ApplicationContext getContext() {
+        return (ApplicationContext) super.getContext();
     }
 
     public MgApplication getApplication() {
@@ -37,126 +37,39 @@ public class MgResolveApplicationTask extends MgResolveTask<MgApplication> {
     }
 
     @Override
-    protected MgApplication onResolve() {
+    protected void onRun() {
         application = new MgApplication(logicalApplication.getName());
+        getContext().setApplication(application);
 
-        addBuildinComponents();
-        prepareStructure();
-        resolveStampDefinitions();
-        resolveClassDefinitions();
-        resolveCollectionDefinitions();
-        resolveLocalVariableDefinitions();
-        resolveMemberVariableDefinitions();
-        resolveFunctionDefinitions();
-        resolveUsages();
-        resolveComponentStamps();
-        resolveClassInheritance();
-        resolveVariableDatatypes();
-        resolveCommands();
+        postpone(MgResolveLocationTask.class, () -> {
+            MgResolveLocationTask task = new MgResolveLocationTask(getContext(), logicalApplication.getRoot());
+            task.run();
+            application.getRoot().getComponents().addCollectionLast(task.getLocation().getComponents());
+        });
 
-        return application;
+        postpone(MgAddBuildinComponentsTask.class, () -> {
+            MgAddBuildinComponentsTask task = new MgAddBuildinComponentsTask(application.getRoot());
+            task.run();
+        });
+
+        resolvePostponedTasks();
     }
 
-    private void addBuildinComponents(){
-        addBuildinComponentsTask = new MgAddBuildinComponentsTask(application.getRoot());
-        addBuildinComponentsTask.run();
-    }
+    private void resolvePostponedTasks(){
+        resolve(MgResolveLocationTask.class);
+        resolve(MgAddBuildinComponentsTask.class);
 
-    private void prepareStructure(){
-        application.getRoot().getObjects().addCollectionLast(
-            prepareLocation(logicalApplication.getRoot()).getObjects()
-        );
-    }
-
-    private void resolveStampDefinitions(){
         resolve(MgResolveStampDefinitionTask.class);
-    }
-
-    private void resolveClassDefinitions(){
         resolve(MgResolveClassDefinitionTask.class);
-    }
-
-    private void resolveCollectionDefinitions(){
         resolve(MgResolveCollectionDefinitionTask.class);
-    }
-
-    private void resolveLocalVariableDefinitions(){
         resolve(MgResolveLocalVariableDefinitionTask.class);
-    }
-
-    private void resolveMemberVariableDefinitions(){
         resolve(MgResolveMemberVariableDefinitionTask.class);
-    }
-
-    private void resolveFunctionDefinitions(){
         resolve(MgResolveFunctionDefinitionTask.class);
-    }
 
-    private void resolveUsages(){
-        resolve(MgResolveUsagesTask.class);
-    }
-
-    private void resolveComponentStamps(){
+        resolve(MgResolveUsageTask.class);
         resolve(MgResolveComponentStampTask.class);
-    }
-
-    private void resolveClassInheritance(){
-        resolve(MgResolveClassInheritanceTask.class);
-    }
-
-    private void resolveVariableDatatypes(){
+        resolve(MgResolveBaseClassesTask.class);
         resolve(MgResolveVariableDatatypeTask.class);
-    }
-
-    private void resolveCommands(){
         resolve(MgResolveFunctionCommandsTask.class);
-    }
-
-    private MgLocation prepareLocation(MgLogicalLocation logicalLocation){
-        MgLocation location = new MgLocation(logicalLocation.getName());
-        for(MgLogicalComponent logicalComponent : logicalLocation.getComponents()){
-            prepareComponent(logicalComponent, location);
-        }
-        return location;
-    }
-
-    private void prepareComponent(MgLogicalComponent logicalComponent, final MgLocation location){
-        if(logicalComponent instanceof MgLogicalLocation){
-            location.getObjects().addLast(prepareLocation((MgLogicalLocation) logicalComponent));
-        }
-
-        if(logicalComponent instanceof MgLogicalStamp){
-            createAndPostpone(
-                MgResolveStampDefinitionTask.class,
-                logicalComponent,
-                object -> location.getObjects().addLast(object)
-            );
-        }
-
-        if(logicalComponent instanceof MgLogicalClass){
-            createAndPostpone(
-                MgResolveClassDefinitionTask.class,
-                logicalComponent,
-                object -> location.getObjects().addLast(object)
-            );
-        }
-
-        if(logicalComponent instanceof MgLogicalFunction){
-            createAndPostpone(
-                MgResolveFunctionDefinitionTask.class,
-                logicalComponent,
-                object -> location.getObjects().addLast(object)
-            );
-        }
-
-        if(logicalComponent instanceof MgLogicalCollection){
-            createAndPostpone(
-                MgResolveCollectionDefinitionTask.class,
-                logicalComponent,
-                object -> location.getObjects().addLast(object)
-            );
-        }
-
-        throw new LanguageException("Resolution of " + logicalComponent.getClass().getSimpleName() + " is not supported in location context.");
     }
 }

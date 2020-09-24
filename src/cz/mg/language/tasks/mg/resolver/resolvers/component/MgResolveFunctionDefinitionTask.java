@@ -3,23 +3,24 @@ package cz.mg.language.tasks.mg.resolver.resolvers.component;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
+import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.Context;
 import cz.mg.language.tasks.mg.resolver.MgResolveFunctionCommandsTask;
-import cz.mg.language.tasks.mg.resolver.Store;
 import cz.mg.language.tasks.mg.resolver.contexts.FunctionContext;
 
 
-public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitionTask<MgFunction> {
+public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitionTask {
     @Input
     private final MgLogicalFunction logicalFunction;
 
     @Output
     private MgFunction function;
 
-    public MgResolveFunctionDefinitionTask(Store<MgFunction> store, Context context, MgLogicalFunction logicalFunction) {
-        super(store, new FunctionContext(context), logicalFunction);
+    public MgResolveFunctionDefinitionTask(Context context, MgLogicalFunction logicalFunction) {
+        super(new FunctionContext(context), logicalFunction);
         this.logicalFunction = logicalFunction;
     }
 
@@ -28,13 +29,12 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
         return (FunctionContext) super.getContext();
     }
 
-    @Override
-    public MgFunction getOutput() {
+    public MgFunction getFunction() {
         return function;
     }
 
     @Override
-    protected MgFunction onResolveComponent() {
+    protected void onResolveComponent() {
         function = new MgFunction(logicalFunction.getName());
         getContext().setFunction(function);
 
@@ -44,26 +44,27 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
         function.getOperator().setType(MgOperator.Type.valueOf(logicalFunction.getOperator().getType().name()));
         function.getOperator().setPriority(logicalFunction.getOperator().getPriority());
 
-        createAndPostponeMore(
-            MgResolveLocalVariableDefinitionTask.class,
-            logicalFunction.getInput(),
-            variables -> {function.getInput().addCollectionLast(variables); function.updateCache();}
-        );
+        for(MgLogicalVariable logicalInput : logicalFunction.getInput()){
+            postpone(MgResolveLocalVariableDefinitionTask.class, () -> {
+                MgResolveLocalVariableDefinitionTask task = new MgResolveLocalVariableDefinitionTask(getContext(), logicalInput);
+                task.run();
+                function.getInput().addLast(task.getVariable());
+                function.updateCache();
+            });
+        }
 
-        createAndPostponeMore(
-            MgResolveLocalVariableDefinitionTask.class,
-            logicalFunction.getOutput(),
-            variables -> {function.getOutput().addCollectionLast(variables); function.updateCache();}
-        );
+        for(MgLogicalVariable logicalOutput : logicalFunction.getOutput()){
+            postpone(MgResolveLocalVariableDefinitionTask.class, () -> {
+                MgResolveLocalVariableDefinitionTask task = new MgResolveLocalVariableDefinitionTask(getContext(), logicalOutput);
+                task.run();
+                function.getOutput().addLast(task.getVariable());
+                function.updateCache();
+            });
+        }
 
-        postpone(
-            new MgResolveFunctionCommandsTask(
-                getContext(),
-                logicalFunction,
-                function
-            )
-        );
-
-        return function;
+        postpone(MgResolveFunctionCommandsTask.class, () -> {
+            MgResolveFunctionCommandsTask task = new MgResolveFunctionCommandsTask(getContext(), logicalFunction, function);
+            task.run();
+        });
     }
 }
