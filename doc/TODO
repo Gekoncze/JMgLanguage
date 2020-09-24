@@ -1,5 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-renamed entity annotation package to storage
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -9,13 +9,17 @@ reimplement command resolvers
 global variable object resolution
 
 literal values
-    always return text
+    always return text ?
     provide feature for implicit conversion of literals
     conversion using *as* operator
 
     idea - there can be two types:
         '' - converted at startup when code is loaded
         "" - converted at runtime during expression execution
+
+    alternative idea - again two types, but different meaning:
+        '' - convertible literal
+        "" - plain text literal
 
     there will be buildin converters for buildin types
     user should be able to provide his own converters for his own types
