@@ -2,7 +2,6 @@ package cz.mg.language.tasks.mg.resolver.command;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalReturnCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgReturnCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
@@ -19,12 +18,6 @@ public class MgResolveReturnCommandTask extends MgResolveCommandTask {
 
     @Output
     private MgReturnCommand command;
-
-    @Subtask
-    private MgResolveExpressionTreeTask resolveExpressionTreeTask;
-
-    @Subtask
-    private MgResolveExpressionTask resolveExpressionTask;
 
     public MgResolveReturnCommandTask(CommandContext context, MgLogicalReturnCommand logicalCommand) {
         this.context = context;

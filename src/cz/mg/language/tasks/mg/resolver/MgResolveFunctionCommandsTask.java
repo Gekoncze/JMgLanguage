@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
@@ -18,9 +17,6 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
     @Input
     private final MgFunction function;
 
-    @Subtask
-    private MgResolveCommandsTask subtask;
-
     public MgResolveFunctionCommandsTask(FunctionContext context, MgLogicalFunction logicalFunction, MgFunction function) {
         this.context = context;
         this.logicalFunction = logicalFunction;
@@ -29,8 +25,8 @@ public class MgResolveFunctionCommandsTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
-        subtask = new MgResolveCommandsTask(new CommandContext(context), logicalFunction.getCommands());
-        subtask.run();
-        function.getCommands().addCollectionLast(subtask.getCommands());
+        MgResolveCommandsTask task = new MgResolveCommandsTask(new CommandContext(context), logicalFunction.getCommands());
+        task.run();
+        function.getCommands().addCollectionLast(task.getCommands());
     }
 }

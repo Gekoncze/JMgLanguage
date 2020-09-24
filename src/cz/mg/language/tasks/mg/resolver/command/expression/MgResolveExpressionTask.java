@@ -3,10 +3,10 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
+import cz.mg.language.annotations.entity.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
@@ -26,10 +26,10 @@ public abstract class MgResolveExpressionTask extends MgResolverTask {
     @Input
     private final MgResolveExpressionTask parent;
 
-    @Utility
+    @Optional @Utility
     private Node node;
 
-    @Subtask
+    @Mandatory @Part
     private final List<MgResolveExpressionTask> children = new List<>();
 
     public MgResolveExpressionTask(CommandContext context, MgResolveExpressionTask parent) {

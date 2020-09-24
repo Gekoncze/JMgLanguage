@@ -2,12 +2,8 @@ package cz.mg.language.tasks.mg.resolver.command;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalIfCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgIfCommand;
-import cz.mg.language.tasks.mg.resolver.MgResolveCommandsTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
 
 
@@ -20,15 +16,6 @@ public class MgResolveIfCommandTask extends MgResolveCommandTask {
 
     @Output
     private MgIfCommand command;
-
-    @Subtask
-    private MgResolveExpressionTreeTask resolveExpressionTreeTask;
-
-    @Subtask
-    private MgResolveExpressionTask resolveExpressionTask;
-
-    @Subtask
-    private MgResolveCommandsTask resolveCommandsTask;
 
     public MgResolveIfCommandTask(CommandContext context, MgLogicalIfCommand logicalCommand) {
         this.context = context;

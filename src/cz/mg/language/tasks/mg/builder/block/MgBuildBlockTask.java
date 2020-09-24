@@ -6,7 +6,6 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.Stampable;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.Part;
@@ -20,12 +19,6 @@ import java.util.Iterator;
 public abstract class MgBuildBlockTask extends MgBuildTask {
     @Input
     private final Block block;
-
-    @Subtask
-    private MgPatternValidatorTask validatorTask;
-
-    @Subtask
-    private final List<MgBuildTask> subtasks = new List<>();
 
     public MgBuildBlockTask(Block block) {
         this.block = block;
@@ -55,7 +48,7 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     }
 
     protected void buildBlocks(List<Block> blocks){
-        validatorTask = new MgPatternValidatorTask(getPatterns());
+        MgPatternValidatorTask validatorTask = new MgPatternValidatorTask(getPatterns());
 
         for(Block block : blocks){
             Pattern pattern = match(block);
@@ -91,13 +84,11 @@ public abstract class MgBuildBlockTask extends MgBuildTask {
     }
 
     private MgBuildBlockTask execute(MgBuildBlockTask task){
-        subtasks.addLast(task);
         task.run();
         return task;
     }
 
     private MgBuildPartTask execute(MgBuildPartTask task){
-        subtasks.addLast(task);
         task.run();
         return task;
     }

@@ -6,7 +6,6 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.text.plain.Line;
 import cz.mg.language.entities.text.plain.Page;
@@ -25,9 +24,6 @@ public class MgComposeBlocksTask extends MgComposeTask {
 
     @Output
     private Block root = null;
-
-    @Subtask
-    private final List<MgComposePartsTask> parsePartsTasks = new List<>();
 
     @Utility
     private final StampCollector pendingStamps = new StampCollector();
@@ -58,12 +54,12 @@ public class MgComposeBlocksTask extends MgComposeTask {
             collectStamps(parentBlock, line);
             if(isEmpty(line)) continue;
             collectKeywords(parentBlock, line);
-            parsePartsTasks.addLast(new MgComposePartsTask(line.getTokens()));
-            parsePartsTasks.getLast().run();
+            MgComposePartsTask composePartsTask = new MgComposePartsTask(line.getTokens());
+            composePartsTask.run();
             Block block = new Block();
             block.getStamps().addCollectionLast(pendingStamps.take(parentBlock));
             block.getKeywords().addCollectionLast(pendingKeywords.take(parentBlock));
-            block.getParts().addCollectionLast(parsePartsTasks.getLast().getParts());
+            block.getParts().addCollectionLast(composePartsTask.getParts());
             parentBlock.getBlocks().addLast(block);
         }
 

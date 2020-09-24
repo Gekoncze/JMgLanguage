@@ -1,20 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed aliasing for context and filters
+removed log and subtask annotations
+also removed all unnecessary subtask fields
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-while onto resolving problems with contexts, take a look at:
-    take into account access modifiers during resolve
-    add support for aliases in usages if not already
-    add support for relative "../" usages ???
-    add support for multiple (star) usages - is it going to be just a syntactical sugar?
-
-reimplement command resolvers
-    commands need to have special expression resolver which will provide node with expected datatype
-
 remove subtask annotation
     remove all subtask variables
         except the ones which are needed
+
+reimplement command resolvers
+    commands need to have special expression resolver which will provide node with expected datatype
 
 global variable object resolution
 
@@ -38,6 +33,10 @@ test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
+take into account access modifiers during resolve
+add support for relative "../" usages ???
+add support for multiple (star) usages - is it going to be just a syntactical sugar?
+
 implementation of the new simplified runtime model
     we might need a context object being passed
         passed in two ways:

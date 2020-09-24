@@ -7,7 +7,6 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
@@ -31,9 +30,6 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     @Output
     private MgLogicalCallExpression logicalCallExpression;
-
-    @Subtask
-    private final List<MgResolveExpressionTreeTask> subtasks = new List<>();
 
     public MgResolveExpressionTreeTask(CommandContext context, MgLogicalClumpExpression logicalClumpExpression) {
         this.context = context;
@@ -295,9 +291,9 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
 
     private MgLogicalExpression resolveNestedGroups(MgLogicalExpression logicalExpression){
         if(logicalExpression instanceof MgLogicalClumpExpression){
-            subtasks.addLast(new MgResolveExpressionTreeTask(context, (MgLogicalClumpExpression) logicalExpression));
-            subtasks.getLast().run();
-            return subtasks.getLast().getLogicalCallExpression();
+            MgResolveExpressionTreeTask task = new MgResolveExpressionTreeTask(context, (MgLogicalClumpExpression) logicalExpression);
+            task.run();
+            return task.getLogicalCallExpression();
         } else {
             return logicalExpression;
         }

@@ -3,7 +3,6 @@ package cz.mg.language.tasks.mg.compiler;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.annotations.task.Subtask;
 import cz.mg.language.entities.mg.logical.components.MgLogicalLocation;
 import cz.mg.language.tasks.input.file.MgLoadFolderTreeTask;
 
@@ -15,12 +14,6 @@ public class MgSimpleLogicCompilerTask extends MgCompilerTask {
     @Output
     private MgLogicalLocation root;
 
-    @Subtask
-    private MgLoadFolderTreeTask loadFolderTreeTask;
-
-    @Subtask
-    private MgCompileFolderLogicTask compileFolderTask;
-
     public MgSimpleLogicCompilerTask(ReadableText sourceRootPath) {
         this.sourceRootPath = sourceRootPath;
     }
@@ -31,10 +24,10 @@ public class MgSimpleLogicCompilerTask extends MgCompilerTask {
 
     @Override
     protected void onRun() {
-        loadFolderTreeTask = new MgLoadFolderTreeTask(sourceRootPath);
+        MgLoadFolderTreeTask loadFolderTreeTask = new MgLoadFolderTreeTask(sourceRootPath);
         loadFolderTreeTask.run();
 
-        compileFolderTask = new MgCompileFolderLogicTask(loadFolderTreeTask.getFolder());
+        MgCompileFolderLogicTask compileFolderTask = new MgCompileFolderLogicTask(loadFolderTreeTask.getFolder());
         compileFolderTask.run();
 
         root = compileFolderTask.getLocation();
