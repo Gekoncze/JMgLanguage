@@ -6,7 +6,7 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgRunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.RunaryOperatorNode;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperatorExpressionTask {

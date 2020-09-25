@@ -4,7 +4,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public abstract class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {

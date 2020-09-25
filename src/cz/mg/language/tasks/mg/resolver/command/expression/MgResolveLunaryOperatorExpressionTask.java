@@ -6,7 +6,7 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgLunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.LunaryOperatorNode;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperatorExpressionTask {

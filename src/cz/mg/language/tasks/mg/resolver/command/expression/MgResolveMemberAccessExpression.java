@@ -21,8 +21,8 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConn
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.MemberFunctionNode;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.MemberVariableNode;
-import cz.mg.language.tasks.mg.resolver.contexts.ClassContext;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.ClassContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.NameExpressionFilter;
 
 

@@ -14,7 +14,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.BinaryOperatorNode;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.BinaryOperatorExpressionFilter;
 
 import java.util.Iterator;

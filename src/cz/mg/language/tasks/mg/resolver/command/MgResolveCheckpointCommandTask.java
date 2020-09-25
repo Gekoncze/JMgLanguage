@@ -4,7 +4,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCheckpointCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCheckpointCommand;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public class MgResolveCheckpointCommandTask extends MgResolveCommandTask {

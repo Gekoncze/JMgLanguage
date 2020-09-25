@@ -5,10 +5,9 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValue
 import cz.mg.language.entities.mg.runtime.atoms.MgTextObject;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgValueExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.ValueNode;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public class MgResolveValueExpressionTask extends MgResolveExpressionTask {

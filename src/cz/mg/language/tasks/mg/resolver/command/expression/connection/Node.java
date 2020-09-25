@@ -4,8 +4,8 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.tasks.mg.resolver.VariableHelper;
-import cz.mg.language.tasks.mg.resolver.contexts.CommandContext;
+import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public class Node {

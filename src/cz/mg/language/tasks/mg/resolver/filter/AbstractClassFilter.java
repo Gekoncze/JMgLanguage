@@ -6,7 +6,7 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.tasks.mg.resolver.Context;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
 public abstract class AbstractClassFilter<C extends MgComponent> extends Filter<C> {
