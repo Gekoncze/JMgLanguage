@@ -5,6 +5,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
@@ -14,12 +15,12 @@ public class MgIfCommand extends MgCommand {
     private final MgExpression expression;
 
     @Mandatory @Value
-    private final int input;
+    private final MgLocalVariable input;
 
     @Mandatory @Part
     private final List<MgCommand> commands;
 
-    public MgIfCommand(MgExpression expression, int input, List<MgCommand> commands) {
+    public MgIfCommand(MgExpression expression, MgLocalVariable input, List<MgCommand> commands) {
         this.expression = expression;
         this.input = input;
         this.commands = commands;
@@ -29,7 +30,7 @@ public class MgIfCommand extends MgCommand {
         return expression;
     }
 
-    public int getInput() {
+    public MgLocalVariable getInput() {
         return input;
     }
 
@@ -40,7 +41,7 @@ public class MgIfCommand extends MgCommand {
     @Override
     public void run(MgFunctionObject functionObject) {
         expression.run(functionObject);
-        MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input);
+        MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input.getOffset());
         if(condition.getValue()){
             for(MgCommand command : commands){
                 command.run(functionObject);

@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 
 

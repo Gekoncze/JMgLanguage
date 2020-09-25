@@ -1,5 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 
+import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Shared;
 import cz.mg.language.annotations.requirement.Mandatory;
@@ -31,6 +32,6 @@ public abstract class Connector {
     }
 
     public void validate(){
-        if(connection == null) throw new RuntimeException();
+        if(connection == null) throw new LanguageException("Missing connection.");
     }
 }

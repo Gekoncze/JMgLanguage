@@ -12,7 +12,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgUnaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.UnaryOperatorNode;

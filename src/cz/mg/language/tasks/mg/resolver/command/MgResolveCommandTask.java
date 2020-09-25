@@ -71,30 +71,4 @@ public abstract class MgResolveCommandTask extends MgResolverTask {
     }
 
     public abstract MgCommand getCommand();
-
-// todo - remove if unused
-//
-//    protected static MgVariable singleOutput(List<MgVariable> output){
-//        if(output.count() <= 0){
-//            throw new LanguageException("Expression has no output value.");
-//        } else if(output.count() == 1){
-//            return output.getFirst();
-//        } else {
-//            throw new LanguageException("Expression has multiple output values.");
-//        }
-//    }
-//
-//    protected static MgVariable boolOutput(MgVariable variable){
-//        if(variable.getDatatype().getType() == MgBoolObject.TYPE){
-//            return variable;
-//        } else {
-//            throw new LanguageException("Expected " + MgBoolObject.TYPE.getName() + " output (buildin type), got " + variable.getDatatype().getType().getName());
-//        }
-//    }
-//
-//    protected static void noOutput(List<MgVariable> output){
-//        if(output.count() > 0){
-//            throw new LanguageException("Ignored expression output.");
-//        }
-//    }
 }

@@ -4,6 +4,8 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalExpressionCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgExpressionCommand;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -29,18 +31,13 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-//        resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
-//        resolveExpressionTreeTask.run();
-//
-//        resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), createVoidParentExpression());
-//        resolveExpressionTask.run();
-//
-//        command = new MgExpressionCommand(resolveExpressionTask.getExpression());
-//        context.setCommand(command); todo
-    }
+        MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
+        resolveExpressionTreeTask.run();
 
-//    private Expression createVoidParentExpression(){
-//        //todo - add command-level expression resolver, so we can reuse its connect logic
-//        return null;
-//    }
+        MgResolveExpressionTask resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), null);
+        resolveExpressionTask.run();
+
+        command = new MgExpressionCommand(resolveExpressionTask.createExpression());
+        context.setCommand(command);
+    }
 }

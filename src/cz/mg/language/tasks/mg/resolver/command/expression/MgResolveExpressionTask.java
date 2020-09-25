@@ -13,7 +13,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;

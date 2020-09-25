@@ -1,12 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+reimplemented command resolvers
++ some additional fixes
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-reimplement command resolvers
-    commands need to have special expression resolver which will provide node with expected datatype
-
-global variable object resolution
+global variable object resolution ?
 
 literal values
     always return text ?

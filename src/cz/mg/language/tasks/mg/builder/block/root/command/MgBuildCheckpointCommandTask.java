@@ -20,7 +20,7 @@ public class MgBuildCheckpointCommandTask extends MgBuildCommandTask {
             new BlockProcessor<>(
                 MgBuildTryCommandTask.class,
                 MgBuildCheckpointCommandTask.class,
-                (source, destination) -> destination.command.getCommands().addLast(source.getCommand())
+                (source, destination) -> destination.command.setTryCommand(source.getCommand())
             ),
             "TRY"
         ),
@@ -29,11 +29,11 @@ public class MgBuildCheckpointCommandTask extends MgBuildCommandTask {
         new Pattern(
             Order.STRICT,
             Requirement.OPTIONAL,
-            Count.SINGLE,
+            Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildCatchCommandTask.class,
                 MgBuildCheckpointCommandTask.class,
-                (source, destination) -> destination.command.getCommands().addLast(source.getCommand())
+                (source, destination) -> destination.command.getCatchCommands().addLast(source.getCommand())
             ),
             "CATCH"
         ),
@@ -46,7 +46,7 @@ public class MgBuildCheckpointCommandTask extends MgBuildCommandTask {
             new BlockProcessor<>(
                 MgBuildFinallyCommandTask.class,
                 MgBuildCheckpointCommandTask.class,
-                (source, destination) -> destination.command.getCommands().addLast(source.getCommand())
+                (source, destination) -> destination.command.setFinallyCommand(source.getCommand())
             ),
             "FINALLY"
         )

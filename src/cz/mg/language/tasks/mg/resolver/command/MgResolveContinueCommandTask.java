@@ -38,7 +38,7 @@ public class MgResolveContinueCommandTask extends MgResolveCommandTask {
         context.setCommand(command);
     }
     
-    private MgCommand findTargetCommand(ReadableText name){
+    private MgCommand findTargetCommand(ReadableText name) {
         Context current = context;
         while(current != null){
             if(current instanceof CommandContext){
@@ -56,6 +56,6 @@ public class MgResolveContinueCommandTask extends MgResolveCommandTask {
             current = current.getOuterContext();
         }
 
-        throw new LanguageException("Could not find command to break.");
+        throw new LanguageException("Could not find command to continue.");
     }
 }

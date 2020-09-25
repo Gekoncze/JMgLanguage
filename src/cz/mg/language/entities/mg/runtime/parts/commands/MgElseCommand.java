@@ -5,6 +5,6 @@ import cz.mg.collections.list.List;
 
 public class MgElseCommand extends MgCaseCommand {
     public MgElseCommand(List<MgCommand> commands) {
-        super(null, commands);
+        super(null, null, commands);
     }
 }

@@ -22,7 +22,9 @@ public abstract class ComponentContext extends Context {
 
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
-        // todo
+        for(Usage usage : usages){
+            visitor.onVisitComponent(usage.getComponent(), usage.getAlias());
+        }
     }
 
     public abstract MgComponent getComponent();

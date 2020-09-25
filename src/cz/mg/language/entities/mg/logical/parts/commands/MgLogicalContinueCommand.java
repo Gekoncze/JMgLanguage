@@ -1,11 +1,12 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Value;
 
 
 public class MgLogicalContinueCommand extends MgLogicalCommand {
-    @Value
+    @Optional @Value
     private ReadableText target;
 
     public MgLogicalContinueCommand() {

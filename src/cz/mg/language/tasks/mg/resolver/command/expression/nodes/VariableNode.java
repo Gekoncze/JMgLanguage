@@ -4,7 +4,6 @@ import cz.mg.collections.array.Array;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.MgVariable;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 

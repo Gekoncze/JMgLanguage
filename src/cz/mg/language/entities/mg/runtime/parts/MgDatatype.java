@@ -36,7 +36,8 @@ public class MgDatatype extends MgPart {
 
     public enum Storage {
         DIRECT,
-        INDIRECT
+        INDIRECT,
+        OTHER
     }
 
     public enum Requirement {

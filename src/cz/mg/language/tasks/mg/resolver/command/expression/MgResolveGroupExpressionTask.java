@@ -6,7 +6,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalGroupCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgGroupExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.GroupNode;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 

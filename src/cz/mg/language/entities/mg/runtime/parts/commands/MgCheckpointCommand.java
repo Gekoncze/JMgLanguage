@@ -1,33 +1,28 @@
 package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ArtificialException;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
 
 
 public class MgCheckpointCommand extends MgCommand {
-    @Mandatory @Part
+    @Optional @Part
     private final MgTryCommand tryCommand;
 
-    @Optional @Part
+    @Mandatory @Part
     private final List<MgCatchCommand> catchCommands;
 
     @Optional @Part
     private final MgFinallyCommand finallyCommand;
 
-    @Mandatory @Value
-    private final int output;
-
-    public MgCheckpointCommand(MgTryCommand tryCommand, List<MgCatchCommand> catchCommands, MgFinallyCommand finallyCommand, int output) {
+    public MgCheckpointCommand(MgTryCommand tryCommand, List<MgCatchCommand> catchCommands, MgFinallyCommand finallyCommand) {
         this.tryCommand = tryCommand;
         this.catchCommands = catchCommands;
         this.finallyCommand = finallyCommand;
-        this.output = output;
     }
 
     public MgTryCommand getTryCommand() {
@@ -46,7 +41,7 @@ public class MgCheckpointCommand extends MgCommand {
     public void run(MgFunctionObject functionObject) {
         ArtificialException ae = null;
         try {
-            tryCommand.run(functionObject);
+            if(tryCommand != null) tryCommand.run(functionObject);
         } catch (ArtificialException e){
             ae = e;
         }
@@ -61,7 +56,7 @@ public class MgCheckpointCommand extends MgCommand {
             }
         }
 
-        finallyCommand.run(functionObject);
+        if(finallyCommand != null) finallyCommand.run(functionObject);
         if(ae != null) throw ae;
     }
 
@@ -69,8 +64,8 @@ public class MgCheckpointCommand extends MgCommand {
         if(ae instanceof RollbackException){
             RollbackException re = (RollbackException) ae;
             for(MgCatchCommand catchCommand : catchCommands){
-                if(re.getObject().getType().is(catchCommand.getVariable().getDatatype().getType())){
-                    functionObject.getObjects().set(re.getObject(), output);
+                if(re.getObject().getType().is(catchCommand.getInput().getDatatype().getType())){
+                    functionObject.getObjects().set(re.getObject(), catchCommand.getInput().getOffset());
                     return catchCommand;
                 }
             }

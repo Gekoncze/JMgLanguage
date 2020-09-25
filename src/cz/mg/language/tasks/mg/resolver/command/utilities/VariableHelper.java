@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.utilities.helpers.SimpleVariableHelper;
 
@@ -23,6 +23,6 @@ public interface VariableHelper {
     );
 
     static VariableHelper create(MgFunction function){
-        return new SimpleVariableHelper(function); // todo - return optimized version isntead
+        return new SimpleVariableHelper(function); // todo - return optimized version instead
     }
 }

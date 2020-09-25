@@ -1,15 +1,17 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
+import cz.mg.collections.list.List;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Optional;
 
 
-public class MgLogicalCheckpointCommand extends MgLogicalBlockCommand {
+public class MgLogicalCheckpointCommand extends MgLogicalCommand {
     @Optional @Part
     private MgLogicalTryCommand tryCommand;
 
-    @Optional @Part
-    private MgLogicalCatchCommand catchCommand;
+    @Mandatory @Part
+    private final List<MgLogicalCatchCommand> catchCommands = new List<>();
 
     @Optional @Part
     private MgLogicalFinallyCommand finallyCommand;
@@ -25,12 +27,8 @@ public class MgLogicalCheckpointCommand extends MgLogicalBlockCommand {
         this.tryCommand = tryCommand;
     }
 
-    public MgLogicalCatchCommand getCatchCommand() {
-        return catchCommand;
-    }
-
-    public void setCatchCommand(MgLogicalCatchCommand catchCommand) {
-        this.catchCommand = catchCommand;
+    public List<MgLogicalCatchCommand> getCatchCommands() {
+        return catchCommands;
     }
 
     public MgLogicalFinallyCommand getFinallyCommand() {

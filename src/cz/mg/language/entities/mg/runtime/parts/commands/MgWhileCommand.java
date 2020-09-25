@@ -7,7 +7,10 @@ import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.BreakException;
+import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ContinueException;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
@@ -19,12 +22,12 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     private final MgExpression expression;
 
     @Mandatory @Value
-    private final int input;
+    private final MgLocalVariable input;
 
     @Mandatory @Part
     private final List<MgCommand> commands;
 
-    public MgWhileCommand(ReadableText name, MgExpression expression, int input, List<MgCommand> commands) {
+    public MgWhileCommand(ReadableText name, MgExpression expression, MgLocalVariable input, List<MgCommand> commands) {
         this.name = name;
         this.expression = expression;
         this.input = input;
@@ -40,7 +43,7 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
         return expression;
     }
 
-    public int getInput() {
+    public MgLocalVariable getInput() {
         return input;
     }
 
@@ -50,16 +53,30 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
 
     @Override
     public void run(MgFunctionObject functionObject) {
-        while(true){
-            expression.run(functionObject);
-            MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input);
-            if(condition.getValue()){
+        while(evaluateExpression(functionObject)){
+            try {
                 for(MgCommand command : commands){
                     command.run(functionObject);
                 }
-            } else {
-                return;
+            } catch (BreakException e){
+                if(e.getTarget() == this){
+                    break;
+                } else {
+                    throw e;
+                }
+            } catch (ContinueException e){
+                if(e.getTarget() == this){
+                    continue;
+                } else {
+                    throw e;
+                }
             }
         }
+    }
+
+    private boolean evaluateExpression(MgFunctionObject functionObject){
+        expression.run(functionObject);
+        MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input.getOffset());
+        return condition.getValue();
     }
 }
