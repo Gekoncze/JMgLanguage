@@ -1,13 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-reimplemented command resolvers
-+ some additional fixes
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-global variable object resolution ?
-
 literal values
-    always return text ?
+    should always return text? and what is the current output type of literals?
     provide feature for implicit conversion of literals
     conversion using *as* operator
 
@@ -23,6 +20,7 @@ literal values
     user should be able to provide his own converters for his own types
 
 test
+    try to actually compile and run some code!
     test what expression like this will do:
         (a * b)(c, d, e)
         what error will be thrown?
@@ -30,6 +28,7 @@ test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
+global variable object resolution ?
 take into account access modifiers during resolve
 add support for relative "../" usages ???
 add support for multiple (star) usages - is it going to be just a syntactical sugar?
