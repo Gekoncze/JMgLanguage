@@ -3,7 +3,7 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public class MgTryCommand extends MgCommand {
@@ -19,7 +19,7 @@ public class MgTryCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         for(MgCommand command : commands){
             command.run(functionObject);
         }

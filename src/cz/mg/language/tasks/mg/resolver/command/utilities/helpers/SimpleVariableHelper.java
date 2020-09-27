@@ -4,8 +4,8 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -39,14 +39,14 @@ public class SimpleVariableHelper implements VariableHelper {
     @Override
     public MgLocalVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype){
         function.getLocal().addLast(new MgLocalVariable(name, datatype));
-        function.updateCache();
+        function.updateVariableOffsetCache();
         return function.getLocal().getLast();
     }
 
     @Override
     public MgLocalVariable nextExpressionVariable(MgDatatype datatype){
         function.getLocal().addLast(new MgLocalVariable(EXPRESSION_VARIABLE_NAME, datatype));
-        function.updateCache();
+        function.updateVariableOffsetCache();
         return function.getLocal().getLast();
     }
 

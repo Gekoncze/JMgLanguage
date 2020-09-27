@@ -1,17 +1,15 @@
-package cz.mg.language.entities.mg.runtime.atoms;
+package cz.mg.language.entities.mg.runtime.buildin.atoms;
 
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
+import cz.mg.language.entities.mg.runtime.buildin.types.MgIntType;
 
 
 public class MgIntObject extends MgAtom {
-    public static final MgType TYPE = new MgType("Integer");
-
     @Value
     private int value;
 
     public MgIntObject(int value) {
-        super(TYPE);
+        super(MgIntType.getInstance());
         this.value = value;
     }
 

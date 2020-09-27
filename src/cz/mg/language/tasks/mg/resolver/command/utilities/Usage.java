@@ -5,7 +5,7 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 
 
 public class Usage {

@@ -5,9 +5,9 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public class MgFunctionExpression extends MgExpression {
@@ -52,7 +52,7 @@ public class MgFunctionExpression extends MgExpression {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         if(expression!= null){
             expression.run(functionObject);
         }
@@ -60,7 +60,7 @@ public class MgFunctionExpression extends MgExpression {
         int local = 0;
 
         // create new function object
-        MgFunctionObject newFunctionObject = new MgFunctionObject(function);
+        MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(function);
 
         // set input for newly created function object
         for(MgLocalVariable in : input){

@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
@@ -50,7 +50,7 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
                 MgResolveLocalVariableDefinitionTask task = new MgResolveLocalVariableDefinitionTask(getContext(), logicalInput);
                 task.run();
                 function.getInput().addLast(task.getVariable());
-                function.updateCache();
+                function.updateVariableOffsetCache();
             });
         }
 
@@ -59,7 +59,7 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
                 MgResolveLocalVariableDefinitionTask task = new MgResolveLocalVariableDefinitionTask(getContext(), logicalOutput);
                 task.run();
                 function.getOutput().addLast(task.getVariable());
-                function.updateCache();
+                function.updateVariableOffsetCache();
             });
         }
 
@@ -68,7 +68,7 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
                 MgResolveCommandTask task = MgResolveCommandTask.create(new CommandContext(getContext()), logicalCommand);
                 task.run();
                 function.getCommands().addLast(task.getCommand());
-                function.updateCache();
+                function.updateVariableOffsetCache();
             });
         }
     }

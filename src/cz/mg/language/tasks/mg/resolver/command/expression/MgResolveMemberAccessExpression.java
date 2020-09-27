@@ -6,15 +6,16 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberAccessCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgClass;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgMemberFunctionExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgMemberVariableExpression;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -81,17 +82,17 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
         setNode(createNode(createFilter().find()));
     }
 
-    private Node createNode(MgComponent component){
-        if(component == null){
+    private Node createNode(MgObject object){
+        if(object == null){
             return null;
         }
 
-        if(component instanceof MgMemberVariable){
-            return new MemberVariableNode((MgMemberVariable) component);
+        if(object instanceof MgMemberVariable){
+            return new MemberVariableNode((MgMemberVariable) object);
         }
 
-        if(component instanceof MgFunction){
-            return new MemberFunctionNode((MgFunction) component);
+        if(object instanceof MgFunction){
+            return new MemberFunctionNode((MgFunction) object);
         }
 
         throw new RuntimeException();

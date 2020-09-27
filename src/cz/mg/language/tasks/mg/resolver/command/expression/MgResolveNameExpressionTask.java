@@ -4,13 +4,14 @@ import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgFunctionExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgLocalVariableExpression;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -59,21 +60,21 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
         );
     }
 
-    private Node createNode(MgComponent component){
-        if(component == null){
+    private Node createNode(MgObject object){
+        if(object == null){
             return null;
         }
 
-        if(component instanceof MgLocalVariable){
-            return new LocalVariableNode((MgLocalVariable) component);
+        if(object instanceof MgLocalVariable){
+            return new LocalVariableNode((MgLocalVariable) object);
         }
 
-        if(component instanceof MgMemberVariable){
+        if(object instanceof MgMemberVariable){
             throw new LanguageException("Member variables are not accessible directly from function body.");
         }
 
-        if(component instanceof MgFunction){
-            return new FunctionNode((MgFunction) component);
+        if(object instanceof MgFunction){
+            return new FunctionNode((MgFunction) object);
         }
 
         throw new RuntimeException();

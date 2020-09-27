@@ -1,23 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+Fixed literals + rewritten runtime entities (work in progress)
+literals can now only be atoms and are converted at compile time
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-literal values
-    should always return text? and what is the current output type of literals?
-    provide feature for implicit conversion of literals
-    conversion using *as* operator
-
-    idea - there can be two types:
-        '' - converted at startup when code is loaded
-        "" - converted at runtime during expression execution
-
-    alternative idea - again two types, but different meaning:
-        '' - convertible literal
-        "" - plain text literal
-
-    there will be buildin converters for buildin types
-    user should be able to provide his own converters for his own types
+add buildin as operators
+add option for user to provide his own as operators
+explicit casting
+check that declared variables are scoped correctly
+    there should be in command context some logic that takes declared variables from MgCommand
+    also, make sure that declared variables are part of MgFunction
 
 test
     try to actually compile and run some code!
@@ -153,6 +145,15 @@ move all subtasks to Task class ???
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------
+literals
+    idea - there can be two types:
+        '' - converted at startup when code is loaded
+        "" - converted at runtime during expression execution
+
+    alternative idea - again two types, but different meaning:
+        '' - convertible literal
+        "" - plain text literal
+
 very interesting idea
     contextual methods
         entities can have different methods based on current context

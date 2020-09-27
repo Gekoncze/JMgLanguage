@@ -1,23 +1,37 @@
 package cz.mg.language.entities.mg.runtime.components;
 
+import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
+import cz.mg.language.annotations.storage.Value;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 
 
-public class MgLocation extends MgComponent {
-    private static final MgType TYPE = new MgType("Location");
+public class MgLocation implements MgComponent {
+    @Mandatory @Value
+    private final ReadableText name;
+
+    @Mandatory @Part
+    private ArrayList<@Link MgStamp> stamps = new ArrayList<>();
 
     @Part
     private final List<MgComponent> components = new List<>();
 
-    protected MgLocation(MgType type, ReadableText name) {
-        super(type, name);
+    public MgLocation(ReadableText name) {
+        this.name = name;
     }
 
-    public MgLocation(ReadableText name) {
-        super(TYPE, name);
+    @Override
+    public ReadableText getName() {
+        return name;
+    }
+
+    @Override
+    public ArrayList<MgStamp> getStamps() {
+        return stamps;
     }
 
     public List<MgComponent> getComponents() {

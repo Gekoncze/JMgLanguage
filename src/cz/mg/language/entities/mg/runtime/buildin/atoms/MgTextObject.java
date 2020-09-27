@@ -1,17 +1,15 @@
-package cz.mg.language.entities.mg.runtime.atoms;
+package cz.mg.language.entities.mg.runtime.buildin.atoms;
 
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
+import cz.mg.language.entities.mg.runtime.buildin.types.MgTextType;
 
 
 public class MgTextObject extends MgAtom {
-    public static final MgType TYPE = new MgType("Text");
-
     @Value
     private String value;
 
     public MgTextObject(String value) {
-        super(TYPE);
+        super(MgTextType.getInstance());
         this.value = value;
     }
 

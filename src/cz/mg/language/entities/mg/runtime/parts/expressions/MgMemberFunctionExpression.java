@@ -3,9 +3,9 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public class MgMemberFunctionExpression extends MgFunctionExpression {
@@ -28,7 +28,7 @@ public class MgMemberFunctionExpression extends MgFunctionExpression {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         target.run(functionObject);
         super.run(functionObject);
     }

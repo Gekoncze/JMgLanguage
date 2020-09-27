@@ -6,9 +6,9 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.buildin.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.BreakException;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ContinueException;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
@@ -52,7 +52,7 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         while(evaluateExpression(functionObject)){
             try {
                 for(MgCommand command : commands){
@@ -74,7 +74,7 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
         }
     }
 
-    private boolean evaluateExpression(MgFunctionObject functionObject){
+    private boolean evaluateExpression(MgFunctionInstanceImpl functionObject){
         expression.run(functionObject);
         MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input.getOffset());
         return condition.getValue();

@@ -5,9 +5,10 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -49,10 +50,10 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
     }
 
     @Override
-    protected boolean filter(MgComponent component, ReadableText alias) {
-        if(super.filter(component, alias)){
-            if(component instanceof MgFunction){
-                return filterFunction((MgFunction) component);
+    protected boolean filter(MgObject object, ReadableText alias) {
+        if(super.filter(object, alias)){
+            if(object instanceof MgFunction){
+                return filterFunction((MgFunction) object);
             }
         }
         return false;

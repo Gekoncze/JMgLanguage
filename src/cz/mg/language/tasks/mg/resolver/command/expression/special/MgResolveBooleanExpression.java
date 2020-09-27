@@ -1,9 +1,8 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.special;
 
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.BooleanNode;

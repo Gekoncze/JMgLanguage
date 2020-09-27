@@ -1,9 +1,10 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
 
 import cz.mg.language.LanguageException;
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
@@ -43,10 +44,11 @@ public class Node {
         @Mandatory Node child
     ){
         VariableHelper variableHelper = context.getVariableHelper();
-        if(child.getOutputInterface() == null) throw new LanguageException("Cannot connect expressions. Child expression has no output values.");
-        if(parent.getInputInterface() == null) throw new LanguageException("Cannot connect expressions. Parent expression has no input values.");
+        if(child.getOutputInterface() == null) throw new LanguageException("Cannot connect expressions. Unresolved child expression.");
+        if(parent.getInputInterface() == null) throw new LanguageException("Cannot connect expressions. Unresolved parent expression.");
         for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
-            InputConnector inputConnector = parent.getInputInterface().getRemainingConnectors().getFirst();
+            @Optional InputConnector inputConnector = parent.getInputInterface().getRemainingConnectors().getFirst();
+            if(inputConnector == null) throw new LanguageException("Cannot connect expressions. Parent has not enough free connectors.");
             MgLocalVariable connectionVariable = variableHelper.nextExpressionVariable(parent, inputConnector, child, outputConnector);
             Connection.connect(inputConnector, outputConnector, connectionVariable);
         }

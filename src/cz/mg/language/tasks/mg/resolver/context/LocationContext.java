@@ -22,6 +22,6 @@ public class LocationContext extends Context {
     }
 
     @Override
-    public void forEachComponent(ComponentVisitor visitor) {
+    public void forEachComponent(ObjectVisitor visitor) {
     }
 }

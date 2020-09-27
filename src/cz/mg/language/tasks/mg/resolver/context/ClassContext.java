@@ -2,8 +2,10 @@ package cz.mg.language.tasks.mg.resolver.context;
 
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgClass;
 
 
 public class ClassContext extends ComponentContext {
@@ -28,13 +30,13 @@ public class ClassContext extends ComponentContext {
     }
 
     @Override
-    public void forEachComponent(ComponentVisitor visitor) {
-        for(MgComponent component : clazz.getVariables()){
-            visitor.onVisitComponent(component, null);
+    public void forEachComponent(ObjectVisitor visitor) {
+        for(MgVariable variable : clazz.getVariables()){
+            visitor.onVisitComponent(variable, null);
         }
 
-        for(MgComponent component : clazz.getFunctions()){
-            visitor.onVisitComponent(component, null);
+        for(MgFunction function : clazz.getFunctions()){
+            visitor.onVisitComponent(function, null);
         }
     }
 }

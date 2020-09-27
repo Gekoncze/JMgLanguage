@@ -3,11 +3,11 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgClassObject;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
-import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.roles.MgClassInstance;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
 
 public class MgMemberVariableExpression extends MgExpression {
@@ -52,9 +52,9 @@ public class MgMemberVariableExpression extends MgExpression {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject){
+    public void run(MgFunctionInstanceImpl functionObject){
         target.run(functionObject);
-        MgClassObject classObject = (MgClassObject) functionObject.getObjects().get(input.getOffset());
+        MgClassInstance classObject = (MgClassInstance) functionObject.getObjects().get(input.getOffset());
         MgObject memberObject = classObject.getObjects().get(variable.getOffset());
         functionObject.getObjects().set(memberObject, output.getOffset());
     }

@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.context;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.entities.mg.runtime.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
@@ -48,8 +48,8 @@ public class CommandContext extends Context {
     }
 
     @Override
-    public void forEachComponent(ComponentVisitor visitor) {
-        for(MgComponent variable : command.getDeclaredVariables()){
+    public void forEachComponent(ObjectVisitor visitor) {
+        for(MgVariable variable : command.getDeclaredVariables()){
             visitor.onVisitComponent(variable, null);
         }
     }

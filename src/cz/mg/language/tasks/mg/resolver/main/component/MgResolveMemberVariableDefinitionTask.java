@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.main.component;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.main.link.MgResolveVariableDatatypeTask;

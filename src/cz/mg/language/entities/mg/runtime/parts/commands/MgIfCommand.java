@@ -4,9 +4,9 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.buildin.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
@@ -39,7 +39,7 @@ public class MgIfCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         expression.run(functionObject);
         MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input.getOffset());
         if(condition.getValue()){

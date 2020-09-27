@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
 
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.variables.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
 
 
 public class MemberVariableNode extends Node {

@@ -1,7 +1,8 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
 
 import cz.mg.collections.array.Array;
-import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.buildin.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.buildin.types.MgBoolType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
@@ -9,7 +10,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInte
 
 
 public class BooleanNode extends Node {
-    private static final MgDatatype DATATYPE = new MgDatatype(MgBoolObject.TYPE, MgDatatype.Storage.DIRECT, MgDatatype.Requirement.MANDATORY);
+    private static final MgDatatype DATATYPE = new MgDatatype(MgBoolType.getInstance(), MgDatatype.Storage.DIRECT, MgDatatype.Requirement.MANDATORY);
 
     public BooleanNode() {
         super(createInputInterface(), createOutputInterface());

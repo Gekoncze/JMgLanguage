@@ -1,17 +1,15 @@
-package cz.mg.language.entities.mg.runtime.atoms;
+package cz.mg.language.entities.mg.runtime.buildin.atoms;
 
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
+import cz.mg.language.entities.mg.runtime.buildin.types.MgFloatType;
 
 
 public class MgFloatObject extends MgAtom {
-    public static final MgType TYPE = new MgType("Float");
-
     @Value
     private float value;
 
     public MgFloatObject(float value) {
-        super(TYPE);
+        super(MgFloatType.getInstance());
         this.value = value;
     }
 

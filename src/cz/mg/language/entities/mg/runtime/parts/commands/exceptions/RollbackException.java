@@ -1,19 +1,19 @@
 package cz.mg.language.entities.mg.runtime.parts.commands.exceptions;
 
-import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.entities.mg.runtime.roles.MgInstance;
 
 
 public class RollbackException extends ArtificialException {
     @Mandatory @Part
-    private final MgObject object;
+    private final MgInstance object;
 
-    public RollbackException(MgObject object) {
+    public RollbackException(MgInstance object) {
         this.object = object;
     }
 
-    public MgObject getObject() {
+    public MgInstance getObject() {
         return object;
     }
 }

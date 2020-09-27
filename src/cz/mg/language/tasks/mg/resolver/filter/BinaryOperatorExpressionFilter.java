@@ -6,10 +6,11 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -51,9 +52,9 @@ public class BinaryOperatorExpressionFilter extends Filter<MgFunction> {
     }
 
     @Override
-    protected boolean filter(MgComponent component, ReadableText alias) {
-        if(component instanceof MgFunction){
-            MgFunction function = (MgFunction) component;
+    protected boolean filter(MgObject object, ReadableText alias) {
+        if(object instanceof MgFunction){
+            MgFunction function = (MgFunction) object;
             if(function.getOperator() != null){
                 MgOperator operator = function.getOperator();
                 if(operator.getName().equals(name)){

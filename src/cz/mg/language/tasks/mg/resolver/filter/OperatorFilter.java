@@ -1,8 +1,9 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
@@ -12,9 +13,9 @@ public class OperatorFilter extends AbstractClassFilter<MgFunction> {
     }
 
     @Override
-    protected boolean filter(MgComponent component, ReadableText alias) {
-        if(super.filter(component, alias)){
-            MgFunction function = (MgFunction) component;
+    protected boolean filter(MgObject object, ReadableText alias) {
+        if(super.filter(object, alias)){
+            MgFunction function = (MgFunction) object;
             if(function.getOperator() != null){
                 return true;
             }

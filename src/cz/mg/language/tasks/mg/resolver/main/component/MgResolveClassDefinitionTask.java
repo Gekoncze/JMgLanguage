@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalClass;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.ClassContext;
 import cz.mg.language.tasks.mg.resolver.main.link.MgResolveBaseClassesTask;
@@ -56,6 +56,7 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
                 MgResolveMemberVariableDefinitionTask task = new MgResolveMemberVariableDefinitionTask(getContext(), logicalVariable);
                 task.run();
                 clazz.getVariables().addLast(task.getVariable());
+                clazz.updateVariableOffsetCache();
             });
         }
 

@@ -5,7 +5,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;

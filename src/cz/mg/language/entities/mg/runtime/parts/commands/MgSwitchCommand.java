@@ -3,8 +3,8 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.atoms.MgBoolObject;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.buildin.atoms.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public class MgSwitchCommand extends MgCommand {
@@ -20,7 +20,7 @@ public class MgSwitchCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         for(MgCaseCommand caseCommand : caseCommands){
             if(caseCommand.getExpression() != null){
                 caseCommand.getExpression().run(functionObject);

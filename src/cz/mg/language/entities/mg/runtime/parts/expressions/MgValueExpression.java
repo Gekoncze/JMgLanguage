@@ -3,10 +3,10 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.atoms.MgAtom;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
-import cz.mg.language.entities.mg.runtime.objects.MgObject;
+import cz.mg.language.entities.mg.runtime.buildin.atoms.MgAtom;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
 
 public class MgValueExpression extends MgExpression {
@@ -30,7 +30,7 @@ public class MgValueExpression extends MgExpression {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         functionObject.getObjects().set(object.copy(), output.getOffset());
     }
 }

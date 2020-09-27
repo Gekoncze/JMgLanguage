@@ -2,32 +2,24 @@ package cz.mg.language.entities.mg.runtime.architecture;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
-public class MgNativeThread extends MgArchitectureObject {
-    private static final MgType TYPE = new MgType("NativeThread");
-
+public class MgNativeThread extends MgArchitecture {
     @Part
     private Thread thread;
 
     @Part
-    private MgFunctionObject functionObject;
+    private MgFunctionInstanceImpl functionObject;
 
     public MgNativeThread(ReadableText name) {
-        super(TYPE, name);
-    }
-
-    public MgNativeThread(MgType type, ReadableText name, MgFunctionObject functionObject) {
-        super(type, name);
-        this.functionObject = functionObject;
+        super(name);
     }
 
     public void run(MgFunction function){
         if(thread != null) throw new RuntimeException();
-        functionObject = new MgFunctionObject(function);
+        functionObject = new MgFunctionInstanceImpl(function);
         thread = new Thread(() -> {
             function.run(functionObject);
             functionObject = null;

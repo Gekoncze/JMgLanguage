@@ -2,7 +2,6 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
-import cz.mg.language.entities.mg.runtime.atoms.MgTextObject;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgValueExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
@@ -39,7 +38,7 @@ public class MgResolveValueExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected Node onResolveLeave() {
-        return new ValueNode(new MgTextObject(logicalExpression.getValue().toString()));
+        return new ValueNode(getParentInputInterface(), logicalExpression.getValue());
     }
 
     @Override

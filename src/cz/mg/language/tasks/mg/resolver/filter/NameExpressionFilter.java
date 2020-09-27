@@ -4,16 +4,16 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.MgVariable;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
-public class NameExpressionFilter extends AbstractClassFilter<MgComponent> {
+public class NameExpressionFilter extends AbstractClassFilter<MgObject> {
     @Mandatory @Part
     private final VariableExpressionFilter variableExpressionFilter;
 
@@ -59,13 +59,13 @@ public class NameExpressionFilter extends AbstractClassFilter<MgComponent> {
     }
 
     @Override
-    protected boolean filter(MgComponent component, ReadableText alias) {
-        if(super.filter(component, alias)){
-            if(variableExpressionFilter.filter(component, alias)){
+    protected boolean filter(MgObject object, ReadableText alias) {
+        if(super.filter(object, alias)){
+            if(variableExpressionFilter.filter(object, alias)){
                 return true;
             }
 
-            if(functionExpressionFilter.filter(component, alias)){
+            if(functionExpressionFilter.filter(object, alias)){
                 return true;
             }
         }

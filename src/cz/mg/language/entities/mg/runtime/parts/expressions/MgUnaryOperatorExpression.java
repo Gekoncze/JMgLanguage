@@ -4,9 +4,9 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
@@ -30,12 +30,12 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
     }
 
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         expression.run(functionObject);
 
         for(Replication replication : replications){
             // create new function object
-            MgFunctionObject newFunctionObject = new MgFunctionObject(replication.getFunction());
+            MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(replication.getFunction());
 
             // set input for newly created function object
             newFunctionObject.getObjects().set(functionObject.getObjects().get(replication.getInput().getOffset()), 0);

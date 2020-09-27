@@ -1,29 +1,31 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.roles.MgNamedObject;
 
 
-public abstract class MgVariable extends MgComponent {
-    private static final MgType TYPE = new MgType("Variable");
+public abstract class MgVariable implements MgNamedObject {
+    @Mandatory @Value
+    private final ReadableText name;
 
     @Mandatory @Value
     private MgDatatype datatype;
 
-    protected MgVariable(MgType type, ReadableText name) {
-        super(type, name);
-    }
-
     public MgVariable(ReadableText name) {
-        super(TYPE, name);
+        this.name = name;
     }
 
     public MgVariable(ReadableText name, MgDatatype datatype) {
-        super(TYPE, name);
-        setDatatype(datatype);
+        this.name = name;
+        this.datatype = datatype;
+    }
+
+    @Override
+    public ReadableText getName() {
+        return name;
     }
 
     public MgDatatype getDatatype() {

@@ -2,9 +2,10 @@ package cz.mg.language.tasks.mg.resolver.context;
 
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.types.MgCollection;
+import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgCollection;
 import cz.mg.language.entities.mg.runtime.parts.MgParameter;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
 
 public class CollectionContext extends ComponentContext {
@@ -29,13 +30,13 @@ public class CollectionContext extends ComponentContext {
     }
 
     @Override
-    public void forEachComponent(ComponentVisitor visitor) {
+    public void forEachComponent(ObjectVisitor visitor) {
         if(collection != null){
-            for(MgComponent variable : collection.getVariables()){
+            for(MgObject variable : collection.getVariables()){
                 visitor.onVisitComponent(variable, null);
             }
 
-            for(MgComponent function : collection.getFunctions()){
+            for(MgObject function : collection.getFunctions()){
                 visitor.onVisitComponent(function, null);
             }
 

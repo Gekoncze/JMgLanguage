@@ -1,21 +1,21 @@
-package cz.mg.language.entities.mg.runtime.components.types;
+package cz.mg.language.entities.mg.runtime.components;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.MgRunnable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.objects.MgFunctionObject;
+import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.annotations.task.Cache;
+import cz.mg.language.entities.mg.runtime.roles.MgRunnable;
+import cz.mg.language.entities.mg.runtime.roles.MgType;
+import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 
 
-public class MgFunction extends MgInterface implements MgRunnable {
-    private static final MgType TYPE = new MgType("Function");
-
+public class MgFunction extends MgInterface implements MgType, MgRunnable {
     @Mandatory @Part
     private final ArrayList<MgLocalVariable> local = new ArrayList<>();
 
@@ -25,12 +25,16 @@ public class MgFunction extends MgInterface implements MgRunnable {
     @Mandatory @Part
     private final ArrayList<MgCommand> commands = new ArrayList<>();
 
-    protected MgFunction(MgType type, ReadableText name) {
-        super(type, name);
-    }
+    @Optional @Cache
+    private Integer variableCountCache;
 
     public MgFunction(ReadableText name) {
-        super(TYPE, name);
+        super(name);
+    }
+
+    public MgFunction(ReadableText name, MgOperator operator) {
+        super(name);
+        this.operator = operator;
     }
 
     public ArrayList<MgLocalVariable> getLocal() {
@@ -49,7 +53,12 @@ public class MgFunction extends MgInterface implements MgRunnable {
         return commands;
     }
 
-    public void updateCache(){
+    public Integer getVariableCountCache() {
+        if(variableCountCache == null) updateVariableCountCache();
+        return variableCountCache;
+    }
+
+    public void updateVariableOffsetCache(){
         int i = 0;
         for(MgLocalVariable variable : getInput()){
             variable.setOffset(i);
@@ -65,13 +74,26 @@ public class MgFunction extends MgInterface implements MgRunnable {
         }
     }
 
+    private void updateVariableCountCache(){
+        variableCountCache =
+            getInput().count() +
+            getOutput().count() +
+            getLocal().count();
+    }
+
     @Override
-    public void run(MgFunctionObject functionObject) {
+    public void run(MgFunctionInstanceImpl functionObject) {
         try {
             for(MgCommand command : commands){
                 command.run(functionObject);
             }
         } catch (ReturnException e){
+            // nothing to do
         }
+    }
+
+    @Override
+    public boolean is(MgType baseType) {
+        return this == baseType;
     }
 }

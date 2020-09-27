@@ -5,11 +5,11 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public abstract class AbstractClassFilter<C extends MgComponent> extends Filter<C> {
+public abstract class AbstractClassFilter<C extends MgObject> extends Filter<C> {
     @Value
     private final ReadableText name;
 
@@ -23,20 +23,14 @@ public abstract class AbstractClassFilter<C extends MgComponent> extends Filter<
     }
 
     @Override
-    protected boolean filter(MgComponent component, ReadableText alias) {
+    protected boolean filter(MgObject object, ReadableText name) {
         for(Class<? extends C> clazz : classes){
-            if(clazz.isInstance(component)){
-                if(name == null){
+            if(clazz.isInstance(object)){
+                if(this.name == null){
                     return true;
                 } else {
-                    if(alias == null){
-                        if(name.equals(component.getName())){
-                            return true;
-                        }
-                    } else {
-                        if(name.equals(alias)){
-                            return true;
-                        }
+                    if(this.name.equals(name)){
+                        return true;
                     }
                 }
             }

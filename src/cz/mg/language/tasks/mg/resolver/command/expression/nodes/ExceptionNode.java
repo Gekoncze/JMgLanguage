@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
 
 import cz.mg.collections.array.Array;
-import cz.mg.language.entities.mg.runtime.components.types.MgException;
+import cz.mg.language.entities.mg.runtime.buildin.types.MgExceptionType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
@@ -9,7 +9,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInte
 
 
 public class ExceptionNode extends Node {
-    private static final MgDatatype DATATYPE = new MgDatatype(MgException.TYPE, MgDatatype.Storage.OTHER, MgDatatype.Requirement.MANDATORY);
+    private static final MgDatatype DATATYPE = new MgDatatype(MgExceptionType.getInstance(), MgDatatype.Storage.OTHER, MgDatatype.Requirement.MANDATORY);
 
     public ExceptionNode() {
         super(createInputInterface(), createOutputInterface());

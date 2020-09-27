@@ -2,8 +2,8 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.roles.MgType;
 
 
 public class Matcher {

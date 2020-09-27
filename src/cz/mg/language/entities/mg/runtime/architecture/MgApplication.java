@@ -4,34 +4,17 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
-public class MgApplication extends MgArchitectureObject {
-    private static final MgType TYPE = new MgType("Application");
-
+public class MgApplication extends MgArchitecture {
     @Part
     private final MgLocation root = new MgLocation(new ReadonlyText(""));
 
-//    @Part
-//    private final List<MgCore> cores = new List<>();
-//
-//    @Part
-//    private final List<MgThread> threads = new List<>();
-
     public MgApplication(ReadableText name) {
-        super(TYPE, name);
+        super(name);
     }
 
     public MgLocation getRoot() {
         return root;
     }
-
-//    public List<MgCore> getCores() {
-//        return cores;
-//    }
-//
-//    public List<MgThread> getThreads() {
-//        return threads;
-//    }
 }
