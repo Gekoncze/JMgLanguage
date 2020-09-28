@@ -2,10 +2,10 @@ package cz.mg.language.tasks.mg.resolver.context;
 
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.MgVariable;
-import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.MgClass;
 
 
 public class ClassContext extends ComponentContext {

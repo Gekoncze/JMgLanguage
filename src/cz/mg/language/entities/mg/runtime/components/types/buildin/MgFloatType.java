@@ -1,9 +1,9 @@
-package cz.mg.language.entities.mg.runtime.buildin.types;
+package cz.mg.language.entities.mg.runtime.components.types.buildin;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.mg.runtime.buildin.atoms.MgAtom;
-import cz.mg.language.entities.mg.runtime.buildin.atoms.MgFloatObject;
+import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
+import cz.mg.language.entities.mg.runtime.instances.buildin.MgFloatObject;
 
 
 public class MgFloatType extends MgAtomType {

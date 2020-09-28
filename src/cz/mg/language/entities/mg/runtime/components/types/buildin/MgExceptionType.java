@@ -1,8 +1,8 @@
-package cz.mg.language.entities.mg.runtime.buildin.types;
+package cz.mg.language.entities.mg.runtime.components.types.buildin;
 
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.entities.mg.runtime.components.MgClass;
-import cz.mg.language.entities.mg.runtime.components.MgType;
+import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgExceptionType {

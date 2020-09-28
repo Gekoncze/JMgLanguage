@@ -2,10 +2,10 @@ package cz.mg.language.tasks.mg.resolver.main;
 
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.entities.mg.runtime.buildin.types.*;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.*;
 import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;

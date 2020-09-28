@@ -6,7 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
-import cz.mg.language.entities.mg.runtime.roles.MgClassInstance;
+import cz.mg.language.entities.mg.runtime.instances.MgClassInstance;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
 

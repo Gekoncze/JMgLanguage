@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.utilities;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;

@@ -3,11 +3,10 @@ package cz.mg.language.entities.mg.runtime.components.variables;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.task.Cache;
-import cz.mg.language.entities.mg.runtime.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
-public class MgMemberVariable extends MgVariable {
+public abstract class MgMemberVariable extends MgVariable {
     @Mandatory @Cache
     private int offset;
 

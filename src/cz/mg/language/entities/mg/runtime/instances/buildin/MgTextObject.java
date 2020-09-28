@@ -1,7 +1,7 @@
-package cz.mg.language.entities.mg.runtime.buildin.atoms;
+package cz.mg.language.entities.mg.runtime.instances.buildin;
 
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.buildin.types.MgTextType;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgTextType;
 
 
 public class MgTextObject extends MgAtom {

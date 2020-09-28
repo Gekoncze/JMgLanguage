@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime.components.types;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
@@ -6,20 +6,13 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.task.Cache;
-import cz.mg.language.entities.mg.runtime.buildin.types.MgObjectType;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 
 
-public class MgClass implements MgComponent, MgType {
-    @Mandatory @Value
-    private final ReadableText name;
-
-    @Mandatory @Part
-    private ArrayList<@Link MgStamp> stamps = new ArrayList<>();
-
+public class MgClass extends MgType {
     @Optional @Link
     private MgClass baseClass;
 
@@ -36,17 +29,7 @@ public class MgClass implements MgComponent, MgType {
     private Integer variableCountCache;
 
     public MgClass(ReadableText name) {
-        this.name = name;
-    }
-
-    @Override
-    public ReadableText getName() {
-        return name;
-    }
-
-    @Override
-    public ArrayList<MgStamp> getStamps() {
-        return stamps;
+        super(name);
     }
 
     public MgClass getBaseClass() {

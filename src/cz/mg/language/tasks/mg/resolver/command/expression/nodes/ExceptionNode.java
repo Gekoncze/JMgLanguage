@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
 
 import cz.mg.collections.array.Array;
-import cz.mg.language.entities.mg.runtime.buildin.types.MgExceptionType;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgExceptionType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;

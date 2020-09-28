@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariabl
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.roles.MgInstance;
+import cz.mg.language.entities.mg.runtime.instances.MgInstance;
 
 
 public class MgRollbackCommand extends MgCommand {

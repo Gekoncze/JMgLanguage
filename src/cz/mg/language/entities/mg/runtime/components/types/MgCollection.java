@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime.components.types;
 
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.ArrayList;

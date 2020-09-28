@@ -5,9 +5,8 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.roles.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
-import cz.mg.language.entities.mg.runtime.components.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
 
 
 public class MgFunctionInstanceImpl implements MgFunctionInstance {

@@ -3,7 +3,7 @@ package cz.mg.language.entities.mg.runtime.parts;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.MgType;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
 public class MgDatatype implements MgPart {

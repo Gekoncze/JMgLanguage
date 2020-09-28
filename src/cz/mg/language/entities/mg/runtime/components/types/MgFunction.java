@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime.components.types;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
@@ -14,7 +14,7 @@ import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 
 
-public class MgFunction extends MgInterface implements MgType, MgRunnable {
+public class MgFunction extends MgInterface implements MgRunnable {
     @Mandatory @Part
     private final ArrayList<MgFunctionVariable> local = new ArrayList<>();
 
@@ -89,10 +89,5 @@ public class MgFunction extends MgInterface implements MgType, MgRunnable {
         } catch (ReturnException e){
             // nothing to do
         }
-    }
-
-    @Override
-    public boolean is(MgType baseType) {
-        return this == baseType;
     }
 }

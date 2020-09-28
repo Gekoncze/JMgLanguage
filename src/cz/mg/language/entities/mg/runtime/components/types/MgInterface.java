@@ -1,21 +1,14 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime.components.types;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 
 
-public class MgInterface implements MgComponent {
-    @Mandatory @Value
-    private final ReadableText name;
-
-    @Mandatory @Part
-    private ArrayList<@Link MgStamp> stamps = new ArrayList<>();
-
+public class MgInterface extends MgType {
     @Mandatory @Part
     private final ArrayList<MgFunctionVariable> input = new ArrayList<>();
 
@@ -23,17 +16,7 @@ public class MgInterface implements MgComponent {
     private final ArrayList<MgFunctionVariable> output = new ArrayList<>();
 
     public MgInterface(ReadableText name) {
-        this.name = name;
-    }
-
-    @Override
-    public ReadableText getName() {
-        return name;
-    }
-
-    @Override
-    public ArrayList<MgStamp> getStamps() {
-        return stamps;
+        super(name);
     }
 
     public ArrayList<MgFunctionVariable> getInput() {
@@ -42,5 +25,12 @@ public class MgInterface implements MgComponent {
 
     public ArrayList<MgFunctionVariable> getOutput() {
         return output;
+    }
+
+    @Override
+    public boolean is(MgType baseType) {
+        if(baseType == MgObjectType.getInstance()) return true;
+        if(baseType == this) return true;
+        return false;
     }
 }
