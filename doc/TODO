@@ -52,8 +52,6 @@ complete support for collections
     for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)
     they should definitely be distinguished as readable, writeable, readonly, nonnull somehow
 
-add support for variable number of parameters of functions ?
-
 high-level architecture
     modules or bundles or libraries or packages ...
         we could take a look at locations as folders/directories in os
@@ -72,39 +70,34 @@ mg stamps definitions
 
 ### LATER ### ----------------------------------------------------------------------------------------------------------
 add context for function execution
+add support for variable number of parameters of functions ?
 
 change static create implementations
     make it so the classes registers themselves in a static block
 
-mg logic entity versioning ?
-mg runtime entity versioning ?
+mg logic or runtime entity versioning ?
 mg global variable - add runtime validation for type?
 mg member variable - add runtime validation for type?
+mg function pointers - will be called interfaces
+mg roles (like java interfaces)
 
-think of possible scheduler
-    schedulers can schedule:
-        for each core a bunch of threads
-        a bunch of threads for bunch of cores
-        ... the question there is, if scheduler should be inside of core or application ?
+write mg to c converter
+    decide if to convert from logical or runtime entities
 
-c entities
-    add global variable element (dont forget modifiers)
-    add thread local modifier
-    add extern modifier
-    add (c language specific) static modifier
-    differentiate c number and text and character literals ???
+    c entities
+        add global variable element (dont forget modifiers)
+        add thread local modifier
+        add extern modifier
+        add (c language specific) static modifier
+        differentiate c number and text and character literals ???
 
-    bad design detected
-        lines should own tokens as a part
-        but actually, with static final variables, they cant own them, they just reference them
-        the right thing to do is to always create a new token instance!
+        bad design detected
+            lines should own tokens as a part
+            but actually, with static final variables, they cant own them, they just reference them
+            the right thing to do is to always create a new token instance!
 
-write mg to c converter (logic or runtime?)
-
-c writer
-    optimize operator writer tasks to not always include brackets
-
-function pointers in mg - will be called interfaces (java like interfaces might be called roles)
+    c writer
+        optimize operator writer tasks to not always include brackets
 
 improve compiler exceptions
     add external (user) exception vs internal exception
@@ -128,14 +121,26 @@ make platform independent threads
     not sure:
         if better or worse performance
 
-make MgCore work
+    make MgCore work
+
+    think of possible scheduler
+        schedulers can schedule:
+            for each core a bunch of threads
+            a bunch of threads for bunch of cores
+            ... the question there is, if scheduler should be inside of core or application ?
 
 
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
-limit file size parameter
-add entity validations
-during resolution, inner context cannot shadow outer context results
-during resolution, some local variables created by expressions can be reused
+additional validations
+    add some configurable limits to better sanitize input
+        limit file size
+        limit line size
+
+    add entity validations
+
+optimizations
+    during resolution, some local variables created by expressions can be reused
+    add optmized version of variable helper
 
 mg language - required vs optional input and output variables for functions
     can be implemented as syntactical sugar
@@ -157,6 +162,23 @@ move all subtasks to Task class ???
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------
+add support for builder like syntax using double dot ..
+
+add support for parents inside objects
+    should be part of an interface so it can be more dynamic for buildin types etc.
+    prevent creating cycles (needs to be checked at runtime)
+        could be theoretically at compile time, but would restrict types too much
+            (which migh have both good and bad sides)
+
+make mg class be able to limit what type can own it
+
+usings could automatically add some prefix or suffix to prevent ambiguous usages more easily
+    these could be defined in some special locations called areas maybe?
+
+add support for conditional member access
+    expression will be skipped if lvalue is null
+    this might be tricky though, cuz it could appear inside more complicated expression
+
 literals
     idea - there can be two types:
         '' - converted at startup when code is loaded
