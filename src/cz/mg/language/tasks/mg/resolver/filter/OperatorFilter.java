@@ -1,7 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;

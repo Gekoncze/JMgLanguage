@@ -5,7 +5,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
@@ -15,12 +15,12 @@ public class MgCaseCommand extends MgCommand {
     private final MgExpression expression;
 
     @Optional @Value
-    private final MgLocalVariable input;
+    private final MgFunctionVariable input;
 
     @Mandatory @Part
     private final List<MgCommand> commands;
 
-    public MgCaseCommand(MgExpression expression, MgLocalVariable input, List<MgCommand> commands) {
+    public MgCaseCommand(MgExpression expression, MgFunctionVariable input, List<MgCommand> commands) {
         this.expression = expression;
         this.input = input;
         this.commands = commands;
@@ -30,7 +30,7 @@ public class MgCaseCommand extends MgCommand {
         return expression;
     }
 
-    public MgLocalVariable getInput() {
+    public MgFunctionVariable getInput() {
         return input;
     }
 

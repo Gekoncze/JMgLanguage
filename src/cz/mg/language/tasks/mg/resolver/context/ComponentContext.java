@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
 
 

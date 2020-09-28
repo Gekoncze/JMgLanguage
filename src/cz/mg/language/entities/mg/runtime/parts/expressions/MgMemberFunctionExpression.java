@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
@@ -16,8 +16,8 @@ public class MgMemberFunctionExpression extends MgFunctionExpression {
         MgExpression target,
         MgFunction function,
         MgExpression expression,
-        List<MgLocalVariable> input,
-        List<MgLocalVariable> output
+        List<MgFunctionVariable> input,
+        List<MgFunctionVariable> output
     ) {
         super(function, expression, input, output);
         this.target = target;

@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.utilities;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -13,9 +13,9 @@ import cz.mg.language.tasks.mg.resolver.command.utilities.helpers.SimpleVariable
 public interface VariableHelper {
     void sink();
     void raise();
-    MgLocalVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype);
-    MgLocalVariable nextExpressionVariable(MgDatatype datatype);
-    MgLocalVariable nextExpressionVariable(
+    MgFunctionVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype);
+    MgFunctionVariable nextExpressionVariable(MgDatatype datatype);
+    MgFunctionVariable nextExpressionVariable(
         Node parent,
         InputConnector parentInputConnector,
         Node child,

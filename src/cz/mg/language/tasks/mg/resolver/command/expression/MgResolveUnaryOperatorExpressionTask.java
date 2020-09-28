@@ -8,7 +8,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgUnaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -70,8 +70,8 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
     protected List<MgUnaryOperatorExpression.Replication> createReplications(){
         List<MgUnaryOperatorExpression.Replication> replications = new List<>();
 
-        Array<MgLocalVariable> input = gatherInputOffset();
-        Array<MgLocalVariable> output = gatherOutputOffset();
+        Array<MgFunctionVariable> input = gatherInputOffset();
+        Array<MgFunctionVariable> output = gatherOutputOffset();
 
         int i = 0;
         for(MgFunction function : getNode().getFunctions()){
@@ -88,8 +88,8 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
         return replications;
     }
 
-    private Array<MgLocalVariable> gatherInputOffset(){
-        Array<MgLocalVariable> offset = new Array<>(getNode().getFunctions().count());
+    private Array<MgFunctionVariable> gatherInputOffset(){
+        Array<MgFunctionVariable> offset = new Array<>(getNode().getFunctions().count());
         Iterator<InputConnector> iterator = getInputInterface().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset.set(iterator.next().getConnection().getConnectionVariable(), i);
@@ -97,8 +97,8 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
         return offset;
     }
 
-    private Array<MgLocalVariable> gatherOutputOffset(){
-        Array<MgLocalVariable> offset = new Array<>(getNode().getFunctions().count());
+    private Array<MgFunctionVariable> gatherOutputOffset(){
+        Array<MgFunctionVariable> offset = new Array<>(getNode().getFunctions().count());
         Iterator<OutputConnector> iterator = getOutputInterface().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset.set(iterator.next().getConnection().getConnectionVariable(), i);

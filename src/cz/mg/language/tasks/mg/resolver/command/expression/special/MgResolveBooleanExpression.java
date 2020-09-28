@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression.special;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.BooleanNode;
@@ -39,7 +39,7 @@ public class MgResolveBooleanExpression extends MgResolveExpressionTask {
         return getChildren().getLast().createExpression();
     }
 
-    public MgLocalVariable getVariable() {
+    public MgFunctionVariable getVariable() {
         return getNode().getInputInterface().getConnectors().getFirst().getConnection().getConnectionVariable();
     }
 }

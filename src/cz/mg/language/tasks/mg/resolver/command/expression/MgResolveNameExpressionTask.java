@@ -4,10 +4,9 @@ import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgFunctionExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgLocalVariableExpression;
@@ -65,11 +64,11 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
             return null;
         }
 
-        if(object instanceof MgLocalVariable){
-            return new LocalVariableNode((MgLocalVariable) object);
+        if(object instanceof MgFunctionVariable){
+            return new LocalVariableNode((MgFunctionVariable) object);
         }
 
-        if(object instanceof MgMemberVariable){
+        if(object instanceof MgClassVariable){
             throw new LanguageException("Member variables are not accessible directly from function body.");
         }
 
@@ -105,16 +104,16 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
         return getChildren().getFirst().onCreateExpression();
     }
 
-    private List<MgLocalVariable> gatherInput(){
-        List<MgLocalVariable> input = new List<>();
+    private List<MgFunctionVariable> gatherInput(){
+        List<MgFunctionVariable> input = new List<>();
         for(InputConnector in : getInputInterface().getConnectors()){
             input.addLast(in.getConnection().getConnectionVariable());
         }
         return input;
     }
 
-    private List<MgLocalVariable> gatherOutput(){
-        List<MgLocalVariable> output = new List<>();
+    private List<MgFunctionVariable> gatherOutput(){
+        List<MgFunctionVariable> output = new List<>();
         for(OutputConnector out : getOutputInterface().getConnectors()){
             output.addLast(out.getConnection().getConnectionVariable());
         }

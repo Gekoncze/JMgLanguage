@@ -9,7 +9,7 @@ import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.buildin.atoms.MgAtom;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
-import cz.mg.language.entities.mg.runtime.roles.MgType;
+import cz.mg.language.entities.mg.runtime.components.MgType;
 
 
 public abstract class MgAtomType implements MgObject, MgType {

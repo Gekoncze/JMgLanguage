@@ -7,7 +7,7 @@ import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.buildin.atoms.MgBoolObject;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.BreakException;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ContinueException;
@@ -22,12 +22,12 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     private final MgExpression expression;
 
     @Mandatory @Value
-    private final MgLocalVariable input;
+    private final MgFunctionVariable input;
 
     @Mandatory @Part
     private final List<MgCommand> commands;
 
-    public MgWhileCommand(ReadableText name, MgExpression expression, MgLocalVariable input, List<MgCommand> commands) {
+    public MgWhileCommand(ReadableText name, MgExpression expression, MgFunctionVariable input, List<MgCommand> commands) {
         this.name = name;
         this.expression = expression;
         this.input = input;
@@ -43,7 +43,7 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
         return expression;
     }
 
-    public MgLocalVariable getInput() {
+    public MgFunctionVariable getInput() {
         return input;
     }
 

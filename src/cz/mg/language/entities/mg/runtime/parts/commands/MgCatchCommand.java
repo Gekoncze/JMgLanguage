@@ -4,23 +4,23 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public class MgCatchCommand extends MgCommand {
     @Mandatory @Link
-    private final MgLocalVariable input;
+    private final MgFunctionVariable input;
 
     @Mandatory @Part
     private final List<MgCommand> commands;
 
-    public MgCatchCommand(@Link MgLocalVariable input, @Part List<MgCommand> commands) {
+    public MgCatchCommand(@Link MgFunctionVariable input, @Part List<MgCommand> commands) {
         this.input = input;
         this.commands = commands;
     }
 
-    public MgLocalVariable getInput() {
+    public MgFunctionVariable getInput() {
         return input;
     }
 

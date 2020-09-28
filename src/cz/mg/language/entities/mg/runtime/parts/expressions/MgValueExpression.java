@@ -4,7 +4,7 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.buildin.atoms.MgAtom;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
@@ -14,9 +14,9 @@ public class MgValueExpression extends MgExpression {
     private final MgAtom object;
 
     @Mandatory @Link
-    private final MgLocalVariable output;
+    private final MgFunctionVariable output;
 
-    public MgValueExpression(MgAtom object, MgLocalVariable output) {
+    public MgValueExpression(MgAtom object, MgFunctionVariable output) {
         this.object = object;
         this.output = output;
     }
@@ -25,7 +25,7 @@ public class MgValueExpression extends MgExpression {
         return object;
     }
 
-    public MgLocalVariable getOutput() {
+    public MgFunctionVariable getOutput() {
         return output;
     }
 

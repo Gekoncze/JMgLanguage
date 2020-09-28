@@ -4,7 +4,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.*;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
@@ -49,7 +49,7 @@ public class Node {
         for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
             @Optional InputConnector inputConnector = parent.getInputInterface().getRemainingConnectors().getFirst();
             if(inputConnector == null) throw new LanguageException("Cannot connect expressions. Parent has not enough free connectors.");
-            MgLocalVariable connectionVariable = variableHelper.nextExpressionVariable(parent, inputConnector, child, outputConnector);
+            MgFunctionVariable connectionVariable = variableHelper.nextExpressionVariable(parent, inputConnector, child, outputConnector);
             Connection.connect(inputConnector, outputConnector, connectionVariable);
         }
     }

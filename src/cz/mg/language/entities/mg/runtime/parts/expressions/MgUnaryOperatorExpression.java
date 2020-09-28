@@ -5,7 +5,7 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
@@ -53,15 +53,15 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
         private final MgFunction function;
 
         @Mandatory @Link
-        private final MgLocalVariable input;
+        private final MgFunctionVariable input;
 
         @Mandatory @Link
-        private final MgLocalVariable output;
+        private final MgFunctionVariable output;
 
         public Replication(
             MgFunction function,
-            MgLocalVariable input,
-            MgLocalVariable output
+            MgFunctionVariable input,
+            MgFunctionVariable output
         ) {
             this.function = function;
             this.input = input;
@@ -74,11 +74,11 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
             return function;
         }
 
-        public MgLocalVariable getInput() {
+        public MgFunctionVariable getInput() {
             return input;
         }
 
-        public MgLocalVariable getOutput() {
+        public MgFunctionVariable getOutput() {
             return output;
         }
     }

@@ -5,7 +5,6 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;

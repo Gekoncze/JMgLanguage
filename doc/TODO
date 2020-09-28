@@ -1,9 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-Fixed literals + rewritten runtime entities (work in progress)
-literals can now only be atoms and are converted at compile time
+some small architecture improvements
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+mg class - variable offset cache - wrong computation, must start from base
 add buildin as operators
 add option for user to provide his own as operators
 explicit casting

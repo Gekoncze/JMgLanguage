@@ -6,8 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 
 
 public class MgInterface implements MgComponent {
@@ -18,10 +17,10 @@ public class MgInterface implements MgComponent {
     private ArrayList<@Link MgStamp> stamps = new ArrayList<>();
 
     @Mandatory @Part
-    private final ArrayList<MgLocalVariable> input = new ArrayList<>();
+    private final ArrayList<MgFunctionVariable> input = new ArrayList<>();
 
     @Mandatory @Part
-    private final ArrayList<MgLocalVariable> output = new ArrayList<>();
+    private final ArrayList<MgFunctionVariable> output = new ArrayList<>();
 
     public MgInterface(ReadableText name) {
         this.name = name;
@@ -37,11 +36,11 @@ public class MgInterface implements MgComponent {
         return stamps;
     }
 
-    public ArrayList<MgLocalVariable> getInput() {
+    public ArrayList<MgFunctionVariable> getInput() {
         return input;
     }
 
-    public ArrayList<MgLocalVariable> getOutput() {
+    public ArrayList<MgFunctionVariable> getOutput() {
         return output;
     }
 }

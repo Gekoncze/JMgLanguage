@@ -9,7 +9,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.buildin.atoms.MgAtom;
 import cz.mg.language.entities.mg.runtime.buildin.types.MgAtomType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.roles.MgType;
+import cz.mg.language.entities.mg.runtime.components.MgType;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;

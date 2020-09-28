@@ -9,9 +9,8 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.buildin.types.MgObjectType;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
-import cz.mg.language.entities.mg.runtime.roles.MgType;
-import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 
 
 public class MgClass implements MgComponent, MgType {
@@ -28,7 +27,7 @@ public class MgClass implements MgComponent, MgType {
     private final ArrayList<MgGlobalVariable> globalVariables = new ArrayList<>();
 
     @Mandatory @Part
-    private final ArrayList<MgMemberVariable> variables = new ArrayList<>();
+    private final ArrayList<MgClassVariable> variables = new ArrayList<>();
 
     @Mandatory @Part
     private final ArrayList<MgFunction> functions = new ArrayList<>();
@@ -58,7 +57,7 @@ public class MgClass implements MgComponent, MgType {
         return globalVariables;
     }
 
-    public ArrayList<MgMemberVariable> getVariables() {
+    public ArrayList<MgClassVariable> getVariables() {
         return variables;
     }
 
@@ -77,7 +76,7 @@ public class MgClass implements MgComponent, MgType {
 
     public void updateVariableOffsetCache(){
         int i = 0;
-        for(MgMemberVariable variable : getVariables()){
+        for(MgClassVariable variable : getVariables()){
             variable.setOffset(i);
             i++;
         }
@@ -86,7 +85,7 @@ public class MgClass implements MgComponent, MgType {
     private void updateVariableCountCache(){
         int count = 0;
         MgClass clazz = this;
-        while(clazz != null){
+        while(clazz != null){ // todo - must count from base class
             count += clazz.getVariables().count();
             clazz = clazz.getBaseClass();
         }

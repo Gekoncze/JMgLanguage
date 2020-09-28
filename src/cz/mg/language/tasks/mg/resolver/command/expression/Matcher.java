@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.roles.MgType;
+import cz.mg.language.entities.mg.runtime.components.MgType;
 
 
 public class Matcher {

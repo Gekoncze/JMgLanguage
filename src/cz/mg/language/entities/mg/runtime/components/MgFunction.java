@@ -6,9 +6,8 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Cache;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.roles.MgRunnable;
-import cz.mg.language.entities.mg.runtime.roles.MgType;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
@@ -17,7 +16,7 @@ import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnExcept
 
 public class MgFunction extends MgInterface implements MgType, MgRunnable {
     @Mandatory @Part
-    private final ArrayList<MgLocalVariable> local = new ArrayList<>();
+    private final ArrayList<MgFunctionVariable> local = new ArrayList<>();
 
     @Optional @Part
     private MgOperator operator;
@@ -37,7 +36,7 @@ public class MgFunction extends MgInterface implements MgType, MgRunnable {
         this.operator = operator;
     }
 
-    public ArrayList<MgLocalVariable> getLocal() {
+    public ArrayList<MgFunctionVariable> getLocal() {
         return local;
     }
 
@@ -60,15 +59,15 @@ public class MgFunction extends MgInterface implements MgType, MgRunnable {
 
     public void updateVariableOffsetCache(){
         int i = 0;
-        for(MgLocalVariable variable : getInput()){
+        for(MgFunctionVariable variable : getInput()){
             variable.setOffset(i);
             i++;
         }
-        for(MgLocalVariable variable : getOutput()){
+        for(MgFunctionVariable variable : getOutput()){
             variable.setOffset(i);
             i++;
         }
-        for(MgLocalVariable variable : getLocal()){
+        for(MgFunctionVariable variable : getLocal()){
             variable.setOffset(i);
             i++;
         }

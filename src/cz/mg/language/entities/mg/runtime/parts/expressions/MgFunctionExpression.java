@@ -6,7 +6,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
@@ -18,16 +18,16 @@ public class MgFunctionExpression extends MgExpression {
     private final MgExpression expression;
 
     @Mandatory @Link
-    private final List<MgLocalVariable> input;
+    private final List<MgFunctionVariable> input;
 
     @Mandatory @Link
-    private final List<MgLocalVariable> output;
+    private final List<MgFunctionVariable> output;
 
     public MgFunctionExpression(
         MgFunction function,
         MgExpression expression,
-        List<MgLocalVariable> input,
-        List<MgLocalVariable> output
+        List<MgFunctionVariable> input,
+        List<MgFunctionVariable> output
     ) {
         this.function = function;
         this.expression = expression;
@@ -43,11 +43,11 @@ public class MgFunctionExpression extends MgExpression {
         return expression;
     }
 
-    public List<MgLocalVariable> getInput() {
+    public List<MgFunctionVariable> getInput() {
         return input;
     }
 
-    public List<MgLocalVariable> getOutput() {
+    public List<MgFunctionVariable> getOutput() {
         return output;
     }
 
@@ -63,7 +63,7 @@ public class MgFunctionExpression extends MgExpression {
         MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(function);
 
         // set input for newly created function object
-        for(MgLocalVariable in : input){
+        for(MgFunctionVariable in : input){
             newFunctionObject.getObjects().set(functionObject.getObjects().get(in.getOffset()), local);
             local++;
         }
@@ -72,7 +72,7 @@ public class MgFunctionExpression extends MgExpression {
         function.run(functionObject);
 
         // get output of the newly created function object
-        for(MgLocalVariable out : output){
+        for(MgFunctionVariable out : output){
             functionObject.getObjects().set(newFunctionObject.getObjects().get(local), out.getOffset());
             local++;
         }

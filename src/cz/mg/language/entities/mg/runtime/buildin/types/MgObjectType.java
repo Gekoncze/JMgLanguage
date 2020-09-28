@@ -8,7 +8,7 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.MgStamp;
-import cz.mg.language.entities.mg.runtime.roles.MgType;
+import cz.mg.language.entities.mg.runtime.components.MgType;
 
 
 public class MgObjectType implements MgType {

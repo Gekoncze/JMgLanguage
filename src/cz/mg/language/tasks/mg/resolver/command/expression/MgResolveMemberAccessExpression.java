@@ -6,11 +6,10 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberAccessCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgClass;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgMemberFunctionExpression;
@@ -87,8 +86,8 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
             return null;
         }
 
-        if(object instanceof MgMemberVariable){
-            return new MemberVariableNode((MgMemberVariable) object);
+        if(object instanceof MgClassVariable){
+            return new MemberVariableNode((MgClassVariable) object);
         }
 
         if(object instanceof MgFunction){
@@ -161,7 +160,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
         throw new RuntimeException();
     }
 
-    private MgLocalVariable gatherVariableInput(){
+    private MgFunctionVariable gatherVariableInput(){
         return getChildren()
             .getFirst()
             .getOutputInterface()
@@ -171,8 +170,8 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
             .getConnectionVariable();
     }
 
-    private List<MgLocalVariable> gatherFunctionInput(){
-        List<MgLocalVariable> input = new List<>();
+    private List<MgFunctionVariable> gatherFunctionInput(){
+        List<MgFunctionVariable> input = new List<>();
         input.addLast(gatherVariableInput());
         for(InputConnector in : getInputInterface().getConnectors()){
             input.addLast(in.getConnection().getConnectionVariable());
@@ -180,7 +179,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
         return input;
     }
 
-    private MgLocalVariable gatherVariableOutput(){
+    private MgFunctionVariable gatherVariableOutput(){
         return getOutputInterface()
             .getConnectors()
             .getFirst()
@@ -188,8 +187,8 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
             .getConnectionVariable();
     }
 
-    private List<MgLocalVariable> gatherFunctionOutput(){
-        List<MgLocalVariable> output = new List<>();
+    private List<MgFunctionVariable> gatherFunctionOutput(){
+        List<MgFunctionVariable> output = new List<>();
         for(OutputConnector out : getOutputInterface().getConnectors()){
             output.addLast(out.getConnection().getConnectionVariable());
         }

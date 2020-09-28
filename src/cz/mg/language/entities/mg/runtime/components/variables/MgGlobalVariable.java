@@ -1,20 +1,13 @@
-package cz.mg.language.entities.mg.runtime.components;
+package cz.mg.language.entities.mg.runtime.components.variables;
 
-import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.roles.MgComponent;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
 
-public class MgGlobalVariable extends MgVariable implements MgComponent {
-    @Mandatory @Part
-    private ArrayList<@Link MgStamp> stamps = new ArrayList<>();
-
+public class MgGlobalVariable extends MgVariable {
     @Part
     private MgObject object;
 
@@ -24,11 +17,6 @@ public class MgGlobalVariable extends MgVariable implements MgComponent {
 
     public MgGlobalVariable(ReadableText name, MgDatatype datatype) {
         super(name, datatype);
-    }
-
-    @Override
-    public ArrayList<MgStamp> getStamps() {
-        return stamps;
     }
 
     public MgObject getObject() {

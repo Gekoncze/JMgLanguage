@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.roles;
+package cz.mg.language.entities.mg.runtime.components;
 
 
 public interface MgType extends MgComponent {

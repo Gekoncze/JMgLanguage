@@ -5,7 +5,7 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
@@ -57,19 +57,19 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
         private final MgFunction function;
 
         @Mandatory @Link
-        private final MgLocalVariable leftInput;
+        private final MgFunctionVariable leftInput;
 
         @Mandatory @Link
-        private final MgLocalVariable rightInput;
+        private final MgFunctionVariable rightInput;
 
         @Mandatory @Link
-        private final MgLocalVariable output;
+        private final MgFunctionVariable output;
 
         public Replication(
             MgFunction function,
-            MgLocalVariable leftInput,
-            MgLocalVariable rightInput,
-            MgLocalVariable output
+            MgFunctionVariable leftInput,
+            MgFunctionVariable rightInput,
+            MgFunctionVariable output
         ) {
             this.function = function;
             this.leftInput = leftInput;
@@ -83,15 +83,15 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
             return function;
         }
 
-        public MgLocalVariable getLeftInput() {
+        public MgFunctionVariable getLeftInput() {
             return leftInput;
         }
 
-        public MgLocalVariable getRightInput() {
+        public MgFunctionVariable getRightInput() {
             return rightInput;
         }
 
-        public MgLocalVariable getOutput() {
+        public MgFunctionVariable getOutput() {
             return output;
         }
     }

@@ -2,19 +2,19 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
 public class MgLocalVariableExpression extends MgExpression {
     @Mandatory @Link
-    private final MgLocalVariable variable;
+    private final MgFunctionVariable variable;
 
-    public MgLocalVariableExpression(MgLocalVariable variable) {
+    public MgLocalVariableExpression(MgFunctionVariable variable) {
         this.variable = variable;
     }
 
-    public MgLocalVariable getVariable() {
+    public MgFunctionVariable getVariable() {
         return variable;
     }
 

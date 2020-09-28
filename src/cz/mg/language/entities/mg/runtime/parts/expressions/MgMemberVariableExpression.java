@@ -3,8 +3,8 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
-import cz.mg.language.entities.mg.runtime.parts.MgMemberVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.roles.MgClassInstance;
 import cz.mg.language.entities.mg.runtime.roles.MgObject;
@@ -15,19 +15,19 @@ public class MgMemberVariableExpression extends MgExpression {
     private final MgExpression target;
 
     @Mandatory @Link
-    private final MgMemberVariable variable;
+    private final MgClassVariable variable;
 
     @Mandatory @Link
-    private final MgLocalVariable input;
+    private final MgFunctionVariable input;
 
     @Mandatory @Link
-    private final MgLocalVariable output;
+    private final MgFunctionVariable output;
 
     public MgMemberVariableExpression(
         MgExpression target,
-        MgMemberVariable variable,
-        MgLocalVariable input,
-        MgLocalVariable output
+        MgClassVariable variable,
+        MgFunctionVariable input,
+        MgFunctionVariable output
     ) {
         this.target = target;
         this.variable = variable;
@@ -39,15 +39,15 @@ public class MgMemberVariableExpression extends MgExpression {
         return target;
     }
 
-    public MgMemberVariable getVariable() {
+    public MgClassVariable getVariable() {
         return variable;
     }
 
-    public MgLocalVariable getInput() {
+    public MgFunctionVariable getInput() {
         return input;
     }
 
-    public MgLocalVariable getOutput() {
+    public MgFunctionVariable getOutput() {
         return output;
     }
 

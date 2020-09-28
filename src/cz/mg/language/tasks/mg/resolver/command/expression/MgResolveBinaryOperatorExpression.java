@@ -6,7 +6,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.components.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgLocalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgBinaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -83,8 +83,8 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
     public MgExpression onCreateExpression() {
         List<MgBinaryOperatorExpression.Replication> replications = new List<>();
 
-        Array<MgLocalVariable>[] input = gatherInputOffset();
-        Array<MgLocalVariable> output = gatherOutputOffset();
+        Array<MgFunctionVariable>[] input = gatherInputOffset();
+        Array<MgFunctionVariable> output = gatherOutputOffset();
 
         int i = 0;
         for(MgFunction function : getNode().getFunctions()){
@@ -107,8 +107,8 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
         );
     }
 
-    private Array<MgLocalVariable>[] gatherInputOffset(){
-        Array<MgLocalVariable>[] offset = new Array[2];
+    private Array<MgFunctionVariable>[] gatherInputOffset(){
+        Array<MgFunctionVariable>[] offset = new Array[2];
         offset[0] = new Array<>(getNode().getFunctions().count());
         offset[1] = new Array<>(getNode().getFunctions().count());
         Iterator<InputConnector> iterator = getInputInterface().getConnectors().iterator();
@@ -121,8 +121,8 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
         return offset;
     }
 
-    private Array<MgLocalVariable> gatherOutputOffset(){
-        Array<MgLocalVariable> offset = new Array<>(getNode().getFunctions().count());
+    private Array<MgFunctionVariable> gatherOutputOffset(){
+        Array<MgFunctionVariable> offset = new Array<>(getNode().getFunctions().count());
         Iterator<OutputConnector> iterator = getOutputInterface().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset.set(iterator.next().getConnection().getConnectionVariable(), i);
