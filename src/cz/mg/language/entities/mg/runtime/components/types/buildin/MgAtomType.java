@@ -6,7 +6,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
 
 
-public abstract class MgAtomType extends MgType {
+public abstract class MgAtomType extends MgBuildinType {
     public MgAtomType(ReadableText name) {
         super(name);
     }

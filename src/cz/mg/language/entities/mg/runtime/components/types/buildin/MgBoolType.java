@@ -13,6 +13,10 @@ public class MgBoolType extends MgAtomType {
         return INSTANCE;
     }
 
+    static {
+        MgBuildinType.ALL.addLast(getInstance());
+    }
+
     private MgBoolType() {
         super(new ReadonlyText("Bool"));
     }

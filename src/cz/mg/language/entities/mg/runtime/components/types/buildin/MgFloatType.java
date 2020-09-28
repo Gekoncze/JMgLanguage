@@ -13,6 +13,10 @@ public class MgFloatType extends MgAtomType {
         return INSTANCE;
     }
 
+    static {
+        MgBuildinType.ALL.addLast(getInstance());
+    }
+
     private MgFloatType() {
         super(new ReadonlyText("Float"));
     }

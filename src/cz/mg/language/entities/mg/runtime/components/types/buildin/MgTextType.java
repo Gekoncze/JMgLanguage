@@ -13,6 +13,10 @@ public class MgTextType extends MgAtomType {
         return INSTANCE;
     }
 
+    static {
+        MgBuildinType.ALL.addLast(getInstance());
+    }
+
     private MgTextType() {
         super(new ReadonlyText("Text"));
     }

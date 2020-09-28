@@ -13,6 +13,10 @@ public class MgIntType extends MgAtomType {
         return INSTANCE;
     }
 
+    static {
+        MgBuildinType.ALL.addLast(getInstance());
+    }
+
     private MgIntType() {
         super(new ReadonlyText("Int"));
     }

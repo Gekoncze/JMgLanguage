@@ -4,10 +4,9 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
-import cz.mg.language.entities.mg.runtime.components.MgStamp;
-import cz.mg.language.entities.mg.runtime.components.types.buildin.*;
-import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
-import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgBuildinStamp;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBuildinType;
+import cz.mg.language.entities.mg.runtime.components.variables.buildin.MgBuildinVariable;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 
 
@@ -21,26 +20,9 @@ public class MgAddBuildinComponentsTask extends MgResolverTask {
 
     @Override
     protected void onRun() {
-        MgLocation mg = open(root, "cz", "mg");
-        MgLocation types = open(root, "cz", "mg", "types");
-        MgLocation stamps = open(root, "cz", "mg", "stamps");
-
-        MgDatatype voidDatatype = new MgDatatype(MgObjectType.getInstance(), MgDatatype.Storage.INDIRECT, MgDatatype.Requirement.OPTIONAL);
-        MgGlobalVariable voidVariable = new MgGlobalVariable(new ReadonlyText("void"), voidDatatype);
-        mg.getComponents().addLast(voidVariable);
-
-        types.getComponents().addLast(MgBoolType.getInstance());
-        types.getComponents().addLast(MgIntType.getInstance());
-        types.getComponents().addLast(MgFloatType.getInstance());
-        types.getComponents().addLast(MgTextType.getInstance());
-
-        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("public")));
-        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("private")));
-
-        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("value")));
-        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("part")));
-        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("shared")));
-        stamps.getComponents().addLast(new MgStamp(new ReadonlyText("link")));
+        open(root, "cz", "mg").getComponents().addCollectionLast(MgBuildinVariable.ALL);
+        open(root, "cz", "mg", "types").getComponents().addCollectionLast(MgBuildinType.ALL);
+        open(root, "cz", "mg", "stamps").getComponents().addCollectionLast(MgBuildinStamp.ALL);
     }
 
     private static MgLocation open(MgLocation root, String... path){

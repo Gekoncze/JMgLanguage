@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.main.component;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalStamp;
-import cz.mg.language.entities.mg.runtime.components.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.StampContext;
 

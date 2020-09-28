@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.context;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
-import cz.mg.language.entities.mg.runtime.components.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 
 
 public class StampContext extends ComponentContext {

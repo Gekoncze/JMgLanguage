@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.main.link;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.mg.runtime.components.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.StampFilter;
 import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;

@@ -7,6 +7,7 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.MgNamedObject;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 
 
 public class MgComponent implements MgNamedObject {
