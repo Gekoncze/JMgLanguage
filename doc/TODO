@@ -4,11 +4,17 @@
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 add buildin operators
-    add + - * / = $= &=
+    I think we need special handling for &= operator
+        we might use matcher there to check lvalue and rvalue compatibility
+
+    add + - * / = $=
         Int
         Float
         Text
         Bool
+
+add buildin print function
+    for all buildin types as parameter
 
 test
     try to actually compile and run some code!
@@ -22,6 +28,8 @@ test
 explicit casting
     add buildin as operators
     add option for user to provide his own as operators
+    there should be two weights for casting
+        as operator should add more weight when matching 100% I think
 
 mg builder - global variable object
 mg class - make it also implement class instance
