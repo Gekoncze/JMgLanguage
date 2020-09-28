@@ -1,8 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added missing declaration handling inside expressions
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+add buildin operators
+    add + - * / = $= &=
+        Int
+        Float
+        Text
+        Bool
+
 test
     try to actually compile and run some code!
     test what expression like this will do:

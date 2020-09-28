@@ -1,4 +1,4 @@
-USING cz.mg.types.Int32 AS Int
+USING cz.mg.types.Int AS Int32
 USING cz.mg.stamps.public
 USING cz.mg.stamps.private
 
@@ -8,6 +8,9 @@ CLASS FooBar IS Foo, Bar
 
     @public
     FUNCTION sayRiddle INPUT FooBar& self
+        print: "The riddle is " + self.foo + " and " + self.bar
+        print: "The riddle is " + self.foo + " and " + self.bar
+        print: "The riddle is " + self.foo + " and " + self.bar
         print: "The riddle is " + self.foo + " and " + self.bar
 
     @public
