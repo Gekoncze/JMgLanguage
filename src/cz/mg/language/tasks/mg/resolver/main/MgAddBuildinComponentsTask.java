@@ -6,6 +6,7 @@ import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgBuildinStamp;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBuildinType;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.operators.MgBuildinOperator;
 import cz.mg.language.entities.mg.runtime.components.variables.buildin.MgBuildinVariable;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 
@@ -22,6 +23,7 @@ public class MgAddBuildinComponentsTask extends MgResolverTask {
     protected void onRun() {
         open(root, "cz", "mg").getComponents().addCollectionLast(MgBuildinVariable.ALL);
         open(root, "cz", "mg", "types").getComponents().addCollectionLast(MgBuildinType.ALL);
+        open(root, "cz", "mg", "types").getComponents().addCollectionLast(MgBuildinOperator.ALL);
         open(root, "cz", "mg", "stamps").getComponents().addCollectionLast(MgBuildinStamp.ALL);
     }
 
