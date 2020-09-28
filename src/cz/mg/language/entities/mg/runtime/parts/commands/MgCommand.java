@@ -5,10 +5,10 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgPart;
-import cz.mg.language.entities.mg.runtime.roles.MgRunnable;
+import cz.mg.language.entities.mg.runtime.MgRunnable;
 
 
-public abstract class MgCommand implements MgPart, MgRunnable {
+public abstract class MgCommand extends MgPart implements MgRunnable {
     @Mandatory @Link
     private final List<MgFunctionVariable> declaredVariables = new List<>();
 

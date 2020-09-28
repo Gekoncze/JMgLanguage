@@ -1,5 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-another minor architecture improvements
+final architectural touches
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -19,7 +19,8 @@ test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
-global variable object resolution ?
+mg builder - global variable object
+mg class - make it also implement class instance
 take into account access modifiers during resolve
 add support for relative "../" usages ???
 add support for multiple (star) usages - is it going to be just a syntactical sugar?

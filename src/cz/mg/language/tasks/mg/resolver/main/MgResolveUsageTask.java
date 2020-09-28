@@ -9,7 +9,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
-import cz.mg.language.entities.mg.runtime.roles.MgObject;
+import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
 import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;

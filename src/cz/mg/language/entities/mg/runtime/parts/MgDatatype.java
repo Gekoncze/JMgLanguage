@@ -6,7 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 
 
-public class MgDatatype implements MgPart {
+public class MgDatatype extends MgPart {
     @Mandatory @Link
     private final MgType type;
 

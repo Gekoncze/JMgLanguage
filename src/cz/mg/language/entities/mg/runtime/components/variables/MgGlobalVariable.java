@@ -3,7 +3,7 @@ package cz.mg.language.entities.mg.runtime.components.variables;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.roles.MgObject;
+import cz.mg.language.entities.mg.runtime.MgObject;
 
 
 public class MgGlobalVariable extends MgVariable {

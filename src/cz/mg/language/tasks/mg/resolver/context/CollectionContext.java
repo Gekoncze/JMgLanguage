@@ -5,7 +5,7 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.MgCollection;
 import cz.mg.language.entities.mg.runtime.parts.MgParameter;
-import cz.mg.language.entities.mg.runtime.roles.MgObject;
+import cz.mg.language.entities.mg.runtime.MgObject;
 
 
 public class CollectionContext extends ComponentContext {

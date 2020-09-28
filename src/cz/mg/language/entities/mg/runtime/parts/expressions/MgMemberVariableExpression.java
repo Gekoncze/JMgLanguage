@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariabl
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.instances.MgClassInstance;
-import cz.mg.language.entities.mg.runtime.roles.MgObject;
+import cz.mg.language.entities.mg.runtime.MgObject;
 
 
 public class MgMemberVariableExpression extends MgExpression {

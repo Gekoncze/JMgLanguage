@@ -4,7 +4,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Value;
 
 
-public class MgVersion implements MgPart {
+public class MgVersion extends MgPart {
     @Value
     private final ReadableText name;
 

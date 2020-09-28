@@ -7,7 +7,7 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.roles.MgRunnable;
+import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;

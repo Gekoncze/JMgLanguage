@@ -4,10 +4,9 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgAtomType;
 import cz.mg.language.entities.mg.runtime.instances.MgInstance;
-import cz.mg.language.entities.mg.runtime.roles.MgObject;
 
 
-public abstract class MgAtom implements MgObject, MgInstance {
+public abstract class MgAtom implements MgInstance {
     @Mandatory @Link
     private final MgAtomType type;
 

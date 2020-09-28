@@ -1,7 +1,9 @@
 package cz.mg.language.entities.mg.runtime.parts;
 
-import cz.mg.language.entities.mg.runtime.roles.MgRuntimeEntity;
+import cz.mg.language.entities.mg.runtime.MgObject;
 
 
-public interface MgPart extends MgRuntimeEntity {
+public abstract class MgPart implements MgObject {
+    public MgPart() {
+    }
 }

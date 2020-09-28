@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.roles;
+package cz.mg.language.entities.mg.runtime;
 
 
 public interface MgObject extends MgRuntimeEntity {
