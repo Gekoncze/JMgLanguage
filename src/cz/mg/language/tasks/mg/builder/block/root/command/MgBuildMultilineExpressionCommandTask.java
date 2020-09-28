@@ -18,7 +18,7 @@ public abstract class MgBuildMultilineExpressionCommandTask extends MgBuildComma
             Requirement.OPTIONAL,
             Count.MULTIPLE,
             new BlockProcessor<>(
-                MgBuildExpressionCommand.class,
+                MgBuildExpressionCommandTask.class,
                 MgBuildMultilineExpressionCommandTask.class,
                 (source, destination) -> {
                     if(destination.lineExpressions == null) destination.lineExpressions = new List<>();

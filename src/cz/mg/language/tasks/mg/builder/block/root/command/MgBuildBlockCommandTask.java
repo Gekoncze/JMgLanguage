@@ -30,7 +30,7 @@ public abstract class MgBuildBlockCommandTask extends MgBuildBlockTask {
             Requirement.OPTIONAL,
             Count.MULTIPLE,
             new BlockProcessor<>(
-                MgBuildExpressionCommand.class,
+                MgBuildExpressionCommandTask.class,
                 MgBuildBlockCommandTask.class,
                 (source, destination) -> destination.getOutput().getCommands().addLast(source.getCommand())
             )

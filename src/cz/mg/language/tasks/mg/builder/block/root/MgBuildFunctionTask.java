@@ -129,7 +129,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
             Requirement.MANDATORY,
             Count.MULTIPLE,
             new BlockProcessor<>(
-                MgBuildExpressionCommand.class,
+                MgBuildExpressionCommandTask.class,
                 MgBuildFunctionTask.class,
                 (source, destination) -> destination.function.getCommands().addLast(source.getCommand())
             )

@@ -8,17 +8,17 @@ import cz.mg.language.tasks.mg.builder.part.MgBuildExpressionPartTask;
 import cz.mg.language.tasks.mg.builder.pattern.PartProcessor;
 
 
-public class MgBuildExpressionCommand extends MgBuildMultilineExpressionCommandTask {
+public class MgBuildExpressionCommandTask extends MgBuildMultilineExpressionCommandTask {
     private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildExpressionPartTask.class,
-        MgBuildExpressionCommand.class,
+        MgBuildExpressionCommandTask.class,
         (source, destination) -> destination.command = new MgLogicalExpressionCommand(source.getExpression())
     );
 
     @Output
     private MgLogicalExpressionCommand command;
 
-    public MgBuildExpressionCommand(Block block) {
+    public MgBuildExpressionCommandTask(Block block) {
         super(block);
     }
 
