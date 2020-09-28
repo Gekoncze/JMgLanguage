@@ -74,18 +74,20 @@ public class MgClass implements MgComponent, MgType {
         return variableCountCache;
     }
 
-    public void updateVariableOffsetCache(){
+    public int updateVariableOffsetCache(){
         int i = 0;
+        if(baseClass != null) i = baseClass.updateVariableOffsetCache();
         for(MgClassVariable variable : getVariables()){
             variable.setOffset(i);
             i++;
         }
+        return i;
     }
 
     private void updateVariableCountCache(){
         int count = 0;
         MgClass clazz = this;
-        while(clazz != null){ // todo - must count from base class
+        while(clazz != null){
             count += clazz.getVariables().count();
             clazz = clazz.getBaseClass();
         }

@@ -1,9 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-some small architecture improvements
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-mg class - variable offset cache - wrong computation, must start from base
 add buildin as operators
 add option for user to provide his own as operators
 explicit casting
