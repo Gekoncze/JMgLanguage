@@ -1,10 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-name fix + to do cleanup
+added missing declaration handling inside expressions
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-I think that we are missing logical declaration expressions
-
 test
     try to actually compile and run some code!
     test what expression like this will do:

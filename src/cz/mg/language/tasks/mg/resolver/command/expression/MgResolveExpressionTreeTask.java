@@ -7,15 +7,19 @@ import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
+import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
+import cz.mg.language.tasks.mg.resolver.main.link.MgResolveVariableDatatypeTask;
 
 
 public class MgResolveExpressionTreeTask extends MgResolverTask {
@@ -44,6 +48,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     protected void onRun() {
         List<MgLogicalExpression> expressions = prepareExpressions(logicalClumpExpression);
 
+        resolveDeclarations(expressions);
         resolveFunctionCalls(expressions);
         resolveMemberCalls(expressions);
         resolveOperatorCalls(expressions);
@@ -58,6 +63,39 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         }
 
         logicalCallExpression = (MgLogicalCallExpression) expressions.getFirst();
+    }
+
+    private void resolveDeclarations(List<MgLogicalExpression> operators){
+        for(
+            ListItem<MgLogicalExpression> item = operators.getFirstItem();
+            item != null;
+            item = item.getNextItem()
+        ){
+            if(isPlainName(item)){
+                if(isOperator(item.getNextItem())){
+                    if(isPlainName(item.getNextItem().getNextItem())){
+                        ReadableText typeName = ((MgLogicalNameCallExpression)item.get()).getName();
+                        ReadableText operator = ((MgLogicalOperatorExpression)item.getNext()).getName();
+                        ReadableText name = ((MgLogicalNameCallExpression)item.getNextItem().getNext()).getName();
+                        MgLogicalDatatype logicalDatatype = MgBuildDeclarationTask.createDatatype(typeName, operator);
+                        if(logicalDatatype != null){
+                            MgResolveVariableDatatypeTask task = new MgResolveVariableDatatypeTask(context, logicalDatatype);
+                            task.run();
+                            MgDatatype datatype = task.getDatatype();
+
+                            context.getCommand().getDeclaredVariables().addLast(
+                                context.getVariableHelper().nextDeclaredVariable(name, datatype)
+                            );
+
+                            mergeBinary(
+                                item.getNextItem(),
+                                (left, right) -> new MgLogicalNameCallExpression(name)
+                            );
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void resolveFunctionCalls(List<MgLogicalExpression> operators){
@@ -195,6 +233,14 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         if(item == null) return false;
         if(item.get() instanceof MgLogicalOperatorExpression){
             return ((MgLogicalOperatorExpression) item.get()).getName().equals(name);
+        }
+        return false;
+    }
+
+    private boolean isOperator(ListItem<MgLogicalExpression> item){
+        if(item == null) return false;
+        if(item.get() instanceof MgLogicalOperatorExpression){
+            return true;
         }
         return false;
     }

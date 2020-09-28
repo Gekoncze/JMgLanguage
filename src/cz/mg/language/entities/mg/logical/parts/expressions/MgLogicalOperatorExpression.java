@@ -6,7 +6,6 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.parts.MgOperator;
-import java.util.Objects;
 
 
 public class MgLogicalOperatorExpression extends MgLogicalExpression {
@@ -17,7 +16,6 @@ public class MgLogicalOperatorExpression extends MgLogicalExpression {
     private MgOperator operator;
 
     public MgLogicalOperatorExpression(ReadableText name) {
-        Objects.requireNonNull(name);
         this.name = name;
     }
 

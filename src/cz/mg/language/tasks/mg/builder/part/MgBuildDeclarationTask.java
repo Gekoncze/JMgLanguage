@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.builder.part;
 
 import cz.mg.collections.list.List;
+import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
@@ -29,10 +30,19 @@ public class MgBuildDeclarationTask extends MgBuildPartTask {
         TypeName typeName = get(TypeName.class, 0);
         Operator operator = get(Operator.class, 1);
         ObjectName objectName = get(ObjectName.class, 2);
+        MgLogicalDatatype datatype = createDatatype(typeName.getText(), operator.getText());
 
+        if(datatype == null){
+            throw new LanguageException("Expected '&', '&?', '$', '$?'. Got '" + operator.getText() + "'.");
+        }
+
+        variable = new MgLogicalVariable(objectName.getText(), datatype);
+    }
+
+    public static MgLogicalDatatype createDatatype(ReadableText typeName, ReadableText operators){
         MgLogicalDatatype.Storage storage;
         MgLogicalDatatype.Requirement requirement;
-        switch (operator.getText().toString()){
+        switch (operators.toString()){
             case "&":
                 storage = MgLogicalDatatype.Storage.INDIRECT;
                 requirement = MgLogicalDatatype.Requirement.MANDATORY;
@@ -50,12 +60,8 @@ public class MgBuildDeclarationTask extends MgBuildPartTask {
                 requirement = MgLogicalDatatype.Requirement.OPTIONAL;
                 break;
             default:
-                throw new LanguageException("Expected '&', '&?', '$', '$?'. Got '" + operator.getText() + "'.");
+                return null;
         }
-
-        variable = new MgLogicalVariable(
-            objectName.getText(),
-            new MgLogicalDatatype(typeName.getText(), storage, requirement)
-        );
+        return new MgLogicalDatatype(typeName, storage, requirement);
     }
 }
