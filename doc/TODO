@@ -3,10 +3,13 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-add buildin operators
-    I think we need special handling for &= operator
-        we might use matcher there to check lvalue and rvalue compatibility
+problem - Type.function might be evaluated as member access, but it is just a path
+problem - how to properly import operators which are inside a class?
+problem - I think we need special handling for &= operator
+    we might use matcher there to check lvalue and rvalue compatibility
+problem - is it possible to import objects from classes? or just packages?
 
+add buildin operators
     add + - * / = $=
         Int
         Float
