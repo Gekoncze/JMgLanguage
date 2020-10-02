@@ -3,57 +3,46 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-problem - Type.function might be evaluated as member access, but it is just a path
-problem - how to properly import operators which are inside a class?
-problem - I think we need special handling for &= operator
-    we might use matcher there to check lvalue and rvalue compatibility
-problem - is it possible to import objects from classes? or just packages?
-problem - we cannot differentiate between static function call and member function call on types!
-    example: Foo.bar
-    does Foo.bar calls bar(Foo) or bar() ?
-        this needs to be resolved, as we might want to allow defining methods for types too
-            idea:
-                annotate variables and function with @type and @instance to differentiate where they belong
-                then based on those create another type and store it inside the class, so something like
-                typeof(Foo) would return the newly created type
-                then if we wanted to have standalone functions, we would define them outside the class
-                as a separate component or we can add @standalone annotation (or no annotation)
-                the thing is we need to differentiate what . actually means
-                because in all cases the function will be stored in the class
-                but when calling it we need to know how to call it
-                so there are two places where we can define how to call it:
-                    on definition, this approach is less flexible, but will simplify calls (= using annotations)
-                    on expression, this approach is more flexible, but will complicate calls (= using operators)
+add more types of usages:
+    USING OPERATOR cz.foo.bar.Clazz.*
+    first, there can be a filter after using
+    second, there can be star at the end and also at any other place
+    third, there can be classes and other components instead of location
+    fourth, we should not import instance or type variables
 
-                another thing related to this are imports
-                if we import a class, it will not import functions and operators inside of it
-                how do we import those? we could import as usual, but with star import we will import both
-                but we might not want that, so we might add some additional filter for the usages
+add more kinds of variables
+    there will be only one kind of logical variable, rest will be specified using annotations
+    make sure there are following runtime variables:
+        global variable
+        instance variable
+            function variable
+            class variable
+        type variable
+    add the following annotations:
+        @type
+        @instance
 
-                USING OPERATOR cz.foo.bar.Clazz.*  # I like this one the most
-                or
-                USING ALL OPERATOR cz.foo.bar.Clazz
-                or
-                USING cz.foo.bar.Clazz.* OPERATOR
+add more kinds of functions
+    there wil lbe only one kind of logical function, rest will be specified using annotations
+    make sure there are following runtime functions:
+        global function
+        instance function
+        type function
+    re-use the following annotations:
+        @type
+        @instance
 
-                again there is a problem, that we cannot exclude @instance or @type functions, variables etc.
-                so maybe these will be excluded automatically and only standalone ones will be included
-                aaaand, I think that solves all, at least for now
-                the only remaining thins is if we wanted to access member function without an instance
-                we might include some special usage for that, something like
-                USING MEMBER FUNCTION or.something.Like.that
+enhance member access operator resolver
+    make sure it handles different kinds of variables correctly based on annotations
 
-                and I just remembered how we want to handle function pointers, these can be in variables too
-                I am actually also thinking if calling function like foo.bar should be allowed
-                if there should be something like foo.bar!
-                and chains being supported as usual, so foo.bar!.foobar
-                but then again !. would be considered as a single operator which might complicate stuff
-                so wither ! would need to be separated, or not use it and have empty brackets as usual ()
-                this would also solve the ambiguous function pointer call (as execution or as storage)
-
+enhance usages resolver
+    make sure there are all required contexts and filters
 
 add buildin operators
-    add + - * / = $=
+    problem - I think we need special handling for &= and $= operator
+        we might use matcher there to check lvalue and rvalue compatibility
+
+    add + - * / &== $== < > <= >=
         Int
         Float
         Text
@@ -125,6 +114,13 @@ mg logic or runtime entity versioning ?
 mg global variable - add runtime validation for type?
 mg member variable - add runtime validation for type?
 mg function pointers - will be called interfaces
+    I am actually also thinking if calling function like foo.bar should be allowed
+    if there should be something like foo.bar!
+    and chains being supported as usual, so foo.bar!.foobar
+    but then again !. would be considered as a single operator which might complicate stuff
+    so wither ! would need to be separated, or not use it and have empty brackets as usual ()
+    this would also solve the ambiguous function pointer call (as execution or as storage)
+
 mg roles (like java interfaces)
 
 write mg to c converter
@@ -177,6 +173,10 @@ make platform independent threads
 
 
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
+allow static access to instance functions using special usages
+    USING INSTANCE FUNCTION cz.mg.Foo.bar
+    USING TYPE FUNCTION cz.mg.Foo.bar
+
 additional validations
     add some configurable limits to better sanitize input
         limit file size
