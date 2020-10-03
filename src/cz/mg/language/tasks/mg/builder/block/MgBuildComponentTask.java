@@ -7,6 +7,7 @@ import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalContext;
+import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.block.root.MgBuildClassTask;
@@ -25,9 +26,62 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             new BlockProcessor<>(
                 MgBuildUsageTask.class,
                 MgBuildComponentTask.class,
-                (source, destination) -> destination.context.getUsages().addLast(source.getUsage())
+                (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
+                (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.ALL)
             ),
             "USING"
+        ),
+
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildUsageTask.class,
+                MgBuildComponentTask.class,
+                (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
+                (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.CLASS)
+            ),
+            "USING", "CLASS"
+        ),
+
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildUsageTask.class,
+                MgBuildComponentTask.class,
+                (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
+                (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.FUNCTION)
+            ),
+            "USING", "FUNCTION"
+        ),
+
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildUsageTask.class,
+                MgBuildComponentTask.class,
+                (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
+                (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.OPERATOR)
+            ),
+            "USING", "OPERATOR"
+        ),
+
+        new Pattern(
+            Order.STRICT,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildUsageTask.class,
+                MgBuildComponentTask.class,
+                (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
+                (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.VARIABLE)
+            ),
+            "USING", "VARIABLE"
         ),
 
         // build class

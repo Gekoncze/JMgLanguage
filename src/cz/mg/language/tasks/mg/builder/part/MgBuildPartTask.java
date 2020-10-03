@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.builder.part;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
+import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
@@ -42,7 +43,8 @@ public abstract class MgBuildPartTask extends MgBuildTask {
         }
     }
 
-    protected <P extends Part> P get(Class<P> clazz, int i){
+
+    protected <P extends Part> @Mandatory P get(Class<P> clazz, int i){
         Part part = parts.get(i);
         if(part == null) throw new LanguageException("Missing part.");
         if(clazz.isInstance(part)){

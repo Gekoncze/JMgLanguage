@@ -10,6 +10,12 @@ import java.lang.annotation.Target;
 // Annotated field must not be null.
 // If applied to collection, then it is the same as if CollectionMandatory and ItemsMandatory annotations were applied.
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.LOCAL_VARIABLE})
+@Target({
+    ElementType.FIELD,
+    ElementType.LOCAL_VARIABLE,
+    ElementType.METHOD,
+    ElementType.PARAMETER,
+    ElementType.TYPE_USE
+})
 public @interface Mandatory {
 }

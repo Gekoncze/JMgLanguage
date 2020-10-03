@@ -1,22 +1,47 @@
 package cz.mg.language.tasks.mg.builder.pattern;
 
+import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
 
 
-public abstract class Processor<S extends MgBuildTask, D extends MgBuildTask> {
-    @cz.mg.language.annotations.storage.Part
+public abstract class Processor<S extends MgBuildTask, D extends MgBuildTask, O extends Object> {
+    @Mandatory @Part
     private final Class<S> sourceBuildTaskClass;
 
-    @cz.mg.language.annotations.storage.Part
+    @Mandatory @Part
     private final Class<D> destinationBuildTaskClass;
 
-    @cz.mg.language.annotations.storage.Part
+    @Mandatory @Part
     private final Setter<S, D> setter;
 
-    public Processor(Class<S> sourceBuildTaskClass, Class<D> destinationBuildTaskClass, Setter<S, D> setter) {
+    @Optional
+    private final SourceBuildTaskFactory<O, S, D> sourceBuildTaskFactory;
+
+    public Processor(
+        Class<S> sourceBuildTaskClass,
+        Class<D> destinationBuildTaskClass,
+        Setter<S, D> setter
+    ) {
+        this(
+            sourceBuildTaskClass,
+            destinationBuildTaskClass,
+            setter,
+            null
+        );
+    }
+
+    public Processor(
+        Class<S> sourceBuildTaskClass,
+        Class<D> destinationBuildTaskClass,
+        Setter<S, D> setter,
+        SourceBuildTaskFactory<O, S, D> sourceBuildTaskFactory
+    ) {
         this.sourceBuildTaskClass = sourceBuildTaskClass;
         this.destinationBuildTaskClass = destinationBuildTaskClass;
         this.setter = setter;
+        this.sourceBuildTaskFactory = sourceBuildTaskFactory;
     }
 
     public Class<S> getSourceBuildTaskClass() {
@@ -29,5 +54,13 @@ public abstract class Processor<S extends MgBuildTask, D extends MgBuildTask> {
 
     public Setter<S, D> getSetter() {
         return setter;
+    }
+
+    public SourceBuildTaskFactory<O, S, D> getSourceBuildTaskFactory() {
+        return sourceBuildTaskFactory;
+    }
+
+    public interface SourceBuildTaskFactory<O, S, D> {
+        public S create(O object, D destinationTask);
     }
 }

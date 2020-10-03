@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.builder.block.root;
 
 import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
+import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.text.structured.Block;
@@ -15,7 +16,7 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
     private static final PartProcessor PROCESSOR = new PartProcessor<>(
         MgBuildNamePathTask.class,
         MgBuildUsageTask.class,
-        (source, destination) -> destination.usage = new MgLogicalUsage(source.getNames())
+        (source, destination) -> destination.usage = new MgLogicalUsage(destination.filter, source.getNames())
     );
 
     private static final List<Pattern> PATTERNS = new List<>(
@@ -32,11 +33,15 @@ public class MgBuildUsageTask extends MgBuildBlockTask {
         )
     );
 
+    @Input
+    private final MgLogicalUsage.Filter filter;
+
     @Output
     private MgLogicalUsage usage;
 
-    public MgBuildUsageTask(Block block) {
+    public MgBuildUsageTask(Block block, MgLogicalUsage.Filter filter) {
         super(block);
+        this.filter = filter;
     }
 
     public MgLogicalUsage getUsage() {
