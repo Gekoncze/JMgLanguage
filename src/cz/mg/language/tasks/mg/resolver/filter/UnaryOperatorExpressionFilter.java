@@ -2,20 +2,20 @@ package cz.mg.language.tasks.mg.resolver.filter;
 
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.parts.MgOperator;
+import cz.mg.language.annotations.storage.Link;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.MgObject;
-import cz.mg.language.tasks.mg.resolver.context.Context;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.MgOperator;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
 public class UnaryOperatorExpressionFilter extends Filter<MgFunction> {
@@ -46,13 +46,12 @@ public class UnaryOperatorExpressionFilter extends Filter<MgFunction> {
     }
 
     @Override
-    protected boolean filter(MgObject object, ReadableText alias) {
-        if(object instanceof MgFunction){
-            MgFunction function = (MgFunction) object;
-            if(function.getOperator() != null){
-                MgOperator operator = function.getOperator();
-                if(operator.getName().equals(name)){
-                    return filterFunction(function);
+    protected boolean filter(MgObject object, ReadableText localName) {
+        if(object instanceof MgOperator){
+            MgOperator operator = (MgOperator) object;
+            if(operator.getInfo() != null){
+                if(operator.getInfo().getName().equals(name)){
+                    return filterFunction(operator);
                 }
             }
         }

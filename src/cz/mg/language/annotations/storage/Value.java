@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 // The object cannot change owner.
 // If applied to collection, then it is the same as if CollectionValue and ItemsValue annotations were applied.
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 public @interface Value {
 }

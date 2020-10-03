@@ -9,10 +9,16 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
-import cz.mg.language.entities.mg.runtime.MgObject;
-import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgInstanceStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgTypeStamp;
+import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.MgOperator;
+import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
+import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
 public class MgResolveUsageTask extends MgResolveTask {
@@ -20,15 +26,15 @@ public class MgResolveUsageTask extends MgResolveTask {
     private final MgLogicalUsage logicalUsage;
 
     @Output
-    private Usage usage;
+    private List<Usage> usages;
 
     public MgResolveUsageTask(Context context, MgLogicalUsage logicalUsage) {
         super(context);
         this.logicalUsage = logicalUsage;
     }
 
-    public Usage getUsage() {
-        return usage;
+    public List<Usage> getUsages() {
+        return usages;
     }
 
     private ApplicationContext getApplicationContext(){
@@ -44,59 +50,122 @@ public class MgResolveUsageTask extends MgResolveTask {
 
     @Override
     protected void onRun() {
-        MgComponent component = null;
-        MgLocation currentLocation = getApplicationContext().getApplication().getRoot();
-        for(ListItem<ReadableText> nameItem = logicalUsage.getPath().getFirstItem(); nameItem != null; nameItem = nameItem.getNextItem()){
-            ReadableText name = nameItem.get();
-            MgComponent currentComponent = find(currentLocation, name);
-            if(nameItem == logicalUsage.getPath().getLastItem()){
-                component = currentComponent;
-            } else {
-                if(currentComponent instanceof MgLocation){
-                    currentLocation = (MgLocation) currentComponent;
+        usages = new List<>();
+        open(
+            getApplicationContext().getApplication().getRoot(),
+            logicalUsage.getPath().getFirstItem()
+        );
+    }
+
+    private void open(MgComponent parent, ListItem<ReadableText> childItem){
+        if(childItem != null){
+            List<MgComponent> children = find(parent, childItem.get());
+
+            if(!childItem.get().toString().equals("*") && children.isEmpty()){
+                throw new LanguageException("Could not find '" + childItem.get() + "'.");
+            }
+
+            if(!childItem.get().toString().equals("*") && children.count() > 1){
+                throw new LanguageException("Ambiguous name '" + childItem.get() + "'.");
+            }
+
+            for(MgComponent child : children){
+                open(child, childItem.getNextItem());
+            }
+        } else {
+            addUsage(parent);
+        }
+    }
+
+    private void addUsage(MgComponent component){
+        if(accept(component)){
+            if(logicalUsage.getFilter() == MgLogicalUsage.Filter.OPERATOR){
+                if(logicalUsage.getAlias() == null){
+                    usages.addLast(new Usage(component, ((MgOperator)component).getInfo().getName()));
                 } else {
-                    throw new LanguageException(notFoundMessage() + " ('" + name + "' is not location)");
+                    throw new LanguageException("Operator usages cannot have an alias.");
                 }
+            } else {
+                usages.addLast(new Usage(component, logicalUsage.getAlias()));
             }
         }
-
-        if(component == null) throw new LanguageException(notFoundMessage());
-        usage = new Usage(component, logicalUsage.getAlias());
     }
 
-    private MgComponent find(MgLocation location, ReadableText name){
-        List<MgComponent> results = findAll(location, name);
-        if(results.count() <= 0){
-            throw new LanguageException(notFoundMessage() + " (at '" + name + "')");
-        } else if(results.count() == 1){
-            return results.getFirst();
-        } else {
-            throw new LanguageException(ambiguousMessage() + " (" + results.count() + " candidates for " + name + ")");
+    private List<MgComponent> find(MgComponent component, ReadableText name){
+        if(component instanceof MgLocation){
+            return findInLocation((MgLocation) component, name);
         }
+
+        if(component instanceof MgClass){
+            return findInClass((MgClass) component, name);
+        }
+
+        throw new LanguageException("Cannot search for usage in " + component.getClass().getSimpleName() + ".");
     }
 
-    private List<MgComponent> findAll(MgLocation location, ReadableText name){
+    private List<MgComponent> findInLocation(MgLocation location, ReadableText name){
         List<MgComponent> results = new List<>();
-        for(MgObject object : location.getComponents()){
-            if(object instanceof MgComponent){
-                MgComponent component = (MgComponent) object;
-                if(component.getName().equals(name)){
-                    results.addLast(component);
-                }
+        for(MgComponent component : location.getComponents()){
+            if(acceptName(component, name)){
+                results.addLast(component);
             }
         }
         return results;
     }
 
-    private String ambiguousMessage(){
-        return "Usage " + usageMessage() + " is ambiguous.";
+    private List<MgComponent> findInClass(MgClass clazz, ReadableText name){
+        List<MgComponent> results = new List<>();
+        for(MgVariable variable : clazz.getVariables()){
+            if(acceptName(variable, name)){
+                results.addLast(variable);
+            }
+        }
+        for(MgFunction function : clazz.getFunctions()){
+            if(acceptName(function, name)){
+                results.addLast(function);
+            }
+        }
+        return results;
     }
 
-    private String notFoundMessage(){
-        return "Could not find target for usage " + usageMessage() + ".";
+    private boolean accept(MgComponent component){
+        if(acceptType(component)) {
+            if(isGlobal(component)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    private String usageMessage(){
-        return "'" + logicalUsage.getPath().toText(".") + "'";
+    private boolean acceptName(MgComponent component, ReadableText name){
+        if(name.toString().equals("*")){
+            return true;
+        } else {
+            return component.getName().equals(name);
+        }
+    }
+
+    private boolean acceptType(MgComponent component){
+        switch (logicalUsage.getFilter()){
+            case ALL: return true;
+            case CLASS: return component instanceof MgClass;
+            case FUNCTION: return component instanceof MgFunction;
+            case OPERATOR: return component instanceof MgOperator;
+            case VARIABLE: return component instanceof MgVariable;
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private boolean isGlobal(MgComponent component){
+        for(MgStamp stamp : component.getStamps()){
+            if(stamp == MgInstanceStamp.getInstance()){
+                return false;
+            }
+
+            if(stamp == MgTypeStamp.getInstance()){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -6,10 +6,9 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Cache;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
-import cz.mg.language.entities.mg.runtime.parts.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 
@@ -17,9 +16,6 @@ import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnExcept
 public class MgFunction extends MgInterface implements MgRunnable {
     @Mandatory @Part
     private final ArrayList<MgFunctionVariable> local = new ArrayList<>();
-
-    @Optional @Part
-    private MgOperator operator;
 
     @Mandatory @Part
     private final ArrayList<MgCommand> commands = new ArrayList<>();
@@ -31,21 +27,8 @@ public class MgFunction extends MgInterface implements MgRunnable {
         super(name);
     }
 
-    public MgFunction(ReadableText name, MgOperator operator) {
-        super(name);
-        this.operator = operator;
-    }
-
     public ArrayList<MgFunctionVariable> getLocal() {
         return local;
-    }
-
-    public MgOperator getOperator() {
-        return operator;
-    }
-
-    public void setOperator(MgOperator operator) {
-        this.operator = operator;
     }
 
     public ArrayList<MgCommand> getCommands() {

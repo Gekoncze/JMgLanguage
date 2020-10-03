@@ -5,7 +5,7 @@ import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Cache;
-import cz.mg.language.entities.mg.runtime.parts.MgOperator;
+import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 
 
 public class MgLogicalOperatorExpression extends MgLogicalExpression {
@@ -13,13 +13,13 @@ public class MgLogicalOperatorExpression extends MgLogicalExpression {
     private final ReadableText name;
 
     @Optional @Cache
-    private MgOperator operator;
+    private MgOperatorInfo operator;
 
     public MgLogicalOperatorExpression(ReadableText name) {
         this.name = name;
     }
 
-    public MgLogicalOperatorExpression(ReadableText name, MgOperator operator) {
+    public MgLogicalOperatorExpression(ReadableText name, MgOperatorInfo operator) {
         this.name = name;
         this.operator = operator;
     }
@@ -28,11 +28,11 @@ public class MgLogicalOperatorExpression extends MgLogicalExpression {
         return name;
     }
 
-    public MgOperator getOperator() {
+    public MgOperatorInfo getOperator() {
         return operator;
     }
 
-    public void setOperator(MgOperator operator) {
+    public void setOperator(MgOperatorInfo operator) {
         this.operator = operator;
     }
 }

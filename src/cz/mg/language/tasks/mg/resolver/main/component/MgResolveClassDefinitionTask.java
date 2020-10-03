@@ -43,14 +43,6 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
             clazz.setBaseClass(task.getBaseClass());
         });
 
-        for(MgLogicalVariable logicalVariable : logicalClass.getGlobalVariables()){
-            postpone(MgResolveGlobalVariableDefinitionTask.class, () -> {
-                MgResolveGlobalVariableDefinitionTask task = new MgResolveGlobalVariableDefinitionTask(getContext(), logicalVariable);
-                task.run();
-                clazz.getGlobalVariables().addLast(task.getVariable());
-            });
-        }
-
         for(MgLogicalVariable logicalVariable : logicalClass.getVariables()){
             postpone(MgResolveMemberVariableDefinitionTask.class, () -> {
                 MgResolveMemberVariableDefinitionTask task = new MgResolveMemberVariableDefinitionTask(getContext(), logicalVariable);

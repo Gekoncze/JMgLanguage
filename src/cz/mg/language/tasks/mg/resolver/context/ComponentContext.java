@@ -23,7 +23,7 @@ public abstract class ComponentContext extends Context {
     @Override
     public void forEachComponent(ObjectVisitor visitor) {
         for(Usage usage : usages){
-            visitor.onVisitComponent(usage.getComponent(), usage.getAlias());
+            visitor.onVisitComponent(usage.getComponent(), usage.getLocalName());
         }
     }
 

@@ -9,7 +9,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 
 
 public class MgClass extends MgType {
@@ -17,10 +17,7 @@ public class MgClass extends MgType {
     private MgClass baseClass;
 
     @Mandatory @Part
-    private final ArrayList<MgGlobalVariable> globalVariables = new ArrayList<>();
-
-    @Mandatory @Part
-    private final ArrayList<MgClassVariable> variables = new ArrayList<>();
+    private final ArrayList<MgVariable> variables = new ArrayList<>();
 
     @Mandatory @Part
     private final ArrayList<MgFunction> functions = new ArrayList<>();
@@ -36,11 +33,7 @@ public class MgClass extends MgType {
         return baseClass;
     }
 
-    public ArrayList<MgGlobalVariable> getGlobalVariables() {
-        return globalVariables;
-    }
-
-    public ArrayList<MgClassVariable> getVariables() {
+    public ArrayList<MgVariable> getVariables() {
         return variables;
     }
 
@@ -60,9 +53,11 @@ public class MgClass extends MgType {
     public int updateVariableOffsetCache(){
         int i = 0;
         if(baseClass != null) i = baseClass.updateVariableOffsetCache();
-        for(MgClassVariable variable : getVariables()){
-            variable.setOffset(i);
-            i++;
+        for(MgVariable variable : getVariables()){
+            if(variable instanceof MgClassVariable){
+                ((MgClassVariable) variable).setOffset(i);
+                i++;
+            }
         }
         return i;
     }
@@ -71,7 +66,11 @@ public class MgClass extends MgType {
         int count = 0;
         MgClass clazz = this;
         while(clazz != null){
-            count += clazz.getVariables().count();
+            for(MgVariable variable : getVariables()){
+                if(variable instanceof MgClassVariable){
+                    count++;
+                }
+            }
             clazz = clazz.getBaseClass();
         }
         variableCountCache = count;

@@ -59,13 +59,13 @@ public class NameExpressionFilter extends AbstractClassFilter<MgObject> {
     }
 
     @Override
-    protected boolean filter(MgObject object, ReadableText alias) {
-        if(super.filter(object, alias)){
-            if(variableExpressionFilter.filter(object, alias)){
+    protected boolean filter(MgObject object, ReadableText localName) {
+        if(super.filter(object, localName)){
+            if(variableExpressionFilter.filter(object, localName)){
                 return true;
             }
 
-            if(functionExpressionFilter.filter(object, alias)){
+            if(functionExpressionFilter.filter(object, localName)){
                 return true;
             }
         }

@@ -35,8 +35,8 @@ public class VariableExpressionFilter extends AbstractClassFilter<MgVariable> {
     }
 
     @Override
-    protected boolean filter(MgObject object, ReadableText alias) {
-        if(super.filter(object, alias)){
+    protected boolean filter(MgObject object, ReadableText localName) {
+        if(super.filter(object, localName)){
             if(object instanceof MgVariable){
                 return filterVariable((MgVariable) object);
             }

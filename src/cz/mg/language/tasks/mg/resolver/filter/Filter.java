@@ -45,8 +45,8 @@ public abstract class Filter<C extends MgObject> {
         List<C> components = new List<>();
         Context currentContext = context;
         while(currentContext != null){
-            currentContext.forEachComponent((component, name) -> {
-                if(filter(component, name)){
+            currentContext.forEachComponent((component, localName) -> {
+                if(filter(component, localName)){
                     components.addLast((C) component);
                 }
             });
@@ -55,7 +55,7 @@ public abstract class Filter<C extends MgObject> {
         return components;
     }
 
-    protected abstract boolean filter(@Mandatory MgObject object, ReadableText alias);
+    protected abstract boolean filter(@Mandatory MgObject object, ReadableText localName);
 
     protected abstract @Mandatory String notFoundMessage();
 

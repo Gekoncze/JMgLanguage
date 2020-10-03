@@ -21,6 +21,6 @@ public abstract class Context {
     public abstract void forEachComponent(ObjectVisitor visitor);
 
     public interface ObjectVisitor {
-        void onVisitComponent(MgObject component, ReadableText alias);
+        void onVisitComponent(MgObject component, ReadableText localName);
     }
 }

@@ -23,13 +23,13 @@ public abstract class AbstractClassFilter<C extends MgObject> extends Filter<C> 
     }
 
     @Override
-    protected boolean filter(MgObject object, ReadableText name) {
+    protected boolean filter(MgObject object, ReadableText localName) {
         for(Class<? extends C> clazz : classes){
             if(clazz.isInstance(object)){
                 if(this.name == null){
                     return true;
                 } else {
-                    if(this.name.equals(name)){
+                    if(this.name.equals(localName)){
                         return true;
                     }
                 }

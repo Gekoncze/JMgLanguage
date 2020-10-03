@@ -14,7 +14,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.parts.MgOperator;
+import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
 import cz.mg.language.tasks.mg.resolver.MgResolverTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
@@ -143,7 +143,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
                 MgLogicalExpression expression = item.get();
                 if(expression instanceof MgLogicalOperatorExpression){
                     MgLogicalOperatorExpression logicalOperatorExpression = (MgLogicalOperatorExpression) expression;
-                    MgOperator operator = logicalOperatorExpression.getOperator();
+                    MgOperatorInfo operator = logicalOperatorExpression.getOperator();
                     if(operator.getPriority() == p){
                         switch(operator.getType()){
                             case BINARY:
@@ -313,7 +313,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     }
 
     private MgLogicalExpression prepareOperatorExpression(MgLogicalNameCallExpression expression){
-        MgOperator operator = findOperator(expression.getName());
+        MgOperatorInfo operator = findOperator(expression.getName());
         if(operator != null){
             return new MgLogicalOperatorExpression(expression.getName(), operator);
         } else {
@@ -322,7 +322,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
     }
 
     private MgLogicalExpression prepareOperatorExpression(MgLogicalOperatorExpression expression){
-        MgOperator operator = findOperator(expression.getName());
+        MgOperatorInfo operator = findOperator(expression.getName());
         if(operator != null){
             expression.setOperator(operator);
             return expression;
@@ -331,7 +331,7 @@ public class MgResolveExpressionTreeTask extends MgResolverTask {
         }
     }
 
-    private MgOperator findOperator(ReadableText name){
+    private MgOperatorInfo findOperator(ReadableText name){
         return context.getOperatorCache().findOperator(name);
     }
 

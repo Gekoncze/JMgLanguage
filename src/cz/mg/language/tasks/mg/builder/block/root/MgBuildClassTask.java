@@ -57,19 +57,6 @@ public class MgBuildClassTask extends MgBuildBlockTask {
                 (source, destination) -> destination.clazz.getFunctions().addLast(source.getFunction())
             ),
             "FUNCTION"
-        ),
-
-        // build global variables
-        new Pattern(
-            Order.RANDOM,
-            Requirement.OPTIONAL,
-            Count.MULTIPLE,
-            new BlockProcessor<>(
-                MgBuildDeclarationBlockTask.class,
-                MgBuildClassTask.class,
-                (source, destination) -> destination.clazz.getGlobalVariables().addLast(source.getDeclaration())
-            ),
-            "GLOBAL"
         )
     );
 

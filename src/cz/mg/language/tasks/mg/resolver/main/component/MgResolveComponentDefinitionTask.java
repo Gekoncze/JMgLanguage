@@ -36,7 +36,7 @@ public abstract class MgResolveComponentDefinitionTask extends MgResolveTask {
             postpone(MgResolveUsageTask.class, () -> {
                 MgResolveUsageTask task = new MgResolveUsageTask(getContext(), logicalUsage);
                 task.run();
-                getContext().getUsages().addLast(task.getUsage());
+                getContext().getUsages().addCollectionLast(task.getUsages());
             });
         }
     }

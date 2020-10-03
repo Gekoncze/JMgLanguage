@@ -11,9 +11,6 @@ public class MgLogicalClass extends MgLogicalComponent {
     private final List<ReadableText> baseClasses = new List<>();
 
     @Part
-    private final List<MgLogicalVariable> globalVariables = new List<>();
-
-    @Part
     private final List<MgLogicalVariable> variables = new List<>();
 
     @Part
@@ -28,10 +25,6 @@ public class MgLogicalClass extends MgLogicalComponent {
 
     public List<ReadableText> getBaseClasses() {
         return baseClasses;
-    }
-
-    public List<MgLogicalVariable> getGlobalVariables() {
-        return globalVariables;
     }
 
     public List<MgLogicalVariable> getVariables() {

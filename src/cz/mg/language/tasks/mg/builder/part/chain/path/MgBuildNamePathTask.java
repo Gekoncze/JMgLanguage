@@ -4,7 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.text.structured.Part;
-import cz.mg.language.tasks.mg.builder.part.MgBuildNameTask;
+import cz.mg.language.tasks.mg.builder.part.MgBuildPathNameTask;
 import cz.mg.language.tasks.mg.builder.part.chain.MgBuildPathTask;
 
 
@@ -22,7 +22,7 @@ public class MgBuildNamePathTask extends MgBuildPathTask {
 
     @Override
     protected void buildParts(List<Part> parts) {
-        MgBuildNameTask task = new MgBuildNameTask(parts);
+        MgBuildPathNameTask task = new MgBuildPathNameTask(parts);
         task.run();
         names.addLast(task.getName());
     }

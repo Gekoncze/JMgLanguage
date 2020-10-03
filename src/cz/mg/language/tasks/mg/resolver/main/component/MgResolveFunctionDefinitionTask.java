@@ -6,7 +6,8 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
-import cz.mg.language.entities.mg.runtime.parts.MgOperator;
+import cz.mg.language.entities.mg.runtime.components.types.MgOperator;
+import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
@@ -36,14 +37,16 @@ public class MgResolveFunctionDefinitionTask extends MgResolveComponentDefinitio
 
     @Override
     protected void onResolveComponent() {
-        function = new MgFunction(logicalFunction.getName());
+        if(logicalFunction.getOperator() == null){
+            function = new MgFunction(logicalFunction.getName());
+        } else {
+            function = new MgOperator(logicalFunction.getName(), new MgOperatorInfo(
+                logicalFunction.getOperator().getName(),
+                MgOperatorInfo.Type.valueOf(logicalFunction.getOperator().getType().name()),
+                logicalFunction.getOperator().getPriority()
+            ));
+        }
         getContext().setFunction(function);
-
-        function.setOperator(new MgOperator(
-            logicalFunction.getOperator().getName()
-        ));
-        function.getOperator().setType(MgOperator.Type.valueOf(logicalFunction.getOperator().getType().name()));
-        function.getOperator().setPriority(logicalFunction.getOperator().getPriority());
 
         for(MgLogicalVariable logicalInput : logicalFunction.getInput()){
             postpone(MgResolveLocalVariableDefinitionTask.class, () -> {
