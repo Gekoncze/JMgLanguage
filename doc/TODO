@@ -73,6 +73,10 @@ complete support for collections
     for resolve, MgParameter needs to be a type/component (see to do in CollectionContext)
     they should definitely be distinguished as readable, writeable, readonly, nonnull somehow
 
+    collection polymorphism problem
+        ReadableList<Child> can be passed as ReadableList<Parent>
+        WriteableList<Child> cannot be passed as WritableList<Parent> !!!
+
 high-level architecture
     modules or bundles or libraries or packages ...
         we could take a look at locations as folders/directories in os
@@ -95,6 +99,11 @@ add support for variable number of parameters of functions ?
 
 change static create implementations
     make it so the classes registers themselves in a static block
+
+calling of super method:
+    let class FooBar extend Bar and override print function
+    instead of fooBar.print
+    call Foo.print: fooBar
 
 mg logic or runtime entity versioning ?
 mg global variable - add runtime validation for type?

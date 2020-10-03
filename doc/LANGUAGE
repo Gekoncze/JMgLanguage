@@ -1,23 +1,16 @@
-collection polymorphism problem
-    ReadableList<Child> can be passed as ReadableList<Parent>
-    WriteableList<Child> cannot be passed as WritableList<Parent> !!!
+literals
+    are convertible to instances of buildin types
+    users can provide their own converters for their own types (TODO)
+    escape sequences or anything like that are not supported by default
+        special buildin constants can be used instead (TODO)
+        or you can handle some escapes like \n or \t yourself inside your own converters
 
-literals - do not allow escape sequences or anything like that
-    use special buildin constants or functions
-    this will simplify literal handling A LOT
-    things like \n \t etc can be handled at cast/convert level (to text)
+stamps
+    they are just markers
+    they don't hold any values, ie there will be no "stamp instances"
+    values can be handled by type variables instead
 
-stamps don't need to hold values, ie there will be no instances
-    values can be handled by global variables with inheritance
-
-calling of super method:
-    let class FooBar extend Bar and override print function
-    instead of fooBar.print
-    call Foo.print: fooBar
-
-resolver:
-    variable:
-        [output]parent[input]{?}n ... <-connection-> 1[output]expression[input]
-
-    function:
-        [output]parent[input]{?}n ... <-connection-> n[output]expression[input]{?}n ... <-connections-> n[output]child[input]
+variables
+    global variables are standalone components
+    instance variables are used in class instances
+    type variables are used in class type instances
