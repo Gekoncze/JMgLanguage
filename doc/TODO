@@ -1,10 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-improved usages
-added filters for usages
-added support for star usages
-added support for usages inside a class
-@instance and @type components are excluded from usages
-changed MgFunction - extracted operator as operator info in new MgOperator class
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -12,29 +7,22 @@ add more kinds of variables
     there will be only one kind of logical variable, rest will be specified using annotations
     make sure there are following runtime variables:
         global variable
-        instance variable
+        instance variable (annotated with @instance)
             function variable
             class variable
-        type variable
-    add the following annotations:
-        @type
-        @instance
+        type variable (annotated with @type)
+    re-implement resolvers (builders should be ready already)
 
 add more kinds of functions
     there wil lbe only one kind of logical function, rest will be specified using annotations
     make sure there are following runtime functions:
         global function
-        instance function
-        type function
-    re-use the following annotations:
-        @type
-        @instance
+        instance function (annotated with @instance)
+        type function (annotated with @type)
+    re-implement resolvers (builders should be ready already)
 
 enhance member access operator resolver
-    make sure it handles different kinds of variables correctly based on annotations
-
-enhance usages resolver
-    make sure there are all required contexts and filters
+    make sure it handles different kinds of variables and functions correctly based on annotations
 
 add buildin operators
     problem - I think we need special handling for &= and $= operator
