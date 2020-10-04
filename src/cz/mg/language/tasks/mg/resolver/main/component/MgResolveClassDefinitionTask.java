@@ -1,11 +1,13 @@
 package cz.mg.language.tasks.mg.resolver.main.component;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalClass;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.ClassContext;
 import cz.mg.language.tasks.mg.resolver.main.link.MgResolveBaseClassesTask;
@@ -33,8 +35,9 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
     }
 
     @Override
-    protected void onResolveComponent() {
+    protected void onResolveComponent(List<MgStamp> stamps) {
         clazz = new MgClass(logicalClass.getName());
+        clazz.getStamps().addCollectionLast(stamps);
         getContext().setClazz(clazz);
 
         postpone(MgResolveBaseClassesTask.class, () -> {
@@ -44,8 +47,8 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
         });
 
         for(MgLogicalVariable logicalVariable : logicalClass.getVariables()){
-            postpone(MgResolveMemberVariableDefinitionTask.class, () -> {
-                MgResolveMemberVariableDefinitionTask task = new MgResolveMemberVariableDefinitionTask(getContext(), logicalVariable);
+            postpone(MgResolveClassVariableDefinitionTask.class, () -> {
+                MgResolveClassVariableDefinitionTask task = new MgResolveClassVariableDefinitionTask(getContext(), logicalVariable);
                 task.run();
                 clazz.getVariables().addLast(task.getVariable());
                 clazz.updateVariableOffsetCache();
@@ -53,8 +56,8 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
         }
 
         for(MgLogicalFunction logicalFunction : logicalClass.getFunctions()){
-            postpone(MgResolveFunctionDefinitionTask.class, () -> {
-                MgResolveFunctionDefinitionTask task = new MgResolveFunctionDefinitionTask(getContext(), logicalFunction);
+            postpone(MgResolveClassFunctionDefinitionTask.class, () -> {
+                MgResolveClassFunctionDefinitionTask task = new MgResolveClassFunctionDefinitionTask(getContext(), logicalFunction);
                 task.run();
                 clazz.getFunctions().addLast(task.getFunction());
             });

@@ -1,9 +1,10 @@
-package cz.mg.language.entities.mg.runtime.components.types;
+package cz.mg.language.entities.mg.runtime.components.types.functions;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 

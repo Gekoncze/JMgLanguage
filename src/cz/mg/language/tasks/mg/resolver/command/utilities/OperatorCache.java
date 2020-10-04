@@ -10,7 +10,7 @@ import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.types.MgOperator;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.OperatorFilter;

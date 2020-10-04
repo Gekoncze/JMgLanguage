@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCatchCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCatchCommand;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-import cz.mg.language.tasks.mg.resolver.main.component.MgResolveLocalVariableDefinitionTask;
+import cz.mg.language.tasks.mg.resolver.main.component.MgResolveFunctionVariableDefinitionTask;
 
 
 public class MgResolveCatchCommandTask extends MgResolveCommandTask {
@@ -32,7 +32,7 @@ public class MgResolveCatchCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        MgResolveLocalVariableDefinitionTask task = new MgResolveLocalVariableDefinitionTask(context, logicalCommand.getVariable());
+        MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(context, logicalCommand.getVariable());
         task.run();
 
         command = new MgCatchCommand(task.getVariable(), new List<>());

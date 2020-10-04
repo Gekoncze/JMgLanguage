@@ -11,8 +11,7 @@ import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 
 
 public class MgComponent implements MgNamedObject {
-    @Mandatory
-    @Value
+    @Mandatory @Value
     private final ReadableText name;
 
     @Mandatory @Part

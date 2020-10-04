@@ -3,7 +3,7 @@ package cz.mg.language.entities.mg.runtime.parts;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.entities.mg.runtime.MgNamedObject;
 
 

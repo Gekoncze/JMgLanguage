@@ -60,9 +60,9 @@ public class MgResolveApplicationTask extends MgResolveTask {
         resolve(MgResolveStampDefinitionTask.class);
         resolve(MgResolveClassDefinitionTask.class);
         resolve(MgResolveCollectionDefinitionTask.class);
-        resolve(MgResolveLocalVariableDefinitionTask.class);
-        resolve(MgResolveMemberVariableDefinitionTask.class);
-        resolve(MgResolveFunctionDefinitionTask.class);
+        resolve(MgResolveFunctionVariableDefinitionTask.class);
+        resolve(MgResolveClassVariableDefinitionTask.class);
+        resolve(MgResolveClassFunctionDefinitionTask.class);
 
         resolve(MgResolveUsageTask.class);
         resolve(MgResolveComponentStampTask.class);

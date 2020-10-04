@@ -5,7 +5,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
-import cz.mg.language.entities.mg.runtime.components.types.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgBinaryOperatorExpression;

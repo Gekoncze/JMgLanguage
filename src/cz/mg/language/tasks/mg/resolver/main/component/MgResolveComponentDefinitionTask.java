@@ -1,9 +1,15 @@
 package cz.mg.language.tasks.mg.resolver.main.component;
 
+import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgGlobalStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgInstanceStamp;
+import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgTypeStamp;
 import cz.mg.language.tasks.mg.resolver.main.MgResolveUsageTask;
 import cz.mg.language.tasks.mg.resolver.context.ComponentContext;
 import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;
@@ -27,8 +33,7 @@ public abstract class MgResolveComponentDefinitionTask extends MgResolveTask {
     @Override
     protected final void onRun() {
         resolveUsages();
-        resolveStamps();
-        onResolveComponent();
+        onResolveComponent(resolveStamps());
     }
 
     private void resolveUsages(){
@@ -41,15 +46,67 @@ public abstract class MgResolveComponentDefinitionTask extends MgResolveTask {
         }
     }
 
-    private void resolveStamps(){
+    private List<MgStamp> resolveStamps(){
+        List<MgStamp> stamps = new List<>();
         for(ReadableText logicalStamp : logicalComponent.getStamps()){
             postpone(MgResolveComponentStampTask.class, () -> {
                 MgResolveComponentStampTask task = new MgResolveComponentStampTask(getContext(), logicalStamp);
                 task.run();
-                getContext().getComponent().getStamps().addLast(task.getStamp());
+                stamps.addLast(task.getStamp());
             });
+        }
+        return stamps;
+    }
+
+    protected abstract void onResolveComponent(List<MgStamp> stamps);
+
+    protected List<MgStamp> globalStampOnly(List<MgStamp> stamps){
+        if(getType(stamps, Type.GLOBAL) == Type.GLOBAL){
+            return stamps;
+        } else {
+            throw new LanguageException("Component must have global stamp (default).");
         }
     }
 
-    protected abstract void onResolveComponent();
+    protected List<MgStamp> typeStampOnly(List<MgStamp> stamps){
+        if(getType(stamps, Type.TYPE) == Type.TYPE){
+            return stamps;
+        } else {
+            throw new LanguageException("Component must have type stamp (default).");
+        }
+    }
+
+    protected List<MgStamp> instanceStampOnly(List<MgStamp> stamps){
+        if(getType(stamps, Type.INSTANCE) == Type.INSTANCE){
+            return stamps;
+        } else {
+            throw new LanguageException("Component must have instance stamp (default).");
+        }
+    }
+
+    protected Type getType(List<MgStamp> stamps, Type defaultType){
+        final int eFlag = 0b0000000000000000;
+        final int gFlag = 0b0000000000000001;
+        final int tFlag = 0b0000000000000010;
+        final int iFlag = 0b0000000000000100;
+        int flags = eFlag;
+        for(MgStamp stamp : stamps){
+            if(stamp == MgGlobalStamp.getInstance()) flags |= gFlag;
+            if(stamp == MgTypeStamp.getInstance()) flags |= tFlag;
+            if(stamp == MgInstanceStamp.getInstance()) flags |= iFlag;
+        }
+        switch (flags){
+            case eFlag: return defaultType;
+            case gFlag: return Type.GLOBAL;
+            case tFlag: return Type.TYPE;
+            case iFlag: return Type.INSTANCE;
+            default: throw new LanguageException("Illegal combination of stamps.");
+        }
+    }
+
+    protected enum Type {
+        GLOBAL,
+        TYPE,
+        INSTANCE
+    }
 }

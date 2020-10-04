@@ -6,7 +6,7 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.MgObject;
-import cz.mg.language.entities.mg.runtime.components.types.MgClass;
+import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 
 
 public class MgClassInstanceImpl implements MgClassInstance {

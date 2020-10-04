@@ -1,9 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.main.component;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalCollection;
-import cz.mg.language.entities.mg.runtime.components.types.MgCollection;
+import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
+import cz.mg.language.entities.mg.runtime.components.types.classes.MgCollection;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.CollectionContext;
 
@@ -30,8 +32,9 @@ public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinit
     }
 
     @Override
-    protected void onResolveComponent() {
+    protected void onResolveComponent(List<MgStamp> stamps) {
         collection = new MgCollection(logicalCollection.getName());
+        collection.getStamps().addCollectionLast(stamps);
         getContext().setCollection(collection);
 
         // TODO

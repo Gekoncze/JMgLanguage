@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.components.types;
+package cz.mg.language.entities.mg.runtime.components.types.functions;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
@@ -13,7 +13,7 @@ import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 
 
-public class MgFunction extends MgInterface implements MgRunnable {
+public abstract class MgFunction extends MgInterface implements MgRunnable {
     @Mandatory @Part
     private final ArrayList<MgFunctionVariable> local = new ArrayList<>();
 

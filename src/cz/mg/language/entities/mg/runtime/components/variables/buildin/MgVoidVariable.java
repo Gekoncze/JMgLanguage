@@ -17,7 +17,8 @@ public class MgVoidVariable extends MgBuildinVariable {
     }
 
     private MgVoidVariable() {
-        super(new ReadonlyText("void"), createDatatype());
+        super(new ReadonlyText("void"));
+        setDatatype(createDatatype());
     }
 
     private static MgDatatype createDatatype(){

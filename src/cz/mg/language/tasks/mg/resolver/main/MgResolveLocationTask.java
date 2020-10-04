@@ -61,8 +61,8 @@ public class MgResolveLocationTask extends MgResolveTask {
             }
 
             if(logicalComponent instanceof MgLogicalFunction){
-                postpone(MgResolveFunctionDefinitionTask.class, () -> {
-                    MgResolveFunctionDefinitionTask task = new MgResolveFunctionDefinitionTask(getContext(), (MgLogicalFunction) logicalComponent);
+                postpone(MgResolveClassFunctionDefinitionTask.class, () -> {
+                    MgResolveClassFunctionDefinitionTask task = new MgResolveClassFunctionDefinitionTask(getContext(), (MgLogicalFunction) logicalComponent);
                     task.run();
                     location.getComponents().addLast(task.getFunction());
                 });
@@ -77,8 +77,8 @@ public class MgResolveLocationTask extends MgResolveTask {
             }
 
             if(logicalComponent instanceof MgLogicalVariable){
-                postpone(MgResolveGlobalVariableDefinitionTask.class, () -> {
-                    MgResolveGlobalVariableDefinitionTask task = new MgResolveGlobalVariableDefinitionTask(getContext(), (MgLogicalVariable) logicalComponent);
+                postpone(MgResolveLocationVariableDefinitionTask.class, () -> {
+                    MgResolveLocationVariableDefinitionTask task = new MgResolveLocationVariableDefinitionTask(getContext(), (MgLogicalVariable) logicalComponent);
                     task.run();
                     location.getComponents().addLast(task.getVariable());
                 });

@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.components.types;
+package cz.mg.language.entities.mg.runtime.components.types.classes;
 
 import cz.mg.collections.list.ArrayList;
 import cz.mg.collections.text.ReadableText;
@@ -7,7 +7,9 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Cache;
+import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 

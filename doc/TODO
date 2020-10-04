@@ -1,28 +1,23 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+updated component definition resolvers to support @global, @type and @instance annotations
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-add more kinds of variables
-    there will be only one kind of logical variable, rest will be specified using annotations
-    make sure there are following runtime variables:
-        global variable
-        instance variable (annotated with @instance)
-            function variable
-            class variable
-        type variable (annotated with @type)
-    re-implement resolvers (builders should be ready already)
-
-add more kinds of functions
-    there wil lbe only one kind of logical function, rest will be specified using annotations
-    make sure there are following runtime functions:
-        global function
-        instance function (annotated with @instance)
-        type function (annotated with @type)
-    re-implement resolvers (builders should be ready already)
+maybe for now, make function calls possible only with brackets, I don't like hiding the fact it is a function call
 
 enhance member access operator resolver
     make sure it handles different kinds of variables and functions correctly based on annotations
+        variables
+            global variable
+            instance variable (annotated with @instance)
+                function variable
+                class variable
+            type variable (annotated with @type)
+
+        functions
+            global function
+            instance function (annotated with @instance)
+            type function (annotated with @type)
 
 add buildin operators
     problem - I think we need special handling for &= and $= operator

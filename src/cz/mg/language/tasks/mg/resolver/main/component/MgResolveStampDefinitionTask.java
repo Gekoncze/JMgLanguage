@@ -1,5 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.main.component;
 
+import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalStamp;
@@ -30,8 +31,9 @@ public class MgResolveStampDefinitionTask extends MgResolveComponentDefinitionTa
     }
 
     @Override
-    protected void onResolveComponent() {
+    protected void onResolveComponent(List<MgStamp> stamps) {
         stamp = new MgStamp(logicalStamp.getName());
+        stamp.getStamps().addCollectionLast(stamps);
         getContext().setStamp(stamp);
     }
 }
