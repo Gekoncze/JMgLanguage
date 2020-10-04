@@ -1,28 +1,29 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-updated component definition resolvers to support @global, @type and @instance annotations
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-maybe for now, make function calls possible only with brackets, I don't like hiding the fact it is a function call
+update expression resolvers
+    maybe for now, make function calls possible only with brackets, I don't like hiding the fact it is a function call
 
-enhance member access operator resolver
-    make sure it handles different kinds of variables and functions correctly based on annotations
-        variables
-            global variable
-            instance variable (annotated with @instance)
-                function variable
-                class variable
-            type variable (annotated with @type)
+    problem - I think we need special handling for &= and $= operator
+            we might use matcher there to check lvalue and rvalue compatibility
 
-        functions
-            global function
-            instance function (annotated with @instance)
-            type function (annotated with @type)
+    enhance member access operator resolver
+        make sure it handles different kinds of variables and functions correctly based on annotations
+            variables
+                global variable
+                instance variable (annotated with @instance)
+                    function variable
+                    class variable
+                type variable (annotated with @type)
+
+            functions
+                global function
+                instance function (annotated with @instance)
+                type function (annotated with @type)
 
 add buildin operators
-    problem - I think we need special handling for &= and $= operator
-        we might use matcher there to check lvalue and rvalue compatibility
-
     add + - * / &== $== < > <= >=
         Int
         Float
