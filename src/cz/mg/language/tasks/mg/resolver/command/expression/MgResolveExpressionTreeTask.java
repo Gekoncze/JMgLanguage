@@ -16,13 +16,13 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveVariableDatatypeTask;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 
-public class MgResolveExpressionTreeTask extends MgResolverTask {
+public class MgResolveExpressionTreeTask extends MgResolveTask {
     private static final ReadableText DOT = new ReadonlyText(".");
     private static final ReadableText COMMA = new ReadonlyText(",");
 

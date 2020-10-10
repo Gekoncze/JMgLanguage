@@ -2,11 +2,11 @@ package cz.mg.language.tasks.mg.resolver.command;
 
 import cz.mg.language.entities.mg.logical.parts.commands.*;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
-public abstract class MgResolveCommandTask extends MgResolverTask {
+public abstract class MgResolveCommandTask extends MgResolveTask {
     public static MgResolveCommandTask create(CommandContext context, MgLogicalCommand logicalCommand){
         if(logicalCommand instanceof MgLogicalExpressionCommand){
             return new MgResolveExpressionCommandTask(context, (MgLogicalExpressionCommand) logicalCommand);

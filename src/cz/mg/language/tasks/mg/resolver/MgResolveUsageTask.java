@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
@@ -21,7 +21,7 @@ import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public class MgResolveUsageTask extends MgResolveTask {
+public class MgResolveUsageTask extends MgPostponeResolveTask {
     @Input
     private final MgLogicalUsage logicalUsage;
 

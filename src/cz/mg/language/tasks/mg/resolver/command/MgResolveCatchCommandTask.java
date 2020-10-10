@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCatchCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCatchCommand;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-import cz.mg.language.tasks.mg.resolver.main.component.MgResolveFunctionVariableDefinitionTask;
+import cz.mg.language.tasks.mg.resolver.component.MgResolveFunctionVariableDefinitionTask;
 
 
 public class MgResolveCatchCommandTask extends MgResolveCommandTask {

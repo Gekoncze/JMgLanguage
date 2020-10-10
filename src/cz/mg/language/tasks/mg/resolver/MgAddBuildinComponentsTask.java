@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Input;
@@ -8,10 +8,10 @@ import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgBuildinSta
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBuildinType;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.operators.MgBuildinOperator;
 import cz.mg.language.entities.mg.runtime.components.variables.buildin.MgBuildinVariable;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 
 
-public class MgAddBuildinComponentsTask extends MgResolverTask {
+public class MgAddBuildinComponentsTask extends MgResolveTask {
     @Input
     private final MgLocation root;
 

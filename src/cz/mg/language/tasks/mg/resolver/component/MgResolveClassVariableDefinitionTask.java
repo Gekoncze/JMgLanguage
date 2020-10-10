@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.component;
+package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;

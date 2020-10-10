@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.link;
+package cz.mg.language.tasks.mg.resolver.link;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.annotations.task.Input;
@@ -6,10 +6,10 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.StampFilter;
-import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;
+import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
 
 
-public class MgResolveComponentStampTask extends MgResolveTask {
+public class MgResolveComponentStampTask extends MgPostponeResolveTask {
     @Input
     private final ReadableText logicalStamp;
 

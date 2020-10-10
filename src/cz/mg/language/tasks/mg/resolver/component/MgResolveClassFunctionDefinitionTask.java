@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.component;
+package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
@@ -7,9 +7,7 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgGlobalFunction;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
+import cz.mg.language.entities.mg.runtime.components.types.functions.*;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
@@ -17,14 +15,14 @@ import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.FunctionContext;
 
 
-public class MgResolveLocationFunctionDefinitionTask extends MgResolveComponentDefinitionTask {
+public class MgResolveClassFunctionDefinitionTask extends MgResolveComponentDefinitionTask {
     @Input
     private final MgLogicalFunction logicalFunction;
 
     @Output
     private MgFunction function;
 
-    public MgResolveLocationFunctionDefinitionTask(Context context, MgLogicalFunction logicalFunction) {
+    public MgResolveClassFunctionDefinitionTask(Context context, MgLogicalFunction logicalFunction) {
         super(new FunctionContext(context), logicalFunction);
         this.logicalFunction = logicalFunction;
     }
@@ -41,8 +39,20 @@ public class MgResolveLocationFunctionDefinitionTask extends MgResolveComponentD
     @Override
     protected void onResolveComponent(List<MgStamp> stamps) {
         if(logicalFunction.getOperator() == null){
-            function = new MgGlobalFunction(logicalFunction.getName());
-            function.getStamps().addCollectionLast(globalStampOnly(stamps));
+            switch (getType(stamps, Type.GLOBAL)){
+                case GLOBAL:
+                    function = new MgGlobalFunction(logicalFunction.getName());
+                    break;
+                case TYPE:
+                    function = new MgTypeFunction(logicalFunction.getName());
+                    break;
+                case INSTANCE:
+                    function = new MgInstanceFunction(logicalFunction.getName());
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+            function.getStamps().addCollectionLast(stamps);
         } else {
             function = new MgOperator(logicalFunction.getName(), new MgOperatorInfo(
                 logicalFunction.getOperator().getName(),

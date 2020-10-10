@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
@@ -7,13 +7,13 @@ import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
-import cz.mg.language.tasks.mg.resolver.main.component.*;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveBaseClassesTask;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveComponentStampTask;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveVariableDatatypeTask;
+import cz.mg.language.tasks.mg.resolver.component.*;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveBaseClassesTask;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveComponentStampTask;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 
-public class MgResolveApplicationTask extends MgResolveTask {
+public class MgResolveApplicationTask extends MgPostponeResolveTask {
     @Input
     private final MgLogicalApplication logicalApplication;
 

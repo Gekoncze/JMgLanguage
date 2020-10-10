@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.link;
+package cz.mg.language.tasks.mg.resolver.link;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
@@ -8,10 +8,10 @@ import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.AbstractClassFilter;
 import cz.mg.language.tasks.mg.resolver.filter.TypeFilter;
-import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;
+import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
 
 
-public class MgResolveVariableDatatypeTask extends MgResolveTask {
+public class MgResolveVariableDatatypeTask extends MgPostponeResolveTask {
     @Input
     private final MgLogicalDatatype logicalDatatype;
 

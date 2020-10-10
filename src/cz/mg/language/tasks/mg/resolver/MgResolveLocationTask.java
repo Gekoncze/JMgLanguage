@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
@@ -6,10 +6,10 @@ import cz.mg.language.entities.mg.logical.components.*;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.LocationContext;
-import cz.mg.language.tasks.mg.resolver.main.component.*;
+import cz.mg.language.tasks.mg.resolver.component.*;
 
 
-public class MgResolveLocationTask extends MgResolveTask {
+public class MgResolveLocationTask extends MgPostponeResolveTask {
     @Input
     private final MgLogicalLocation logicalLocation;
 

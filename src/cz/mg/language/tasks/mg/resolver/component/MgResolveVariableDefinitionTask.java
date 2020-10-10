@@ -1,8 +1,8 @@
-package cz.mg.language.tasks.mg.resolver.main.component;
+package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.tasks.mg.resolver.context.VariableContext;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveVariableDatatypeTask;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 
 public abstract class MgResolveVariableDefinitionTask extends MgResolveComponentDefinitionTask {

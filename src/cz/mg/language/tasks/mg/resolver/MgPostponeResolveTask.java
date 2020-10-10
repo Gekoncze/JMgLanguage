@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main;
+package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.map.Map;
@@ -6,17 +6,17 @@ import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 
 
-public abstract class MgResolveTask extends MgResolverTask {
+public abstract class MgPostponeResolveTask extends MgResolveTask {
     @Mandatory
     private final @Part Map<@Link Class, @Part List<@Part Runnable>> map = new Map<>();
 
     @Mandatory @Part
     private final Context context;
 
-    public MgResolveTask(Context context) {
+    public MgPostponeResolveTask(Context context) {
         this.context = context;
     }
 

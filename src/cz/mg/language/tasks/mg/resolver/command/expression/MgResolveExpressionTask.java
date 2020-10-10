@@ -11,7 +11,7 @@ import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.tasks.mg.resolver.MgResolverTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
@@ -19,7 +19,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInte
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
-public abstract class MgResolveExpressionTask extends MgResolverTask {
+public abstract class MgResolveExpressionTask extends MgResolveTask {
     @Input
     protected final CommandContext context;
 

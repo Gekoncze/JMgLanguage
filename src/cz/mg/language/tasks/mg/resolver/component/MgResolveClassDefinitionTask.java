@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.component;
+package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
@@ -10,7 +10,7 @@ import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.ClassContext;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveBaseClassesTask;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveBaseClassesTask;
 
 
 public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTask {

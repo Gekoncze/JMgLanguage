@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.link;
+package cz.mg.language.tasks.mg.resolver.link;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
@@ -8,10 +8,10 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
-import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;
+import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
 
 
-public class MgResolveBaseClassesTask extends MgResolveTask {
+public class MgResolveBaseClassesTask extends MgPostponeResolveTask {
     @Input
     private final List<ReadableText> logicalClasses;
 

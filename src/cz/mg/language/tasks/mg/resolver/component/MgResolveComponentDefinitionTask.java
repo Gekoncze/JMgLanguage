@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.main.component;
+package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
@@ -10,13 +10,13 @@ import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgGlobalStamp;
 import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgInstanceStamp;
 import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgTypeStamp;
-import cz.mg.language.tasks.mg.resolver.main.MgResolveUsageTask;
+import cz.mg.language.tasks.mg.resolver.MgResolveUsageTask;
 import cz.mg.language.tasks.mg.resolver.context.ComponentContext;
-import cz.mg.language.tasks.mg.resolver.main.MgResolveTask;
-import cz.mg.language.tasks.mg.resolver.main.link.MgResolveComponentStampTask;
+import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
+import cz.mg.language.tasks.mg.resolver.link.MgResolveComponentStampTask;
 
 
-public abstract class MgResolveComponentDefinitionTask extends MgResolveTask {
+public abstract class MgResolveComponentDefinitionTask extends MgPostponeResolveTask {
     @Input
     private final MgLogicalComponent logicalComponent;
 
