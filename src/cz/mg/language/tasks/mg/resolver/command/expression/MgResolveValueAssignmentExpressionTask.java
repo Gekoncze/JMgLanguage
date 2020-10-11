@@ -5,6 +5,7 @@ import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.assignment.MgValueAssignmentExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.ValueAssignmentOperatorExpressionFilter;
 
@@ -21,20 +22,24 @@ public class MgResolveValueAssignmentExpressionTask extends MgResolveAssignmentE
     @Override
     protected MgExpression onCreateExpression() {
         List<MgValueAssignmentExpression.Replication> replications = new List<>();
-        for(){
+
+        OutputInterface leftOutputInterface = voidTask.getChildren().getFirst().getOutputInterface();
+        OutputInterface rightOutputInterface = getChildren().getFirst().getOutputInterface();
+
+        for(int replication = 0; replication < leftOutputInterface.getConnectors().count(); replication++){
             ValueAssignmentOperatorExpressionFilter filter = new ValueAssignmentOperatorExpressionFilter(
                 context,
                 Operators.VALUE_ASSIGNMENT,
                 getParentInputInterface(),
-                leftChildrenOutputInterface,
-                rightChildrenOutputInterface,
+                leftOutputInterface,
+                rightOutputInterface,
                 replication
             );
 
             replications.addLast(new MgValueAssignmentExpression.Replication(
                 filter.find(),
-                leftInput,
-                rightInput
+                leftOutputInterface.getConnectors().get(replication).getConnection().getConnectionVariable(),
+                rightOutputInterface.getConnectors().get(replication).getConnection().getConnectionVariable()
             ));
         }
 
