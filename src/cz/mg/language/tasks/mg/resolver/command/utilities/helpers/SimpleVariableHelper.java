@@ -7,6 +7,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.variables.buildin.MgExpressionVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
@@ -48,7 +49,7 @@ public class SimpleVariableHelper implements VariableHelper {
 
     @Override
     public MgFunctionVariable nextExpressionVariable(MgDatatype datatype){
-        MgFunctionVariable variable = new MgFunctionVariable(EXPRESSION_VARIABLE_NAME);
+        MgExpressionVariable variable = new MgExpressionVariable(EXPRESSION_VARIABLE_NAME);
         variable.setDatatype(datatype);
         function.getLocal().addLast(variable);
         function.updateVariableOffsetCache();

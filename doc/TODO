@@ -13,6 +13,15 @@ update expression resolvers
             then
                 a &=
             is a single expression with one input
+            it is different from member access operator in that
+                it does not take 'a' as a value, but rather as a variable!
+                at least for reference assignment
+                problem: it can be variable bind to function
+                         or it can be variable bind to a class instance!!!
+                         now this makes things much more complicated!
+                         we will need to check if the variable is class variable or function variable
+                         we could aslo check if it is expression variable
+                            (we would need to add another class for it that extends function variable)
 
     enhance member access operator resolver
         make sure it handles different kinds of variables and functions correctly based on annotations
