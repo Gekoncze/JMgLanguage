@@ -30,7 +30,7 @@ public class MgResolveReferenceAssignmentExpressionTask extends MgResolveAssignm
         for(){
             replications.addLast(new MgReferenceAssignmentExpression.Replication(
                 destinationVariableExpression,
-                inputVariable
+                input
             ));
         }
 
