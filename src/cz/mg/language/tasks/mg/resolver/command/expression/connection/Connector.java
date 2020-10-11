@@ -1,15 +1,15 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.connection;
 
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.storage.Shared;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Shared;
+import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
 public abstract class Connector {
-    @Mandatory @Link
+    @Mandatory @Value
     private final MgDatatype requestedDatatype;
 
     @Optional @Shared

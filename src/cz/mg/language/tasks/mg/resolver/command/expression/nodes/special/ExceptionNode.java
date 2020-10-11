@@ -1,17 +1,18 @@
-package cz.mg.language.tasks.mg.resolver.command.expression.nodes;
+package cz.mg.language.tasks.mg.resolver.command.expression.nodes.special;
 
 import cz.mg.collections.array.Array;
-import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgExceptionType;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 
 
-public class BooleanNode extends Node {
-    private static final MgDatatype DATATYPE = new MgDatatype(MgBoolType.getInstance(), MgDatatype.Storage.DIRECT, MgDatatype.Requirement.MANDATORY);
+public class ExceptionNode extends Node {
+    private static final MgDatatype DATATYPE = new MgDatatype(MgExceptionType.getInstance(), MgDatatype.Storage.OTHER, MgDatatype.Requirement.MANDATORY);
 
-    public BooleanNode() {
+    public ExceptionNode() {
         super(createInputInterface(), createOutputInterface());
     }
 

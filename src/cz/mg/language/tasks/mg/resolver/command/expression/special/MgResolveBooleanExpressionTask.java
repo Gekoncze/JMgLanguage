@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.BooleanNode;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.special.BooleanNode;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 

@@ -12,14 +12,25 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgValueAssignmentExpression extends MgAssignmentExpression {
-    public MgValueAssignmentExpression(MgExpression sourceExpression, List<Replication> replications) {
+    @Mandatory @Part
+    private final MgExpression destinationExpression;
+
+    public MgValueAssignmentExpression(
+        MgExpression sourceExpression,
+        MgExpression destinationExpression,
+        List<Replication> replications
+    ) {
         super(sourceExpression, replications);
+        this.destinationExpression = destinationExpression;
+    }
+
+    @Override
+    public void run(MgFunctionInstance functionInstance) {
+        destinationExpression.run(functionInstance);
+        super.run(functionInstance);
     }
 
     public static class Replication extends MgAssignmentExpression.Replication {
-        @Mandatory @Part
-        protected final MgExpression destination;
-
         @Mandatory @Link
         private final MgFunction function;
 
@@ -30,19 +41,13 @@ public class MgValueAssignmentExpression extends MgAssignmentExpression {
         private final MgFunctionVariable rightInput;
 
         public Replication(
-            MgExpression destination,
             MgFunction function,
             MgFunctionVariable leftInput,
             MgFunctionVariable rightInput
         ) {
-            this.destination = destination;
             this.function = function;
             this.leftInput = leftInput;
             this.rightInput = rightInput;
-        }
-
-        public MgExpression getDestination() {
-            return destination;
         }
 
         public MgFunction getFunction() {
@@ -59,8 +64,6 @@ public class MgValueAssignmentExpression extends MgAssignmentExpression {
 
         @Override
         public void run(MgFunctionInstance functionInstance) {
-            destination.run(functionInstance);
-
             // Note: It is guaranteed that for every function object
             //       input variables are first in their order and then output variables in their order.
 

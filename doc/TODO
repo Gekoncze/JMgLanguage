@@ -17,6 +17,8 @@ update expression resolvers
                  we will need to check if the variable is class variable or function variable
                  we could also check if it is expression variable and in that case does not allow it
                     I think this applies for both value and reference assignment
+                also, we can allow assignments to left function call if:
+                    it returns references and it is a value assignment
 
     enhance member access operator resolver
         make sure it handles different kinds of variables and functions correctly based on annotations
@@ -50,6 +52,24 @@ test
         (a * b)(c, d, e)
         what error will be thrown?
         this is something like a parametrized call, but without a name on the left
+
+    test all combinations of value and reference assignments, I'm pretty sure I might have missed something ...
+        variable datatype combinations:
+            reference &= reference  # ok
+            reference &= value  # ok
+            value &= reference  # not ok
+            value &= value  # not ok
+
+            reference $= reference  # ok
+            reference $= value  # ok
+            value $= reference  # ok
+            value $= value  # ok
+
+        I think not all of them are supported yet, as we do not support automatic conversions
+            of references to values and values to references
+            this might need to be investigated further and then implemented
+            either this might or might not create additional expressions
+            or we might actually ignore the check for storage direct and indirect in matcher
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

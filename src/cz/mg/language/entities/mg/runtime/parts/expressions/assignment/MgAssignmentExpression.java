@@ -25,7 +25,7 @@ public class MgAssignmentExpression extends MgExpression {
     }
 
     @Override
-    public final void run(MgFunctionInstance functionInstance) {
+    public void run(MgFunctionInstance functionInstance) {
         sourceExpression.run(functionInstance);
         for(Replication replication : replications){
             replication.run(functionInstance);

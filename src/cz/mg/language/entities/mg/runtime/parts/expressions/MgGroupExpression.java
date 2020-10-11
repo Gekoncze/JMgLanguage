@@ -14,6 +14,10 @@ public class MgGroupExpression extends MgExpression {
         this.expressions = expressions;
     }
 
+    public List<MgExpression> getExpressions() {
+        return expressions;
+    }
+
     @Override
     public void run(MgFunctionInstance functionInstance) {
         for(MgExpression expression : expressions){

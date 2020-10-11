@@ -5,23 +5,23 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.special.ExceptionNode;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.special.VoidNode;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
-public class MgResolveExceptionExpressionTask extends MgResolveExpressionTask {
+public class MgResolveVoidExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalCallExpression logicalExpression;
 
-    public MgResolveExceptionExpressionTask(CommandContext context, MgLogicalCallExpression logicalExpression) {
+    public MgResolveVoidExpressionTask(CommandContext context, MgLogicalCallExpression logicalExpression) {
         super(context, null);
         this.logicalExpression = logicalExpression;
     }
 
     @Override
     protected Node onResolveEnter() {
-        return new ExceptionNode();
+        return null;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MgResolveExceptionExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected Node onResolveLeave() {
-        return null;
+        return new VoidNode(getChildren().getFirst().getOutputInterface());
     }
 
     @Override
