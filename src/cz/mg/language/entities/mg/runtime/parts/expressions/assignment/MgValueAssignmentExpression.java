@@ -11,7 +11,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
-public abstract class MgValueAssignmentExpression extends MgAssignmentExpression {
+public class MgValueAssignmentExpression extends MgAssignmentExpression {
     public MgValueAssignmentExpression(MgExpression sourceExpression, List<Replication> replications) {
         super(sourceExpression, replications);
     }
