@@ -4,6 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
@@ -34,21 +35,11 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
         expression.run(functionObject);
 
         for(Replication replication : replications){
-            // create new function object
-            MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(replication.getFunction());
-
-            // set input for newly created function object
-            newFunctionObject.getObjects().set(functionObject.getObjects().get(replication.getInput().getOffset()), 0);
-
-            // run the function
-            replication.getFunction().run(newFunctionObject);
-
-            // get output of the newly created function object
-            functionObject.getObjects().set(newFunctionObject.getObjects().get(1), replication.getOutput().getOffset());
+            replication.run(functionObject);
         }
     }
 
-    public static class Replication {
+    public static class Replication implements MgRunnable {
         @Mandatory @Link
         private final MgFunction function;
 
@@ -80,6 +71,21 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
 
         public MgFunctionVariable getOutput() {
             return output;
+        }
+
+        @Override
+        public void run(MgFunctionInstanceImpl functionObject) {
+            // create new function object
+            MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(getFunction());
+
+            // set input for newly created function object
+            newFunctionObject.getObjects().set(functionObject.getObjects().get(getInput().getOffset()), 0);
+
+            // run the function
+            getFunction().run(newFunctionObject);
+
+            // get output of the newly created function object
+            functionObject.getObjects().set(newFunctionObject.getObjects().get(1), getOutput().getOffset());
         }
     }
 }
