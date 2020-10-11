@@ -60,6 +60,8 @@ allow = operator
             if left and right variable is value, then it will be value assignment
             if left variable is value, then it can only be value assignment
 
+take into account access modifiers during resolve
+
 explicit casting
     add buildin as operators
     add option for user to provide his own as operators
@@ -67,14 +69,15 @@ explicit casting
         as operator should add more weight when matching 100% I think
 
 mg builder - global variable object
+    basically add support for expressions inside logical variables
     as for logical variable and its expression
         we might want support for all variables, not only global!
         both problematics are closely connected
 
-mg class - make it also implement class instance
-take into account access modifiers during resolve
+add support for mg @type variables
+    make mg class implement class instance
+
 add support for relative "../" usages ???
-add support for multiple (star) usages - is it going to be just a syntactical sugar?
 
 implementation of the new simplified runtime model
     we might need a context object being passed
