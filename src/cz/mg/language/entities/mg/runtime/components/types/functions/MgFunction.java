@@ -8,7 +8,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 
@@ -64,10 +64,10 @@ public abstract class MgFunction extends MgInterface implements MgRunnable {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
+    public void run(MgFunctionInstance functionInstance) {
         try {
             for(MgCommand command : commands){
-                command.run(functionObject);
+                command.run(functionInstance);
             }
         } catch (ReturnException e){
             // nothing to do

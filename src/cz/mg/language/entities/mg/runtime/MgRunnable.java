@@ -1,8 +1,8 @@
 package cz.mg.language.entities.mg.runtime;
 
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 
 
 public interface MgRunnable extends MgObject {
-    void run(MgFunctionInstanceImpl functionObject);
+    void run(MgFunctionInstance functionInstance);
 }

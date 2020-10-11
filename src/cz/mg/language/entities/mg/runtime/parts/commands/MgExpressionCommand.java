@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
@@ -19,7 +19,7 @@ public class MgExpressionCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
-        expression.run(functionObject);
+    public void run(MgFunctionInstance functionInstance) {
+        expression.run(functionInstance);
     }
 }

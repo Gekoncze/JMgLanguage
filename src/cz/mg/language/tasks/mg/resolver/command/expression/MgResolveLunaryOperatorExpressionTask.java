@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgLunaryOperatorExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgLunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.LunaryOperatorNode;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;

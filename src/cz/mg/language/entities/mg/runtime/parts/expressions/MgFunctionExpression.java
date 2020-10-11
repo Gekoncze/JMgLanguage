@@ -7,6 +7,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 
 
@@ -52,9 +53,9 @@ public class MgFunctionExpression extends MgExpression {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
+    public void run(MgFunctionInstance functionInstance) {
         if(expression!= null){
-            expression.run(functionObject);
+            expression.run(functionInstance);
         }
 
         int local = 0;
@@ -64,16 +65,16 @@ public class MgFunctionExpression extends MgExpression {
 
         // set input for newly created function object
         for(MgFunctionVariable in : input){
-            newFunctionObject.getObjects().set(functionObject.getObjects().get(in.getOffset()), local);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(in.getOffset()), local);
             local++;
         }
 
         // run the function
-        function.run(functionObject);
+        function.run(functionInstance);
 
         // get output of the newly created function object
         for(MgFunctionVariable out : output){
-            functionObject.getObjects().set(newFunctionObject.getObjects().get(local), out.getOffset());
+            functionInstance.getObjects().set(newFunctionObject.getObjects().get(local), out.getOffset());
             local++;
         }
     }

@@ -12,8 +12,8 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariabl
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgMemberFunctionExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgMemberVariableExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgClassFunctionExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.variable.MgInstanceVariableExpression;
 import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
@@ -139,7 +139,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
     @Override
     public MgExpression onCreateExpression() {
         if(getNode() instanceof MemberVariableNode){
-            return new MgMemberVariableExpression(
+            return new MgInstanceVariableExpression(
                 createTargetChildExpression(),
                 ((MemberVariableNode) getNode()).getVariable(),
                 gatherVariableInput(),
@@ -148,7 +148,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
         }
 
         if(getNode() instanceof MemberFunctionNode){
-            return new MgMemberFunctionExpression(
+            return new MgClassFunctionExpression(
                 createTargetChildExpression(),
                 ((MemberFunctionNode) getNode()).getFunction(),
                 createRegularChildExpression(),

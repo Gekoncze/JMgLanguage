@@ -4,6 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ArtificialException;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
@@ -38,25 +39,25 @@ public class MgCheckpointCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
+    public void run(MgFunctionInstance functionInstance) {
         ArtificialException ae = null;
         try {
-            if(tryCommand != null) tryCommand.run(functionObject);
+            if(tryCommand != null) tryCommand.run(functionInstance);
         } catch (ArtificialException e){
             ae = e;
         }
 
-        MgCatchCommand handler = find(ae, functionObject);
+        MgCatchCommand handler = find(ae, functionInstance);
         if(handler != null){
             ae = null;
             try {
-                handler.run(functionObject);
+                handler.run(functionInstance);
             } catch (ArtificialException e){
                 ae = e;
             }
         }
 
-        if(finallyCommand != null) finallyCommand.run(functionObject);
+        if(finallyCommand != null) finallyCommand.run(functionInstance);
         if(ae != null) throw ae;
     }
 

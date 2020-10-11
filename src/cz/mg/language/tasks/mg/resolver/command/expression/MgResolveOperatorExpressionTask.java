@@ -1,9 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
 import cz.mg.language.LanguageException;
+import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
+import cz.mg.language.entities.text.structured.parts.leaves.Operator;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -18,7 +20,15 @@ public abstract class MgResolveOperatorExpressionTask extends MgResolveExpressio
         MgResolveExpressionTask parent
     ){
         if(logicalExpression instanceof MgLogicalBinaryOperatorCallExpression){
-            return new MgResolveBinaryOperatorExpression(context, (MgLogicalBinaryOperatorCallExpression)logicalExpression, parent);
+            if(logicalExpression.getName().equals(Operators.ASSIGNMENT)){
+                throw new LanguageException("Assignment using = operator is not supported yet. Use &= or $= instead.");
+            } else if(logicalExpression.getName().equals(Operators.REFERENCE_ASSIGNMENT)){
+                return new MgResolveReferenceAssignmentExpressionTask(context, (MgLogicalBinaryOperatorCallExpression) logicalExpression, parent);
+            } else if(logicalExpression.getName().equals(Operators.VALUE_ASSIGNMENT)){
+                return new MgResolveValueAssignmentExpressionTask(context, (MgLogicalBinaryOperatorCallExpression) logicalExpression, parent);
+            } else {
+                return new MgResolveBinaryOperatorExpression(context, (MgLogicalBinaryOperatorCallExpression)logicalExpression, parent);
+            }
         }
 
         if(logicalExpression instanceof MgLogicalUnaryOperatorCallExpression){

@@ -3,10 +3,10 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListItem;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
@@ -23,9 +23,6 @@ import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 
 public class MgResolveExpressionTreeTask extends MgResolveTask {
-    private static final ReadableText DOT = new ReadonlyText(".");
-    private static final ReadableText COMMA = new ReadonlyText(",");
-
     @Input
     private final CommandContext context;
 
@@ -126,7 +123,7 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
             item != null;
             item = item.getNextItem()
         ){
-            if(isDot(item)){
+            if(isMemberAccessOperator(item)){
                 mergeBinary(item, MgResolveExpressionTreeTask::createMemberAccessCallExpression);
             }
         }
@@ -185,7 +182,7 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
             item != null;
             item = item.getNextItem()
         ){
-            if(isComma(item)){
+            if(isGroupOperator(item)){
                 ListItem<MgLogicalExpression> leftItem = item.getPreviousItem();
                 if(isGroup(leftItem)){
                     mergeBinary(item, (leftExpression, rightExpression) -> {
@@ -221,12 +218,12 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
         return item.get() instanceof MgLogicalCallExpression;
     }
 
-    private boolean isDot(ListItem<MgLogicalExpression> item){
-        return isOperator(item, DOT);
+    private boolean isMemberAccessOperator(ListItem<MgLogicalExpression> item){
+        return isOperator(item, Operators.MEMBER_ACCESS);
     }
 
-    private boolean isComma(ListItem<MgLogicalExpression> item){
-        return isOperator(item, COMMA);
+    private boolean isGroupOperator(ListItem<MgLogicalExpression> item){
+        return isOperator(item, Operators.GROUP);
     }
 
     private boolean isOperator(ListItem<MgLogicalExpression> item, ReadableText name){

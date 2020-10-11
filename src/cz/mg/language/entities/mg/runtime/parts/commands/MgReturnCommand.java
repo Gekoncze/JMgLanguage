@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ReturnException;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
@@ -20,7 +20,7 @@ public class MgReturnCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
+    public void run(MgFunctionInstance functionInstance) {
         throw new ReturnException();
     }
 }

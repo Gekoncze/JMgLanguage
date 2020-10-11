@@ -5,14 +5,14 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 
 
-public class MgMemberFunctionExpression extends MgFunctionExpression {
+public class MgClassFunctionExpression extends MgFunctionExpression {
     @Mandatory @Part
     private final MgExpression target;
 
-    public MgMemberFunctionExpression(
+    public MgClassFunctionExpression(
         MgExpression target,
         MgFunction function,
         MgExpression expression,
@@ -28,9 +28,9 @@ public class MgMemberFunctionExpression extends MgFunctionExpression {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
-        target.run(functionObject);
-        super.run(functionObject);
+    public void run(MgFunctionInstance functionInstance) {
+        target.run(functionInstance);
+        super.run(functionInstance);
     }
 }
 

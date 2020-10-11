@@ -2,8 +2,8 @@ package cz.mg.language.tasks.mg.builder.block.root.command;
 
 import cz.mg.collections.Clump;
 import cz.mg.collections.list.List;
-import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.annotations.task.Cache;
+import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalClumpExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalOperatorExpression;
@@ -53,7 +53,7 @@ public abstract class MgBuildMultilineExpressionCommandTask extends MgBuildComma
         MgLogicalClumpExpression expression = new MgLogicalClumpExpression();
         for(MgLogicalExpression lineExpression : lineExpressions){
             expression.getExpressions().addLast(lineExpression);
-            expression.getExpressions().addLast(new MgLogicalOperatorExpression(new ReadonlyText(",")));
+            expression.getExpressions().addLast(new MgLogicalOperatorExpression(Operators.GROUP));
         }
         expression.getExpressions().removeLast();
         return expression;

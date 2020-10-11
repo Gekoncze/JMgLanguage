@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalRollbackCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgRollbackCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveExceptionExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveExceptionExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -34,7 +34,7 @@ public class MgResolveRollbackCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
         resolveExpressionTreeTask.run();
 
-        MgResolveExceptionExpression resolveExpressionTask = new MgResolveExceptionExpression(context, resolveExpressionTreeTask.getLogicalCallExpression());
+        MgResolveExceptionExpressionTask resolveExpressionTask = new MgResolveExceptionExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
 
         command = new MgRollbackCommand(

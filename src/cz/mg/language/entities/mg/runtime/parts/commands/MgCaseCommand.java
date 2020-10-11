@@ -6,7 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
@@ -39,10 +39,10 @@ public class MgCaseCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
+    public void run(MgFunctionInstance functionInstance) {
         // expression should be handled by switch command
         for(MgCommand command : commands){
-            command.run(functionObject);
+            command.run(functionInstance);
         }
     }
 }

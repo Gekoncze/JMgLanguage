@@ -66,6 +66,13 @@ test
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
+allow = operator
+    reference or value assignment can be automatically determined
+        for example by variable type
+            if left and right variable is reference, then it will be reference assignment
+            if left and right variable is value, then it will be value assignment
+            if left variable is value, then it can only be value assignment
+
 explicit casting
     add buildin as operators
     add option for user to provide his own as operators

@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgRunaryOperatorExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgRunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.RunaryOperatorNode;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;

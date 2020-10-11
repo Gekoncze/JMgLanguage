@@ -10,11 +10,11 @@ import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
-public class MgResolveExceptionExpression extends MgResolveExpressionTask {
+public class MgResolveExceptionExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalCallExpression logicalExpression;
 
-    public MgResolveExceptionExpression(CommandContext context, MgLogicalCallExpression logicalExpression) {
+    public MgResolveExceptionExpressionTask(CommandContext context, MgLogicalCallExpression logicalExpression) {
         super(context, null);
         this.logicalExpression = logicalExpression;
     }

@@ -3,9 +3,9 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.MgObject;
 
 
@@ -30,7 +30,7 @@ public class MgValueExpression extends MgExpression {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
-        functionObject.getObjects().set(object.copy(), output.getOffset());
+    public void run(MgFunctionInstance functionInstance) {
+        functionInstance.getObjects().set(object.copy(), output.getOffset());
     }
 }

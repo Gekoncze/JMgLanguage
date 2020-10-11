@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalWhileCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgWhileCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveBooleanExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveBooleanExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -36,7 +36,7 @@ public class MgResolveWhileCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
         resolveExpressionTreeTask.run();
 
-        MgResolveBooleanExpression resolveExpressionTask = new MgResolveBooleanExpression(context, resolveExpressionTreeTask.getLogicalCallExpression());
+        MgResolveBooleanExpressionTask resolveExpressionTask = new MgResolveBooleanExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
 
         command = new MgWhileCommand(

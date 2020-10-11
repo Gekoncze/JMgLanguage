@@ -4,7 +4,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.instances.MgInstance;
@@ -31,8 +31,8 @@ public class MgRollbackCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
-        expression.run(functionObject);
-        throw new RollbackException((MgInstance) functionObject.getObjects().get(input.getOffset()));
+    public void run(MgFunctionInstance functionInstance) {
+        expression.run(functionInstance);
+        throw new RollbackException((MgInstance) functionInstance.getObjects().get(input.getOffset()));
     }
 }

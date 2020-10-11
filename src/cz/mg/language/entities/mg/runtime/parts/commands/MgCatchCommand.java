@@ -5,7 +5,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 
 
 public class MgCatchCommand extends MgCommand {
@@ -29,9 +29,9 @@ public class MgCatchCommand extends MgCommand {
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
+    public void run(MgFunctionInstance functionInstance) {
         for(MgCommand command : commands){
-            command.run(functionObject);
+            command.run(functionInstance);
         }
     }
 }

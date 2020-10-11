@@ -6,6 +6,7 @@ import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgBoolObject;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
@@ -52,11 +53,11 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     }
 
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
-        while(evaluateExpression(functionObject)){
+    public void run(MgFunctionInstance functionInstance) {
+        while(evaluateExpression(functionInstance)){
             try {
                 for(MgCommand command : commands){
-                    command.run(functionObject);
+                    command.run(functionInstance);
                 }
             } catch (BreakException e){
                 if(e.getTarget() == this){

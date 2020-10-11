@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.parts.expressions;
+package cz.mg.language.entities.mg.runtime.parts.expressions.operator;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Link;
@@ -7,7 +7,9 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgBinaryOperatorExpression extends MgOperatorExpression {
@@ -30,13 +32,25 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
         this.replications.addCollectionLast(replications);
     }
 
+    public MgExpression getLeftExpression() {
+        return leftExpression;
+    }
+
+    public MgExpression getRightExpression() {
+        return rightExpression;
+    }
+
+    public List<Replication> getReplications() {
+        return replications;
+    }
+
     @Override
-    public void run(MgFunctionInstanceImpl functionObject) {
-        leftExpression.run(functionObject);
-        rightExpression.run(functionObject);
+    public void run(MgFunctionInstance functionInstance) {
+        leftExpression.run(functionInstance);
+        rightExpression.run(functionInstance);
 
         for(Replication replication : replications){
-            replication.run(functionObject);
+            replication.run(functionInstance);
         }
     }
 
@@ -84,22 +98,22 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
         }
 
         @Override
-        public void run(MgFunctionInstanceImpl functionObject) {
+        public void run(MgFunctionInstance functionInstance) {
             // Note: It is guaranteed that for every function object
             //       input variables are first in their order and then output variables in their order.
 
             // create new function object
-            MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(getFunction());
+            MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(function);
 
             // set input for newly created function object
-            newFunctionObject.getObjects().set(functionObject.getObjects().get(getLeftInput().getOffset()), 0);
-            newFunctionObject.getObjects().set(functionObject.getObjects().get(getRightInput().getOffset()), 1);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(leftInput.getOffset()), 0);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(rightInput.getOffset()), 1);
 
             // run the function
-            getFunction().run(newFunctionObject);
+            function.run(newFunctionObject);
 
             // get output of the newly created function object
-            functionObject.getObjects().set(newFunctionObject.getObjects().get(2), getOutput().getOffset());
+            functionInstance.getObjects().set(newFunctionObject.getObjects().get(2), output.getOffset());
         }
     }
 }
