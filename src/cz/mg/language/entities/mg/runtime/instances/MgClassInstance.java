@@ -4,7 +4,7 @@ import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.entities.mg.runtime.MgObject;
 
 
-public interface MgClassInstance extends MgObject, MgInstance, MgStructuredInstance {
+public interface MgClassInstance extends MgObject, MgStructuredInstance {
     @Override
     MgClass getType();
 }
