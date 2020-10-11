@@ -26,6 +26,11 @@ public abstract class MgResolveAssignmentExpressionTask extends MgResolveOperato
     }
 
     @Override
+    protected void onResolveChildren() {
+        onResolveChild(sourceLogicalExpression);
+    }
+
+    @Override
     protected @Optional Node onResolveEnter() {
         // assignment operator cannot have parent expression, it has no return value
         return null;

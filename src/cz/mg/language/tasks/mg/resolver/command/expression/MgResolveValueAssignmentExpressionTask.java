@@ -6,6 +6,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.assignment.MgValueAssignmentExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
+import cz.mg.language.tasks.mg.resolver.command.expression.nodes.ValueAssignmentNode;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -19,20 +20,21 @@ public class MgResolveValueAssignmentExpressionTask extends MgResolveAssignmentE
     }
 
     @Override
-    protected void onResolveChildren() {
-        onResolveChild(sourceLogicalExpression);
-        onResolveChild(destinationLogicalExpression);
-    }
-
-    @Override
     protected @Mandatory Node onResolveLeave() {
-        return todo;
+        return new ValueAssignmentNode(variables);
     }
 
     @Override
     protected MgExpression onCreateExpression() {
         List<MgValueAssignmentExpression.Replication> replications = new List<>();
-        todo;
+        for(){
+            replications.addLast(new MgValueAssignmentExpression.Replication(
+                destinationExpression,
+                function,
+                leftInput,
+                rightInput
+            ));
+        }
 
         return new MgValueAssignmentExpression(
             getChildren().getFirst().createExpression(),
