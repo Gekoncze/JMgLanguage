@@ -53,7 +53,7 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
             UnaryOperatorExpressionFilter filter = new UnaryOperatorExpressionFilter(
                 context,
                 logicalExpression.getName(),
-                getParentInputInterface(),
+                getParentInputConnectors(),
                 childrenOutputInterface,
                 r
             );
@@ -90,7 +90,7 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
 
     private Array<MgFunctionVariable> gatherInputOffset(){
         Array<MgFunctionVariable> offset = new Array<>(getNode().getFunctions().count());
-        Iterator<InputConnector> iterator = getInputInterface().getConnectors().iterator();
+        Iterator<InputConnector> iterator = getInputConnectors().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset.set(iterator.next().getConnection().getConnectionVariable(), i);
         }
@@ -99,7 +99,7 @@ public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOper
 
     private Array<MgFunctionVariable> gatherOutputOffset(){
         Array<MgFunctionVariable> offset = new Array<>(getNode().getFunctions().count());
-        Iterator<OutputConnector> iterator = getOutputInterface().getConnectors().iterator();
+        Iterator<OutputConnector> iterator = getOutputConnectors().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset.set(iterator.next().getConnection().getConnectionVariable(), i);
         }

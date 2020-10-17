@@ -2,26 +2,23 @@ package cz.mg.language.tasks.mg.resolver.filter;
 
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Link;
+import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
 public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
     @Optional @Link
-    private final ReadableArray<InputConnector> parentInputInterface;
+    private final ReadableArray<MgInputConnector> parentInputInterface;
 
     @Optional @Link
-    private final ReadableArray<OutputConnector> childrenOutputInterface;
+    private final ReadableArray<MgOutputConnector> childrenOutputInterface;
 
     @Optional @Link
     private final MgDatatype self;
@@ -29,8 +26,8 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
     public FunctionExpressionFilter(
         @Mandatory Context context,
         @Optional ReadableText name,
-        @Optional InputInterface parentInputInterface,
-        @Optional OutputInterface childrenOutputInterface
+        @Optional ReadableArray<MgInputConnector> parentInputInterface,
+        @Optional ReadableArray<MgOutputConnector> childrenOutputInterface
     ) {
         this(context, name, parentInputInterface, childrenOutputInterface, null);
     }
@@ -38,13 +35,13 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
     public FunctionExpressionFilter(
         @Mandatory Context context,
         @Optional ReadableText name,
-        @Optional InputInterface parentInputInterface,
-        @Optional OutputInterface childrenOutputInterface,
+        @Optional ReadableArray<MgInputConnector> parentInputInterface,
+        @Optional ReadableArray<MgOutputConnector> childrenOutputInterface,
         @Optional MgDatatype self
     ) {
         super(context, name, MgFunction.class);
-        this.parentInputInterface = parentInputInterface != null ? parentInputInterface.getRemainingConnectors() : null;
-        this.childrenOutputInterface = childrenOutputInterface != null ? childrenOutputInterface.getConnectors() : null;
+        this.parentInputInterface = getRemainingConnectors(parentInputInterface);
+        this.childrenOutputInterface = childrenOutputInterface;
         this.self = self;
     }
 
@@ -62,9 +59,9 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
         if(parentInputInterface != null){
             if(function.getOutput().count() > parentInputInterface.count()) return false;
             for(int i = 0; i < function.getOutput().count(); i++){
-                MgDatatype inputDatatype = parentInputInterface.get(i).getRequestedDatatype();
+                MgDatatype inputDatatype = parentInputInterface.get(i).getDatatype();
                 MgDatatype outputDatatype = function.getOutput().get(i).getDatatype();
-                if(!Matcher.matches(inputDatatype, outputDatatype)) return false;
+                if(!MgDatatype.isCompatible(inputDatatype, outputDatatype)) return false;
             }
         }
 
@@ -73,8 +70,8 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
                 if(function.getInput().count() != childrenOutputInterface.count()) return false;
                 for(int i = 0; i < function.getInput().count(); i++){
                     MgDatatype inputDatatype = function.getInput().get(i).getDatatype();
-                    MgDatatype outputDatatype = childrenOutputInterface.get(i).getRequestedDatatype();
-                    if(!Matcher.matches(inputDatatype, outputDatatype)) return false;
+                    MgDatatype outputDatatype = childrenOutputInterface.get(i).getDatatype();
+                    if(!MgDatatype.isCompatible(inputDatatype, outputDatatype)) return false;
                 }
             } else {
                 if(function.getInput().count() != childrenOutputInterface.count() + 1) return false;
@@ -82,8 +79,8 @@ public class FunctionExpressionFilter extends AbstractClassFilter<MgFunction> {
                     MgDatatype inputDatatype = function.getInput().get(i).getDatatype();
                     MgDatatype outputDatatype = i == 0
                         ? self
-                        : childrenOutputInterface.get(i-1).getRequestedDatatype();
-                    if(!Matcher.matches(inputDatatype, outputDatatype)) return false;
+                        : childrenOutputInterface.get(i-1).getDatatype();
+                    if(!MgDatatype.isCompatible(inputDatatype, outputDatatype)) return false;
                 }
             }
         }

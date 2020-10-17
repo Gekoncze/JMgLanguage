@@ -44,4 +44,25 @@ public class MgDatatype extends MgPart {
         OPTIONAL,
         MANDATORY
     }
+
+    public static boolean isCompatible(@Mandatory MgDatatype lvalue, @Mandatory MgDatatype rvalue){
+        if(!isCompatible(lvalue.getType(), rvalue.getType())) return false;
+        if(!isCompatible(lvalue.getRequirement(), rvalue.getRequirement())) return false;
+        if(!isCompatible(lvalue.getStorage(), rvalue.getStorage())) return false;
+        return true;
+    }
+
+    private static boolean isCompatible(@Mandatory MgType lvalue, @Mandatory MgType rvalue){
+        return rvalue.is(lvalue);
+    }
+
+    private static boolean isCompatible(@Mandatory MgDatatype.Requirement lvalue, @Mandatory MgDatatype.Requirement rvalue){
+        if(rvalue == lvalue) return true;
+        if(rvalue == MgDatatype.Requirement.MANDATORY && lvalue == MgDatatype.Requirement.OPTIONAL) return true;
+        return false;
+    }
+
+    private static boolean isCompatible(@Mandatory MgDatatype.Storage lvalue, @Mandatory MgDatatype.Storage rvalue){
+        return true;
+    }
 }

@@ -8,30 +8,27 @@ import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.command.expression.Matcher;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 
 
 public class VariableExpressionFilter extends AbstractClassFilter<MgVariable> {
     @Optional @Link
-    private final ReadableArray<InputConnector> parentInputInterface;
+    private final ReadableArray<MgInputConnector> parentInputInterface;
 
     @Optional @Link
-    private final ReadableArray<OutputConnector> childrenOutputInterface;
+    private final ReadableArray<MgOutputConnector> childrenOutputInterface;
 
     public VariableExpressionFilter(
         @Mandatory Context context,
         @Optional ReadableText name,
-        @Optional InputInterface parentInputInterface,
-        @Optional OutputInterface childrenOutputInterface
+        @Optional ReadableArray<MgInputConnector> parentInputInterface,
+        @Optional ReadableArray<MgOutputConnector> childrenOutputInterface
     ) {
         super(context, name, MgVariable.class);
-        this.parentInputInterface = parentInputInterface != null ? parentInputInterface.getRemainingConnectors() : null;
-        this.childrenOutputInterface = childrenOutputInterface != null ? childrenOutputInterface.getConnectors() : null;
+        this.parentInputInterface = getRemainingConnectors(parentInputInterface);
+        this.childrenOutputInterface = childrenOutputInterface;
     }
 
     @Override
@@ -48,9 +45,9 @@ public class VariableExpressionFilter extends AbstractClassFilter<MgVariable> {
         // variables can have only one output value
         if(parentInputInterface != null){
             if(parentInputInterface.count() < 1) return false;
-            MgDatatype inputDatatype = parentInputInterface.getFirst().getRequestedDatatype();
+            MgDatatype inputDatatype = parentInputInterface.getFirst().getDatatype();
             MgDatatype outputDatatype = variable.getDatatype();
-            if(!Matcher.matches(inputDatatype, outputDatatype)) return false;
+            if(!MgDatatype.isCompatible(inputDatatype, outputDatatype)) return false;
         }
 
         // variables cannot have any input value

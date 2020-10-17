@@ -1,14 +1,16 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions;
 
-import cz.mg.collections.list.List;
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.collections.array.Array;
+import cz.mg.collections.array.ReadableArray;
 import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 
 
 public class MgFunctionExpression extends MgExpression {
@@ -18,42 +20,27 @@ public class MgFunctionExpression extends MgExpression {
     @Optional @Part
     private final MgExpression expression;
 
-    @Mandatory @Link
-    private final List<MgFunctionVariable> input;
-
-    @Mandatory @Link
-    private final List<MgFunctionVariable> output;
-
     public MgFunctionExpression(
         MgFunction function,
-        MgExpression expression,
-        List<MgFunctionVariable> input,
-        List<MgFunctionVariable> output
+        MgExpression expression
     ) {
+        super(createInputInterface(function), createOutputInterface(function));
         this.function = function;
         this.expression = expression;
-        this.input = input;
-        this.output = output;
     }
 
     public MgFunction getFunction() {
         return function;
     }
 
-    public cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression getExpression() {
+    public MgExpression getExpression() {
         return expression;
-    }
-
-    public List<MgFunctionVariable> getInput() {
-        return input;
-    }
-
-    public List<MgFunctionVariable> getOutput() {
-        return output;
     }
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         if(expression!= null){
             expression.run(functionInstance);
         }
@@ -64,7 +51,8 @@ public class MgFunctionExpression extends MgExpression {
         MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(function);
 
         // set input for newly created function object
-        for(MgFunctionVariable in : input){
+        for(MgInputConnector inputConnector : getInputConnectors()){
+            MgFunctionVariable in = inputConnector.getConnection().getConnectionVariable();
             newFunctionObject.getObjects().set(functionInstance.getObjects().get(in.getOffset()), local);
             local++;
         }
@@ -73,9 +61,27 @@ public class MgFunctionExpression extends MgExpression {
         function.run(functionInstance);
 
         // get output of the newly created function object
-        for(MgFunctionVariable out : output){
+        for(MgOutputConnector outputConnector : getOutputConnectors()){
+            MgFunctionVariable out = outputConnector.getConnection().getConnectionVariable();
             functionInstance.getObjects().set(newFunctionObject.getObjects().get(local), out.getOffset());
             local++;
         }
+    }
+
+    public static ReadableArray<MgInputConnector> createInputInterface(@Mandatory MgFunction function){
+        Array<MgInputConnector> connectors = new Array<>(function.getInput().count());
+        for(int i = 0; i < connectors.count(); i++){
+            connectors.set(new MgInputConnector(function.getInput().get(i).getDatatype()), i);
+        }
+        return connectors;
+    }
+
+    public static ReadableArray<MgOutputConnector> createOutputInterface(@Mandatory MgFunction function){
+        if(function == null) throw new RuntimeException();
+        Array<MgOutputConnector> connectors = new Array<>(function.getOutput().count());
+        for(int i = 0; i < connectors.count(); i++){
+            connectors.set(new MgOutputConnector(function.getOutput().get(i).getDatatype()), i);
+        }
+        return connectors;
     }
 }

@@ -5,7 +5,6 @@ import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
-import cz.mg.language.entities.text.structured.parts.leaves.Operator;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 

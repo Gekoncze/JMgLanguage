@@ -26,8 +26,8 @@ public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected Node onResolveEnter() {
-        if(getParentInputInterface() != null){
-            return new GroupNode(getParentInputInterface());
+        if(getParentInputConnectors() != null){
+            return new GroupNode(getParentInputConnectors());
         }
         return null;
     }
@@ -41,7 +41,7 @@ public class MgResolveGroupExpressionTask extends MgResolveExpressionTask {
 
     @Override
     protected Node onResolveLeave() {
-        return new GroupNode(getChildrenOutputInterface());
+        return new GroupNode(getChildrenOutputConnectors());
     }
 
     @Override

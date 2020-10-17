@@ -106,7 +106,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
         return new NameExpressionFilter(
             createTargetContext(),
             logicalExpression.getName(),
-            getParentInputInterface(),
+            getParentInputConnectors(),
             getChildOutputInterface(),
             getTargetDatatype()
         );
@@ -173,14 +173,14 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
     private List<MgFunctionVariable> gatherFunctionInput(){
         List<MgFunctionVariable> input = new List<>();
         input.addLast(gatherVariableInput());
-        for(InputConnector in : getInputInterface().getConnectors()){
+        for(InputConnector in : getInputConnectors().getConnectors()){
             input.addLast(in.getConnection().getConnectionVariable());
         }
         return input;
     }
 
     private MgFunctionVariable gatherVariableOutput(){
-        return getOutputInterface()
+        return getOutputConnectors()
             .getConnectors()
             .getFirst()
             .getConnection()
@@ -189,7 +189,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
 
     private List<MgFunctionVariable> gatherFunctionOutput(){
         List<MgFunctionVariable> output = new List<>();
-        for(OutputConnector out : getOutputInterface().getConnectors()){
+        for(OutputConnector out : getOutputConnectors().getConnectors()){
             output.addLast(out.getConnection().getConnectionVariable());
         }
         return output;

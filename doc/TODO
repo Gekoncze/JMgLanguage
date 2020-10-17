@@ -1,8 +1,37 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-finally finished assignment resolvers
+large mg runtime entity refactoring
+connectors are now part of mg expressions
+will require big refactoring of resolvers
+work in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+large expression resolver refactoring ...
+    expressions can some other expressions as before
+    the difference now is that:
+        children are NOT automatically connected
+        input and output flow in expressions at runtimes is handled by connections
+            before they were connected directly with variables
+
+    mg variable expressions shall have optional input connectors!
+        for reference assignments!
+
+    get rid of nodes
+    fix all mg expressions
+    fix all mg expression resolvers
+
+    value assignment will be handled the same way any other binary operator is
+    reference assignment will be handled with connections
+        children stored as for normal binary operator
+        but executed first right and then left expression
+        where left expression is connected to right expression
+
+    maybe for now, make function calls possible only with brackets, I don't like hiding the fact it is a function call
+        this needs to be fixed in both:
+            resolve name expression
+            resolve member access expression
+            ... I think
+
 update expression resolvers
     enhance member access operator resolver
         make sure it handles different kinds of variables and functions correctly based on annotations
@@ -18,11 +47,7 @@ update expression resolvers
                 instance function (annotated with @instance)
                 type function (annotated with @type)
 
-    maybe for now, make function calls possible only with brackets, I don't like hiding the fact it is a function call
-        this needs to be fixed in both:
-            resolve name expression
-            resolve member access expression
-            ... I think
+make value assignment a regular operator???
 
 cleanup / refactor assignment expressions and resolvers
 

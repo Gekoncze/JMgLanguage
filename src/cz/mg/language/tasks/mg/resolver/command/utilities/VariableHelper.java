@@ -4,9 +4,9 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.helpers.SimpleVariableHelper;
 
 
@@ -16,10 +16,10 @@ public interface VariableHelper {
     MgFunctionVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype);
     MgFunctionVariable nextExpressionVariable(MgDatatype datatype);
     MgFunctionVariable nextExpressionVariable(
-        Node parent,
-        InputConnector parentInputConnector,
-        Node child,
-        OutputConnector childOutputConnector
+        MgExpression parent,
+        MgInputConnector parentInputConnector,
+        MgExpression child,
+        MgOutputConnector childOutputConnector
     );
 
     static VariableHelper create(MgFunction function){

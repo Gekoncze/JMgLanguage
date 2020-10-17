@@ -54,8 +54,8 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
         return new NameExpressionFilter(
             context,
             logicalExpression.getName(),
-            getParentInputInterface(),
-            getChildrenOutputInterface()
+            getParentInputConnectors(),
+            getChildrenOutputConnectors()
         );
     }
 
@@ -106,7 +106,7 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
 
     private List<MgFunctionVariable> gatherInput(){
         List<MgFunctionVariable> input = new List<>();
-        for(InputConnector in : getInputInterface().getConnectors()){
+        for(InputConnector in : getInputConnectors().getConnectors()){
             input.addLast(in.getConnection().getConnectionVariable());
         }
         return input;
@@ -114,7 +114,7 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
 
     private List<MgFunctionVariable> gatherOutput(){
         List<MgFunctionVariable> output = new List<>();
-        for(OutputConnector out : getOutputInterface().getConnectors()){
+        for(OutputConnector out : getOutputConnectors().getConnectors()){
             output.addLast(out.getConnection().getConnectionVariable());
         }
         return output;

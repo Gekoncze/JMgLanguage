@@ -1,36 +1,52 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions;
 
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.collections.array.Array;
+import cz.mg.collections.array.ReadableArray;
 import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.language.annotations.storage.Part;
+import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgAtomType;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
-import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 
 
 public class MgValueExpression extends MgExpression {
     @Mandatory @Part
-    private final MgAtom object;
+    private final MgAtom atom;
 
-    @Mandatory @Link
-    private final MgFunctionVariable output;
-
-    public MgValueExpression(MgAtom object, MgFunctionVariable output) {
-        this.object = object;
-        this.output = output;
+    public MgValueExpression(MgAtom atom) {
+        super(createInputInterface(), createOutputInterface(atom));
+        this.atom = atom;
     }
 
-    public MgObject getObject() {
-        return object;
-    }
-
-    public MgFunctionVariable getOutput() {
-        return output;
+    public MgObject getAtom() {
+        return atom;
     }
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
-        functionInstance.getObjects().set(object.copy(), output.getOffset());
+        functionInstance.getObjects().set(
+            atom.copy(),
+            getOutputConnectors().getFirst().getConnection().getConnectionVariable().getOffset()
+        );
+    }
+
+    private static ReadableArray<MgInputConnector> createInputInterface(){
+        return new Array<>(); // no input for values
+    }
+
+    private static ReadableArray<MgOutputConnector> createOutputInterface(MgAtom atom) {
+        return new Array<>(new MgOutputConnector(createDatatype(atom.getType())));
+    }
+
+    private static MgDatatype createDatatype(MgAtomType atomType){
+        return new MgDatatype(
+            atomType,
+            MgDatatype.Storage.DIRECT,
+            MgDatatype.Requirement.MANDATORY
+        );
     }
 }

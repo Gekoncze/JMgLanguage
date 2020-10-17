@@ -36,3 +36,30 @@ resolver:
 
         afterLeave:
             we connect children to expression if needed
+
+    example expression:
+            d = c + foo().a(4).bar
+
+              =
+             / \
+            d   +
+               / \
+              c   .bar
+                 /
+                .a
+               /  \
+            foo    4
+
+            notice that brackets after foo might be redundant
+
+            (x, y, z) = (c + foo().a(4).bar, 6)
+
+              =
+            /   \
+        [x,y,z]  [ + , 6 ]
+                  / \
+                 c   .bar
+                   /
+                  .a
+                 /  \
+              foo    4

@@ -1,21 +1,19 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
+import cz.mg.collections.Clump;
 import cz.mg.collections.array.Array;
+import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -24,57 +22,51 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
     protected final CommandContext context;
 
     @Input
-    private final MgResolveExpressionTask parent;
-
-    @Optional @Utility
-    private Node node;
+    private final MgResolveExpressionTask parentTask;
 
     @Mandatory @Part
     private final List<MgResolveExpressionTask> children = new List<>();
 
-    public MgResolveExpressionTask(CommandContext context, MgResolveExpressionTask parent) {
+    public MgResolveExpressionTask(CommandContext context, MgResolveExpressionTask parentTask) {
         this.context = context;
-        this.parent = parent;
+        this.parentTask = parentTask;
     }
 
-    public Node getNode() {
-        return node;
+    public ReadableArray<MgInputConnector> getInputConnectors(){
+        if(getExpression() == null) return null;
+        return getExpression().getInputConnectors();
     }
 
-    public InputInterface getInputInterface(){
-        if(node == null) return null;
-        return node.getInputInterface();
+    public ReadableArray<MgOutputConnector> getOutputConnectors(){
+        if(getExpression() == null) return null;
+        return getExpression().getOutputConnectors();
     }
 
-    public OutputInterface getOutputInterface(){
-        if(node == null) return null;
-        return node.getOutputInterface();
+    public MgExpression getParent() {
+        if(parentTask == null) return null;
+        return parentTask.getExpression();
     }
 
-    public MgResolveExpressionTask getParent() {
-        return parent;
+    public ReadableArray<MgInputConnector> getParentInputConnectors(){
+        if(parentTask == null) return null;
+        return parentTask.getInputConnectors();
     }
 
-    public InputInterface getParentInputInterface(){
-        if(parent == null) return null;
-        return parent.getInputInterface();
+    protected static ReadableArray<MgOutputConnector> getChildrenOutputConnectors(MgExpression... expressions){
+        return getChildrenOutputConnectors(new Array<>(expressions));
     }
 
-    public List<MgResolveExpressionTask> getChildren() {
-        return children;
-    }
-
-    public OutputInterface getChildrenOutputInterface(){
-        List<OutputConnector> outputInterfaceConnectors = new List<>();
-        for(MgResolveExpressionTask child : children){
-            if(child.getOutputInterface().getConnectors().count() == 0){
+    protected static ReadableArray<MgOutputConnector> getChildrenOutputConnectors(Clump<MgExpression> children){
+        List<MgOutputConnector> outputConnectors = new List<>();
+        for(MgExpression child : children){
+            if(child.getOutputConnectors().count() == 0){
                 throw new LanguageException("Empty expression output in a group is not allowed.");
             }
-            for(OutputConnector outputConnector : child.getOutputInterface().getConnectors()){
-                outputInterfaceConnectors.addLast(outputConnector);
+            for(MgOutputConnector outputConnector : child.getOutputConnectors()){
+                outputConnectors.addLast(outputConnector);
             }
         }
-        return new OutputInterface(new Array<>(outputInterfaceConnectors));
+        return new Array<>(outputConnectors);
     }
 
     @Override
@@ -82,52 +74,22 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
         context.getVariableHelper().sink();
 
         onResolve();
-        verify();
+        validate();
 
         context.getVariableHelper().raise();
     }
 
-    protected void onResolve(){
-        if(node == null) setNode(onResolveEnter());
-        onResolveChildren();
-        if(node == null) setNode(onResolveLeave());
-    }
+    protected abstract void onResolve();
 
-    private void verify(){
-        if(node == null){
+    private void validate(){
+        if(getExpression() != null){
+            getExpression().validate();
+        } else {
             throw new LanguageException("Could not resolve expression.");
         }
     }
 
-    protected abstract @Optional Node onResolveEnter();
-
-    protected abstract void onResolveChildren();
-
-    protected Node onResolveChild(MgLogicalCallExpression childLogicalExpression){
-        MgResolveExpressionTask child = create(context, childLogicalExpression, this);
-        children.addLast(child);
-        child.run();
-        if(node != null) Node.connect(context, node, child.node);
-        return child.node;
-    }
-
-    protected abstract @Mandatory Node onResolveLeave();
-
-    protected void setNode(Node node){
-        if(node == null) return;
-        if(this.node != null) throw new RuntimeException();
-        this.node = node;
-        for(MgResolveExpressionTask child : children){
-            Node.connect(context, node, child.node);
-        }
-    }
-
-    public MgExpression createExpression(){
-        node.validate();
-        return onCreateExpression();
-    }
-
-    protected abstract MgExpression onCreateExpression();
+    public abstract MgExpression getExpression();
 
     public static MgResolveExpressionTask create(
         CommandContext context,

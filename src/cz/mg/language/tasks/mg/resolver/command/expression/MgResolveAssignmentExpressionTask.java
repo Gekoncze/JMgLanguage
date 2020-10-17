@@ -5,7 +5,6 @@ import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.AssignmentNode;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveVoidExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
@@ -34,7 +33,7 @@ public abstract class MgResolveAssignmentExpressionTask extends MgResolveOperato
     protected final Node onResolveEnter() {
         voidTask = new MgResolveVoidExpressionTask(context, destinationLogicalExpression);
         voidTask.run();
-        return new AssignmentNode(voidTask.getInputInterface());
+        return new AssignmentNode(voidTask.getInputConnectors());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.filter;
 
+import cz.mg.collections.array.ArrayView;
+import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.collections.text.ReadableText;
@@ -8,6 +10,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
@@ -60,4 +63,21 @@ public abstract class Filter<C extends MgObject> {
     protected abstract @Mandatory String notFoundMessage();
 
     protected abstract @Mandatory String ambiguousMessage();
+
+    protected static @Optional ArrayView<MgInputConnector> getRemainingConnectors(
+        @Optional ReadableArray<MgInputConnector> inputConnectors
+    ){
+        if(inputConnectors == null) return null;
+
+        int begin = 0;
+        int end = inputConnectors.count();
+        while(begin < end){
+            if(inputConnectors.get(begin) == null){
+                break;
+            } else {
+                begin++;
+            }
+        }
+        return new ArrayView<>(inputConnectors, begin, end);
+    }
 }

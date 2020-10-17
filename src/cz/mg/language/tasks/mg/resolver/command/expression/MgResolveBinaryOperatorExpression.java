@@ -67,7 +67,7 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
             BinaryOperatorExpressionFilter filter = new BinaryOperatorExpressionFilter(
                 context,
                 logicalExpression.getName(),
-                getParentInputInterface(),
+                getParentInputConnectors(),
                 leftOutput,
                 rightOutput,
                 r
@@ -111,7 +111,7 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
         Array<MgFunctionVariable>[] offset = new Array[2];
         offset[0] = new Array<>(getNode().getFunctions().count());
         offset[1] = new Array<>(getNode().getFunctions().count());
-        Iterator<InputConnector> iterator = getInputInterface().getConnectors().iterator();
+        Iterator<InputConnector> iterator = getInputConnectors().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset[0].set(iterator.next().getConnection().getConnectionVariable(), i);
         }
@@ -123,7 +123,7 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
 
     private Array<MgFunctionVariable> gatherOutputOffset(){
         Array<MgFunctionVariable> offset = new Array<>(getNode().getFunctions().count());
-        Iterator<OutputConnector> iterator = getOutputInterface().getConnectors().iterator();
+        Iterator<OutputConnector> iterator = getOutputConnectors().getConnectors().iterator();
         for(int i = 0; i < getNode().getFunctions().count(); i++){
             offset.set(iterator.next().getConnection().getConnectionVariable(), i);
         }

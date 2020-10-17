@@ -30,7 +30,7 @@ public class MgResolveValueAssignmentExpressionTask extends MgResolveAssignmentE
             ValueAssignmentOperatorExpressionFilter filter = new ValueAssignmentOperatorExpressionFilter(
                 context,
                 Operators.VALUE_ASSIGNMENT,
-                getParentInputInterface(),
+                getParentInputConnectors(),
                 leftOutputInterface,
                 rightOutputInterface,
                 replication
