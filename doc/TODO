@@ -1,8 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-large mg runtime entity refactoring
-connectors are now part of mg expressions
-will require big refactoring of resolvers
-work in progress ...
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------

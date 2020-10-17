@@ -91,18 +91,6 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
             return operator;
         }
 
-        public MgInputConnector getLeftInput() {
-            return leftInput;
-        }
-
-        public MgInputConnector getRightInput() {
-            return rightInput;
-        }
-
-        public MgOutputConnector getOutput() {
-            return output;
-        }
-
         @Override
         public void run(MgFunctionInstance functionInstance) {
             // Note: It is guaranteed that for every function object
