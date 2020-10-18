@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.name;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
@@ -9,18 +9,12 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariabl
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgFunctionExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.variable.MgLocalVariableExpression;
 import cz.mg.language.entities.mg.runtime.MgObject;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.FunctionNode;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.LocalVariableNode;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-import cz.mg.language.tasks.mg.resolver.filter.NameExpressionFilter;
 
 
-public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
+public abstract class MgResolveNameExpressionTask extends MgResolveExpressionTask {
     @Input
     private final MgLogicalNameCallExpression logicalExpression;
 
@@ -34,20 +28,14 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
     }
 
     @Override
-    protected Node onResolveEnter() {
-        return createNode(createFilter().findOptional());
-    }
+    protected void onResolve() {
+        createNode(createFilter().findOptional());
 
-    @Override
-    protected void onResolveChildren() {
         if(logicalExpression.getExpression() != null){
             onResolveChild(logicalExpression.getExpression());
         }
-    }
 
-    @Override
-    protected Node onResolveLeave() {
-        return createNode(createFilter().find());
+        createNode(createFilter().find());
     }
 
     private NameExpressionFilter createFilter(){
@@ -118,5 +106,17 @@ public class MgResolveNameExpressionTask extends MgResolveExpressionTask {
             output.addLast(out.getConnection().getConnectionVariable());
         }
         return output;
+    }
+
+    public static MgResolveNameExpressionTask create(
+        CommandContext context,
+        MgLogicalNameCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ){
+        if(logicalExpression.getExpression() == null){
+            return new MgResolveVariableExpressionTask(context, logicalExpression, parent);
+        } else {
+            return new MgResolveFunctionExpressionTask(context, logicalExpression, parent);
+        }
     }
 }

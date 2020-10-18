@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.other;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
@@ -6,6 +6,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalGroupCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgGroupExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.GroupNode;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;

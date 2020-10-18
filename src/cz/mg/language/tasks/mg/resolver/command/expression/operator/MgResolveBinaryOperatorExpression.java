@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
@@ -9,6 +9,7 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgBinaryOperatorExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;

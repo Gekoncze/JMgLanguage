@@ -11,6 +11,7 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.logical.parts.expressions.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalEmptyCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
@@ -50,6 +51,10 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
         resolveMemberCalls(expressions);
         resolveOperatorCalls(expressions);
         resolveGroupCalls(expressions);
+
+        if(expressions.count() == 0){
+            expressions.addLast(new MgLogicalEmptyCallExpression());
+        }
 
         if(expressions.count() != 1) {
             throw new LanguageException("Illegal expression.");
@@ -124,7 +129,7 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
             item = item.getNextItem()
         ){
             if(isMemberAccessOperator(item)){
-                mergeBinary(item, MgResolveExpressionTreeTask::createMemberAccessCallExpression);
+                mergeBinary(item, MgResolveExpressionTreeTask::createMemberNameCallExpression);
             }
         }
     }
@@ -289,9 +294,9 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
         }
     }
 
-    private List<MgLogicalExpression> prepareExpressions(MgLogicalClumpExpression logicalGroupExpression){
+    private List<MgLogicalExpression> prepareExpressions(MgLogicalClumpExpression logicalClumpExpression){
         List<MgLogicalExpression> expressions = new List<>();
-        for(MgLogicalExpression logicalExpression : logicalGroupExpression.getExpressions()){
+        for(MgLogicalExpression logicalExpression : logicalClumpExpression.getExpressions()){
             expressions.addLast(prepareExpression(resolveNestedGroups(logicalExpression)));
         }
         return expressions;
@@ -342,10 +347,15 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
         }
     }
 
-    private static MgLogicalMemberAccessCallExpression createMemberAccessCallExpression(
+    private static MgLogicalMemberNameCallExpression createMemberNameCallExpression(
         MgLogicalCallExpression left,
         MgLogicalCallExpression right
     ){
-        return new MgLogicalMemberAccessCallExpression(left, (MgLogicalNameCallExpression) right);
+        if(right instanceof MgLogicalNameCallExpression){
+            MgLogicalNameCallExpression name = (MgLogicalNameCallExpression) right;
+            return new MgLogicalMemberNameCallExpression(left, name.getName(), name.getExpression());
+        } else {
+            throw new LanguageException("Member access must be followed by a name.");
+        }
     }
 }

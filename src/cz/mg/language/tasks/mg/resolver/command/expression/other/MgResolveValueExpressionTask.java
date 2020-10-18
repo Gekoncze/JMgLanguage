@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.other;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
@@ -12,6 +12,7 @@ import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgValueExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 

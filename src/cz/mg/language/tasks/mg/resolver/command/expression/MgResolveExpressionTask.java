@@ -5,8 +5,6 @@ import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Part;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
@@ -14,6 +12,11 @@ import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.name.instance.MgResolveInstanceNameExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.name.MgResolveNameExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.operator.MgResolveOperatorExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveGroupExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveValueExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -23,9 +26,6 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
 
     @Input
     private final MgResolveExpressionTask parentTask;
-
-    @Mandatory @Part
-    private final List<MgResolveExpressionTask> children = new List<>();
 
     public MgResolveExpressionTask(CommandContext context, MgResolveExpressionTask parentTask) {
         this.context = context;
@@ -74,20 +74,11 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
         context.getVariableHelper().sink();
 
         onResolve();
-        validate();
 
         context.getVariableHelper().raise();
     }
 
     protected abstract void onResolve();
-
-    private void validate(){
-        if(getExpression() != null){
-            getExpression().validate();
-        } else {
-            throw new LanguageException("Could not resolve expression.");
-        }
-    }
 
     public abstract MgExpression getExpression();
 
@@ -112,8 +103,8 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
             return new MgResolveGroupExpressionTask(context, (MgLogicalGroupCallExpression) logicalExpression, parent);
         }
 
-        if(logicalExpression instanceof MgLogicalMemberAccessCallExpression){
-            return new MgResolveMemberAccessExpression(context, (MgLogicalMemberAccessCallExpression) logicalExpression, parent);
+        if(logicalExpression instanceof MgLogicalChildCallExpression){
+            return new MgResolveInstanceNameExpressionTask(context, (MgLogicalChildCallExpression) logicalExpression, parent);
         }
 
         throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");

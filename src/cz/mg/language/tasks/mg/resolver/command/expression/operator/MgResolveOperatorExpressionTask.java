@@ -1,10 +1,12 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.operator.assignment.MgResolveValueAssignmentExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -31,7 +33,7 @@ public abstract class MgResolveOperatorExpressionTask extends MgResolveExpressio
         }
 
         if(logicalExpression instanceof MgLogicalUnaryOperatorCallExpression){
-            return MgResolveUnaryOperatorExpressionTask.create(context, (MgLogicalUnaryOperatorCallExpression) logicalExpression, parent);
+            return create(context, (MgLogicalUnaryOperatorCallExpression) logicalExpression, parent);
         }
 
         throw new LanguageException("Unexpected operator expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");

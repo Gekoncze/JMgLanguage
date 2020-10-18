@@ -1,10 +1,10 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.name.instance;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberAccessCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberNameCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
@@ -12,44 +12,27 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariabl
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgClassFunctionExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.variable.MgInstanceVariableExpression;
 import cz.mg.language.entities.mg.runtime.MgObject;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.Node;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputConnector;
-import cz.mg.language.tasks.mg.resolver.command.expression.connection.OutputInterface;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.MemberFunctionNode;
-import cz.mg.language.tasks.mg.resolver.command.expression.nodes.MemberVariableNode;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.ClassContext;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-import cz.mg.language.tasks.mg.resolver.filter.NameExpressionFilter;
 
 
-public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
+public abstract class MgResolveInstanceNameExpressionTask extends MgResolveExpressionTask {
     @Input
-    private final MgLogicalNameCallExpression logicalExpression;
+    private final MgLogicalMemberNameCallExpression logicalExpression;
 
-    @Input
-    private final MgLogicalCallExpression logicalTargetChildExpression;
-
-    public MgResolveMemberAccessExpression(
+    public MgResolveInstanceNameExpressionTask(
         CommandContext context,
-        MgLogicalMemberAccessCallExpression logicalExpression,
+        MgLogicalMemberNameCallExpression logicalExpression,
         MgResolveExpressionTask parent
     ) {
         super(context, parent);
-        this.logicalExpression = logicalExpression.getRight();
-        this.logicalTargetChildExpression = logicalExpression.getLeft();
+        this.logicalExpression = logicalExpression;
     }
 
     @Override
-    protected Node onResolveEnter() {
-        return null;
-    }
-
-    @Override
-    protected void onResolveChildren() {
+    protected void onResolve() {
         resolveTargetChild();
         verifyResolutionOfTargetChild();
         resolveMemberAccessOptional();
@@ -58,7 +41,7 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
     }
 
     private void resolveTargetChild(){
-        onResolveChild(logicalTargetChildExpression);
+        onResolveChild(logicalTargetExpression);
     }
 
     private void verifyResolutionOfTargetChild(){
@@ -95,11 +78,6 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
         }
 
         throw new RuntimeException();
-    }
-
-    @Override
-    protected Node onResolveLeave() {
-        return null;
     }
 
     private NameExpressionFilter createFilter(){
@@ -202,5 +180,17 @@ public class MgResolveMemberAccessExpression extends MgResolveExpressionTask {
     private MgExpression createRegularChildExpression(){
         if(getChildren().count() < 2) return null;
         return getChildren().getLast().createExpression();
+    }
+
+    public static MgResolveInstanceNameExpressionTask create(
+        CommandContext context,
+        MgLogicalMemberNameCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ){
+        if(logicalExpression.getExpression() == null){
+            return new MgResolveInstanceVariableExpressionTask(context, logicalExpression, parent);
+        } else {
+            return new MgResolveInstanceFunctionExpressionTask(context, logicalExpression, parent);
+        }
     }
 }

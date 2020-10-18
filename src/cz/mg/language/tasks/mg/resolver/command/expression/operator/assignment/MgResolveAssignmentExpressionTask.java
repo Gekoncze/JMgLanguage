@@ -1,10 +1,12 @@
-package cz.mg.language.tasks.mg.resolver.command.expression;
+package cz.mg.language.tasks.mg.resolver.command.expression.operator.assignment;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.nodes.AssignmentNode;
+import cz.mg.language.tasks.mg.resolver.command.expression.operator.MgResolveOperatorExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveVoidExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 

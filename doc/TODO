@@ -1,15 +1,9 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+functions have now expression mandatory, even when it is empty
+allowed for empty logical group expression
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-maybe for now, make function calls possible only with brackets or colon
-    I don't like hiding the fact it is a function call
-    this needs to be fixed in both:
-        resolve name expression
-        resolve member access expression
-        ... I think
-
 large expression resolver refactoring ...
     fix all mg expression resolvers
         children are NOT automatically connected
