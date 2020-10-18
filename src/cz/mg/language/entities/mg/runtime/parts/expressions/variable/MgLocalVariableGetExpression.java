@@ -22,6 +22,7 @@ public class MgLocalVariableGetExpression extends MgVariableExpression {
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
         // nothing to do
     }
 

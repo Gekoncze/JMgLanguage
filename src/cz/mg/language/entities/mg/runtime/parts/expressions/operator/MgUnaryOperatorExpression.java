@@ -38,6 +38,8 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         expression.run(functionInstance);
 
         for(Replication replication : replications){

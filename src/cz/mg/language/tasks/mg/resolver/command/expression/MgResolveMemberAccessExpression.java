@@ -12,7 +12,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariabl
 import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgClassFunctionExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgClassFunctionExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.variable.MgInstanceVariableExpression;
 import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.tasks.mg.resolver.command.expression.connection.InputConnector;

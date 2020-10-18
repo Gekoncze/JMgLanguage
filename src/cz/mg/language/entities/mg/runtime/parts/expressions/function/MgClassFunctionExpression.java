@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.parts.expressions;
+package cz.mg.language.entities.mg.runtime.parts.expressions.function;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
@@ -6,7 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
-import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgFunctionExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgClassFunctionExpression extends MgFunctionExpression {
@@ -30,6 +30,8 @@ public class MgClassFunctionExpression extends MgFunctionExpression {
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         target.run(functionInstance);
         super.run(functionInstance);
     }

@@ -25,6 +25,8 @@ public class MgInstanceVariableGetExpression extends MgVariableExpression {
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         MgFunctionVariable parentVariable = getInputConnectors().getFirst().getConnection().getConnectionVariable();
         MgStructuredInstance parent = (MgStructuredInstance) functionInstance.getObjects().get(parentVariable.getOffset());
         MgObject child = parent.getObjects().get(getVariable().getOffset());

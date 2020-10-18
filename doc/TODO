@@ -1,8 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+added missing validate calls for expressions
+cleanup of old assignment classes
+todo cleanup
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+fix instance/class function expression
+    is it duplicate of instance function expression?
+    It is and I just see that I forgot something!
+    instance function call should contain left expression (target) and execute it!
+
 problem with group expressions
     when I found it:
         for assignment operators, we will need to conenct connectors
@@ -16,33 +23,24 @@ problem with group expressions
         also, how to handle case when parent already requires some input?
         investigate ...
 
+    fix group expression
+
+maybe for now, make function calls possible only with brackets or colon
+    I don't like hiding the fact it is a function call
+    this needs to be fixed in both:
+        resolve name expression
+        resolve member access expression
+        ... I think
+
 large expression resolver refactoring ...
-    expressions can some other expressions as before
-    the difference now is that:
-        children are NOT automatically connected
-        input and output flow in expressions at runtimes is handled by connections
-            before they were connected directly with variables
-
-    mg variable expressions shall have optional input connectors!
-        for reference assignments!
-
-    get rid of nodes
-    fix all mg expressions
     fix all mg expression resolvers
+        children are NOT automatically connected
+        so these has to be connected manually in resolvers!
 
-    assignment operator resolvers should first resolve right expression and then left expression
-    function calls should (at least for now) always have brackets
-
-    reference assignment will be handled with connections
-        children stored as for normal binary operator
-        but executed first right and then left expression
-        where left expression is connected to right expression
-
-    maybe for now, make function calls possible only with brackets, I don't like hiding the fact it is a function call
-        this needs to be fixed in both:
-            resolve name expression
-            resolve member access expression
-            ... I think
+        reference assignment
+            children stored as for normal binary operator
+            resolve first right and then left expression ???
+            left expression and right expression will be connected
 
 update expression resolvers
     enhance member access operator resolver
@@ -59,10 +57,8 @@ update expression resolvers
                 instance function (annotated with @instance)
                 type function (annotated with @type)
 
-make value assignment a regular operator???
 
-cleanup / refactor assignment expressions and resolvers
-
+### SOON ### -----------------------------------------------------------------------------------------------------------
 add buildin operators
     ... I think we might need special handling also for &== operator ... I'm dead
 
@@ -101,7 +97,6 @@ test
             or we might actually ignore the check for storage direct and indirect in matcher
 
 
-### SOON ### -----------------------------------------------------------------------------------------------------------
 allow = operator
     reference or value assignment can be automatically determined
         for example by variable type

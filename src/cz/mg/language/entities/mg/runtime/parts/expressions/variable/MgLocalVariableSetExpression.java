@@ -23,6 +23,8 @@ public class MgLocalVariableSetExpression extends MgVariableExpression {
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         MgFunctionVariable inputVariable = getInputConnectors().getFirst().getConnection().getConnectionVariable();
         MgObject inputValue = functionInstance.getObjects().get(inputVariable.getOffset());
         functionInstance.getObjects().set(inputValue, getVariable().getOffset());

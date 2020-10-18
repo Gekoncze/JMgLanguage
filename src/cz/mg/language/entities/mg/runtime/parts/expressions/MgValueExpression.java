@@ -28,6 +28,8 @@ public class MgValueExpression extends MgExpression {
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         functionInstance.getObjects().set(
             atom.copy(),
             getOutputConnectors().getFirst().getConnection().getConnectionVariable().getOffset()

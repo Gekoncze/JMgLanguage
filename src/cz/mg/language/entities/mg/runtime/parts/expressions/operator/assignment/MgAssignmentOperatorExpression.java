@@ -39,6 +39,8 @@ public abstract class MgAssignmentOperatorExpression extends MgOperatorExpressio
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
+        if(DEBUG) validate();
+
         rightExpression.run(functionInstance);
         leftExpression.run(functionInstance);
     }
