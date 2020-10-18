@@ -6,6 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
+import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgFunctionExpression;
 
 
 public class MgClassFunctionExpression extends MgFunctionExpression {

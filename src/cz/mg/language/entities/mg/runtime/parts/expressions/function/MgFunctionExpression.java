@@ -1,4 +1,4 @@
-package cz.mg.language.entities.mg.runtime.parts.expressions;
+package cz.mg.language.entities.mg.runtime.parts.expressions.function;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
@@ -11,6 +11,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgFunctionExpression extends MgExpression {
