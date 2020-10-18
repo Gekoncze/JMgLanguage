@@ -1,7 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-added missing validate calls for expressions
-cleanup of old assignment classes
-todo cleanup
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -70,6 +68,9 @@ add buildin operators
 
 add buildin print function
     for all buildin types as parameter
+
+add buildin create function ?
+    cuz we will need a way to construct class instances somehow
 
 test
     try to actually compile and run some code!
