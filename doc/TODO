@@ -1,13 +1,8 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+fixed instance variable and function expressions
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-fix instance/class function expression
-    is it duplicate of instance function expression?
-    It is and I just see that I forgot something!
-    instance function call should contain left expression (target) and execute it!
-
 problem with group expressions
     when I found it:
         for assignment operators, we will need to conenct connectors
