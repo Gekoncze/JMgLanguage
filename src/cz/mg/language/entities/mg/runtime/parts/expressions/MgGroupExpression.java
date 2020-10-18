@@ -15,8 +15,9 @@ public class MgGroupExpression extends MgExpression {
     @Mandatory @Part
     private final List<MgExpression> expressions = new List<>();
 
-    public MgGroupExpression(ReadableArray<? extends MgConnector> connectors) {
+    private MgGroupExpression(ReadableArray<? extends MgConnector> connectors) {
         super(createInputInterface(connectors), createOutputInterface(connectors));
+        todo;
     }
 
     public List<MgExpression> getExpressions() {

@@ -3,6 +3,19 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+problem with group expressions
+    when I found it:
+        for assignment operators, we will need to conenct connectors
+        in case of value assignment, we will need output connectors from group
+        but in case of reference assignment, we will need input connectors from group
+
+    I think groups themselves should not have input or output connectors
+    they can only gather available input or output connectors from their children
+    the problem is, how should we then handle enter/leave resolution?
+        because we will most likely not have connectors available for filtering!
+        also, how to handle case when parent already requires some input?
+        investigate ...
+
 large expression resolver refactoring ...
     expressions can some other expressions as before
     the difference now is that:
@@ -17,7 +30,9 @@ large expression resolver refactoring ...
     fix all mg expressions
     fix all mg expression resolvers
 
-    value assignment will be handled the same way any other binary operator is
+    assignment operator resolvers should first resolve right expression and then left expression
+    function calls should (at least for now) always have brackets
+
     reference assignment will be handled with connections
         children stored as for normal binary operator
         but executed first right and then left expression

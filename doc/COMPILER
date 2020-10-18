@@ -52,13 +52,13 @@ resolver:
 
             notice that brackets after foo might be redundant
 
-            (x, y, z) = (c + foo().a(4).bar, 6)
+            (fooBar().x, y, z) = (c + foo().a(4).bar, 6)
 
               =
             /   \
-        [x,y,z]  [ + , 6 ]
-                  / \
-                 c   .bar
+       [.x,y,z]  [ + , 6 ]
+       /          / \
+    fooBar       c   .bar
                    /
                   .a
                  /  \

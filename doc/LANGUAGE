@@ -14,3 +14,11 @@ variables
     global variables are standalone components
     instance variables are used in class instances
     type variables are used in class type instances
+
+expressions
+    all expressions are guaranteed to be evaluated in order from left to right
+    there is only one exception which is assignment
+        it applies for both value and reference assignments
+        there the order is right first and left second
+        the reason for that is that right is a source and left is a destination
+            in mg, all input is evaluated first before evaluating output
