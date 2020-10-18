@@ -17,7 +17,6 @@ public class MgGroupExpression extends MgExpression {
 
     private MgGroupExpression(ReadableArray<? extends MgConnector> connectors) {
         super(createInputInterface(connectors), createOutputInterface(connectors));
-        todo;
     }
 
     public List<MgExpression> getExpressions() {
