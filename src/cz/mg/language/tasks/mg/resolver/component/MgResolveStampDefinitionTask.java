@@ -6,7 +6,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalStamp;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.StampContext;
+import cz.mg.language.tasks.mg.resolver.context.component.StampContext;
 
 
 public class MgResolveStampDefinitionTask extends MgResolveComponentDefinitionTask {

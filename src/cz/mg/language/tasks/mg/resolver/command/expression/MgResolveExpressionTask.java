@@ -88,7 +88,7 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
         MgResolveExpressionTask parent
     ){
         if(logicalExpression instanceof MgLogicalNameCallExpression) {
-            return new MgResolveNameExpressionTask(context, (MgLogicalNameCallExpression) logicalExpression, parent);
+            return MgResolveNameExpressionTask.create(context, (MgLogicalNameCallExpression) logicalExpression, parent);
         }
 
         if(logicalExpression instanceof MgLogicalValueCallExpression){
@@ -103,8 +103,8 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
             return new MgResolveGroupExpressionTask(context, (MgLogicalGroupCallExpression) logicalExpression, parent);
         }
 
-        if(logicalExpression instanceof MgLogicalChildCallExpression){
-            return new MgResolveInstanceNameExpressionTask(context, (MgLogicalChildCallExpression) logicalExpression, parent);
+        if(logicalExpression instanceof MgLogicalMemberNameCallExpression){
+            return MgResolveInstanceNameExpressionTask.create(context, (MgLogicalMemberNameCallExpression) logicalExpression, parent);
         }
 
         throw new LanguageException("Unexpected expression " + logicalExpression.getClass().getSimpleName() + " for resolve.");

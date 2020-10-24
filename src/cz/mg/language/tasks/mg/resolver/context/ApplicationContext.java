@@ -22,6 +22,6 @@ public class ApplicationContext extends Context {
     }
 
     @Override
-    public void forEachComponent(ObjectVisitor visitor) {
+    public void forEachComponent(ComponentVisitor visitor) {
     }
 }

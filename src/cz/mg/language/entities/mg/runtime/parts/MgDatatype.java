@@ -45,10 +45,10 @@ public class MgDatatype extends MgPart {
         MANDATORY
     }
 
-    public static boolean isCompatible(@Mandatory MgDatatype lvalue, @Mandatory MgDatatype rvalue){
-        if(!isCompatible(lvalue.getType(), rvalue.getType())) return false;
-        if(!isCompatible(lvalue.getRequirement(), rvalue.getRequirement())) return false;
-        if(!isCompatible(lvalue.getStorage(), rvalue.getStorage())) return false;
+    public static boolean isCompatible(@Mandatory MgDatatype destination, @Mandatory MgDatatype source){
+        if(!isCompatible(destination.getType(), source.getType())) return false;
+        if(!isCompatible(destination.getRequirement(), source.getRequirement())) return false;
+        if(!isCompatible(destination.getStorage(), source.getStorage())) return false;
         return true;
     }
 
@@ -56,13 +56,13 @@ public class MgDatatype extends MgPart {
         return rvalue.is(lvalue);
     }
 
-    private static boolean isCompatible(@Mandatory MgDatatype.Requirement lvalue, @Mandatory MgDatatype.Requirement rvalue){
-        if(rvalue == lvalue) return true;
-        if(rvalue == MgDatatype.Requirement.MANDATORY && lvalue == MgDatatype.Requirement.OPTIONAL) return true;
+    private static boolean isCompatible(@Mandatory MgDatatype.Requirement destination, @Mandatory MgDatatype.Requirement source){
+        if(source == destination) return true;
+        if(source == MgDatatype.Requirement.MANDATORY && destination == MgDatatype.Requirement.OPTIONAL) return true;
         return false;
     }
 
-    private static boolean isCompatible(@Mandatory MgDatatype.Storage lvalue, @Mandatory MgDatatype.Storage rvalue){
+    private static boolean isCompatible(@Mandatory MgDatatype.Storage destination, @Mandatory MgDatatype.Storage source){
         return true;
     }
 }

@@ -1,6 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-functions have now expression mandatory, even when it is empty
-allowed for empty logical group expression
+rewritten all expression resolver filters
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -96,7 +95,7 @@ mg builder - global variable object
         we might want support for all variables, not only global!
         both problematics are closely connected
 
-add support for mg @type variables
+add support for mg @type variables and functions
     make mg class implement class instance
 
 add support for relative "../" usages ???

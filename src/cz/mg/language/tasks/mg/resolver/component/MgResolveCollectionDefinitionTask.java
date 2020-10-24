@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalCollection;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgCollection;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.CollectionContext;
+import cz.mg.language.tasks.mg.resolver.context.component.structured.CollectionContext;
 
 
 public class MgResolveCollectionDefinitionTask extends MgResolveComponentDefinitionTask {

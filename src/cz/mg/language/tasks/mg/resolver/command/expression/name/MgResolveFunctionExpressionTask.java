@@ -13,4 +13,23 @@ public class MgResolveFunctionExpressionTask extends MgResolveNameExpressionTask
     ) {
         super(context, logicalExpression, parent);
     }
+
+    protected void onResolve() {
+        createNode(createFilter().findOptional());
+
+        if(logicalExpression.getExpression() != null){
+            onResolveChild(logicalExpression.getExpression());
+        }
+
+        createNode(createFilter().find());
+    }
+
+    private NameExpressionFilter createFilter(){
+        return new NameExpressionFilter(
+            context,
+            logicalExpression.getName(),
+            getParentInputConnectors(),
+            getChildrenOutputConnectors()
+        );
+    }
 }

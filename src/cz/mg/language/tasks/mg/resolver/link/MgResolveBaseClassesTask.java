@@ -7,8 +7,8 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.filter.ClassFilter;
 import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
+import cz.mg.language.tasks.mg.resolver.filter.basic.ClassFilter;
 
 
 public class MgResolveBaseClassesTask extends MgPostponeResolveTask {

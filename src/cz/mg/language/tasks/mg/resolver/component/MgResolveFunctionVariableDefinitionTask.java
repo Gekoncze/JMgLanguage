@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.VariableContext;
+import cz.mg.language.tasks.mg.resolver.context.component.VariableContext;
 
 
 public class MgResolveFunctionVariableDefinitionTask extends MgResolveVariableDefinitionTask {

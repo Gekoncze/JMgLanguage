@@ -1,14 +1,16 @@
-package cz.mg.language.tasks.mg.resolver.context;
+package cz.mg.language.tasks.mg.resolver.context.component.structured;
 
-import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgCollection;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
+import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgParameter;
-import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public class CollectionContext extends ComponentContext {
+public class CollectionContext extends StructuredTypeContext {
     @Optional @Link
     private MgCollection collection;
 
@@ -30,13 +32,13 @@ public class CollectionContext extends ComponentContext {
     }
 
     @Override
-    public void forEachComponent(ObjectVisitor visitor) {
+    public void forEachComponent(ComponentVisitor visitor) {
         if(collection != null){
-            for(MgObject variable : collection.getVariables()){
+            for(MgVariable variable : collection.getVariables()){
                 visitor.onVisitComponent(variable, null);
             }
 
-            for(MgObject function : collection.getFunctions()){
+            for(MgFunction function : collection.getFunctions()){
                 visitor.onVisitComponent(function, null);
             }
 

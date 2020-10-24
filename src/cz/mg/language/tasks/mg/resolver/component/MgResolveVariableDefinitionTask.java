@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
-import cz.mg.language.tasks.mg.resolver.context.VariableContext;
+import cz.mg.language.tasks.mg.resolver.context.component.VariableContext;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 

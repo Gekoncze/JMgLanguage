@@ -10,7 +10,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgTypeVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.VariableContext;
+import cz.mg.language.tasks.mg.resolver.context.component.VariableContext;
 
 
 public class MgResolveClassVariableDefinitionTask extends MgResolveVariableDefinitionTask {

@@ -1,17 +1,18 @@
-package cz.mg.language.tasks.mg.resolver.context;
+package cz.mg.language.tasks.mg.resolver.context.component.structured;
 
+import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.storage.Link;
 import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.MgObject;
-import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
+import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
+import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public class FunctionContext extends ComponentContext {
+public class FunctionContext extends StructuredTypeContext {
     @Optional @Link
     private MgFunction function;
 
@@ -51,17 +52,17 @@ public class FunctionContext extends ComponentContext {
     }
 
     @Override
-    public void forEachComponent(ObjectVisitor visitor) {
+    public void forEachComponent(ComponentVisitor visitor) {
         if(function != null){
-            for(MgObject object : function.getInput()){
+            for(MgVariable object : function.getInput()){
                 visitor.onVisitComponent(object, null);
             }
 
-            for(MgObject object : function.getOutput()){
+            for(MgVariable object : function.getOutput()){
                 visitor.onVisitComponent(object, null);
             }
 
-            for(MgObject object : function.getLocal()){
+            for(MgVariable object : function.getLocal()){
                 visitor.onVisitComponent(object, null);
             }
         }

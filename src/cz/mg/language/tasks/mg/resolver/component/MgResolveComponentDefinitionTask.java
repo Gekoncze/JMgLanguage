@@ -11,7 +11,7 @@ import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgGlobalStam
 import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgInstanceStamp;
 import cz.mg.language.entities.mg.runtime.components.stamps.buildin.MgTypeStamp;
 import cz.mg.language.tasks.mg.resolver.MgResolveUsageTask;
-import cz.mg.language.tasks.mg.resolver.context.ComponentContext;
+import cz.mg.language.tasks.mg.resolver.context.component.ComponentContext;
 import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveComponentStampTask;
 

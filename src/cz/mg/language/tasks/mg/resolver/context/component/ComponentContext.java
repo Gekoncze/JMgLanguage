@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.context;
+package cz.mg.language.tasks.mg.resolver.context.component;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.storage.Part;
@@ -6,6 +6,7 @@ import cz.mg.language.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
 public abstract class ComponentContext extends Context {
@@ -21,7 +22,7 @@ public abstract class ComponentContext extends Context {
     }
 
     @Override
-    public void forEachComponent(ObjectVisitor visitor) {
+    public void forEachComponent(ComponentVisitor visitor) {
         for(Usage usage : usages){
             visitor.onVisitComponent(usage.getComponent(), usage.getLocalName());
         }

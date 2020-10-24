@@ -3,9 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command.expression.name.instance;
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.annotations.task.Input;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberNameCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
@@ -14,7 +12,7 @@ import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
-import cz.mg.language.tasks.mg.resolver.context.ClassContext;
+import cz.mg.language.tasks.mg.resolver.context.component.structured.ClassContext;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 

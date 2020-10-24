@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.ClassContext;
+import cz.mg.language.tasks.mg.resolver.context.component.structured.ClassContext;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveBaseClassesTask;
 
 

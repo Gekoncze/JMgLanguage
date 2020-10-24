@@ -13,7 +13,7 @@ import cz.mg.language.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.filter.OperatorFilter;
+import cz.mg.language.tasks.mg.resolver.filter.basic.OperatorFilter;
 
 
 public class OperatorCache {
@@ -32,7 +32,7 @@ public class OperatorCache {
     public OperatorCache(Context context) {
         if(context != null){
             // find all functions available in this context
-            OperatorFilter filter = new OperatorFilter(context);
+            OperatorFilter filter = new OperatorFilter(context, null);
             ReadableList<MgOperator> availableOperators = filter.findAll();
 
             // fund the min and max priority of the available functions
@@ -108,6 +108,6 @@ public class OperatorCache {
     }
 
     private static boolean isCompatible(MgOperatorInfo first, MgOperatorInfo second){
-        return first.getType() == second.getType() && first.getPriority() == second.getPriority();
+        return first.getPosition() == second.getPosition() && first.getPriority() == second.getPriority();
     }
 }

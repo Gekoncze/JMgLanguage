@@ -27,26 +27,6 @@ public abstract class MgResolveNameExpressionTask extends MgResolveExpressionTas
         this.logicalExpression = logicalExpression;
     }
 
-    @Override
-    protected void onResolve() {
-        createNode(createFilter().findOptional());
-
-        if(logicalExpression.getExpression() != null){
-            onResolveChild(logicalExpression.getExpression());
-        }
-
-        createNode(createFilter().find());
-    }
-
-    private NameExpressionFilter createFilter(){
-        return new NameExpressionFilter(
-            context,
-            logicalExpression.getName(),
-            getParentInputConnectors(),
-            getChildrenOutputConnectors()
-        );
-    }
-
     private Node createNode(MgObject object){
         if(object == null){
             return null;

@@ -10,14 +10,14 @@ public class MgOperatorInfo extends MgPart {
     private final ReadableText name;
 
     @Mandatory @Value
-    private final Type type;
+    private final MgOperatorInfo.Position position;
 
     @Mandatory @Value
     private final int priority;
 
-    public MgOperatorInfo(ReadableText name, Type type, int priority) {
+    public MgOperatorInfo(ReadableText name, Position position, int priority) {
         this.name = name;
-        this.type = type;
+        this.position = position;
         this.priority = priority;
     }
 
@@ -25,15 +25,15 @@ public class MgOperatorInfo extends MgPart {
         return name;
     }
 
-    public Type getType() {
-        return type;
+    public Position getPosition() {
+        return position;
     }
 
     public int getPriority() {
         return priority;
     }
 
-    public enum Type {
+    public enum Position {
         LEFT,
         RIGHT,
         BINARY

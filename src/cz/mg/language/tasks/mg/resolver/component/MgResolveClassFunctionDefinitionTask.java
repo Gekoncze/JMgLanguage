@@ -12,7 +12,7 @@ import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.FunctionContext;
+import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
 
 
 public class MgResolveClassFunctionDefinitionTask extends MgResolveComponentDefinitionTask {
@@ -56,7 +56,7 @@ public class MgResolveClassFunctionDefinitionTask extends MgResolveComponentDefi
         } else {
             function = new MgOperator(logicalFunction.getName(), new MgOperatorInfo(
                 logicalFunction.getOperator().getName(),
-                MgOperatorInfo.Type.valueOf(logicalFunction.getOperator().getType().name()),
+                MgOperatorInfo.Position.valueOf(logicalFunction.getOperator().getType().name()),
                 logicalFunction.getOperator().getPriority()
             ));
             function.getStamps().addCollectionLast(globalStampOnly(stamps));

@@ -4,11 +4,9 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.components.types.MgType;
-import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.filter.AbstractClassFilter;
-import cz.mg.language.tasks.mg.resolver.filter.TypeFilter;
 import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
+import cz.mg.language.tasks.mg.resolver.context.Context;
+import cz.mg.language.tasks.mg.resolver.filter.basic.TypeFilter;
 
 
 public class MgResolveVariableDatatypeTask extends MgPostponeResolveTask {
@@ -29,7 +27,7 @@ public class MgResolveVariableDatatypeTask extends MgPostponeResolveTask {
 
     @Override
     protected void onRun() {
-        AbstractClassFilter<MgType> filter = new TypeFilter(getContext(), logicalDatatype.getName());
+        TypeFilter filter = new TypeFilter(getContext(), logicalDatatype.getName());
         this.datatype = new MgDatatype(
             filter.find(),
             MgDatatype.Storage.valueOf(logicalDatatype.getStorage().name()),

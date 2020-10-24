@@ -7,6 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
+import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
 
 
 public class CommandContext extends Context {
@@ -48,7 +49,7 @@ public class CommandContext extends Context {
     }
 
     @Override
-    public void forEachComponent(ObjectVisitor visitor) {
+    public void forEachComponent(ComponentVisitor visitor) {
         for(MgVariable variable : command.getDeclaredVariables()){
             visitor.onVisitComponent(variable, null);
         }

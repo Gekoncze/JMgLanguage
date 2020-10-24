@@ -147,7 +147,7 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
                     MgLogicalOperatorExpression logicalOperatorExpression = (MgLogicalOperatorExpression) expression;
                     MgOperatorInfo operator = logicalOperatorExpression.getOperator();
                     if(operator.getPriority() == p){
-                        switch(operator.getType()){
+                        switch(operator.getPosition()){
                             case BINARY:
                                 mergeBinary(item, (leftOperand, rightOperand) -> {
                                     return new MgLogicalBinaryOperatorCallExpression(
