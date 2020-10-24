@@ -4,7 +4,6 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 
 
@@ -20,5 +19,5 @@ public abstract class MgBuildinOperator extends MgOperator {
         buildinRun(functionInstance);
     }
 
-    protected abstract void buildinRun(MgFunctionInstanceImpl functionObject);
+    protected abstract void buildinRun(MgFunctionInstance functionObject);
 }

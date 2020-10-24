@@ -1,11 +1,10 @@
 package cz.mg.language.entities.mg.runtime.parts.commands;
 
-import cz.mg.collections.list.List;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Part;
+import cz.mg.collections.list.List;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ArtificialException;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
 
@@ -61,7 +60,7 @@ public class MgCheckpointCommand extends MgCommand {
         if(ae != null) throw ae;
     }
 
-    private MgCatchCommand find(ArtificialException ae, MgFunctionInstanceImpl functionObject){
+    private MgCatchCommand find(ArtificialException ae, MgFunctionInstance functionObject){
         if(ae instanceof RollbackException){
             RollbackException re = (RollbackException) ae;
             for(MgCatchCommand catchCommand : catchCommands){
