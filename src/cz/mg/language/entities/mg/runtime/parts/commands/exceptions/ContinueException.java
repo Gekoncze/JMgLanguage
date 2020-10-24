@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.parts.commands.exceptions;
 
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Link;
+import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 
 

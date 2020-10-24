@@ -1,6 +1,6 @@
 package cz.mg.language.entities.c.logical.parts.expressions;
 
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.c.logical.parts.CVariable;
 
 

@@ -1,6 +1,6 @@
 package cz.mg.language.entities.mg.runtime.instances.buildin;
 
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgTextType;
 
 

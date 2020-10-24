@@ -1,9 +1,9 @@
 package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ArtificialException;

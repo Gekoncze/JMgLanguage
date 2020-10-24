@@ -1,9 +1,9 @@
 package cz.mg.language.entities.mg.logical.parts.expressions;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Value;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Value;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 

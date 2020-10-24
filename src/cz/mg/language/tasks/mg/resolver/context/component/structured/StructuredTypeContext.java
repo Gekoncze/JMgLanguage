@@ -1,6 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.context.component.structured;
 
-import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.context.component.ComponentContext;
 

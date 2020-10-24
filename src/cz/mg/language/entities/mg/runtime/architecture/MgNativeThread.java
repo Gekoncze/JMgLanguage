@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.architecture;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 

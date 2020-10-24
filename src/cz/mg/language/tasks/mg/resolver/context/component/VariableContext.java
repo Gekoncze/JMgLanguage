@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.context.component;
 
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.storage.Link;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.context.Context;

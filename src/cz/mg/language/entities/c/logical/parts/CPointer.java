@@ -1,7 +1,7 @@
 package cz.mg.language.entities.c.logical.parts;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Value;
 
 
 public class CPointer extends CPart {

@@ -1,8 +1,8 @@
 package cz.mg.language.tasks.mg.builder.pattern;
 
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
 
 

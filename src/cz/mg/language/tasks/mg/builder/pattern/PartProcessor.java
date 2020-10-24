@@ -1,6 +1,6 @@
 package cz.mg.language.tasks.mg.builder.pattern;
 
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;
 import cz.mg.language.tasks.mg.builder.part.MgBuildPartTask;
 

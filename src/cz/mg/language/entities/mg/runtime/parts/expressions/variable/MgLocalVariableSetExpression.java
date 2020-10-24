@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.variable;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
-import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;

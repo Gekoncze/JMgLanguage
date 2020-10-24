@@ -1,9 +1,9 @@
 package cz.mg.language.entities.mg.logical.parts.commands;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.requirement.Optional;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.requirement.Optional;
 
 
 public class MgLogicalCheckpointCommand extends MgLogicalCommand {

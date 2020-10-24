@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.instances.buildin;
 
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Link;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgAtomType;
 import cz.mg.language.entities.mg.runtime.instances.MgInstance;
 

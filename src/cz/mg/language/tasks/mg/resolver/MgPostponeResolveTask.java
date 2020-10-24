@@ -2,11 +2,10 @@ package cz.mg.language.tasks.mg.resolver;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.map.Map;
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Link;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 
 
 public abstract class MgPostponeResolveTask extends MgResolveTask {

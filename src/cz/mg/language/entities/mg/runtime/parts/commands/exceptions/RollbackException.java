@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.parts.commands.exceptions;
 
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.instances.MgInstance;
 
 

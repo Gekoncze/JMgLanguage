@@ -6,19 +6,19 @@ import cz.mg.collections.text.ReadonlyText;
 
 
 public class Pattern {
-    @cz.mg.language.annotations.storage.Part
+    @cz.mg.annotations.storage.Part
     private final Order order;
 
-    @cz.mg.language.annotations.storage.Part
+    @cz.mg.annotations.storage.Part
     private final Requirement requirement;
 
-    @cz.mg.language.annotations.storage.Part
+    @cz.mg.annotations.storage.Part
     private final Count count;
 
-    @cz.mg.language.annotations.storage.Part
+    @cz.mg.annotations.storage.Part
     private final BlockProcessor processor;
 
-    @cz.mg.language.annotations.storage.Part
+    @cz.mg.annotations.storage.Part
     private final List<ReadableText> keywords = new List<>();
 
     public Pattern(

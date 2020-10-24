@@ -2,8 +2,8 @@ package cz.mg.language.tasks.mg.resolver.command.utilities.helpers;
 
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.buildin.MgExpressionVariable;

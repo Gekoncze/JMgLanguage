@@ -2,9 +2,9 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.function;
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;

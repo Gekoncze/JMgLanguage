@@ -3,7 +3,7 @@ package cz.mg.language.entities.c.logical.elements.statements.definitions;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.c.logical.elements.statements.declarations.CFunctionForwardDeclaration;
 import cz.mg.language.entities.c.logical.parts.CFunctionType;
 import cz.mg.language.entities.c.logical.parts.CType;

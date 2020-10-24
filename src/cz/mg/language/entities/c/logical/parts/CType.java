@@ -4,8 +4,8 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.storage.Value;
 
 
 public class CType extends CPart implements Named {

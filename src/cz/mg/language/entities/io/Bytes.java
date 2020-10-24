@@ -1,6 +1,6 @@
 package cz.mg.language.entities.io;
 
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Value;
 import java.nio.ByteBuffer;
 
 

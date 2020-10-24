@@ -1,7 +1,7 @@
 package cz.mg.language.entities.file;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.storage.Part;
 
 
 public class Folder extends File {

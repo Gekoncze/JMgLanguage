@@ -2,7 +2,7 @@ package cz.mg.language.entities.c.logical.elements.directives;
 
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Value;
 
 
 public class CInclude extends CDirective {

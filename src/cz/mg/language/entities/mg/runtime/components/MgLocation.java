@@ -2,7 +2,7 @@ package cz.mg.language.entities.mg.runtime.components;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.storage.Part;
 
 
 public class MgLocation extends MgComponent {

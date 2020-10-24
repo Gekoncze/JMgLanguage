@@ -2,7 +2,7 @@ package cz.mg.language.tasks.mg.builder.part;
 
 import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
-import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.text.structured.Part;
 import cz.mg.language.tasks.mg.builder.MgBuildTask;

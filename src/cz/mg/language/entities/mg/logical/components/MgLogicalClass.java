@@ -2,8 +2,8 @@ package cz.mg.language.entities.mg.logical.components;
 
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.storage.Value;
 
 
 public class MgLogicalClass extends MgLogicalComponent {

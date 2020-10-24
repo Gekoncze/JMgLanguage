@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.components.types.buildin;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
 

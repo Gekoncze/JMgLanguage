@@ -3,7 +3,7 @@ package cz.mg.language.entities.io;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.language.Named;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Value;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 

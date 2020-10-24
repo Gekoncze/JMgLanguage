@@ -1,10 +1,10 @@
 package cz.mg.language.entities.mg.logical.parts.expressions.calls;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.storage.Part;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.storage.Value;
 
 
 public class MgLogicalMemberNameCallExpression extends MgLogicalCallExpression {

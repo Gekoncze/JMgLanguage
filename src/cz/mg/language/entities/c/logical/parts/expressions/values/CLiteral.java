@@ -1,7 +1,7 @@
 package cz.mg.language.entities.c.logical.parts.expressions.values;
 
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.annotations.storage.Value;
+import cz.mg.annotations.storage.Value;
 
 
 public class CLiteral extends CValue {

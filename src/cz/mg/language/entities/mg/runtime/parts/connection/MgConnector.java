@@ -1,9 +1,9 @@
 package cz.mg.language.entities.mg.runtime.parts.connection;
 
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.requirement.Optional;
-import cz.mg.language.annotations.storage.Link;
-import cz.mg.language.annotations.storage.Shared;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Link;
+import cz.mg.annotations.storage.Shared;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 

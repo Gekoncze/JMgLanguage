@@ -1,8 +1,8 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.variable;
 
 import cz.mg.collections.array.ReadableArray;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Link;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;

@@ -2,8 +2,8 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.operator.assignment
 
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
-import cz.mg.language.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.storage.Part;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
