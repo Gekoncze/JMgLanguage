@@ -32,9 +32,9 @@ public class LunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
         }
 
         if(rightSourceOutputInterface != null){
-            if(operator.getInput().count() != 1) return null;
+            if(operator.getInputVariables().count() != 1) return null;
             MgDatatype sourceDatatype = rightSourceOutputInterface.get(replication).getDatatype();
-            MgDatatype destinationDatatype = operator.getOutput().getFirst().getDatatype();
+            MgDatatype destinationDatatype = operator.getOutputVariables().getFirst().getDatatype();
             if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
         }
 

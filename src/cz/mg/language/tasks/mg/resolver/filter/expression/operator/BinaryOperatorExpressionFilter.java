@@ -33,11 +33,11 @@ public class BinaryOperatorExpressionFilter extends OperatorExpressionFilter {
         }
 
         if(leftSourceOutputInterface != null && rightSourceOutputInterface != null){
-            if(operator.getInput().count() != 2) return null;
+            if(operator.getInputVariables().count() != 2) return null;
             MgDatatype sourceDatatypeLeft = leftSourceOutputInterface.get(replication).getDatatype();
             MgDatatype sourceDatatypeRight = rightSourceOutputInterface.get(replication).getDatatype();
-            MgDatatype destinationDatatypeLeft = operator.getOutput().getFirst().getDatatype();
-            MgDatatype destinationDatatypeRight = operator.getOutput().getLast().getDatatype();
+            MgDatatype destinationDatatypeLeft = operator.getOutputVariables().getFirst().getDatatype();
+            MgDatatype destinationDatatypeRight = operator.getOutputVariables().getLast().getDatatype();
             if(!MgDatatype.isCompatible(destinationDatatypeLeft, sourceDatatypeLeft)) return null;
             if(!MgDatatype.isCompatible(destinationDatatypeRight, sourceDatatypeRight)) return null;
         }

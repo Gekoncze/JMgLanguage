@@ -32,7 +32,9 @@ public class MgResolveCatchCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(context, logicalCommand.getVariable());
+        MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(
+            context, context.getFunctionContext().getFunction(), logicalCommand.getVariable()
+        );
         task.run();
 
         command = new MgCatchCommand(task.getVariable(), new List<>());

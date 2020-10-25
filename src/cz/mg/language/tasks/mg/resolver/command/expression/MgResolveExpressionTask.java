@@ -1,19 +1,14 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
-import cz.mg.collections.Clump;
-import cz.mg.collections.array.Array;
-import cz.mg.collections.array.ReadableArray;
-import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
+import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
-import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
-import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.name.instance.MgResolveInstanceNameExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.name.MgResolveNameExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.name.instance.MgResolveInstanceNameExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.MgResolveOperatorExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveGroupExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveValueExpressionTask;
@@ -30,44 +25,45 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
     public MgResolveExpressionTask(CommandContext context, MgResolveExpressionTask parentTask) {
         this.context = context;
         this.parentTask = parentTask;
+        new Todo();
     }
 
-    public ReadableArray<MgInputConnector> getInputConnectors(){
-        if(getExpression() == null) return null;
-        return getExpression().getInputConnectors();
-    }
-
-    public ReadableArray<MgOutputConnector> getOutputConnectors(){
-        if(getExpression() == null) return null;
-        return getExpression().getOutputConnectors();
-    }
+//    public ReadableArray<MgInputConnector> getInputConnectors(){
+//        if(getExpression() == null) return null;
+//        return getExpression().getCache().getInputConnectors();
+//    }
+//
+//    public ReadableArray<MgOutputConnector> getOutputConnectors(){
+//        if(getExpression() == null) return null;
+//        return getExpression().getCache().getOutputConnectors();
+//    }
 
     public MgExpression getParent() {
         if(parentTask == null) return null;
         return parentTask.getExpression();
     }
 
-    public ReadableArray<MgInputConnector> getParentInputConnectors(){
-        if(parentTask == null) return null;
-        return parentTask.getInputConnectors();
-    }
+//    public ReadableArray<MgInputConnector> getParentInputConnectors(){
+//        if(parentTask == null) return null;
+//        return parentTask.getInputConnectors();
+//    }
 
-    protected static ReadableArray<MgOutputConnector> getChildrenOutputConnectors(MgExpression... expressions){
-        return getChildrenOutputConnectors(new Array<>(expressions));
-    }
-
-    protected static ReadableArray<MgOutputConnector> getChildrenOutputConnectors(Clump<MgExpression> children){
-        List<MgOutputConnector> outputConnectors = new List<>();
-        for(MgExpression child : children){
-            if(child.getOutputConnectors().count() == 0){
-                throw new LanguageException("Empty expression output in a group is not allowed.");
-            }
-            for(MgOutputConnector outputConnector : child.getOutputConnectors()){
-                outputConnectors.addLast(outputConnector);
-            }
-        }
-        return new Array<>(outputConnectors);
-    }
+//    protected static ReadableArray<MgOutputConnector> getChildrenOutputConnectors(MgExpression... expressions){
+//        return getChildrenOutputConnectors(new Array<>(expressions));
+//    }
+//
+//    protected static ReadableArray<MgOutputConnector> getChildrenOutputConnectors(Clump<MgExpression> children){
+//        List<MgOutputConnector> outputConnectors = new List<>();
+//        for(MgExpression child : children){
+//            if(child.getOutputConnectors().count() == 0){
+//                throw new LanguageException("Empty expression output in a group is not allowed.");
+//            }
+//            for(MgOutputConnector outputConnector : child.getOutputConnectors()){
+//                outputConnectors.addLast(outputConnector);
+//            }
+//        }
+//        return new Array<>(outputConnectors);
+//    }
 
     @Override
     protected final void onRun() {

@@ -30,9 +30,9 @@ public class StandaloneFunctionExpressionFilter extends FunctionExpressionFilter
         }
 
         if(rightSourceOutputInterface != null){
-            if(function.getInput().count() != rightSourceOutputInterface.count()) return null;
-            for(int i = 0; i < function.getInput().count(); i++){
-                MgDatatype destinationDatatype = function.getInput().get(i).getDatatype();
+            if(function.getInputVariables().count() != rightSourceOutputInterface.count()) return null;
+            for(int i = 0; i < function.getInputVariables().count(); i++){
+                MgDatatype destinationDatatype = function.getInputVariables().get(i).getDatatype();
                 MgDatatype sourceDatatype = rightSourceOutputInterface.get(i).getDatatype();
                 if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
             }

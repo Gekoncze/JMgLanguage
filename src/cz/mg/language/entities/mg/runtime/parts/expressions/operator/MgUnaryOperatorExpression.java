@@ -6,6 +6,7 @@ import cz.mg.collections.list.List;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -23,7 +24,8 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
     private final ReadableArray<Replication> replications;
 
     public MgUnaryOperatorExpression(MgExpression expression, List<MgOperator> operators) {
-        super(createInputInterface(operators), createOutputInterface(operators));
+//        super(createInputInterface(operators), createOutputInterface(operators));
+        new Todo();
         this.expression = expression;
         this.replications = createReplications(operators);
     }
@@ -34,6 +36,12 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
 
     public ReadableArray<Replication> getReplications() {
         return replications;
+    }
+
+    @Override
+    protected MgCache createCache() {
+        new Todo();
+        return null;
     }
 
     @Override
@@ -65,8 +73,8 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
             this.operator = operator;
             this.input = input;
             this.output = output;
-            if(operator.getInput().count() != 1) throw new RuntimeException();
-            if(operator.getOutput().count() != 1) throw new RuntimeException();
+            if(operator.getInputVariables().count() != 1) throw new RuntimeException();
+            if(operator.getOutputVariables().count() != 1) throw new RuntimeException();
         }
 
         public MgOperator getOperator() {
@@ -79,13 +87,13 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
             MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(operator);
 
             // set input for newly created function object
-            newFunctionObject.getObjects().set(functionInstance.getObjects().get(input.getConnection().getConnectionVariable().getOffset()), 0);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(input.getConnection().getConnectionVariable().getCache().getOffset()), 0);
 
             // run the function
             operator.run(newFunctionObject);
 
             // get and store output of the executed function object
-            functionInstance.getObjects().set(newFunctionObject.getObjects().get(1), output.getConnection().getConnectionVariable().getOffset());
+            functionInstance.getObjects().set(newFunctionObject.getObjects().get(1), output.getConnection().getConnectionVariable().getCache().getOffset());
         }
     }
 
@@ -93,7 +101,7 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
         Array<MgInputConnector> connectors = new Array<>(functions.count());
         int i = 0;
         for(MgOperator function : functions){
-            connectors.set(new MgInputConnector(function.getInput().getFirst().getDatatype()), i);
+            connectors.set(new MgInputConnector(function.getInputVariables().getFirst().getDatatype()), i);
             i++;
         }
         return connectors;
@@ -103,7 +111,7 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
         Array<MgOutputConnector> connectors = new Array<>(functions.count());
         int i = 0;
         for(MgOperator function : functions){
-            connectors.set(new MgOutputConnector(function.getOutput().getFirst().getDatatype()), i);
+            connectors.set(new MgOutputConnector(function.getOutputVariables().getFirst().getDatatype()), i);
             i++;
         }
         return connectors;
@@ -111,15 +119,16 @@ public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
 
     private ReadableArray<Replication> createReplications(List<MgOperator> operators) {
         Array<Replication> replications = new Array<>(operators.count());
-        int i = 0;
-        for(MgOperator operator : operators){
-            replications.set(new Replication(
-                operator,
-                getInputConnectors().get(i),
-                getOutputConnectors().get(i)
-            ), i);
-            i++;
-        }
+        new Todo();
+//        int i = 0;
+//        for(MgOperator operator : operators){
+//            replications.set(new Replication(
+//                operator,
+//                getInputConnectors().get(i),
+//                getOutputConnectors().get(i)
+//            ), i);
+//            i++;
+//        }
         return replications;
     }
 }

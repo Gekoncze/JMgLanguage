@@ -1,35 +1,45 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.variable;
 
-import cz.mg.collections.array.Array;
-import cz.mg.collections.array.ReadableArray;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.components.types.MgStructuredType;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.collections.array.Array;
+import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgStructuredInstance;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
-import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
-public class MgInstanceVariableSetExpression extends MgVariableExpression {
+public class MgInstanceVariableSetExpression extends MgVariableSetExpression {
     @Mandatory @Part
     private final MgExpression target;
 
+    @Mandatory @Part
+    private final MgInputConnector targetInputConnector;
+
     public MgInstanceVariableSetExpression(
         MgExpression target,
-        MgStructuredType structuredType,
         MgInstanceVariable variable
     ) {
-        super(createInputInterface(structuredType, variable), createOutputInterface(), variable);
+        super(variable);
         this.target = target;
+        this.targetInputConnector = new MgInputConnector(
+            new MgDatatype(
+                variable.getParent(),
+                MgDatatype.Storage.ANY,
+                MgDatatype.Requirement.OPTIONAL
+            )
+        );
     }
 
     public MgExpression getTarget() {
         return target;
+    }
+
+    public MgInputConnector getTargetInputConnector() {
+        return targetInputConnector;
     }
 
     @Override
@@ -38,31 +48,23 @@ public class MgInstanceVariableSetExpression extends MgVariableExpression {
     }
 
     @Override
+    protected MgCache createCache() {
+        return new MgCache(
+            new Array<>(getTargetInputConnector(), getInputConnector()),
+            new Array<>()
+        );
+    }
+
+    @Override
     public void run(MgFunctionInstance functionInstance) {
         if(DEBUG) validate();
 
         target.run(functionInstance);
 
-        MgFunctionVariable parentVariable = getInputConnectors().getFirst().getConnection().getConnectionVariable();
-        MgFunctionVariable inputValueVariable = getInputConnectors().getLast().getConnection().getConnectionVariable();
-        MgStructuredInstance parent = (MgStructuredInstance) functionInstance.getObjects().get(parentVariable.getOffset());
-        parent.getObjects().set(functionInstance.getObjects().get(inputValueVariable.getOffset()), getVariable().getOffset());
-    }
-
-    public static ReadableArray<MgInputConnector> createInputInterface(MgStructuredType structuredType, MgInstanceVariable variable){
-        return new Array<>(
-            new MgInputConnector(
-                new MgDatatype(
-                    structuredType,
-                    MgDatatype.Storage.OTHER,
-                    MgDatatype.Requirement.OPTIONAL
-                )
-            ),
-            new MgInputConnector(variable.getDatatype())
-        );
-    }
-
-    public static ReadableArray<MgOutputConnector> createOutputInterface(){
-        return new Array<>();
+        MgInstanceVariable targetVariable = getTargetInputConnector().getConnection().getConnectionVariable();
+        MgInstanceVariable inputVariable = getInputConnector().getConnection().getConnectionVariable();
+        MgObject targetObject = functionInstance.getObjects().get(targetVariable.getCache().getOffset());
+        MgObject inputObject = functionInstance.getObjects().get(inputVariable.getCache().getOffset());
+        ((MgStructuredInstance)targetObject).getObjects().set(inputObject, getVariable().getCache().getOffset());
     }
 }

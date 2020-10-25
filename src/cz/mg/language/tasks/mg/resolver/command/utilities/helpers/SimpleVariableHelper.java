@@ -4,9 +4,8 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.collections.text.ReadonlyText;
 import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.buildin.MgExpressionVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 
@@ -17,7 +16,7 @@ import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
  *  This implementation should be used only for debug or as a fallback.
  */
 public class SimpleVariableHelper implements VariableHelper {
-    private static final ReadableText EXPRESSION_VARIABLE_NAME = new ReadonlyText("");
+    private static final ReadableText NONAME = new ReadonlyText("");
 
     @Mandatory @Part
     private final MgFunction function;
@@ -35,20 +34,18 @@ public class SimpleVariableHelper implements VariableHelper {
     }
 
     @Override
-    public MgFunctionVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype){
-        MgFunctionVariable variable = new MgFunctionVariable(name);
+    public MgInstanceVariable nextDeclaredVariable(ReadableText name, MgDatatype datatype){
+        MgInstanceVariable variable = new MgInstanceVariable(name, function);
         variable.setDatatype(datatype);
-        function.getLocal().addLast(variable);
-        function.updateVariableOffsetCache();
-        return function.getLocal().getLast();
+        function.getLocalVariables().addLast(variable);
+        return function.getLocalVariables().getLast();
     }
 
     @Override
-    public MgFunctionVariable nextExpressionVariable(MgDatatype datatype){
-        MgExpressionVariable variable = new MgExpressionVariable(EXPRESSION_VARIABLE_NAME);
+    public MgInstanceVariable nextExpressionVariable(MgDatatype datatype){
+        MgInstanceVariable variable = new MgInstanceVariable(NONAME, function);
         variable.setDatatype(datatype);
-        function.getLocal().addLast(variable);
-        function.updateVariableOffsetCache();
-        return function.getLocal().getLast();
+        function.getLocalVariables().addLast(variable);
+        return function.getLocalVariables().getLast();
     }
 }

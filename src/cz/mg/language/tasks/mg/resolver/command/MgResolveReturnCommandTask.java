@@ -1,9 +1,9 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
+import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalReturnCommand;
-import cz.mg.language.entities.mg.runtime.parts.commands.MgExpressionCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgReturnCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
@@ -38,7 +38,10 @@ public class MgResolveReturnCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTask resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), null);
         resolveExpressionTask.run();
 
-        command = new MgReturnCommand(resolveExpressionTask.createExpression());
+        command = new MgReturnCommand(resolveExpressionTask.getExpression());
         context.setCommand(command);
+
+        new Todo(); // todo - connect expression output to command input
+        resolveExpressionTask.getExpression().validate();
     }
 }

@@ -4,6 +4,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
@@ -20,15 +21,16 @@ public class MemberFunctionExpressionFilter extends FunctionExpressionFilter {
     ) {
         super(targetContext, requiredName, destination, target, parameters);
 
-        if(target.getOutputConnectors().count() < 1){
+        if(target.getCache().getOutputConnectors().count() < 1){
             throw new LanguageException("Target expression has no output.");
         }
 
-        if(target.getOutputConnectors().count() > 1){
+        if(target.getCache().getOutputConnectors().count() > 1){
             throw new LanguageException("Target expression has multiple output.");
         }
 
-        if(target.getOutputConnectors().getFirst().getDatatype().getType() != targetContext.getComponent()){
+        new Todo(); // todo - verify if this is correct
+        if(target.getCache().getOutputConnectors().getFirst().getDatatype().getType() != targetContext.getComponent()){
             throw new RuntimeException();
         }
     }
@@ -44,7 +46,7 @@ public class MemberFunctionExpressionFilter extends FunctionExpressionFilter {
         }
 
         if(leftSourceOutputInterface != null){
-            MgDatatype inputDatatype = function.getInput().getFirst().getDatatype();
+            MgDatatype inputDatatype = function.getInputVariables().getFirst().getDatatype();
             MgDatatype outputDatatype = leftSourceOutputInterface.getFirst().getDatatype();
             if(!MgDatatype.isCompatible(inputDatatype, outputDatatype)) return null;
         }
@@ -58,9 +60,9 @@ public class MemberFunctionExpressionFilter extends FunctionExpressionFilter {
         }
 
         if(rightSourceOutputInterface != null){
-            if(function.getInput().count() != rightSourceOutputInterface.count() + 1) return null;
-            for(int i = 1; i < function.getInput().count(); i++){
-                MgDatatype destinationDatatype = function.getInput().get(i).getDatatype();
+            if(function.getInputVariables().count() != rightSourceOutputInterface.count() + 1) return null;
+            for(int i = 1; i < function.getInputVariables().count(); i++){
+                MgDatatype destinationDatatype = function.getInputVariables().get(i).getDatatype();
                 MgDatatype sourceDatatype = rightSourceOutputInterface.get(i-1).getDatatype();
                 if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
             }

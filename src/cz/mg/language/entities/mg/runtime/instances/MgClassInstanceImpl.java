@@ -16,9 +16,9 @@ public class MgClassInstanceImpl implements MgClassInstance {
     @Mandatory @Part
     private final Array<@Optional MgObject> objects;
 
-    public MgClassInstanceImpl(MgClass type) {
-        this.type = type;
-        this.objects = new Array<>(type.getVariableCountCache());
+    public MgClassInstanceImpl(MgClass clazz) {
+        this.type = clazz;
+        this.objects = new Array<>(clazz.getCache().getVariableCount());
     }
 
     @Override

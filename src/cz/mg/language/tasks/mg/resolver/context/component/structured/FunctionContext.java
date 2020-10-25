@@ -54,15 +54,15 @@ public class FunctionContext extends StructuredTypeContext {
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
         if(function != null){
-            for(MgVariable object : function.getInput()){
+            for(MgVariable object : function.getInputVariables()){
                 visitor.onVisitComponent(object, null);
             }
 
-            for(MgVariable object : function.getOutput()){
+            for(MgVariable object : function.getOutputVariables()){
                 visitor.onVisitComponent(object, null);
             }
 
-            for(MgVariable object : function.getLocal()){
+            for(MgVariable object : function.getLocalVariables()){
                 visitor.onVisitComponent(object, null);
             }
         }

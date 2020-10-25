@@ -2,36 +2,44 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.storage.Value;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgBoolObject;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.BreakException;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ContinueException;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgWhileCommand extends MgCommand implements Breakable, Continuable {
+    private static final MgDatatype BOOL_DATATYPE = new MgDatatype(
+        MgBoolType.getInstance(),
+        MgDatatype.Storage.ANY,
+        MgDatatype.Requirement.OPTIONAL
+    );
+
     @Optional @Part
     private final ReadableText name;
 
     @Mandatory @Part
     private final MgExpression expression;
 
-    @Mandatory @Value
-    private final MgFunctionVariable input;
+    @Mandatory @Link
+    private final MgInputConnector inputConnector = new MgInputConnector(BOOL_DATATYPE);
 
     @Mandatory @Part
-    private final List<MgCommand> commands;
+    private final List<MgCommand> commands = new List<>();
 
-    public MgWhileCommand(ReadableText name, MgExpression expression, MgFunctionVariable input, List<MgCommand> commands) {
+    public MgWhileCommand(ReadableText name, MgExpression expression) {
         this.name = name;
         this.expression = expression;
-        this.input = input;
-        this.commands = commands;
     }
 
     @Override
@@ -41,10 +49,6 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
 
     public MgExpression getExpression() {
         return expression;
-    }
-
-    public MgFunctionVariable getInput() {
-        return input;
     }
 
     public List<MgCommand> getCommands() {
@@ -76,7 +80,8 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
 
     private boolean evaluateExpression(MgFunctionInstance functionObject){
         expression.run(functionObject);
-        MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(input.getOffset());
+        MgInstanceVariable conditionVariable = inputConnector.getConnection().getConnectionVariable();
+        MgBoolObject condition = (MgBoolObject) functionObject.getObjects().get(conditionVariable.getCache().getOffset());
         return condition.getValue();
     }
 }

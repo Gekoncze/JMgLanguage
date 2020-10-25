@@ -32,11 +32,11 @@ public class ClassContext extends StructuredTypeContext {
 
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
-        for(MgVariable variable : clazz.getVariables()){
+        for(MgVariable variable : clazz.getVariableDefinitions()){
             visitor.onVisitComponent(variable, null);
         }
 
-        for(MgFunction function : clazz.getFunctions()){
+        for(MgFunction function : clazz.getFunctionDefinitions()){
             visitor.onVisitComponent(function, null);
         }
     }

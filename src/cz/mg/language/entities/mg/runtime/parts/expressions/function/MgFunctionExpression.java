@@ -1,12 +1,13 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.function;
 
+import cz.mg.annotations.storage.Shared;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstanceImpl;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
@@ -21,13 +22,17 @@ public class MgFunctionExpression extends MgExpression {
     @Optional @Part
     private final MgExpression expression;
 
-    public MgFunctionExpression(
-        MgFunction function,
-        MgExpression expression
-    ) {
-        super(createInputInterface(function), createOutputInterface(function));
+    @Mandatory @Shared
+    private final ReadableArray<MgInputConnector> inputConnectors;
+
+    @Mandatory @Shared
+    private final ReadableArray<MgOutputConnector> outputConnectors;
+
+    public MgFunctionExpression(MgFunction function, MgExpression expression) {
         this.function = function;
         this.expression = expression;
+        this.inputConnectors = createInputConnectors(function);
+        this.outputConnectors = createOutputConnectors(function);
     }
 
     public MgFunction getFunction() {
@@ -36,6 +41,19 @@ public class MgFunctionExpression extends MgExpression {
 
     public MgExpression getExpression() {
         return expression;
+    }
+
+    public ReadableArray<MgInputConnector> getInputConnectors() {
+        return inputConnectors;
+    }
+
+    public ReadableArray<MgOutputConnector> getOutputConnectors() {
+        return outputConnectors;
+    }
+
+    @Override
+    protected MgCache createCache() {
+        return new MgCache(inputConnectors, outputConnectors);
     }
 
     @Override
@@ -53,8 +71,8 @@ public class MgFunctionExpression extends MgExpression {
 
         // set input for newly created function object
         for(MgInputConnector inputConnector : getInputConnectors()){
-            MgFunctionVariable in = inputConnector.getConnection().getConnectionVariable();
-            newFunctionObject.getObjects().set(functionInstance.getObjects().get(in.getOffset()), local);
+            MgInstanceVariable in = inputConnector.getConnection().getConnectionVariable();
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(in.getCache().getOffset()), local);
             local++;
         }
 
@@ -63,25 +81,25 @@ public class MgFunctionExpression extends MgExpression {
 
         // get output of the newly created function object
         for(MgOutputConnector outputConnector : getOutputConnectors()){
-            MgFunctionVariable out = outputConnector.getConnection().getConnectionVariable();
-            functionInstance.getObjects().set(newFunctionObject.getObjects().get(local), out.getOffset());
+            MgInstanceVariable out = outputConnector.getConnection().getConnectionVariable();
+            functionInstance.getObjects().set(newFunctionObject.getObjects().get(local), out.getCache().getOffset());
             local++;
         }
     }
 
-    public static ReadableArray<MgInputConnector> createInputInterface(@Mandatory MgFunction function){
-        Array<MgInputConnector> connectors = new Array<>(function.getInput().count());
+    private static ReadableArray<MgInputConnector> createInputConnectors(@Mandatory MgFunction function){
+        Array<MgInputConnector> connectors = new Array<>(function.getInputVariables().count());
         for(int i = 0; i < connectors.count(); i++){
-            connectors.set(new MgInputConnector(function.getInput().get(i).getDatatype()), i);
+            connectors.set(new MgInputConnector(function.getInputVariables().get(i).getDatatype()), i);
         }
         return connectors;
     }
 
-    public static ReadableArray<MgOutputConnector> createOutputInterface(@Mandatory MgFunction function){
+    private static ReadableArray<MgOutputConnector> createOutputConnectors(@Mandatory MgFunction function){
         if(function == null) throw new RuntimeException();
-        Array<MgOutputConnector> connectors = new Array<>(function.getOutput().count());
+        Array<MgOutputConnector> connectors = new Array<>(function.getOutputVariables().count());
         for(int i = 0; i < connectors.count(); i++){
-            connectors.set(new MgOutputConnector(function.getOutput().get(i).getDatatype()), i);
+            connectors.set(new MgOutputConnector(function.getOutputVariables().get(i).getDatatype()), i);
         }
         return connectors;
     }

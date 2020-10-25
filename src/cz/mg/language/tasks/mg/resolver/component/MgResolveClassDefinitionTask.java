@@ -48,10 +48,9 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
 
         for(MgLogicalVariable logicalVariable : logicalClass.getVariables()){
             postpone(MgResolveClassVariableDefinitionTask.class, () -> {
-                MgResolveClassVariableDefinitionTask task = new MgResolveClassVariableDefinitionTask(getContext(), logicalVariable);
+                MgResolveClassVariableDefinitionTask task = new MgResolveClassVariableDefinitionTask(getContext(), clazz, logicalVariable);
                 task.run();
-                clazz.getVariables().addLast(task.getVariable());
-                clazz.updateVariableOffsetCache();
+                clazz.getVariableDefinitions().addLast(task.getVariable());
             });
         }
 
@@ -59,7 +58,7 @@ public class MgResolveClassDefinitionTask extends MgResolveComponentDefinitionTa
             postpone(MgResolveClassFunctionDefinitionTask.class, () -> {
                 MgResolveClassFunctionDefinitionTask task = new MgResolveClassFunctionDefinitionTask(getContext(), logicalFunction);
                 task.run();
-                clazz.getFunctions().addLast(task.getFunction());
+                clazz.getFunctionDefinitions().addLast(task.getFunction());
             });
         }
     }

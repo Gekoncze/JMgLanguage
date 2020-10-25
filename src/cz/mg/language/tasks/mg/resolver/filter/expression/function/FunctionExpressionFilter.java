@@ -27,10 +27,10 @@ public abstract class FunctionExpressionFilter extends ExpressionFilter<MgFuncti
         }
 
         if(destinationInputInterface != null){
-            if(destinationInputInterface.count() < function.getOutput().count()) return null;
-            for(int i = 0; i < function.getOutput().count(); i++){
+            if(destinationInputInterface.count() < function.getOutputVariables().count()) return null;
+            for(int i = 0; i < function.getOutputVariables().count(); i++){
                 MgDatatype destinationDatatype = destinationInputInterface.get(i).getDatatype();
-                MgDatatype sourceDatatype = function.getOutput().get(i).getDatatype();
+                MgDatatype sourceDatatype = function.getOutputVariables().get(i).getDatatype();
                 if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
             }
         }

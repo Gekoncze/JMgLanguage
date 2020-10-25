@@ -1,38 +1,47 @@
 package cz.mg.language.entities.mg.runtime.parts.commands;
 
-import cz.mg.annotations.storage.Part;
-import cz.mg.annotations.storage.Value;
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.annotations.storage.Link;
+import cz.mg.annotations.storage.Part;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgExceptionType;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
-import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.instances.MgInstance;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgRollbackCommand extends MgCommand {
+    private static final MgDatatype EXCEPTION_DATATYPE = new MgDatatype(
+        MgExceptionType.getInstance(),
+        MgDatatype.Storage.ANY,
+        MgDatatype.Requirement.OPTIONAL
+    );
+
     @Mandatory @Part
     private final MgExpression expression;
 
-    @Mandatory @Value
-    private final MgFunctionVariable input;
+    @Mandatory @Link
+    private final MgInputConnector inputConnector = new MgInputConnector(EXCEPTION_DATATYPE);
 
-    public MgRollbackCommand(@Part MgExpression expression, MgFunctionVariable input) {
+    public MgRollbackCommand(@Part MgExpression expression) {
         this.expression = expression;
-        this.input = input;
     }
 
     public MgExpression getExpression() {
         return expression;
     }
 
-    public MgFunctionVariable getInput() {
-        return input;
+    public MgInputConnector getInputConnector() {
+        return inputConnector;
     }
 
     @Override
     public void run(MgFunctionInstance functionInstance) {
         expression.run(functionInstance);
-        throw new RollbackException((MgInstance) functionInstance.getObjects().get(input.getOffset()));
+        MgInstanceVariable exceptionVariable = inputConnector.getConnection().getConnectionVariable();
+        throw new RollbackException((MgInstance) functionInstance.getObjects().get(exceptionVariable.getCache().getOffset()));
     }
 }

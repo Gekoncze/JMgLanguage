@@ -85,7 +85,7 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
                             task.run();
                             MgDatatype datatype = task.getDatatype();
 
-                            context.getCommand().getDeclaredVariables().addLast(
+                            context.getDeclaredVariables().addLast(
                                 context.getVariableHelper().nextDeclaredVariable(name, datatype)
                             );
 

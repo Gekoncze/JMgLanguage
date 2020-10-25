@@ -32,7 +32,7 @@ public class MgResolveElseCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        command = new MgElseCommand(new List<>());
+        command = new MgElseCommand();
 
         for(MgLogicalCommand logicalCommand : logicalCommand.getCommands()){
             MgResolveCommandTask resolveCommandTask = MgResolveCommandTask.create(context, logicalCommand);

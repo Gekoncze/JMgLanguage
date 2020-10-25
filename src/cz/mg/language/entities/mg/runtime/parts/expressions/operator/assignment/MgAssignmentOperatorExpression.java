@@ -4,6 +4,7 @@ import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Part;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
@@ -24,7 +25,8 @@ public abstract class MgAssignmentOperatorExpression extends MgOperatorExpressio
         MgExpression leftExpression,
         MgExpression rightExpression
     ) {
-        super(inputConnectors, createOutputInterface());
+//        super(inputConnectors, createOutputInterface());
+        new Todo();
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
     }

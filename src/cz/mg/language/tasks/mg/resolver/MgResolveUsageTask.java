@@ -115,12 +115,12 @@ public class MgResolveUsageTask extends MgPostponeResolveTask {
 
     private List<MgComponent> findInClass(MgClass clazz, ReadableText name){
         List<MgComponent> results = new List<>();
-        for(MgVariable variable : clazz.getVariables()){
+        for(MgVariable variable : clazz.getVariableDefinitions()){
             if(acceptName(variable, name)){
                 results.addLast(variable);
             }
         }
-        for(MgFunction function : clazz.getFunctions()){
+        for(MgFunction function : clazz.getFunctionDefinitions()){
             if(acceptName(function, name)){
                 results.addLast(function);
             }

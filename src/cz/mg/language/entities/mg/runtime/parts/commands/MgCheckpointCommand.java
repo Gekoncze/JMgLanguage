@@ -65,7 +65,7 @@ public class MgCheckpointCommand extends MgCommand {
             RollbackException re = (RollbackException) ae;
             for(MgCatchCommand catchCommand : catchCommands){
                 if(re.getObject().getType().is(catchCommand.getInput().getDatatype().getType())){
-                    functionObject.getObjects().set(re.getObject(), catchCommand.getInput().getOffset());
+                    functionObject.getObjects().set(re.getObject(), catchCommand.getInput().getCache().getOffset());
                     return catchCommand;
                 }
             }

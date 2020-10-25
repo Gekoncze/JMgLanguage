@@ -37,7 +37,10 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTask resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), null);
         resolveExpressionTask.run();
 
-        command = new MgExpressionCommand(resolveExpressionTask.createExpression());
+        // expression must have no output
+        resolveExpressionTask.getExpression().validate();
+
+        command = new MgExpressionCommand(resolveExpressionTask.getExpression());
         context.setCommand(command);
     }
 }

@@ -3,6 +3,9 @@ package cz.mg.language.tasks.mg.resolver.context;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
+import cz.mg.collections.list.List;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
@@ -13,6 +16,9 @@ import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionCon
 public class CommandContext extends Context {
     @Optional @Link
     private MgCommand command;
+
+    @Mandatory @Part
+    private final List<@Mandatory @Link MgInstanceVariable> declaredVariables = new List<>();
 
     public CommandContext(@Mandatory CommandContext outerContext) {
         super(outerContext);
@@ -28,6 +34,10 @@ public class CommandContext extends Context {
 
     public void setCommand(MgCommand command) {
         this.command = command;
+    }
+
+    public List<MgInstanceVariable> getDeclaredVariables() {
+        return declaredVariables;
     }
 
     public FunctionContext getFunctionContext(){
@@ -50,7 +60,7 @@ public class CommandContext extends Context {
 
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
-        for(MgVariable variable : command.getDeclaredVariables()){
+        for(MgVariable variable : declaredVariables){
             visitor.onVisitComponent(variable, null);
         }
     }

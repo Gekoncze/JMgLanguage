@@ -1,5 +1,6 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
+import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalRollbackCommand;
@@ -37,9 +38,10 @@ public class MgResolveRollbackCommandTask extends MgResolveCommandTask {
         MgResolveExceptionExpressionTask resolveExpressionTask = new MgResolveExceptionExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
 
-        command = new MgRollbackCommand(
-            resolveExpressionTask.createExpression(),
-            resolveExpressionTask.getVariable()
-        );
+        new Todo();
+//        command = new MgRollbackCommand(resolveExpressionTask.createExpression());
+
+        new Todo(); // todo - connect expression output to command input
+        resolveExpressionTask.getExpression().validate();
     }
 }

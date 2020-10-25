@@ -5,6 +5,7 @@ import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -28,6 +29,12 @@ public class MgValueAssignmentOperatorExpression extends MgAssignmentOperatorExp
 
     public ReadableArray<Replication> getReplications() {
         return replications;
+    }
+
+    @Override
+    protected MgCache createCache() {
+        new Todo();
+        return null;
     }
 
     @Override
@@ -56,8 +63,8 @@ public class MgValueAssignmentOperatorExpression extends MgAssignmentOperatorExp
             this.operator = operator;
             this.leftInput = leftInput;
             this.rightInput = rightInput;
-            if(operator.getInput().count() != 2) throw new RuntimeException();
-            if(operator.getOutput().count() != 0) throw new RuntimeException();
+            if(operator.getInputVariables().count() != 2) throw new RuntimeException();
+            if(operator.getOutputVariables().count() != 0) throw new RuntimeException();
         }
 
         public MgOperator getOperator() {
@@ -73,8 +80,8 @@ public class MgValueAssignmentOperatorExpression extends MgAssignmentOperatorExp
             MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(operator);
 
             // set input for newly created function object
-            newFunctionObject.getObjects().set(functionInstance.getObjects().get(leftInput.getConnection().getConnectionVariable().getOffset()), 0);
-            newFunctionObject.getObjects().set(functionInstance.getObjects().get(rightInput.getConnection().getConnectionVariable().getOffset()), 1);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(leftInput.getConnection().getConnectionVariable().getCache().getOffset()), 0);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(rightInput.getConnection().getConnectionVariable().getCache().getOffset()), 1);
 
             // run the function
             operator.run(newFunctionObject);
@@ -85,11 +92,11 @@ public class MgValueAssignmentOperatorExpression extends MgAssignmentOperatorExp
         Array<MgInputConnector> connectors = new Array<>(operator.count() * 2);
         int i = 0;
         for(MgOperator function : operator){
-            connectors.set(new MgInputConnector(function.getInput().getFirst().getDatatype()), i);
+            connectors.set(new MgInputConnector(function.getInputVariables().getFirst().getDatatype()), i);
             i++;
         }
         for(MgOperator function : operator){
-            connectors.set(new MgInputConnector(function.getInput().getLast().getDatatype()), i);
+            connectors.set(new MgInputConnector(function.getInputVariables().getLast().getDatatype()), i);
             i++;
         }
         return connectors;
@@ -97,15 +104,16 @@ public class MgValueAssignmentOperatorExpression extends MgAssignmentOperatorExp
 
     private ReadableArray<Replication> createReplications(List<MgOperator> operators){
         Array<Replication> replications = new Array<>(operators.count());
-        int i = 0;
-        for(MgOperator operator : operators){
-            replications.set(new Replication(
-                operator,
-                getInputConnectors().get(i),
-                getInputConnectors().get(i + operators.count())
-            ), i);
-            i++;
-        }
+        new Todo();
+//        int i = 0;
+//        for(MgOperator operator : operators){
+//            replications.set(new Replication(
+//                operator,
+//                getInputConnectors().get(i),
+//                getInputConnectors().get(i + operators.count())
+//            ), i);
+//            i++;
+//        }
         return replications;
     }
 }

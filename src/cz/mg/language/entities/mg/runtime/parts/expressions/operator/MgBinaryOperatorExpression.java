@@ -6,6 +6,7 @@ import cz.mg.collections.list.List;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -30,7 +31,8 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
         MgExpression rightExpression,
         List<MgOperator> operators
     ) {
-        super(createInputInterface(operators), createOutputInterface(operators));
+//        super(createInputInterface(operators), createOutputInterface(operators));
+        new Todo();
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.replications = createReplications(operators);
@@ -46,6 +48,12 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
 
     public ReadableArray<Replication> getReplications() {
         return replications;
+    }
+
+    @Override
+    protected MgCache createCache() {
+        new Todo();
+        return null;
     }
 
     @Override
@@ -83,8 +91,8 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
             this.leftInput = leftInput;
             this.rightInput = rightInput;
             this.output = output;
-            if(operator.getInput().count() != 2) throw new RuntimeException();
-            if(operator.getOutput().count() != 1) throw new RuntimeException();
+            if(operator.getInputVariables().count() != 2) throw new RuntimeException();
+            if(operator.getOutputVariables().count() != 1) throw new RuntimeException();
         }
 
         public MgOperator getOperator() {
@@ -100,14 +108,14 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
             MgFunctionInstanceImpl newFunctionObject = new MgFunctionInstanceImpl(operator);
 
             // set input for newly created function object
-            newFunctionObject.getObjects().set(functionInstance.getObjects().get(leftInput.getConnection().getConnectionVariable().getOffset()), 0);
-            newFunctionObject.getObjects().set(functionInstance.getObjects().get(rightInput.getConnection().getConnectionVariable().getOffset()), 1);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(leftInput.getConnection().getConnectionVariable().getCache().getOffset()), 0);
+            newFunctionObject.getObjects().set(functionInstance.getObjects().get(rightInput.getConnection().getConnectionVariable().getCache().getOffset()), 1);
 
             // run the function
             operator.run(newFunctionObject);
 
             // get and store output of the executed function object
-            functionInstance.getObjects().set(newFunctionObject.getObjects().get(2), output.getConnection().getConnectionVariable().getOffset());
+            functionInstance.getObjects().set(newFunctionObject.getObjects().get(2), output.getConnection().getConnectionVariable().getCache().getOffset());
         }
     }
 
@@ -115,11 +123,11 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
         Array<MgInputConnector> connectors = new Array<>(operator.count() * 2);
         int i = 0;
         for(MgOperator function : operator){
-            connectors.set(new MgInputConnector(function.getInput().getFirst().getDatatype()), i);
+            connectors.set(new MgInputConnector(function.getInputVariables().getFirst().getDatatype()), i);
             i++;
         }
         for(MgOperator function : operator){
-            connectors.set(new MgInputConnector(function.getInput().getLast().getDatatype()), i);
+            connectors.set(new MgInputConnector(function.getInputVariables().getLast().getDatatype()), i);
             i++;
         }
         return connectors;
@@ -129,7 +137,7 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
         Array<MgOutputConnector> connectors = new Array<>(functions.count());
         int i = 0;
         for(MgOperator function : functions){
-            connectors.set(new MgOutputConnector(function.getOutput().getFirst().getDatatype()), i);
+            connectors.set(new MgOutputConnector(function.getOutputVariables().getFirst().getDatatype()), i);
             i++;
         }
         return connectors;
@@ -137,16 +145,17 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
 
     private ReadableArray<Replication> createReplications(List<MgOperator> operators){
         Array<Replication> replications = new Array<>(operators.count());
-        int i = 0;
-        for(MgOperator operator : operators){
-            replications.set(new Replication(
-                operator,
-                getInputConnectors().get(i),
-                getInputConnectors().get(i + operators.count()),
-                getOutputConnectors().get(i)
-            ), i);
-            i++;
-        }
+        new Todo();
+//        int i = 0;
+//        for(MgOperator operator : operators){
+//            replications.set(new Replication(
+//                operator,
+//                getInputConnectors().get(i),
+//                getInputConnectors().get(i + operators.count()),
+//                getOutputConnectors().get(i)
+//            ), i);
+//            i++;
+//        }
         return replications;
     }
 }

@@ -34,11 +34,11 @@ public class CollectionContext extends StructuredTypeContext {
     @Override
     public void forEachComponent(ComponentVisitor visitor) {
         if(collection != null){
-            for(MgVariable variable : collection.getVariables()){
+            for(MgVariable variable : collection.getVariableDefinitions()){
                 visitor.onVisitComponent(variable, null);
             }
 
-            for(MgFunction function : collection.getFunctions()){
+            for(MgFunction function : collection.getFunctionDefinitions()){
                 visitor.onVisitComponent(function, null);
             }
 

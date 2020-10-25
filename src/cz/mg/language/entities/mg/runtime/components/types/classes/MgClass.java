@@ -1,6 +1,9 @@
 package cz.mg.language.entities.mg.runtime.components.types.classes;
 
+import cz.mg.annotations.storage.Value;
+import cz.mg.collections.Clump;
 import cz.mg.collections.list.ArrayList;
+import cz.mg.collections.special.CompositeCollection;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
@@ -11,8 +14,7 @@ import cz.mg.language.entities.mg.runtime.components.types.MgStructuredType;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgClassVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.*;
 
 
 public class MgClass extends MgStructuredType {
@@ -20,13 +22,13 @@ public class MgClass extends MgStructuredType {
     private MgClass baseClass;
 
     @Mandatory @Part
-    private final ArrayList<MgVariable> variables = new ArrayList<>();
+    private final ArrayList<MgVariable> variableDefinitions = new ArrayList<>();
 
     @Mandatory @Part
-    private final ArrayList<MgFunction> functions = new ArrayList<>();
+    private final ArrayList<MgFunction> functionDefinitions = new ArrayList<>();
 
     @Optional @Cache
-    private Integer variableCountCache;
+    private MgCache cache;
 
     public MgClass(ReadableText name) {
         super(name);
@@ -36,47 +38,26 @@ public class MgClass extends MgStructuredType {
         return baseClass;
     }
 
-    public ArrayList<MgVariable> getVariables() {
-        return variables;
+    public ArrayList<MgVariable> getVariableDefinitions() {
+        return variableDefinitions;
     }
 
-    public ArrayList<MgFunction> getFunctions() {
-        return functions;
+    public ArrayList<MgFunction> getFunctionDefinitions() {
+        return functionDefinitions;
     }
 
     public void setBaseClass(MgClass baseClass) {
         this.baseClass = baseClass;
     }
 
-    public Integer getVariableCountCache() {
-        if(variableCountCache == null) updateVariableCountCache();
-        return variableCountCache;
+    public MgCache getCache() {
+        if(cache == null) cache = new MgCache(this);
+        return cache;
     }
 
-    public int updateVariableOffsetCache(){
-        int i = 0;
-        if(baseClass != null) i = baseClass.updateVariableOffsetCache();
-        for(MgVariable variable : getVariables()){
-            if(variable instanceof MgClassVariable){
-                ((MgClassVariable) variable).setOffset(i);
-                i++;
-            }
-        }
-        return i;
-    }
-
-    private void updateVariableCountCache(){
-        int count = 0;
-        MgClass clazz = this;
-        while(clazz != null){
-            for(MgVariable variable : getVariables()){
-                if(variable instanceof MgClassVariable){
-                    count++;
-                }
-            }
-            clazz = clazz.getBaseClass();
-        }
-        variableCountCache = count;
+    @Override
+    public Clump<MgVariable> getVariables() {
+        return new CompositeCollection<>(baseClass.getVariables(), variableDefinitions);
     }
 
     @Override
@@ -85,5 +66,18 @@ public class MgClass extends MgStructuredType {
         if(baseType == this) return true;
         if(baseClass != null) return baseClass.is(baseType);
         return false;
+    }
+
+    public static class MgCache {
+        @Mandatory @Value
+        private final int variableCount;
+
+        public MgCache(MgClass clazz) {
+            this.variableCount = Clump.count(clazz.getInstanceVariables());
+        }
+
+        public int getVariableCount() {
+            return variableCount;
+        }
     }
 }

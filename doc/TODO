@@ -1,9 +1,15 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+another major mg entity refactoring
+removed function and class variable
+structured type now offers various variable getters
+improved cache handling
+some other fixes and improvements
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 large expression resolver refactoring ...
+    fix operator expressions
+
     fix all mg expression resolvers
         children are NOT automatically connected
         so these has to be connected manually in resolvers!
@@ -15,6 +21,16 @@ large expression resolver refactoring ...
             check that we cannot reference assign to function call or anything that can accept one parameter
                 so we will need to check for type of expression
             for connecting - I think we will just go through left expressions and manuall gather all leaves
+
+    fix all mg command resolvers
+
+maybe change syntax of operator definition ... ???
+    I think current one is a bit clumsy
+    we should allow something like this:
+        LUNARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
+        RUNARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
+        BINARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
+        this *might* also allow for operator aliasing, but I would still not recommend it yet
 
 update expression resolvers
     enhance member access operator resolver

@@ -5,33 +5,39 @@ import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Value;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
+import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgCaseCommand extends MgCommand {
+    private static final MgDatatype BOOL_DATATYPE = new MgDatatype(
+        MgBoolType.getInstance(),
+        MgDatatype.Storage.ANY,
+        MgDatatype.Requirement.OPTIONAL
+    );
+
     @Optional @Part
     private final MgExpression expression;
 
     @Optional @Value
-    private final MgFunctionVariable input;
+    private final MgInputConnector inputConnector = new MgInputConnector(BOOL_DATATYPE);
 
     @Mandatory @Part
-    private final List<MgCommand> commands;
+    private final List<MgCommand> commands = new List<>();
 
-    public MgCaseCommand(MgExpression expression, MgFunctionVariable input, List<MgCommand> commands) {
+    public MgCaseCommand(MgExpression expression) {
         this.expression = expression;
-        this.input = input;
-        this.commands = commands;
     }
 
     public MgExpression getExpression() {
         return expression;
     }
 
-    public MgFunctionVariable getInput() {
-        return input;
+    public MgInputConnector getInputConnector() {
+        return inputConnector;
     }
 
     public List<MgCommand> getCommands() {

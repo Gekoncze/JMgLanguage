@@ -1,6 +1,8 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.name;
 
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
@@ -14,22 +16,33 @@ public class MgResolveFunctionExpressionTask extends MgResolveNameExpressionTask
         super(context, logicalExpression, parent);
     }
 
+    @Override
     protected void onResolve() {
-        createNode(createFilter().findOptional());
-
-        if(logicalExpression.getExpression() != null){
-            onResolveChild(logicalExpression.getExpression());
-        }
-
-        createNode(createFilter().find());
+        new Todo();
     }
 
-    private NameExpressionFilter createFilter(){
-        return new NameExpressionFilter(
-            context,
-            logicalExpression.getName(),
-            getParentInputConnectors(),
-            getChildrenOutputConnectors()
-        );
+    @Override
+    public MgExpression getExpression() {
+        new Todo();
+        return null;
     }
+
+//    protected void onResolve() {
+//        createNode(createFilter().findOptional());
+//
+//        if(logicalExpression.getExpression() != null){
+//            onResolveChild(logicalExpression.getExpression());
+//        }
+//
+//        createNode(createFilter().find());
+//    }
+//
+//    private NameExpressionFilter createFilter(){
+//        return new NameExpressionFilter(
+//            context,
+//            logicalExpression.getName(),
+//            getParentInputConnectors(),
+//            getChildrenOutputConnectors()
+//        );
+//    }
 }

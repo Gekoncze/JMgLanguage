@@ -2,25 +2,25 @@ package cz.mg.language.entities.mg.runtime.parts.connection;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
-import cz.mg.language.entities.mg.runtime.components.variables.MgFunctionVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 
 
 public class MgConnection {
     @Mandatory @Link
-    private final MgFunctionVariable connectionVariable;
+    private final MgInstanceVariable connectionVariable;
 
-    private MgConnection(@Mandatory @Link MgFunctionVariable connectionVariable) {
+    private MgConnection(@Mandatory @Link MgInstanceVariable connectionVariable) {
         this.connectionVariable = connectionVariable;
     }
 
-    public MgFunctionVariable getConnectionVariable() {
+    public MgInstanceVariable getConnectionVariable() {
         return connectionVariable;
     }
 
     public static void connect(
         @Mandatory MgInputConnector inputConnector,
-        @Mandatory MgFunctionVariable connectionVariable,
+        @Mandatory MgInstanceVariable connectionVariable,
         @Mandatory MgOutputConnector outputConnector
     ){
         if(inputConnector.getConnection() != null || outputConnector.getConnection() != null){

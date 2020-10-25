@@ -16,9 +16,9 @@ public class MgFunctionInstanceImpl implements MgFunctionInstance {
     @Mandatory @Part
     private final Array<@Optional MgObject> objects;
 
-    public MgFunctionInstanceImpl(MgFunction type) {
-        this.type = type;
-        this.objects = new Array<>(type.getVariableCountCache());
+    public MgFunctionInstanceImpl(MgFunction function) {
+        this.type = function;
+        this.objects = new Array<>(function.getVariableCountCache());
     }
 
     @Override

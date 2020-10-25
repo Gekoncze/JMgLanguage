@@ -65,19 +65,17 @@ public class MgResolveClassFunctionDefinitionTask extends MgResolveComponentDefi
 
         for(MgLogicalVariable logicalInput : logicalFunction.getInput()){
             postpone(MgResolveFunctionVariableDefinitionTask.class, () -> {
-                MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(getContext(), logicalInput);
+                MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(getContext(), function, logicalInput);
                 task.run();
-                function.getInput().addLast(task.getVariable());
-                function.updateVariableOffsetCache();
+                function.getInputVariables().addLast(task.getVariable());
             });
         }
 
         for(MgLogicalVariable logicalOutput : logicalFunction.getOutput()){
             postpone(MgResolveFunctionVariableDefinitionTask.class, () -> {
-                MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(getContext(), logicalOutput);
+                MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(getContext(), function, logicalOutput);
                 task.run();
-                function.getOutput().addLast(task.getVariable());
-                function.updateVariableOffsetCache();
+                function.getOutputVariables().addLast(task.getVariable());
             });
         }
 
@@ -86,7 +84,6 @@ public class MgResolveClassFunctionDefinitionTask extends MgResolveComponentDefi
                 MgResolveCommandTask task = MgResolveCommandTask.create(new CommandContext(getContext()), logicalCommand);
                 task.run();
                 function.getCommands().addLast(task.getCommand());
-                function.updateVariableOffsetCache();
             });
         }
     }

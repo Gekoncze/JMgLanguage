@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.runtime.instances.buildin.MgBoolObject;
 
 
 public class MgBoolType extends MgAtomType {
-    public static final MgBoolType INSTANCE = new MgBoolType();
+    private static final MgBoolType INSTANCE = new MgBoolType();
 
     public static MgBoolType getInstance(){
         return INSTANCE;

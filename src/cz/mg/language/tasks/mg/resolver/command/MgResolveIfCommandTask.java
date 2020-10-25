@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
 import cz.mg.collections.list.List;
+import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
@@ -39,11 +40,10 @@ public class MgResolveIfCommandTask extends MgResolveCommandTask {
         MgResolveBooleanExpressionTask resolveExpressionTask = new MgResolveBooleanExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
 
-        command = new MgIfCommand(
-            resolveExpressionTask.createExpression(),
-            resolveExpressionTask.getVariable(),
-            new List<>()
-        );
+        command = new MgIfCommand(resolveExpressionTask.getExpression());
+
+        new Todo(); // todo - connect expression output to command input
+        resolveExpressionTask.getExpression().validate();
 
         for(MgLogicalCommand logicalCommand : logicalCommand.getCommands()){
             MgResolveCommandTask resolveCommandTask = MgResolveCommandTask.create(context, logicalCommand);
