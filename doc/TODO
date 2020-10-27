@@ -4,17 +4,33 @@
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 large expression resolver refactoring ...
+    do group expression need to create connectors?
+        it might be necessary for resolve, but not for anything else ... investigate
+
     fix all mg expression resolvers
         children are NOT automatically connected
         so these has to be connected manually in resolvers!
 
         reference assignment
-            children stored as for normal binary operator
-            resolve first right and then left expression ???
-            left expression and right expression will be connected
+            left expression and right expression connection might be a little bit tricky, but possible
             check that we cannot reference assign to function call or anything that can accept one parameter
                 so we will need to check for type of expression
-            for connecting - I think we will just go through left expressions and manuall gather all leaves
+                I think we will need to check if left is group
+                    if yes then gather all variable set expressions
+                    might need to sink further to next group expressions ... ???
+
+        make sure it handles different kinds of variables and functions correctly based on annotations
+            variables
+                global variable
+                instance variable (annotated with @instance)
+                    function variable
+                    class variable
+                type variable (annotated with @type)
+
+            functions
+                global function
+                instance function (annotated with @instance)
+                type function (annotated with @type)
 
     fix all mg command resolvers
 
@@ -29,21 +45,6 @@ maybe change syntax of operator definition ... ???
     fix operator expressions after that
         will also need to create new lu/ru/bi operator expressions
         wil also need to fix filters and contexts after that
-
-update expression resolvers
-    enhance member access operator resolver
-        make sure it handles different kinds of variables and functions correctly based on annotations
-            variables
-                global variable
-                instance variable (annotated with @instance)
-                    function variable
-                    class variable
-                type variable (annotated with @type)
-
-            functions
-                global function
-                instance function (annotated with @instance)
-                type function (annotated with @type)
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
