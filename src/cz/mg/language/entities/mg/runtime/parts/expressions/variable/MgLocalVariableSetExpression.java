@@ -4,11 +4,18 @@ import cz.mg.collections.array.Array;
 import cz.mg.language.entities.mg.runtime.MgObject;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 
 
-public class MgLocalVariableSetExpression extends MgVariableSetExpression {
+public class MgLocalVariableSetExpression extends MgVariableExpression {
     public MgLocalVariableSetExpression(MgInstanceVariable variable) {
-        super(variable);
+        super(
+            new Array<>(
+                MgVariableSetExpression.createInputConnector(variable)
+            ),
+            new Array<>(),
+            variable
+        );
     }
 
     @Override
@@ -17,19 +24,11 @@ public class MgLocalVariableSetExpression extends MgVariableSetExpression {
     }
 
     @Override
-    protected MgCache createCache() {
-        return new MgCache(
-            new Array<>(getInputConnector()),
-            new Array<>()
-        );
-    }
+    public void onRun(MgFunctionInstance functionInstance) {
+        MgInputConnector inputConnector = getInputConnectors().getFirst();
+        MgInstanceVariable inputVariable = inputConnector.getConnection().getConnectionVariable();
+        MgObject inputObject = functionInstance.getObjects().get(inputVariable.getCache().getOffset());
 
-    @Override
-    public void run(MgFunctionInstance functionInstance) {
-        if(DEBUG) validate();
-
-        MgInstanceVariable inputVariable = getInputConnector().getConnection().getConnectionVariable();
-        MgObject inputValue = functionInstance.getObjects().get(inputVariable.getCache().getOffset());
-        functionInstance.getObjects().set(inputValue, getVariable().getCache().getOffset());
+        functionInstance.getObjects().set(inputObject, getVariable().getCache().getOffset());
     }
 }

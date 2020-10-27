@@ -1,9 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-another major mg entity refactoring
-removed function and class variable
-structured type now offers various variable getters
-improved cache handling
-some other fixes and improvements
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------

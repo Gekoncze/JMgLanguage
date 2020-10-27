@@ -5,9 +5,15 @@ import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariabl
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 
 
-public class MgLocalVariableGetExpression extends MgVariableGetExpression {
+public class MgLocalVariableGetExpression extends MgVariableExpression {
     public MgLocalVariableGetExpression(MgInstanceVariable variable) {
-        super(variable);
+        super(
+            new Array<>(),
+            new Array<>(
+                MgVariableGetExpression.createOutputConnector(variable)
+            ),
+            variable
+        );
     }
 
     @Override
@@ -16,16 +22,6 @@ public class MgLocalVariableGetExpression extends MgVariableGetExpression {
     }
 
     @Override
-    protected MgCache createCache() {
-        return new MgCache(
-            new Array<>(),
-            new Array<>(getOutputConnector())
-        );
-    }
-
-    @Override
-    public void run(MgFunctionInstance functionInstance) {
-        if(DEBUG) validate();
-        // nothing to do
+    public void onRun(MgFunctionInstance functionInstance) {
     }
 }
