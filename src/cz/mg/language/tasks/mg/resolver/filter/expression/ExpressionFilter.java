@@ -42,7 +42,7 @@ public abstract class ExpressionFilter<C extends MgComponent> extends Filter<C> 
     private static ReadableArray<MgInputConnector> destinationInterface(MgExpression parent){
         if(parent != null){
             List<MgInputConnector> connectors = new List<>();
-            for(MgInputConnector connector : parent.getCache().getInputConnectors()){
+            for(MgInputConnector connector : parent.getInputConnectors()){
                 if(connector.getConnection() != null){
                     connectors.addLast(connector);
                 }
@@ -56,7 +56,7 @@ public abstract class ExpressionFilter<C extends MgComponent> extends Filter<C> 
     private static ReadableArray<MgOutputConnector> sourceInterface(MgExpression child){
         if(child != null){
             List<MgOutputConnector> connectors = new List<>();
-            for(MgOutputConnector connector : child.getCache().getOutputConnectors()){
+            for(MgOutputConnector connector : child.getOutputConnectors()){
                 if(connector.getConnection() != null){
                     connectors.addLast(connector);
                 }

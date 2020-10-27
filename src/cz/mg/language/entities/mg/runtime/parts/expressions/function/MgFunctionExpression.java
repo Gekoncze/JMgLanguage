@@ -1,7 +1,7 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.function;
 
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.storage.Link;
 import cz.mg.collections.Pass;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.array.ReadableArray;
@@ -16,7 +16,7 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public abstract class MgFunctionExpression extends MgExpression {
-    @Mandatory @Part
+    @Mandatory @Link
     private final MgFunction function;
 
     public MgFunctionExpression(

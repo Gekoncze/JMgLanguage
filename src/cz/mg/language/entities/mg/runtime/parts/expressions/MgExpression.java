@@ -2,6 +2,7 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.storage.Shared;
 import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
@@ -17,10 +18,10 @@ public abstract class MgExpression implements MgRunnable {
     private final List<@Mandatory @Part MgExpression> expressions = new List<>();
 
     @Mandatory @Part
-    private final ReadableArray<@Mandatory @Part MgInputConnector> inputConnectors;
+    private final ReadableArray<@Mandatory @Shared MgInputConnector> inputConnectors;
 
     @Mandatory @Part
-    private final ReadableArray<@Mandatory @Part MgOutputConnector> outputConnectors;
+    private final ReadableArray<@Mandatory @Shared MgOutputConnector> outputConnectors;
 
     public MgExpression(
         ReadableArray<MgInputConnector> inputConnectors,
@@ -30,15 +31,15 @@ public abstract class MgExpression implements MgRunnable {
         this.outputConnectors = outputConnectors;
     }
 
-    public final List<MgExpression> getExpressions() {
+    public List<MgExpression> getExpressions() {
         return expressions;
     }
 
-    public final ReadableArray<MgInputConnector> getInputConnectors() {
+    public ReadableArray<MgInputConnector> getInputConnectors() {
         return inputConnectors;
     }
 
-    public final ReadableArray<MgOutputConnector> getOutputConnectors() {
+    public ReadableArray<MgOutputConnector> getOutputConnectors() {
         return outputConnectors;
     }
 
@@ -63,7 +64,6 @@ public abstract class MgExpression implements MgRunnable {
         for(MgExpression expression : expressions){
             expression.run(functionInstance);
         }
-        onRun(functionInstance);
     }
 
     protected abstract void onRun(MgFunctionInstance functionInstance);

@@ -20,16 +20,16 @@ public class MemberVariableExpressionFilter extends VariableExpressionFilter {
     ) {
         super(targetContext, requiredName, destination, target, value);
 
-        if(target.getCache().getOutputConnectors().count() < 1){
+        if(target.getOutputConnectors().count() < 1){
             throw new LanguageException("Target expression has no output.");
         }
 
-        if(target.getCache().getOutputConnectors().count() > 1){
+        if(target.getOutputConnectors().count() > 1){
             throw new LanguageException("Target expression has multiple output.");
         }
 
         new Todo(); // todo - verify if this is correct
-        if(target.getCache().getOutputConnectors().getFirst().getDatatype().getType() != targetContext.getComponent()){
+        if(target.getOutputConnectors().getFirst().getDatatype().getType() != targetContext.getComponent()){
             throw new RuntimeException();
         }
     }

@@ -6,8 +6,8 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 
 
-public class MgBinaryOperatorExpression extends MgOperatorExpression {
-    public MgBinaryOperatorExpression(ReadableCollection<MgOperator> operators) {
+public class MgValueAssignmentOperatorExpression extends MgOperatorExpression {
+    public MgValueAssignmentOperatorExpression(ReadableCollection<MgOperator> operators) {
         super(checkOutput(checkInput(checkPosition(operators))));
     }
 
@@ -23,7 +23,7 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
     private static ReadableCollection<MgOperator> checkInput(ReadableCollection<MgOperator> operators){
         for(MgOperator operator: operators){
             if(operator.getInputVariables().count() != 2){
-                throw new LanguageException("Illegal input count for binary operator.");
+                throw new LanguageException("Illegal input count for assignment operator.");
             }
         }
         return operators;
@@ -31,8 +31,8 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
 
     private static ReadableCollection<MgOperator> checkOutput(ReadableCollection<MgOperator> operators){
         for(MgOperator operator : operators){
-            if(operator.getOutputVariables().count() != 1){
-                throw new LanguageException("Illegal output count for binary operator.");
+            if(operator.getOutputVariables().count() != 0){
+                throw new LanguageException("Illegal output count for assignment operator.");
             }
         }
         return operators;

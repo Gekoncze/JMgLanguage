@@ -4,8 +4,6 @@
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 large expression resolver refactoring ...
-    fix operator expressions
-
     fix all mg expression resolvers
         children are NOT automatically connected
         so these has to be connected manually in resolvers!
@@ -27,6 +25,10 @@ maybe change syntax of operator definition ... ???
         RUNARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
         BINARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
         this *might* also allow for operator aliasing, but I would still not recommend it yet
+
+    fix operator expressions after that
+        will also need to create new lu/ru/bi operator expressions
+        wil also need to fix filters and contexts after that
 
 update expression resolvers
     enhance member access operator resolver
