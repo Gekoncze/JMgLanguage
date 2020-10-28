@@ -3,13 +3,11 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-large expression resolver refactoring ...
-    do group expression need to create connectors?
-        it might be necessary for resolve, but not for anything else ... investigate
-
+fix all mg expression resolvers
     fix assignment operator expression resolvers
+        value assignment
+            almost same as binary operator expression resolver
 
-    fix all mg expression resolvers
         reference assignment
             left expression and right expression connection might be a little bit tricky, but possible
             check that we cannot reference assign to function call or anything that can accept one parameter
@@ -18,18 +16,27 @@ large expression resolver refactoring ...
                     if yes then gather all variable set expressions
                     might need to sink further to next group expressions ... ???
 
-        make sure it handles different kinds of variables and functions correctly based on annotations
-            variables
-                global variable
-                instance variable (annotated with @instance)
-                    function variable
-                    class variable
-                type variable (annotated with @type)
+    fix variable expression resolvers
+    fix function expression resolvers
 
-            functions
-                global function
-                instance function (annotated with @instance)
-                type function (annotated with @type)
+    fix group expression resolvers
+        do group expression need to create connectors?
+                it might be necessary for resolve, but not for anything else ... investigate
+
+    fix value expression resolver
+
+    Note: make sure it handles different kinds of variables and functions correctly based on annotations
+        variables
+            global variable
+            instance variable (annotated with @instance)
+                function variable
+                class variable
+            type variable (annotated with @type)
+
+        functions
+            global function
+            instance function (annotated with @instance)
+            type function (annotated with @type)
 
 check again if empty groups (for function calls) are allowed, I cant seem to find them again ...
 
