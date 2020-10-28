@@ -1,14 +1,12 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.collections.list.List;
-import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalIfCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgIfCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveBooleanExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.root.MgResolveNonVoidExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -37,13 +35,11 @@ public class MgResolveIfCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
         resolveExpressionTreeTask.run();
 
-        MgResolveBooleanExpressionTask resolveExpressionTask = new MgResolveBooleanExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
+        MgResolveNonVoidExpressionTask resolveExpressionTask = new MgResolveNonVoidExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
-
         command = new MgIfCommand(resolveExpressionTask.getExpression());
-
-        new Todo(); // todo - connect expression output to command input
-        resolveExpressionTask.getExpression().validate();
+        context.setCommand(command);
+        resolveExpressionTask.connect(command.getInputConnector());
 
         for(MgLogicalCommand logicalCommand : logicalCommand.getCommands()){
             MgResolveCommandTask resolveCommandTask = MgResolveCommandTask.create(context, logicalCommand);

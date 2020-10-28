@@ -1,6 +1,5 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
@@ -31,7 +30,8 @@ public class MgResolveTryCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        command = new MgTryCommand(new List<>());
+        command = new MgTryCommand();
+        context.setCommand(command);
 
         for(MgLogicalCommand logicalCommand : logicalCommand.getCommands()){
             MgResolveCommandTask resolveCommandTask = MgResolveCommandTask.create(context, logicalCommand);

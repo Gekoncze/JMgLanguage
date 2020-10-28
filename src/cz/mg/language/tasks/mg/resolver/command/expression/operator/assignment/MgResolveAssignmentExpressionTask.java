@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallE
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.MgResolveOperatorExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveVoidExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.root.MgResolveVoidExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 

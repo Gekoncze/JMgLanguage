@@ -31,7 +31,8 @@ public class MgResolveFinallyCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        command = new MgFinallyCommand(new List<>());
+        command = new MgFinallyCommand();
+        context.setCommand(command);
 
         for(MgLogicalCommand logicalCommand : logicalCommand.getCommands()){
             MgResolveCommandTask resolveCommandTask = MgResolveCommandTask.create(context, logicalCommand);

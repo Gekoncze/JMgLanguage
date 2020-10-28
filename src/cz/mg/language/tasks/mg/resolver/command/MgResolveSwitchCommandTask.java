@@ -32,7 +32,8 @@ public class MgResolveSwitchCommandTask extends MgResolveCommandTask {
 
     @Override
     protected void onRun() {
-        command = new MgSwitchCommand(new List<>());
+        command = new MgSwitchCommand();
+        context.setCommand(command);
 
         for(MgLogicalCaseCommand logicalCaseCommand : logicalCommand.getCommands()){
             if(logicalCaseCommand instanceof MgLogicalElseCommand){

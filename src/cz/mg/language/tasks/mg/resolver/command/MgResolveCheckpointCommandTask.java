@@ -59,5 +59,6 @@ public class MgResolveCheckpointCommandTask extends MgResolveCommandTask {
         }
 
         command = new MgCheckpointCommand(tryCommand, catchCommands, finallyCommand);
+        context.setCommand(command);
     }
 }

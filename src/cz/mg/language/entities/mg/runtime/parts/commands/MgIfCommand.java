@@ -27,7 +27,7 @@ public class MgIfCommand extends MgCommand {
     private final MgInputConnector inputConnector = new MgInputConnector(BOOL_DATATYPE);
 
     @Mandatory @Part
-    private final List<MgCommand> commands = new List<>();
+    private final List<@Mandatory @Part MgCommand> commands = new List<>();
 
     public MgIfCommand(MgExpression expression) {
         this.expression = expression;

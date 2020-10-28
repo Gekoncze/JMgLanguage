@@ -1,12 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalRollbackCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgRollbackCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.special.MgResolveExceptionExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.root.MgResolveNonVoidExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -35,13 +34,10 @@ public class MgResolveRollbackCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
         resolveExpressionTreeTask.run();
 
-        MgResolveExceptionExpressionTask resolveExpressionTask = new MgResolveExceptionExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
+        MgResolveNonVoidExpressionTask resolveExpressionTask = new MgResolveNonVoidExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
-
-        new Todo();
-//        command = new MgRollbackCommand(resolveExpressionTask.createExpression());
-
-        new Todo(); // todo - connect expression output to command input
-        resolveExpressionTask.getExpression().validate();
+        command = new MgRollbackCommand(resolveExpressionTask.getExpression());
+        context.setCommand(command);
+        resolveExpressionTask.connect(command.getInputConnector());
     }
 }

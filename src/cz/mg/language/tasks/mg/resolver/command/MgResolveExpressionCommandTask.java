@@ -4,8 +4,8 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalExpressionCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgExpressionCommand;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
+import cz.mg.language.tasks.mg.resolver.command.expression.root.MgResolveVoidExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -34,13 +34,10 @@ public class MgResolveExpressionCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
         resolveExpressionTreeTask.run();
 
-        MgResolveExpressionTask resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), null);
+        MgResolveVoidExpressionTask resolveExpressionTask = new MgResolveVoidExpressionTask(context, resolveExpressionTreeTask.getLogicalCallExpression());
         resolveExpressionTask.run();
-
-        // expression must have no output
-        resolveExpressionTask.getExpression().validate();
-
         command = new MgExpressionCommand(resolveExpressionTask.getExpression());
         context.setCommand(command);
+        resolveExpressionTask.connect(null);
     }
 }

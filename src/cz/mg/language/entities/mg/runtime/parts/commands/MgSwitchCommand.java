@@ -10,10 +10,9 @@ import cz.mg.language.entities.mg.runtime.instances.buildin.MgBoolObject;
 
 public class MgSwitchCommand extends MgCommand {
     @Mandatory @Part
-    private final List<MgCaseCommand> caseCommands;
+    private final List<@Mandatory @Part MgCaseCommand> caseCommands = new List<>();
 
-    public MgSwitchCommand(List<MgCaseCommand> caseCommands) {
-        this.caseCommands = caseCommands;
+    public MgSwitchCommand() {
     }
 
     public List<MgCaseCommand> getCaseCommands() {

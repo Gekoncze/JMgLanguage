@@ -51,6 +51,10 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
         return expression;
     }
 
+    public MgInputConnector getInputConnector() {
+        return inputConnector;
+    }
+
     public List<MgCommand> getCommands() {
         return commands;
     }

@@ -8,10 +8,9 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 
 public class MgTryCommand extends MgCommand {
     @Mandatory @Part
-    private final List<MgCommand> commands;
+    private final List<@Mandatory @Part MgCommand> commands = new List<>();
 
-    public MgTryCommand(List<MgCommand> commands) {
-        this.commands = commands;
+    public MgTryCommand() {
     }
 
     public List<MgCommand> getCommands() {

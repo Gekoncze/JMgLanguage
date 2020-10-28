@@ -1,8 +1,6 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed operator resolvers
-fixed also resolve expression tree task and related
-fixed operator expressions
-fixed operator filters
+fixed command expressions
+and command resolvers
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -36,8 +34,6 @@ large expression resolver refactoring ...
                 global function
                 instance function (annotated with @instance)
                 type function (annotated with @type)
-
-    fix all mg command resolvers
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
