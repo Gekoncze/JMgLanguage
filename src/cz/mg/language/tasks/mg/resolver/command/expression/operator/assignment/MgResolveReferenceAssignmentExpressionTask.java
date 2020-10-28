@@ -1,25 +1,32 @@
-//package cz.mg.language.tasks.mg.resolver.command.expression;
-//
-//import cz.mg.collections.list.List;
-//import cz.mg.language.LanguageException;
-//import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
-//import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-//import cz.mg.language.entities.mg.runtime.parts.expressions.MgGroupExpression;
-//import cz.mg.language.entities.mg.runtime.parts.expressions.assignment.MgReferenceAssignmentExpression;
-//import cz.mg.language.entities.mg.runtime.parts.expressions.variable.MgVariableExpression;
-//import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-//import static cz.mg.language.entities.mg.runtime.parts.expressions.assignment.MgReferenceAssignmentExpression.Replication;
-//
-//
-//public class MgResolveReferenceAssignmentExpressionTask extends MgResolveAssignmentExpressionTask {
-//    public MgResolveReferenceAssignmentExpressionTask(
-//        CommandContext context,
-//        MgLogicalBinaryOperatorCallExpression logicalExpression,
-//        MgResolveExpressionTask parent
-//    ) {
-//        super(context, logicalExpression, parent);
-//    }
-//
+package cz.mg.language.tasks.mg.resolver.command.expression.operator.assignment;
+
+import cz.mg.language.Todo;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+
+
+public class MgResolveReferenceAssignmentExpressionTask extends MgResolveAssignmentExpressionTask {
+    public MgResolveReferenceAssignmentExpressionTask(
+        CommandContext context,
+        MgLogicalBinaryOperatorCallExpression logicalExpression,
+        MgResolveExpressionTask parent
+    ) {
+        super(context, logicalExpression, parent);
+    }
+
+    @Override
+    public MgExpression getExpression() {
+        new Todo();
+        return null;
+    }
+
+    @Override
+    protected void onResolve() {
+        new Todo();
+    }
+
 //    @Override
 //    protected MgExpression onCreateExpression() {
 //        Iterator<InputConnector> inputConnectors = getInputConnectors().getConnectors().iterator();
@@ -48,4 +55,4 @@
 //        }
 //        return replications;
 //    }
-//}
+}

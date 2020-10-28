@@ -1,16 +1,15 @@
 package cz.mg.language.tasks.mg.resolver.filter.expression.operator;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgBinaryOperator;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public class BinaryOperatorExpressionFilter extends OperatorExpressionFilter {
+public class BinaryOperatorExpressionFilter extends OperatorExpressionFilter<MgBinaryOperator> {
     public BinaryOperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
@@ -19,15 +18,15 @@ public class BinaryOperatorExpressionFilter extends OperatorExpressionFilter {
         @Optional MgExpression rightSource,
         @Mandatory int replication
     ) {
-        super(context, requiredName, destination, leftSource, rightSource, replication);
+        super(context, requiredName, MgBinaryOperator.class, destination, leftSource, rightSource, replication);
     }
 
     @Override
-    protected @Optional MgOperator filter(@Optional MgOperator operator) {
-        return filterBySource(filterByDestination(filterByPosition(operator)));
+    protected @Optional MgBinaryOperator filter(@Optional MgBinaryOperator operator) {
+        return filterBySource(filterByDestination(operator));
     }
 
-    private @Optional MgOperator filterBySource(@Optional MgOperator operator){
+    private @Optional MgBinaryOperator filterBySource(@Optional MgBinaryOperator operator){
         if(operator == null){
             return null;
         }
@@ -43,17 +42,5 @@ public class BinaryOperatorExpressionFilter extends OperatorExpressionFilter {
         }
 
         return operator;
-    }
-
-    private @Optional MgBinaryOperator filterByPosition(@Optional MgOperator operator){
-        if(operator == null){
-            return null;
-        }
-
-        if(!(operator instanceof MgBinaryOperator)){
-            return null;
-        }
-
-        return (MgBinaryOperator) operator;
     }
 }

@@ -43,6 +43,8 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
         return parentTask.getExpression();
     }
 
+    public abstract MgExpression getExpression();
+
 //    public ReadableArray<MgInputConnector> getParentInputConnectors(){
 //        if(parentTask == null) return null;
 //        return parentTask.getInputConnectors();
@@ -76,7 +78,11 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
 
     protected abstract void onResolve();
 
-    public abstract MgExpression getExpression();
+    protected MgExpression resolveChild(MgLogicalCallExpression logicalExpression){
+        MgResolveExpressionTask task = MgResolveExpressionTask.create(context, logicalExpression, this);
+        task.run();
+        return task.getExpression();
+    }
 
     public static MgResolveExpressionTask create(
         CommandContext context,

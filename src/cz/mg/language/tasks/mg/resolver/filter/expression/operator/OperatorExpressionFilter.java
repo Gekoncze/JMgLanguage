@@ -11,23 +11,24 @@ import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.expression.ExpressionFilter;
 
 
-public abstract class OperatorExpressionFilter extends ExpressionFilter<MgOperator> {
+public abstract class OperatorExpressionFilter<O extends MgOperator> extends ExpressionFilter<O> {
     @Mandatory @Value
     protected final int replication;
 
     public OperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
+        @Mandatory Class<O> clazz,
         @Optional MgExpression destination,
         @Optional MgExpression leftSource,
         @Optional MgExpression rightSource,
         @Mandatory int replication
     ) {
-        super(context, requiredName, MgOperator.class, destination, leftSource, rightSource);
+        super(context, requiredName, clazz, destination, leftSource, rightSource);
         this.replication = replication;
     }
 
-    protected @Optional MgOperator filterByDestination(@Optional MgOperator operator){
+    protected @Optional O filterByDestination(@Optional O operator){
         if(operator == null){
             return null;
         }

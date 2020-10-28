@@ -1,6 +1,7 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed command expressions
-and command resolvers
+finished operator expression resolver
+unary and binary
+assignment ones are in progress ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -8,7 +9,7 @@ large expression resolver refactoring ...
     do group expression need to create connectors?
         it might be necessary for resolve, but not for anything else ... investigate
 
-    fix operator expression resolvers
+    fix assignment operator expression resolvers
 
     fix all mg expression resolvers
         children are NOT automatically connected

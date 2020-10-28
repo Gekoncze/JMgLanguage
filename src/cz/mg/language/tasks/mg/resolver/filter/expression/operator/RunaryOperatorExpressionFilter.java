@@ -1,16 +1,15 @@
 package cz.mg.language.tasks.mg.resolver.filter.expression.operator;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
+import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgRunaryOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public class RunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilter {
+public class RunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilter<MgRunaryOperator> {
     public RunaryOperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
@@ -18,15 +17,15 @@ public class RunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
         @Optional MgExpression leftSource,
         @Mandatory int replication
     ) {
-        super(context, requiredName, destination, leftSource, null, replication);
+        super(context, requiredName, MgRunaryOperator.class, destination, leftSource, null, replication);
     }
 
     @Override
-    protected @Optional MgOperator filter(@Optional MgOperator operator) {
-        return filterBySource(filterByDestination(filterByPosition(operator)));
+    protected @Optional MgRunaryOperator filter(@Optional MgRunaryOperator operator) {
+        return filterBySource(filterByDestination(operator));
     }
 
-    private @Optional MgOperator filterBySource(@Optional MgOperator operator){
+    private @Optional MgRunaryOperator filterBySource(@Optional MgRunaryOperator operator){
         if(operator == null){
             return null;
         }
@@ -39,17 +38,5 @@ public class RunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
         }
 
         return operator;
-    }
-
-    private @Optional MgRunaryOperator filterByPosition(@Optional MgOperator operator){
-        if(operator == null){
-            return null;
-        }
-
-        if(!(operator instanceof MgRunaryOperator)){
-            return null;
-        }
-
-        return (MgRunaryOperator) operator;
     }
 }

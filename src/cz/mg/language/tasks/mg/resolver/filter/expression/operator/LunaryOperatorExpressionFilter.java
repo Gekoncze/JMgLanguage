@@ -10,7 +10,7 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
-public class LunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilter {
+public class LunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilter<MgLunaryOperator> {
     public LunaryOperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
@@ -18,15 +18,15 @@ public class LunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
         @Optional MgExpression rightSource,
         @Mandatory int replication
     ) {
-        super(context, requiredName, destination, null, rightSource, replication);
+        super(context, requiredName, MgLunaryOperator.class, destination, null, rightSource, replication);
     }
 
     @Override
-    protected @Optional MgOperator filter(@Optional MgOperator operator) {
-        return filterBySource(filterByDestination(filterByPosition(operator)));
+    protected @Optional MgLunaryOperator filter(@Optional MgLunaryOperator operator) {
+        return filterBySource(filterByDestination(operator));
     }
 
-    private @Optional MgOperator filterBySource(@Optional MgOperator operator){
+    private @Optional MgLunaryOperator filterBySource(@Optional MgLunaryOperator operator){
         if(operator == null){
             return null;
         }
@@ -39,17 +39,5 @@ public class LunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
         }
 
         return operator;
-    }
-
-    private @Optional MgLunaryOperator filterByPosition(@Optional MgOperator operator){
-        if(operator == null){
-            return null;
-        }
-
-        if(!(operator instanceof MgLunaryOperator)){
-            return null;
-        }
-
-        return (MgLunaryOperator) operator;
     }
 }
