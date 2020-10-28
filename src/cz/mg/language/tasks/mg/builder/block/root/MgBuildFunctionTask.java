@@ -20,7 +20,7 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
         (source, destination) -> destination.function = new MgLogicalFunction(source.getName())
     );
 
-    private static final List<Pattern> PATTERNS = new List<>(
+    public static final List<Pattern> PATTERNS = new List<>(
         // build input
         new Pattern(
             Order.STRICT,
@@ -45,82 +45,6 @@ public class MgBuildFunctionTask extends MgBuildBlockTask {
                 (source, destination) -> destination.function.getOutput().addCollectionLast(source.getVariables())
             ),
             "OUTPUT"
-        ),
-
-        // build binary operator
-        new Pattern(
-            Order.STRICT,
-            Requirement.OPTIONAL,
-            Count.SINGLE,
-            new BlockProcessor<>(
-                MgBuildOperatorBlockTask.class,
-                MgBuildFunctionTask.class,
-                (source, destination) -> {
-                    if(destination.function.getOperator() == null){
-                        destination.function.setOperator(source.getOperator());
-                    } else {
-                        throw new LanguageException("Multiple operator blocks.");
-                    }
-                }
-            ),
-            "OPERATOR"
-        ),
-
-        // build unary left operator
-        new Pattern(
-            Order.STRICT,
-            Requirement.OPTIONAL,
-            Count.SINGLE,
-            new BlockProcessor<>(
-                MgBuildLeftOperatorBlockTask.class,
-                MgBuildFunctionTask.class,
-                (source, destination) -> {
-                    if(destination.function.getOperator() == null){
-                        destination.function.setOperator(source.getOperator());
-                    } else {
-                        throw new LanguageException("Multiple operator blocks.");
-                    }
-                }
-            ),
-            "LEFT", "OPERATOR"
-        ),
-
-        // build unary right operator
-        new Pattern(
-            Order.STRICT,
-            Requirement.OPTIONAL,
-            Count.SINGLE,
-            new BlockProcessor<>(
-                MgBuildRightOperatorBlockTask.class,
-                MgBuildFunctionTask.class,
-                (source, destination) -> {
-                    if(destination.function.getOperator() == null){
-                        destination.function.setOperator(source.getOperator());
-                    } else {
-                        throw new LanguageException("Multiple operator blocks.");
-                    }
-                }
-            ),
-            "RIGHT", "OPERATOR"
-        ),
-
-        // build priority
-        new Pattern(
-            Order.STRICT,
-            Requirement.OPTIONAL,
-            Count.SINGLE,
-            new BlockProcessor<>(
-                MgBuildPriorityBlockTask.class,
-                MgBuildFunctionTask.class,
-                (source, destination) -> {
-                    if(destination.function.getOperator() != null){
-                        destination.function.getOperator().setPriority(source.getPriority());
-                    } else {
-                        throw new LanguageException("Missing operator to set priority.");
-                    }
-                }
-            ),
-            "PRIORITY"
         ),
 
         // build expression command

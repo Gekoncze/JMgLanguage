@@ -3,6 +3,13 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+change syntax of operator definition
+    fix operator resolvers
+
+    fix operator expressions
+        will also need to create new lu/ru/bi operator expressions
+        wil also need to fix filters and contexts after that
+
 large expression resolver refactoring ...
     do group expression need to create connectors?
         it might be necessary for resolve, but not for anything else ... investigate
@@ -33,18 +40,6 @@ large expression resolver refactoring ...
                 type function (annotated with @type)
 
     fix all mg command resolvers
-
-maybe change syntax of operator definition ... ???
-    I think current one is a bit clumsy
-    we should allow something like this:
-        LUNARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
-        RUNARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
-        BINARY OPERATOR ... INPUT ... OUTPUT ... PRIORITY ...
-        this *might* also allow for operator aliasing, but I would still not recommend it yet
-
-    fix operator expressions after that
-        will also need to create new lu/ru/bi operator expressions
-        wil also need to fix filters and contexts after that
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.file.Document;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.tasks.input.file.MgLoadTextFileTask;
-import cz.mg.language.tasks.mg.builder.block.MgBuildComponentTask;
+import cz.mg.language.tasks.mg.builder.block.MgBuildRootTask;
 import cz.mg.language.tasks.mg.parser.MgParsePageTask;
 import cz.mg.language.tasks.mg.composer.MgComposeBlocksTask;
 
@@ -36,7 +36,7 @@ public class MgCompileDocumentLogicTask extends MgCompileFileLogicTask {
         MgComposeBlocksTask parseBlocksTask = new MgComposeBlocksTask(parsePageTask.getPage());
         parseBlocksTask.run();
 
-        MgBuildComponentTask buildRootTask = new MgBuildComponentTask(parseBlocksTask.getRoot());
+        MgBuildRootTask buildRootTask = new MgBuildRootTask(parseBlocksTask.getRoot());
         buildRootTask.run();
 
         component = buildRootTask.getComponent();

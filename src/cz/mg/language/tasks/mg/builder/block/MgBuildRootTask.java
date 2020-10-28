@@ -8,15 +8,14 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.MgLogicalComponent;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalContext;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalUsage;
+import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.text.structured.Block;
 import cz.mg.language.entities.text.structured.Part;
-import cz.mg.language.tasks.mg.builder.block.root.MgBuildClassTask;
-import cz.mg.language.tasks.mg.builder.block.root.MgBuildFunctionTask;
-import cz.mg.language.tasks.mg.builder.block.root.MgBuildUsageTask;
+import cz.mg.language.tasks.mg.builder.block.root.*;
 import cz.mg.language.tasks.mg.builder.pattern.*;
 
 
-public class MgBuildComponentTask extends MgBuildBlockTask {
+public class MgBuildRootTask extends MgBuildBlockTask {
     private static final ReadableCollection<Pattern> PATTERNS = new List<>(
         // build usages
         new Pattern(
@@ -25,7 +24,7 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildUsageTask.class,
-                MgBuildComponentTask.class,
+                MgBuildRootTask.class,
                 (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
                 (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.ALL)
             ),
@@ -38,7 +37,7 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildUsageTask.class,
-                MgBuildComponentTask.class,
+                MgBuildRootTask.class,
                 (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
                 (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.CLASS)
             ),
@@ -51,7 +50,7 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildUsageTask.class,
-                MgBuildComponentTask.class,
+                MgBuildRootTask.class,
                 (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
                 (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.FUNCTION)
             ),
@@ -64,7 +63,7 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildUsageTask.class,
-                MgBuildComponentTask.class,
+                MgBuildRootTask.class,
                 (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
                 (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.OPERATOR)
             ),
@@ -77,7 +76,7 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.MULTIPLE,
             new BlockProcessor<>(
                 MgBuildUsageTask.class,
-                MgBuildComponentTask.class,
+                MgBuildRootTask.class,
                 (source, destination) -> destination.context.getUsages().addLast(source.getUsage()),
                 (block, destination) -> new MgBuildUsageTask(block, MgLogicalUsage.Filter.VARIABLE)
             ),
@@ -91,11 +90,8 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.SINGLE,
             new BlockProcessor<>(
                 MgBuildClassTask.class,
-                MgBuildComponentTask.class,
-                (source, destination) -> {
-                    if(destination.component != null) throw new LanguageException("Expected only one component.");
-                    destination.component = source.getClazz();
-                }
+                MgBuildRootTask.class,
+                (source, destination) -> destination.setComponent(source.getClazz())
             ),
             "CLASS"
         ),
@@ -107,13 +103,49 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
             Count.SINGLE,
             new BlockProcessor<>(
                 MgBuildFunctionTask.class,
-                MgBuildComponentTask.class,
-                (source, destination) -> {
-                    if(destination.component != null) throw new LanguageException("Expected only one component.");
-                    destination.component = source.getFunction();
-                }
+                MgBuildRootTask.class,
+                (source, destination) -> destination.setComponent(source.getFunction())
             ),
             "FUNCTION"
+        ),
+
+        // build binary operator
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildBinaryOperatorTask.class,
+                MgBuildRootTask.class,
+                (source, destination) -> destination.setComponent(source.getOperator())
+            ),
+            "BINARY", "OPERATOR"
+        ),
+
+        // build lunary operator
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildLunaryOperatorTask.class,
+                MgBuildRootTask.class,
+                (source, destination) -> destination.setComponent(source.getOperator())
+            ),
+            "LUNARY", "OPERATOR"
+        ),
+
+        // build runary operator
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.SINGLE,
+            new BlockProcessor<>(
+                MgBuildRunaryOperatorTask.class,
+                MgBuildRootTask.class,
+                (source, destination) -> destination.setComponent(source.getOperator())
+            ),
+            "RUNARY", "OPERATOR"
         )
     );
 
@@ -123,7 +155,7 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
     @Cache
     private MgLogicalContext context;
 
-    public MgBuildComponentTask(Block block) {
+    public MgBuildRootTask(Block block) {
         super(block);
     }
 
@@ -137,6 +169,11 @@ public class MgBuildComponentTask extends MgBuildBlockTask {
 
     public MgLogicalComponent getComponent() {
         return component;
+    }
+
+    private void setComponent(MgLogicalComponent component) {
+        if(this.component != null) throw new LanguageException("Expected only one component at root level.");
+        this.component = component;
     }
 
     @Override

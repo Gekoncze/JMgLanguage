@@ -57,6 +57,45 @@ public class MgBuildClassTask extends MgBuildBlockTask {
                 (source, destination) -> destination.clazz.getFunctions().addLast(source.getFunction())
             ),
             "FUNCTION"
+        ),
+
+        // build binary operator
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildBinaryOperatorTask.class,
+                MgBuildClassTask.class,
+                (source, destination) -> destination.clazz.getFunctions().addLast(source.getOperator())
+            ),
+            "BINARY", "OPERATOR"
+        ),
+
+        // build lunary operator
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildLunaryOperatorTask.class,
+                MgBuildClassTask.class,
+                (source, destination) -> destination.clazz.getFunctions().addLast(source.getOperator())
+            ),
+            "LUNARY", "OPERATOR"
+        ),
+
+        // build runary operator
+        new Pattern(
+            Order.RANDOM,
+            Requirement.OPTIONAL,
+            Count.MULTIPLE,
+            new BlockProcessor<>(
+                MgBuildRunaryOperatorTask.class,
+                MgBuildClassTask.class,
+                (source, destination) -> destination.clazz.getFunctions().addLast(source.getOperator())
+            ),
+            "RUNARY", "OPERATOR"
         )
     );
 
