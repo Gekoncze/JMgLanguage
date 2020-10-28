@@ -62,7 +62,7 @@ public class MgResolveLocationTask extends MgPostponeResolveTask {
 
             if(logicalComponent instanceof MgLogicalFunction){
                 postpone(MgResolveClassFunctionDefinitionTask.class, () -> {
-                    MgResolveClassFunctionDefinitionTask task = new MgResolveClassFunctionDefinitionTask(getContext(), (MgLogicalFunction) logicalComponent);
+                    MgResolveLocationFunctionDefinitionTask task = new MgResolveLocationFunctionDefinitionTask(getContext(), (MgLogicalFunction) logicalComponent);
                     task.run();
                     location.getComponents().addLast(task.getFunction());
                 });

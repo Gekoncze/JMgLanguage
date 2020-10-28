@@ -8,18 +8,24 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
-import cz.mg.language.entities.mg.logical.parts.expressions.*;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalClumpExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalOperatorExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalGroupCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberNameCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalEmptyCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.command.utilities.CachedLogicalOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
+import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorInfo;
+import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 
@@ -143,12 +149,12 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
                 item = item.getNextItem()
             ){
                 MgLogicalExpression expression = item.get();
-                if(expression instanceof MgLogicalOperatorExpression){
-                    MgLogicalOperatorExpression logicalOperatorExpression = (MgLogicalOperatorExpression) expression;
-                    MgOperatorInfo operator = logicalOperatorExpression.getOperator();
-                    if(operator.getPriority() == p){
-                        switch(operator.getPosition()){
-                            case BINARY:
+                if(expression instanceof CachedLogicalOperatorExpression){
+                    CachedLogicalOperatorExpression logicalOperatorExpression = (CachedLogicalOperatorExpression) expression;
+                    OperatorInfo operatorInfo = logicalOperatorExpression.getOperatorInfo();
+                    if(operatorInfo.getPriority() == p){
+                        switch(operatorInfo.getPosition()){
+                            case MIDDLE:
                                 mergeBinary(item, (leftOperand, rightOperand) -> {
                                     return new MgLogicalBinaryOperatorCallExpression(
                                         logicalOperatorExpression.getName(),
@@ -315,25 +321,24 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
     }
 
     private MgLogicalExpression prepareOperatorExpression(MgLogicalNameCallExpression expression){
-        MgOperatorInfo operator = findOperator(expression.getName());
-        if(operator != null){
-            return new MgLogicalOperatorExpression(expression.getName(), operator);
+        OperatorInfo operatorInfo = findOperator(expression.getName());
+        if(operatorInfo != null){
+            return new CachedLogicalOperatorExpression(expression.getName(), operatorInfo);
         } else {
             return expression;
         }
     }
 
     private MgLogicalExpression prepareOperatorExpression(MgLogicalOperatorExpression expression){
-        MgOperatorInfo operator = findOperator(expression.getName());
-        if(operator != null){
-            expression.setOperator(operator);
-            return expression;
+        OperatorInfo operatorInfo = findOperator(expression.getName());
+        if(operatorInfo != null){
+            return new CachedLogicalOperatorExpression(expression.getName(), operatorInfo);
         } else {
             throw new LanguageException("Could not find operator '" + expression.getName() + "'.");
         }
     }
 
-    private MgOperatorInfo findOperator(ReadableText name){
+    private OperatorInfo findOperator(ReadableText name){
         return context.getOperatorCache().findOperator(name);
     }
 

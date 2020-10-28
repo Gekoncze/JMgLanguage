@@ -3,9 +3,9 @@ package cz.mg.language.tasks.mg.resolver.filter.expression.operator;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgBinaryOperator;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
-import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
@@ -45,15 +45,15 @@ public class BinaryOperatorExpressionFilter extends OperatorExpressionFilter {
         return operator;
     }
 
-    private @Optional MgOperator filterByPosition(@Optional MgOperator operator){
+    private @Optional MgBinaryOperator filterByPosition(@Optional MgOperator operator){
         if(operator == null){
             return null;
         }
 
-        if(operator.getInfo().getPosition() != MgOperatorInfo.Position.BINARY){
+        if(!(operator instanceof MgBinaryOperator)){
             return null;
         }
 
-        return operator;
+        return (MgBinaryOperator) operator;
     }
 }

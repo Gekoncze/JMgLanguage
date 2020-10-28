@@ -81,7 +81,7 @@ public class MgResolveUsageTask extends MgPostponeResolveTask {
         if(accept(component)){
             if(logicalUsage.getFilter() == MgLogicalUsage.Filter.OPERATOR){
                 if(logicalUsage.getAlias() == null){
-                    usages.addLast(new Usage(component, ((MgOperator)component).getInfo().getName()));
+                    usages.addLast(new Usage(component, component.getName()));
                 } else {
                     throw new LanguageException("Operator usages cannot have an alias.");
                 }

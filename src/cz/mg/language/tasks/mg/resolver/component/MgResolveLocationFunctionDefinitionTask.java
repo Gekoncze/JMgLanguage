@@ -3,14 +3,10 @@ package cz.mg.language.tasks.mg.resolver.component;
 import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
-import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
-import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
+import cz.mg.language.entities.mg.logical.components.*;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgGlobalFunction;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
-import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
+import cz.mg.language.entities.mg.runtime.components.types.functions.*;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.context.Context;
@@ -40,17 +36,21 @@ public class MgResolveLocationFunctionDefinitionTask extends MgResolveComponentD
 
     @Override
     protected void onResolveComponent(List<MgStamp> stamps) {
-        if(logicalFunction.getOperator() == null){
-            function = new MgGlobalFunction(logicalFunction.getName());
-            function.getStamps().addCollectionLast(globalStampOnly(stamps));
+        if(logicalFunction instanceof MgLogicalOperator){
+            if(logicalFunction instanceof MgLogicalBinaryOperator){
+                function = new MgBinaryOperator(logicalFunction.getName(), ((MgLogicalOperator) logicalFunction).getPriority());
+            } else if(logicalFunction instanceof MgLogicalLunaryOperator){
+                function = new MgLunaryOperator(logicalFunction.getName(), ((MgLogicalOperator) logicalFunction).getPriority());
+            } else if(logicalFunction instanceof MgLogicalRunaryOperator){
+                function = new MgRunaryOperator(logicalFunction.getName(), ((MgLogicalOperator) logicalFunction).getPriority());
+            } else {
+                throw new RuntimeException();
+            }
         } else {
-            function = new MgOperator(logicalFunction.getName(), new MgOperatorInfo(
-                logicalFunction.getOperator().getName(),
-                MgOperatorInfo.Position.valueOf(logicalFunction.getOperator().getType().name()),
-                logicalFunction.getOperator().getPriority()
-            ));
-            function.getStamps().addCollectionLast(globalStampOnly(stamps));
+            function = new MgGlobalFunction(logicalFunction.getName());
         }
+
+        function.getStamps().addCollectionLast(globalStampOnly(stamps));
         getContext().setFunction(function);
 
         for(MgLogicalVariable logicalInput : logicalFunction.getInput()){

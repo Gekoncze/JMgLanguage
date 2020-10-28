@@ -1,18 +1,16 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+fixed operator resolvers
+fixed also resolve expression tree task and related
+fixed operator expressions
+fixed operator filters
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-change syntax of operator definition
-    fix operator resolvers
-
-    fix operator expressions
-        will also need to create new lu/ru/bi operator expressions
-        wil also need to fix filters and contexts after that
-
 large expression resolver refactoring ...
     do group expression need to create connectors?
         it might be necessary for resolve, but not for anything else ... investigate
+
+    fix operator expression resolvers
 
     fix all mg expression resolvers
         children are NOT automatically connected

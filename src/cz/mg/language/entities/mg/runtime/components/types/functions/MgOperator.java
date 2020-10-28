@@ -1,21 +1,20 @@
 package cz.mg.language.entities.mg.runtime.components.types.functions;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
+import cz.mg.annotations.storage.Value;
+import cz.mg.collections.text.ReadableText;
 
 
-public class MgOperator extends MgGlobalFunction {
-    @Mandatory @Part
-    private final MgOperatorInfo info;
+public abstract class MgOperator extends MgGlobalFunction {
+    @Mandatory @Value
+    private final int priority;
 
-    public MgOperator(ReadableText name, MgOperatorInfo info) {
+    public MgOperator(ReadableText name, int priority) {
         super(name);
-        this.info = info;
+        this.priority = priority;
     }
 
-    public MgOperatorInfo getInfo() {
-        return info;
+    public int getPriority() {
+        return priority;
     }
 }

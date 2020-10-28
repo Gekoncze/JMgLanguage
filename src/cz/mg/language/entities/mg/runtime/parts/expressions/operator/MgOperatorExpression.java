@@ -19,7 +19,7 @@ public abstract class MgOperatorExpression extends MgExpression {
     @Mandatory @Part
     private final ReadableArray<@Mandatory @Link MgReplication> replications;
 
-    public MgOperatorExpression(ReadableCollection<MgOperator> operators) {
+    public MgOperatorExpression(ReadableCollection<? extends MgOperator> operators) {
         this(createReplications(operators));
     }
 
@@ -73,7 +73,7 @@ public abstract class MgOperatorExpression extends MgExpression {
         return new Array<>(outputConnectors);
     }
     
-    private static ReadableArray<MgReplication> createReplications(ReadableCollection<MgOperator> operators){
+    private static ReadableArray<MgReplication> createReplications(ReadableCollection<? extends MgOperator> operators){
         Array<MgReplication> replications = new Array<>(operators.count());
         int i = 0;
         for(MgOperator operator : operators){

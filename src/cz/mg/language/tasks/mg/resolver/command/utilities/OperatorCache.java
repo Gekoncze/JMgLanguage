@@ -11,7 +11,6 @@ import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
-import cz.mg.language.entities.mg.runtime.parts.MgOperatorInfo;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.basic.OperatorFilter;
 
@@ -24,10 +23,10 @@ public class OperatorCache {
     private final int maxPriority;
 
     @Mandatory @Part
-    private final Array<List<MgOperatorInfo>> operatorArray;
+    private final Array<List<OperatorInfo>> operatorArray;
 
     @Mandatory @Part
-    private final Map<ReadableText, MgOperatorInfo> operatorMap = new Map<>();
+    private final Map<ReadableText, OperatorInfo> operatorMap = new Map<>();
 
     public OperatorCache(Context context) {
         if(context != null){
@@ -39,8 +38,8 @@ public class OperatorCache {
             int minOperatorPriority = 0;
             int maxOperatorPriority = 0;
             for(MgOperator operator : availableOperators){
-                minOperatorPriority = Math.min(minOperatorPriority, operator.getInfo().getPriority());
-                maxOperatorPriority = Math.max(maxOperatorPriority, operator.getInfo().getPriority());
+                minOperatorPriority = Math.min(minOperatorPriority, operator.getPriority());
+                maxOperatorPriority = Math.max(maxOperatorPriority, operator.getPriority());
             }
             this.minPriority = minOperatorPriority;
             this.maxPriority = maxOperatorPriority;
@@ -53,8 +52,11 @@ public class OperatorCache {
 
             // fill the prioritized function list with found operator functions
             for(MgOperator operator : availableOperators){
-                int priority = operator.getInfo().getPriority();
-                this.operatorArray.get(p2i(priority)).addLast(operator.getInfo());
+                this.operatorArray.get(p2i(operator.getPriority())).addLast(new OperatorInfo(
+                    OperatorInfo.Position.create(operator),
+                    operator.getName(),
+                    operator.getPriority()
+                ));
             }
         } else {
             this.operatorArray = new Array<>();
@@ -71,10 +73,10 @@ public class OperatorCache {
         return maxPriority;
     }
 
-    public List<MgOperatorInfo> getOperators(int priority) {
-        if(operatorArray.isEmpty()) return null;
-        else return operatorArray.get(p2i(priority));
-    }
+//    public List<OperatorInfo> getOperators(int priority) { todo - remove if unused
+//        if(operatorArray.isEmpty()) return null;
+//        else return operatorArray.get(p2i(priority));
+//    }
 
     private final int p2i(int p){
         return p - minPriority;
@@ -84,12 +86,13 @@ public class OperatorCache {
         return minPriority + i;
     }
 
-    private static final MgOperatorInfo UNKNOWN = new MgOperatorInfo(new ReadonlyText(""), null, 0);
-    public MgOperatorInfo findOperator(ReadableText operatorName){
-        MgOperatorInfo cachedOperator = operatorMap.get(operatorName, UNKNOWN);
+    private static final OperatorInfo UNKNOWN = new OperatorInfo(OperatorInfo.Position.LEFT, new ReadonlyText(""), 0);
+
+    public OperatorInfo findOperator(ReadableText operatorName){
+        OperatorInfo cachedOperator = operatorMap.get(operatorName, UNKNOWN);
         if(cachedOperator == UNKNOWN){
-            for(List<MgOperatorInfo> array : operatorArray){
-                for(MgOperatorInfo operator : array){
+            for(List<OperatorInfo> array : operatorArray){
+                for(OperatorInfo operator : array){
                     if(operator.getName().equals(operatorName)){
                         if(cachedOperator == UNKNOWN){
                             cachedOperator = operator;
@@ -107,7 +110,7 @@ public class OperatorCache {
         return cachedOperator;
     }
 
-    private static boolean isCompatible(MgOperatorInfo first, MgOperatorInfo second){
+    private static boolean isCompatible(OperatorInfo first, OperatorInfo second){
         return first.getPosition() == second.getPosition() && first.getPriority() == second.getPriority();
     }
 }
