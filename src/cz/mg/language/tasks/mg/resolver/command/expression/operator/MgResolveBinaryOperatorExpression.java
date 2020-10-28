@@ -48,6 +48,8 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
             ).find(), r);
         }
         expression = new MgBinaryOperatorExpression(operators);
+        expression.getExpressions().addLast(leftChild);
+        expression.getExpressions().addLast(rightChild);
     }
 
     @Override

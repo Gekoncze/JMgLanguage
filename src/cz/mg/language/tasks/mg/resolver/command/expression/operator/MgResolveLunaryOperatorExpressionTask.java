@@ -42,6 +42,7 @@ public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperato
             ).find(), r);
         }
         expression = new MgLunaryOperatorExpression(operators);
+        expression.getExpressions().addLast(rightChild);
     }
 
     @Override

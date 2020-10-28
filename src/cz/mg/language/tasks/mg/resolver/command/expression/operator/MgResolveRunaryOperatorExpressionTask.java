@@ -42,6 +42,7 @@ public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperato
             ).find(), r);
         }
         expression = new MgRunaryOperatorExpression(operators);
+        expression.getExpressions().addLast(leftChild);
     }
 
     @Override

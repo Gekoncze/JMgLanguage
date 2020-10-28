@@ -10,9 +10,6 @@ large expression resolver refactoring ...
     fix assignment operator expression resolvers
 
     fix all mg expression resolvers
-        children are NOT automatically connected
-        so these has to be connected manually in resolvers!
-
         reference assignment
             left expression and right expression connection might be a little bit tricky, but possible
             check that we cannot reference assign to function call or anything that can accept one parameter
@@ -33,6 +30,8 @@ large expression resolver refactoring ...
                 global function
                 instance function (annotated with @instance)
                 type function (annotated with @type)
+
+check again if empty groups (for function calls) are allowed, I cant seem to find them again ...
 
 
 ### SOON ### -----------------------------------------------------------------------------------------------------------
