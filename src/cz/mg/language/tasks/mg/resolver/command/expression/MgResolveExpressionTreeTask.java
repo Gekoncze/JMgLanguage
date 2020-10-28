@@ -11,10 +11,7 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalClumpExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.MgLogicalOperatorExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalGroupCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberNameCallExpression;
-import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
+import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalEmptyCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
@@ -114,11 +111,10 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
         ){
             if(isPlainName(item)){
                 if(isCall(item.getNextItem())){
-                    // todo - can be simplified - just add expression to already existing name call (dont forget to still remove next)
                     MgLogicalNameCallExpression nameCallExpression = (MgLogicalNameCallExpression) item.get();
                     mergeLunary(
                         item,
-                        expression -> new MgLogicalNameCallExpression(
+                        expression -> new MgLogicalFunctionCallExpression(
                             nameCallExpression.getName(),
                             expression
                         )
