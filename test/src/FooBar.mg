@@ -14,11 +14,11 @@ CLASS FooBar IS Foo, Bar
         print: "The riddle is " + self.foo + " and " + self.bar
 
     @public
-    FUNCTION plus INPUT Int32$ left, Int32$ right OUTPUT Int32$ result OPERATOR + PRIORITY "1"
+    BINARY OPERATOR + INPUT Int32$ left, Int32$ right OUTPUT Int32$ result
         RETURN result $= left + right
 
     @public
-    FUNCTION plus INPUT Int32$ left, Int32$ right OUTPUT Int32$ result OPERATOR pp PRIORITY "1"
+    BINARY OPERATOR pp INPUT Int32$ left, Int32$ right OUTPUT Int32$ result PRIORITY "1"
         RETURN result $= left + right
 
     @public

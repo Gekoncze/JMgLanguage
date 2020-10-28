@@ -6,6 +6,9 @@ import cz.mg.collections.text.ReadonlyText;
 
 
 public class Operators {
+    public static final ReadableText PLUS_UNARY = new ReadonlyText("+");
+    public static final ReadableText MINUS_UNARY = new ReadonlyText("-");
+
     public static final ReadableText PLUS = new ReadonlyText("+");
     public static final ReadableText MINUS = new ReadonlyText("-");
     public static final ReadableText MULTIPLY = new ReadonlyText("*");
@@ -28,24 +31,37 @@ public class Operators {
     public static final ReadableText REFERENCE_ASSIGNMENT = new ReadonlyText("&=");
     public static final ReadableText VALUE_ASSIGNMENT = new ReadonlyText("$=");
 
-    public static final Map<ReadableText, Integer> PRIORITIES = new Map<>(
+    public static final ReadableText AND = new ReadonlyText("and");
+    public static final ReadableText OR = new ReadonlyText("or");
+    public static final ReadableText NOT = new ReadonlyText("not");
+
+    public static final Map<ReadableText, Integer> PRIORITIES_UNARY = new Map<>(
+        new Map.Pair<>(POWER, 6),
+
+        new Map.Pair<>(PLUS_UNARY, 7),
+        new Map.Pair<>(MINUS_UNARY, 7),
+        new Map.Pair<>(NOT, 7)
+    );
+
+    public static final Map<ReadableText, Integer> PRIORITIES_BINARY = new Map<>(
         new Map.Pair<>(REFERENCE_ASSIGNMENT, 1),
         new Map.Pair<>(VALUE_ASSIGNMENT, 1),
 
-        new Map.Pair<>(EQUALS, 2),
-        new Map.Pair<>(REFERENCE_EQUALS, 2),
-        new Map.Pair<>(VALUE_EQUALS, 2),
-        new Map.Pair<>(LESS_THAN, 2),
-        new Map.Pair<>(LESS_THAN_OR_EQUAL, 2),
-        new Map.Pair<>(GREATER_THAN, 2),
-        new Map.Pair<>(GREATER_THAN_OR_EQUAL, 2),
+        new Map.Pair<>(AND, 2),
+        new Map.Pair<>(OR, 2),
 
-        new Map.Pair<>(PLUS, 3),
-        new Map.Pair<>(MINUS, 3),
+        new Map.Pair<>(EQUALS, 3),
+        new Map.Pair<>(REFERENCE_EQUALS, 3),
+        new Map.Pair<>(VALUE_EQUALS, 3),
+        new Map.Pair<>(LESS_THAN, 3),
+        new Map.Pair<>(LESS_THAN_OR_EQUAL, 3),
+        new Map.Pair<>(GREATER_THAN, 3),
+        new Map.Pair<>(GREATER_THAN_OR_EQUAL, 3),
 
-        new Map.Pair<>(MULTIPLY, 4),
-        new Map.Pair<>(DIVIDE, 4),
+        new Map.Pair<>(PLUS, 4),
+        new Map.Pair<>(MINUS, 4),
 
-        new Map.Pair<>(POWER, 5)
+        new Map.Pair<>(MULTIPLY, 5),
+        new Map.Pair<>(DIVIDE, 5)
     );
 }

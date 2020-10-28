@@ -3,7 +3,6 @@ package cz.mg.language.entities.mg.logical.components;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Value;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.entities.mg.Operators;
 
 
 public abstract class MgLogicalOperator extends MgLogicalFunction {
@@ -12,7 +11,6 @@ public abstract class MgLogicalOperator extends MgLogicalFunction {
 
     public MgLogicalOperator(ReadableText name) {
         super(name);
-        this.priority = Operators.PRIORITIES.get(name, 0);
     }
 
     public int getPriority() {
