@@ -31,6 +31,7 @@ public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperato
     @Override
     protected void onResolve() {
         MgExpression leftChild = resolveChild(logicalExpression.getLeft());
+
         Array<MgRunaryOperator> operators = new Array<>(leftChild.getOutputConnectors().count());
         for(int r = 0; r < operators.count(); r++){
             operators.set(new RunaryOperatorExpressionFilter(
@@ -41,8 +42,16 @@ public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperato
                 r
             ).find(), r);
         }
+
         expression = new MgRunaryOperatorExpression(operators);
         expression.getExpressions().addLast(leftChild);
+
+        for(int r = 0; r < expression.getReplications().count(); r++){
+            connect(
+                expression.getInputConnectors().get(r),
+                leftChild.getOutputConnectors().get(r)
+            );
+        }
     }
 
     @Override

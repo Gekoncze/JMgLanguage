@@ -31,6 +31,7 @@ public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperato
     @Override
     protected void onResolve() {
         MgExpression rightChild = resolveChild(logicalExpression.getRight());
+
         Array<MgLunaryOperator> operators = new Array<>(rightChild.getOutputConnectors().count());
         for(int r = 0; r < operators.count(); r++){
             operators.set(new LunaryOperatorExpressionFilter(
@@ -41,8 +42,16 @@ public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperato
                 r
             ).find(), r);
         }
+
         expression = new MgLunaryOperatorExpression(operators);
         expression.getExpressions().addLast(rightChild);
+
+        for(int r = 0; r < expression.getReplications().count(); r++){
+            connect(
+                expression.getInputConnectors().get(r),
+                rightChild.getOutputConnectors().get(r)
+            );
+        }
     }
 
     @Override

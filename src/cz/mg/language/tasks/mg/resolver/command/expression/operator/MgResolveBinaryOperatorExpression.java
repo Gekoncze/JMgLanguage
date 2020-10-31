@@ -36,6 +36,7 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
         if(leftChild.getOutputConnectors().count() != rightChild.getOutputConnectors().count()){
             throw new LanguageException("Unbalanced binary operator expression.");
         }
+
         Array<MgBinaryOperator> operators = new Array<>(leftChild.getOutputConnectors().count());
         for(int r = 0; r < operators.count(); r++){
             operators.set(new BinaryOperatorExpressionFilter(
@@ -47,9 +48,21 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
                 r
             ).find(), r);
         }
+
         expression = new MgBinaryOperatorExpression(operators);
         expression.getExpressions().addLast(leftChild);
         expression.getExpressions().addLast(rightChild);
+
+        for(int r = 0; r < expression.getReplications().count(); r++){
+            connect(
+                expression.getInputConnectors().get(r * 2),
+                leftChild.getOutputConnectors().get(r)
+            );
+            connect(
+                expression.getInputConnectors().get(r * 2 + 1),
+                rightChild.getOutputConnectors().get(r)
+            );
+        }
     }
 
     @Override

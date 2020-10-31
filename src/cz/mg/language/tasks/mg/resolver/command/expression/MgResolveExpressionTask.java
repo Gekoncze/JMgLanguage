@@ -5,6 +5,9 @@ import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgConnection;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.name.MgResolveNameExpressionTask;
@@ -82,6 +85,14 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
         MgResolveExpressionTask task = MgResolveExpressionTask.create(context, logicalExpression, this);
         task.run();
         return task.getExpression();
+    }
+
+    protected void connect(MgInputConnector inputConnector, MgOutputConnector outputConnector){
+        MgConnection.connect(
+            inputConnector,
+            context.getVariableHelper().nextExpressionVariable(inputConnector.getDatatype()),
+            outputConnector
+        );
     }
 
     public static MgResolveExpressionTask create(
