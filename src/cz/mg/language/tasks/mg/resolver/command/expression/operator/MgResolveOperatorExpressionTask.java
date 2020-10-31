@@ -7,7 +7,6 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.assignment.MgResolveReferenceAssignmentExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.expression.operator.assignment.MgResolveValueAssignmentExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 

@@ -5,9 +5,6 @@
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 fix all mg expression resolvers
     fix assignment operator expression resolvers
-        value assignment
-            almost same as binary operator expression resolver
-
         reference assignment
             left expression and right expression connection might be a little bit tricky, but possible
             check that we cannot reference assign to function call or anything that can accept one parameter
