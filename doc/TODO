@@ -4,6 +4,21 @@
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 fix all mg expression resolvers
+    problem - I think we need to connect also to parent when ready
+        another problem - imagine the following expression:
+            FUNCTION foo INPUT Int32 a, Int32 b, Int32 c OUTPUT Int32 d
+                ...
+
+            BINARY OPERATOR * INPUT Int32 a, Int32 b OUTPUT Int32
+                ...
+
+            c $= foo(+(1, 2) * -(3, 4), 1)
+                how do we know how many replications are we getting on enter? (before children resovled)
+                well, we would need to find replications anyway for all inputs
+                some can be null!
+                and then drop unused ones?
+
+
     fix variable expression resolvers
     fix function expression resolvers
 

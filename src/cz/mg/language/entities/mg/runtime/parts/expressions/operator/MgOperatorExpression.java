@@ -17,13 +17,13 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgFunctionE
 
 public abstract class MgOperatorExpression extends MgExpression {
     @Mandatory @Part
-    private final ReadableArray<@Mandatory @Link MgReplication> replications;
+    private final ReadableArray<@Mandatory @Link ? extends MgReplication> replications;
 
-    public MgOperatorExpression(ReadableCollection<? extends MgOperator> operators) {
-        this(createReplications(operators));
+    public MgOperatorExpression(ReadableCollection<? extends MgReplication> replications) {
+        this(new Array<>(replications));
     }
 
-    private MgOperatorExpression(ReadableArray<MgReplication> replications){
+    private MgOperatorExpression(ReadableArray<? extends MgReplication> replications){
         super(
             gatherInputConnectors(replications),
             gatherOutputConnectors(replications)
@@ -31,7 +31,7 @@ public abstract class MgOperatorExpression extends MgExpression {
         this.replications = replications;
     }
 
-    public ReadableArray<MgReplication> getReplications() {
+    public ReadableArray<? extends MgReplication> getReplications() {
         return replications;
     }
 
@@ -42,7 +42,7 @@ public abstract class MgOperatorExpression extends MgExpression {
         }
     }
 
-    public static class MgReplication extends MgFunctionExpression {
+    public static abstract class MgReplication extends MgFunctionExpression {
         public MgReplication(MgOperator operator) {
             super(
                 MgFunctionExpression.createInputConnectors(operator),
@@ -71,15 +71,5 @@ public abstract class MgOperatorExpression extends MgExpression {
             outputConnectors.addCollectionLast(replication.getOutputConnectors());
         }
         return new Array<>(outputConnectors);
-    }
-    
-    private static ReadableArray<MgReplication> createReplications(ReadableCollection<? extends MgOperator> operators){
-        Array<MgReplication> replications = new Array<>(operators.count());
-        int i = 0;
-        for(MgOperator operator : operators){
-            replications.set(new MgReplication(operator), i);
-            i++;
-        }
-        return replications;
     }
 }

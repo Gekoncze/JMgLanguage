@@ -5,7 +5,13 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgLunaryOpe
 
 
 public class MgLunaryOperatorExpression extends MgUnaryOperatorExpression {
-    public MgLunaryOperatorExpression(ReadableCollection<MgLunaryOperator> operators) {
-        super(operators);
+    public MgLunaryOperatorExpression(ReadableCollection<? extends MgReplication> replications) {
+        super(replications);
+    }
+
+    public static class MgReplication extends MgUnaryOperatorExpression.MgReplication {
+        public MgReplication(MgLunaryOperator operator) {
+            super(operator);
+        }
     }
 }
