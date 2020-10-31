@@ -8,7 +8,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 
 
-public class MgGlobalVariableGetExpression extends MgVariableExpression {
+public class MgGlobalVariableGetExpression extends MgVariableExpression implements MgVariableGetExpression {
     public MgGlobalVariableGetExpression(MgGlobalVariable variable) {
         super(
             new Array<>(),

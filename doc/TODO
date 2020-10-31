@@ -4,15 +4,6 @@
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 fix all mg expression resolvers
-    fix assignment operator expression resolvers
-        reference assignment
-            left expression and right expression connection might be a little bit tricky, but possible
-            check that we cannot reference assign to function call or anything that can accept one parameter
-                so we will need to check for type of expression
-                I think we will need to check if left is group
-                    if yes then gather all variable set expressions
-                    might need to sink further to next group expressions ... ???
-
     fix variable expression resolvers
     fix function expression resolvers
 

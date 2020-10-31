@@ -7,7 +7,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 
 
-public class MgLocalVariableSetExpression extends MgVariableExpression {
+public class MgLocalVariableSetExpression extends MgVariableExpression implements MgVariableSetExpression {
     public MgLocalVariableSetExpression(MgInstanceVariable variable) {
         super(
             new Array<>(

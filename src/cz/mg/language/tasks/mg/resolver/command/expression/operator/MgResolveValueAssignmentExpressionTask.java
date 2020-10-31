@@ -34,7 +34,7 @@ public class MgResolveValueAssignmentExpressionTask extends MgResolveOperatorExp
         MgExpression leftChild = resolveChild(logicalExpression.getLeft());
         MgExpression rightChild = resolveChild(logicalExpression.getRight());
         if(leftChild.getOutputConnectors().count() != rightChild.getOutputConnectors().count()){
-            throw new LanguageException("Unbalanced value asignment operator expression.");
+            throw new LanguageException("Unbalanced value assignment operator expression.");
         }
 
         Array<MgBinaryOperator> operators = new Array<>(leftChild.getOutputConnectors().count());

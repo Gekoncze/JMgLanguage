@@ -8,7 +8,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgStructuredInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 
 
-public class MgInstanceVariableSetExpression extends MgVariableExpression {
+public class MgInstanceVariableSetExpression extends MgVariableExpression implements MgVariableSetExpression {
     public MgInstanceVariableSetExpression(MgInstanceVariable variable) {
         super(
             new Array<>(

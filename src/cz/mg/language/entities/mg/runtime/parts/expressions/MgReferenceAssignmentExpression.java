@@ -2,7 +2,6 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.collections.array.Array;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
 
 public class MgReferenceAssignmentExpression extends MgExpression {

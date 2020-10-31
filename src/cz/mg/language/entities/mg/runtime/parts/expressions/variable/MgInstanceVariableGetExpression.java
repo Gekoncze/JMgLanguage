@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 
 
-public class MgInstanceVariableGetExpression extends MgVariableExpression {
+public class MgInstanceVariableGetExpression extends MgVariableExpression implements MgVariableGetExpression {
     public MgInstanceVariableGetExpression(MgInstanceVariable variable) {
         super(
             new Array<>(
