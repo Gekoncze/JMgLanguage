@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.command.utilities;
+package cz.mg.language.entities.mg.runtime.utilities;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
@@ -29,7 +29,7 @@ public class DeclarationHelper {
     private static MgFunction getFunctionMandatory(){
         MgFunction function = getFunction();
         if(function == null){
-            throw new RuntimeException("Declaration helper can be used only in function resolve context.");
+            throw new RuntimeException("Declaration helper requires function.");
         }
         return function;
     }

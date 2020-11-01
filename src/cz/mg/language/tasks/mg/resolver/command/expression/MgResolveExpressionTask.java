@@ -12,7 +12,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.name.instance.MgResol
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.MgResolveOperatorExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveGroupExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveValueExpressionTask;
-import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
+import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 

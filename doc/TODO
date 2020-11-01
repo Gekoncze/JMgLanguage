@@ -1,5 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+fixed command resolvers
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -15,12 +15,6 @@ so, what we need to do now:
                 operator expressions might need some method for removal of unused replications
                 the constructors of all of these expressions should be examined
                     I couldn't think of an intuitive mechanism yet how to create those
-
-check filters if they are really correct
-
-fix command resovlers
-    those will need to have connect method in constructor
-    also validate method called in constructor
 
 fix all mg expression resolvers
     fix root expressions

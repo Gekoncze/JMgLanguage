@@ -1,6 +1,5 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCaseCommand;
@@ -8,6 +7,7 @@ import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCaseCommand;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTreeTask;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -36,7 +36,11 @@ public class MgResolveCaseCommandTask extends MgResolveCommandTask {
         MgResolveExpressionTreeTask resolveExpressionTreeTask = new MgResolveExpressionTreeTask(context, logicalCommand.getExpression());
         resolveExpressionTreeTask.run();
 
-        MgResolveExpressionTask resolveExpressionTask = MgResolveExpressionTask.create(context, resolveExpressionTreeTask.getLogicalCallExpression(), null /*todo*/); new Todo();
+        MgResolveExpressionTask resolveExpressionTask = MgResolveExpressionTask.create(
+            context,
+            resolveExpressionTreeTask.getLogicalCallExpression(),
+            new ExpectedParentInput(MgCaseCommand.DATATYPE)
+        );
         resolveExpressionTask.run();
         command = new MgCaseCommand(resolveExpressionTask.getExpression());
         context.setCommand(command);

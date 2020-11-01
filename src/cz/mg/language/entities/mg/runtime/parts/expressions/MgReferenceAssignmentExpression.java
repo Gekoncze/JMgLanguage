@@ -3,8 +3,6 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Part;
 import cz.mg.collections.Pass;
-import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
@@ -12,7 +10,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.variable.MgVariableSetExpression;
-import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
+import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 
 
 public class MgReferenceAssignmentExpression extends MgExpression {

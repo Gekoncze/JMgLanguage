@@ -2,7 +2,6 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 
 import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 
@@ -13,7 +12,7 @@ public class MgExpressionCommand extends MgCommand {
 
     public MgExpressionCommand(MgExpression expression) {
         this.expression = expression;
-        new Todo(); // todo - connect and validate
+        this.expression.validate();
     }
 
     public MgExpression getExpression() {

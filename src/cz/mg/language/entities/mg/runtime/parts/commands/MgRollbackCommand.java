@@ -3,7 +3,6 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
-import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgExceptionType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -12,10 +11,11 @@ import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.RollbackException;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 
 
 public class MgRollbackCommand extends MgCommand {
-    private static final MgDatatype EXCEPTION_DATATYPE = new MgDatatype(
+    public static final MgDatatype DATATYPE = new MgDatatype(
         MgExceptionType.getInstance(),
         MgDatatype.Storage.ANY,
         MgDatatype.Requirement.OPTIONAL
@@ -25,11 +25,16 @@ public class MgRollbackCommand extends MgCommand {
     private final MgExpression expression;
 
     @Mandatory @Link
-    private final MgInputConnector inputConnector = new MgInputConnector(EXCEPTION_DATATYPE);
+    private final MgInputConnector inputConnector = new MgInputConnector(DATATYPE);
 
     public MgRollbackCommand(MgExpression expression) {
         this.expression = expression;
-        new Todo(); // todo - connect and validate
+        connect();
+        this.expression.validate();
+    }
+
+    private void connect(){
+        DeclarationHelper.connect(inputConnector, expression.getOutputConnectors().getFirst());
     }
 
     public MgExpression getExpression() {

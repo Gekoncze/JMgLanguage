@@ -4,10 +4,8 @@ import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
-import cz.mg.annotations.storage.Value;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
-import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -17,10 +15,11 @@ import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.BreakExcepti
 import cz.mg.language.entities.mg.runtime.parts.commands.exceptions.ContinueException;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 
 
 public class MgWhileCommand extends MgCommand implements Breakable, Continuable {
-    private static final MgDatatype BOOL_DATATYPE = new MgDatatype(
+    public static final MgDatatype DATATYPE = new MgDatatype(
         MgBoolType.getInstance(),
         MgDatatype.Storage.ANY,
         MgDatatype.Requirement.OPTIONAL
@@ -33,7 +32,7 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     private final MgExpression expression;
 
     @Mandatory @Link
-    private final MgInputConnector inputConnector = new MgInputConnector(BOOL_DATATYPE);
+    private final MgInputConnector inputConnector = new MgInputConnector(DATATYPE);
 
     @Mandatory @Part
     private final List<MgCommand> commands = new List<>();
@@ -41,7 +40,12 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     public MgWhileCommand(ReadableText name, MgExpression expression) {
         this.name = name;
         this.expression = expression;
-        new Todo(); // todo - connect and validate
+        connect();
+        this.expression.validate();
+    }
+
+    private void connect(){
+        DeclarationHelper.connect(inputConnector, expression.getOutputConnectors().getFirst());
     }
 
     @Override

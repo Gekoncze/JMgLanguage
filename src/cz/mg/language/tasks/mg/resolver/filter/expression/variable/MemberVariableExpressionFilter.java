@@ -4,7 +4,6 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.LanguageException;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
-import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
@@ -29,7 +28,6 @@ public class MemberVariableExpressionFilter extends VariableExpressionFilter {
             throw new LanguageException("Target expression has multiple output.");
         }
 
-        new Todo(); // todo - verify if this is correct
         if(target.getOutputConnectors().getFirst().getDatatype().getType() != targetContext.getComponent()){
             throw new RuntimeException();
         }

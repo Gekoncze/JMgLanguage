@@ -12,7 +12,7 @@ import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
-import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
+import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 
 
 public class MgGlobalVariableSetExpression extends MgVariableExpression implements MgVariableSetExpression {

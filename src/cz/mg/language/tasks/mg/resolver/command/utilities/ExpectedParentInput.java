@@ -11,7 +11,15 @@ public class ExpectedParentInput {
     @Mandatory @Part
     private final List<@Mandatory @Value MgDatatype> datatypes;
 
-    public ExpectedParentInput(@Mandatory @Part List<MgDatatype> datatypes) {
+    public ExpectedParentInput() {
+        this.datatypes = new List<>();
+    }
+
+    public ExpectedParentInput(MgDatatype datatype) {
+        this.datatypes = new List<>(datatype);
+    }
+
+    public ExpectedParentInput(List<MgDatatype> datatypes) {
         this.datatypes = datatypes;
     }
 
