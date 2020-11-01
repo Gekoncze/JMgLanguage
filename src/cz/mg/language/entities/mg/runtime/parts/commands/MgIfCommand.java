@@ -4,6 +4,7 @@ import cz.mg.annotations.storage.Link;
 import cz.mg.collections.list.List;
 import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -31,6 +32,7 @@ public class MgIfCommand extends MgCommand {
 
     public MgIfCommand(MgExpression expression) {
         this.expression = expression;
+        new Todo(); // todo - connect and validate
     }
 
     public MgExpression getExpression() {

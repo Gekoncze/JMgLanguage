@@ -3,6 +3,7 @@ package cz.mg.language.entities.mg.runtime.parts.commands;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgExceptionType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -26,8 +27,9 @@ public class MgRollbackCommand extends MgCommand {
     @Mandatory @Link
     private final MgInputConnector inputConnector = new MgInputConnector(EXCEPTION_DATATYPE);
 
-    public MgRollbackCommand(@Part MgExpression expression) {
+    public MgRollbackCommand(MgExpression expression) {
         this.expression = expression;
+        new Todo(); // todo - connect and validate
     }
 
     public MgExpression getExpression() {

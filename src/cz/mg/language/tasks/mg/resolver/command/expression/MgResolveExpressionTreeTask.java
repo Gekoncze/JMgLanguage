@@ -20,6 +20,7 @@ import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.command.utilities.CachedLogicalOperatorExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorInfo;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
@@ -89,7 +90,7 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
                             MgDatatype datatype = task.getDatatype();
 
                             context.getDeclaredVariables().addLast(
-                                context.getVariableHelper().nextDeclaredVariable(name, datatype)
+                                DeclarationHelper.newVariable(name, datatype)
                             );
 
                             mergeBinary(

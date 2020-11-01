@@ -13,6 +13,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.operator.MgResolveOpe
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveGroupExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveValueExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -21,15 +22,15 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
     protected final CommandContext context;
 
     @Input
-    private final MgExpression parent;
+    private final ExpectedParentInput parent;
 
-    public MgResolveExpressionTask(CommandContext context, MgExpression parent) {
+    public MgResolveExpressionTask(CommandContext context, ExpectedParentInput parent) {
         this.context = context;
         this.parent = parent;
         new Todo();
     }
 
-    public MgExpression getParent() {
+    public ExpectedParentInput getParent() {
         return parent;
     }
 
@@ -46,7 +47,7 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
 
     protected abstract void onResolve();
 
-    protected MgExpression resolveChild(MgLogicalCallExpression logicalExpression, MgExpression parent){
+    protected MgExpression resolveChild(MgLogicalCallExpression logicalExpression, ExpectedParentInput parent){
         MgResolveExpressionTask task = MgResolveExpressionTask.create(context, logicalExpression, parent);
         task.run();
         return task.getExpression();
@@ -55,7 +56,7 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
     public static MgResolveExpressionTask create(
         CommandContext context,
         MgLogicalCallExpression logicalExpression,
-        MgExpression parent
+        ExpectedParentInput parent
     ){
         if(logicalExpression instanceof MgLogicalNameCallExpression) {
             return MgResolveNameExpressionTask.create(context, (MgLogicalNameCallExpression) logicalExpression, parent);

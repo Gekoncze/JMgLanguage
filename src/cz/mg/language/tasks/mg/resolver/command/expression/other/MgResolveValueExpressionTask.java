@@ -8,11 +8,11 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalValueCallExpression;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgAtomType;
-import cz.mg.language.entities.mg.runtime.components.types.buildin.MgTextType;
 import cz.mg.language.entities.mg.runtime.instances.buildin.MgAtom;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgValueExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -26,7 +26,7 @@ public class MgResolveValueExpressionTask extends MgResolveExpressionTask {
     public MgResolveValueExpressionTask(
         CommandContext context,
         MgLogicalValueCallExpression logicalExpression,
-        MgResolveExpressionTask parent
+        ExpectedParentInput parent
     ) {
         super(context, parent);
         this.logicalExpression = logicalExpression;

@@ -3,8 +3,8 @@ package cz.mg.language.tasks.mg.resolver.command.expression.name;
 import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalNameCallExpression;
-import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -15,7 +15,7 @@ public abstract class MgResolveNameExpressionTask extends MgResolveExpressionTas
     public MgResolveNameExpressionTask(
         CommandContext context,
         MgLogicalNameCallExpression logicalExpression,
-        MgResolveExpressionTask parent
+        ExpectedParentInput parent
     ) {
         super(context, parent);
         this.logicalExpression = logicalExpression;
@@ -86,7 +86,7 @@ public abstract class MgResolveNameExpressionTask extends MgResolveExpressionTas
     public static MgResolveNameExpressionTask create(
         CommandContext context,
         MgLogicalNameCallExpression logicalExpression,
-        MgExpression parent
+        ExpectedParentInput parent
     ){
         if(logicalExpression.getExpression() == null){
             return new MgResolveVariableExpressionTask(context, logicalExpression, parent);

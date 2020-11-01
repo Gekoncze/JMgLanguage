@@ -1,6 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
 import cz.mg.collections.array.Array;
+import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
@@ -8,6 +9,7 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgRunaryOpe
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgRunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.filter.expression.operator.RunaryOperatorExpressionFilter;
 
@@ -22,7 +24,7 @@ public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperato
     public MgResolveRunaryOperatorExpressionTask(
         CommandContext context,
         MgLogicalRunaryOperatorCallExpression logicalExpression,
-        MgResolveExpressionTask parent
+        ExpectedParentInput parent
     ) {
         super(context, parent);
         this.logicalExpression = logicalExpression;
@@ -30,28 +32,29 @@ public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperato
 
     @Override
     protected void onResolve() {
-        MgExpression leftChild = resolveChild(logicalExpression.getLeft());
-
-        Array<MgRunaryOperator> operators = new Array<>(leftChild.getOutputConnectors().count());
-        for(int r = 0; r < operators.count(); r++){
-            operators.set(new RunaryOperatorExpressionFilter(
-                context,
-                logicalExpression.getName(),
-                getParent(),
-                leftChild,
-                r
-            ).find(), r);
-        }
-
-        expression = new MgRunaryOperatorExpression(operators, leftExpression);
-        expression.getExpressions().addLast(leftChild);
-
-        for(int r = 0; r < expression.getReplications().count(); r++){
-            connect(
-                expression.getInputConnectors().get(r),
-                leftChild.getOutputConnectors().get(r)
-            );
-        }
+        new Todo();
+//        MgExpression leftChild = resolveChild(logicalExpression.getLeft());
+//
+//        Array<MgRunaryOperator> operators = new Array<>(leftChild.getOutputConnectors().count());
+//        for(int r = 0; r < operators.count(); r++){
+//            operators.set(new RunaryOperatorExpressionFilter(
+//                context,
+//                logicalExpression.getName(),
+//                getParent(),
+//                leftChild,
+//                r
+//            ).find(), r);
+//        }
+//
+//        expression = new MgRunaryOperatorExpression(operators, leftExpression);
+//        expression.getExpressions().addLast(leftChild);
+//
+//        for(int r = 0; r < expression.getReplications().count(); r++){
+//            connect(
+//                expression.getInputConnectors().get(r),
+//                leftChild.getOutputConnectors().get(r)
+//            );
+//        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.storage.Value;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -40,6 +41,7 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
     public MgWhileCommand(ReadableText name, MgExpression expression) {
         this.name = name;
         this.expression = expression;
+        new Todo(); // todo - connect and validate
     }
 
     @Override

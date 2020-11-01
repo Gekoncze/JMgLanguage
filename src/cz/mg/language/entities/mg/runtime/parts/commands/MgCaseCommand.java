@@ -5,6 +5,7 @@ import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Value;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
@@ -30,6 +31,7 @@ public class MgCaseCommand extends MgCommand {
 
     public MgCaseCommand(MgExpression expression) {
         this.expression = expression;
+        new Todo(); // todo - connect and validate
     }
 
     public MgExpression getExpression() {
