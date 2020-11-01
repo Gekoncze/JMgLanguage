@@ -1,24 +1,12 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed command resolvers
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-so, what we need to do now:
-    1) resolvers should only take care of the filtering
-    2) expressions should take care of connections
-        they should have a connect method, which will connect / connect left / connect right
-            those should take care of:
-                a) adding expressions to child expressions
-                b) do the wiring
-            I think child expressions and connectors should be individual again
-                the only thing different will be the output connector getter, it should be abstract
-                operator expressions might need some method for removal of unused replications
-                the constructors of all of these expressions should be examined
-                    I couldn't think of an intuitive mechanism yet how to create those
-
 fix all mg expression resolvers
-    fix root expressions
+    resolvers should only take care of the filtering
 
+    fix operator expression resolvers
     fix variable expression resolvers
     fix function expression resolvers
 
