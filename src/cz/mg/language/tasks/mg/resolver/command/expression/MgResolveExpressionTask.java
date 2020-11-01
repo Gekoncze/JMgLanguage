@@ -1,7 +1,8 @@
 package cz.mg.language.tasks.mg.resolver.command.expression;
 
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.LanguageException;
-import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.*;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
@@ -18,23 +19,22 @@ import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public abstract class MgResolveExpressionTask extends MgResolveTask {
-    @Input
+    @Mandatory @Input
     protected final CommandContext context;
 
-    @Input
+    @Optional @Input
     private final ExpectedParentInput parent;
 
     public MgResolveExpressionTask(CommandContext context, ExpectedParentInput parent) {
         this.context = context;
         this.parent = parent;
-        new Todo();
     }
 
-    public ExpectedParentInput getParent() {
+    public @Optional ExpectedParentInput getParent() {
         return parent;
     }
 
-    public abstract MgExpression getExpression();
+    public @Optional abstract MgExpression getExpression();
 
     @Override
     protected final void onRun() {
