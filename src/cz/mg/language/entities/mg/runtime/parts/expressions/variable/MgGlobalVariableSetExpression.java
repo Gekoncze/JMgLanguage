@@ -33,7 +33,7 @@ public class MgGlobalVariableSetExpression extends MgVariableExpression implemen
     }
 
     private void connect(){
-        DeclarationHelper.connect(inputConnector, getOutputConnectors(inputExpression).iterator().next());
+        DeclarationHelper.connect(inputConnector, inputExpression.getOutputConnectors().iterator().next());
     }
 
     @Override
@@ -42,17 +42,17 @@ public class MgGlobalVariableSetExpression extends MgVariableExpression implemen
     }
 
     @Override
-    protected ReadableList<MgExpression> getExpressions() {
+    public ReadableList<MgExpression> getExpressions() {
         return new List<>(inputExpression);
     }
 
     @Override
-    protected ReadableList<MgInputConnector> getInputConnectors() {
+    public ReadableList<MgInputConnector> getInputConnectors() {
         return new List<>(inputConnector);
     }
 
     @Override
-    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+    public ReadableList<MgOutputConnector> getOutputConnectors() {
         return new List<>();
     }
 

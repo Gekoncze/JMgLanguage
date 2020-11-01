@@ -28,12 +28,12 @@ public class MgGroupExpression extends MgExpression {
     }
 
     @Override
-    protected ReadableList<MgInputConnector> getInputConnectors() {
+    public ReadableList<MgInputConnector> getInputConnectors() {
         return new List<>();
     }
 
     @Override
-    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+    public ReadableList<MgOutputConnector> getOutputConnectors() {
         return outputConnectors;
     }
 

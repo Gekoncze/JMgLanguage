@@ -6,6 +6,7 @@ import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgRunaryOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
@@ -13,7 +14,7 @@ public class RunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
     public RunaryOperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression leftSource,
         @Mandatory int replication
     ) {

@@ -27,10 +27,10 @@ public class MgLunaryOperatorExpression extends MgUnaryOperatorExpression {
     private void connect(){
         Pass<MgInputConnector> inputConnectorPass = new PartCollection<>(
             getReplications(),
-            replication -> getInputConnectors(replication).getFirst()
+            replication -> replication.getInputConnectors().getFirst()
         ).iterator();
 
-        Pass<MgOutputConnector> outputConnectorPass = getOutputConnectors(rightExpression).iterator();
+        Pass<MgOutputConnector> outputConnectorPass = rightExpression.getOutputConnectors().iterator();
 
         while(inputConnectorPass.hasNext() && outputConnectorPass.hasNext()){
             DeclarationHelper.connect(inputConnectorPass.next(), outputConnectorPass.next());
@@ -38,7 +38,7 @@ public class MgLunaryOperatorExpression extends MgUnaryOperatorExpression {
     }
 
     @Override
-    protected @Mandatory ReadableList<MgExpression> getExpressions() {
+    public @Mandatory ReadableList<MgExpression> getExpressions() {
         return new List<>(rightExpression);
     }
 

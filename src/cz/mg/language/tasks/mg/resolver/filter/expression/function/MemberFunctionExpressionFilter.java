@@ -8,6 +8,7 @@ import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.component.structured.StructuredTypeContext;
 
 
@@ -15,7 +16,7 @@ public class MemberFunctionExpressionFilter extends FunctionExpressionFilter {
     public MemberFunctionExpressionFilter(
         @Optional StructuredTypeContext targetContext,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression target,
         @Optional MgExpression parameters
     ) {

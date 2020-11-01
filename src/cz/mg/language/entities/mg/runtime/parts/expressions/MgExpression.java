@@ -25,22 +25,7 @@ public abstract class MgExpression implements MgRunnable {
         }
     }
 
-    protected abstract @Mandatory ReadableList<MgExpression> getExpressions();
-    protected abstract @Mandatory ReadableList<MgInputConnector> getInputConnectors();
-    protected abstract @Mandatory ReadableList<MgOutputConnector> getOutputConnectors();
-
-    // hack needed because of messed up java access rights
-    protected static  @Mandatory ReadableList<MgExpression> getExpressions(MgExpression expression){
-        return expression.getExpressions();
-    }
-
-    // hack needed because of messed up java access rights
-    protected static @Mandatory ReadableList<MgInputConnector> getInputConnectors(MgExpression expression){
-        return expression.getInputConnectors();
-    }
-
-    // hack needed because of messed up java access rights
-    protected static @Mandatory ReadableList<MgOutputConnector> getOutputConnectors(MgExpression expression){
-        return expression.getOutputConnectors();
-    }
+    public abstract @Mandatory ReadableList<MgExpression> getExpressions();
+    public abstract @Mandatory ReadableList<MgInputConnector> getInputConnectors();
+    public abstract @Mandatory ReadableList<MgOutputConnector> getOutputConnectors();
 }

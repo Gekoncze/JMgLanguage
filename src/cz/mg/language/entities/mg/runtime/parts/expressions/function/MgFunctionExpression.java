@@ -54,7 +54,7 @@ public abstract class MgFunctionExpression extends MgExpression {
     private void connect(){
         Pass<MgInputConnector> inputConnectorPass = inputConnectors.iterator();
         for(MgExpression expression : expressions){
-            Pass<MgOutputConnector> outputConnectorPass = getOutputConnectors(expression).iterator();
+            Pass<MgOutputConnector> outputConnectorPass = expression.getOutputConnectors().iterator();
             while(inputConnectorPass.hasNext() && outputConnectorPass.hasNext()){
                 DeclarationHelper.connect(inputConnectorPass.next(), outputConnectorPass.next());
             }
@@ -66,17 +66,17 @@ public abstract class MgFunctionExpression extends MgExpression {
     }
 
     @Override
-    protected ReadableList<MgExpression> getExpressions() {
+    public ReadableList<MgExpression> getExpressions() {
         return expressions;
     }
 
     @Override
-    protected ReadableList<MgInputConnector> getInputConnectors() {
+    public ReadableList<MgInputConnector> getInputConnectors() {
         return inputConnectors;
     }
 
     @Override
-    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+    public ReadableList<MgOutputConnector> getOutputConnectors() {
         return outputConnectors;
     }
 

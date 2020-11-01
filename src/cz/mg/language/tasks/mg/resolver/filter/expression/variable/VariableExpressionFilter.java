@@ -6,6 +6,7 @@ import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.expression.ExpressionFilter;
 
@@ -14,7 +15,7 @@ public abstract class VariableExpressionFilter extends ExpressionFilter<MgVariab
     public VariableExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression leftSource,
         @Optional MgExpression rightSource
     ) {
@@ -28,7 +29,7 @@ public abstract class VariableExpressionFilter extends ExpressionFilter<MgVariab
 
         if(destinationInputInterface != null){
             if(destinationInputInterface.count() < 1) return null;
-            MgDatatype destinationDatatype = destinationInputInterface.getFirst().getDatatype();
+            MgDatatype destinationDatatype = destinationInputInterface.getFirst();
             MgDatatype sourceDatatype = variable.getDatatype();
             if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
         }

@@ -36,17 +36,17 @@ public class MgValueAssignmentOperatorExpression extends MgOperatorExpression {
     private void connect(){
         Pass<MgInputConnector> leftInputConnectorPass = new PartCollection<>(
             getReplications(),
-            replication -> getInputConnectors(replication).getFirst()
+            replication -> replication.getInputConnectors().getFirst()
         ).iterator();
 
-        Pass<MgOutputConnector> leftOutputConnectorPass = getOutputConnectors(leftExpression).iterator();
+        Pass<MgOutputConnector> leftOutputConnectorPass = leftExpression.getOutputConnectors().iterator();
 
         Pass<MgInputConnector> rightInputConnectorPass = new PartCollection<>(
             getReplications(),
-            replication -> getInputConnectors(replication).getLast()
+            replication -> replication.getInputConnectors().getLast()
         ).iterator();
 
-        Pass<MgOutputConnector> rightOutputConnectorPass = getOutputConnectors(rightExpression).iterator();
+        Pass<MgOutputConnector> rightOutputConnectorPass = rightExpression.getOutputConnectors().iterator();
 
         while(leftInputConnectorPass.hasNext() && leftOutputConnectorPass.hasNext()){
             DeclarationHelper.connect(leftInputConnectorPass.next(), leftOutputConnectorPass.next());
@@ -58,7 +58,7 @@ public class MgValueAssignmentOperatorExpression extends MgOperatorExpression {
     }
 
     @Override
-    protected ReadableList<MgExpression> getExpressions() {
+    public ReadableList<MgExpression> getExpressions() {
         return new List<>(leftExpression, rightExpression);
     }
 

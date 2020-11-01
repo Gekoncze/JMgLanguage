@@ -5,6 +5,7 @@ import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -12,7 +13,7 @@ public class StandaloneVariableExpressionFilter extends VariableExpressionFilter
     public StandaloneVariableExpressionFilter(
         @Optional CommandContext context,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression value
     ) {
         super(context, requiredName, destination, null, value);

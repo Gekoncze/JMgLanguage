@@ -6,6 +6,7 @@ import cz.mg.annotations.requirement.Optional;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
@@ -13,7 +14,7 @@ public class StandaloneFunctionExpressionFilter extends FunctionExpressionFilter
     public StandaloneFunctionExpressionFilter(
         @Optional CommandContext context,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression parameters
     ) {
         super(context, requiredName, destination, null, parameters);

@@ -7,6 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgLunaryOpe
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
@@ -14,7 +15,7 @@ public class LunaryOperatorExpressionFilter extends UnaryOperatorExpressionFilte
     public LunaryOperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression rightSource,
         @Mandatory int replication
     ) {

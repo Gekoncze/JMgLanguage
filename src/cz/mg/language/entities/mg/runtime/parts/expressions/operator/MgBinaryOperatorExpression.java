@@ -36,10 +36,10 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
     private void connect(){
         Pass<MgInputConnector> leftInputConnectorPass = new PartCollection<>(
             getReplications(),
-            replication -> getInputConnectors(replication).getFirst()
+            replication -> replication.getInputConnectors().getFirst()
         ).iterator();
 
-        Pass<MgOutputConnector> leftOutputConnectorPass = getOutputConnectors(leftExpression).iterator();
+        Pass<MgOutputConnector> leftOutputConnectorPass = leftExpression.getOutputConnectors().iterator();
 
         while(leftInputConnectorPass.hasNext() && leftOutputConnectorPass.hasNext()){
             DeclarationHelper.connect(leftInputConnectorPass.next(), leftOutputConnectorPass.next());
@@ -47,10 +47,10 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
 
         Pass<MgInputConnector> rightInputConnectorPass = new PartCollection<>(
             getReplications(),
-            replication -> getInputConnectors(replication).getLast()
+            replication -> replication.getInputConnectors().getLast()
         ).iterator();
 
-        Pass<MgOutputConnector> rightOutputConnectorPass = getOutputConnectors(rightExpression).iterator();
+        Pass<MgOutputConnector> rightOutputConnectorPass = rightExpression.getOutputConnectors().iterator();
 
         while(rightInputConnectorPass.hasNext() && rightOutputConnectorPass.hasNext()){
             DeclarationHelper.connect(rightInputConnectorPass.next(), rightOutputConnectorPass.next());
@@ -58,7 +58,7 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
     }
 
     @Override
-    protected ReadableList<MgExpression> getExpressions() {
+    public ReadableList<MgExpression> getExpressions() {
         return new List<>(leftExpression, rightExpression);
     }
 

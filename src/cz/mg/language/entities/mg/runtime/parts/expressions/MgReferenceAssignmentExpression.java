@@ -51,17 +51,17 @@ public class MgReferenceAssignmentExpression extends MgExpression {
     }
 
     @Override
-    protected ReadableList<MgExpression> getExpressions() {
+    public ReadableList<MgExpression> getExpressions() {
         return new List<>(leftExpression, rightExpression);
     }
 
     @Override
-    protected ReadableList<MgInputConnector> getInputConnectors() {
+    public ReadableList<MgInputConnector> getInputConnectors() {
         return new List<>();
     }
 
     @Override
-    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+    public ReadableList<MgOutputConnector> getOutputConnectors() {
         return new List<>();
     }
 

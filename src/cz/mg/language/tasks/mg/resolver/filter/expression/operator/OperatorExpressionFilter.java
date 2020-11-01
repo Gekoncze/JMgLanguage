@@ -7,6 +7,7 @@ import cz.mg.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.filter.expression.ExpressionFilter;
 
@@ -19,7 +20,7 @@ public abstract class OperatorExpressionFilter<O extends MgOperator> extends Exp
         @Optional Context context,
         @Mandatory ReadableText requiredName,
         @Mandatory Class<O> clazz,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression leftSource,
         @Optional MgExpression rightSource,
         @Mandatory int replication
@@ -35,7 +36,7 @@ public abstract class OperatorExpressionFilter<O extends MgOperator> extends Exp
 
         if(destinationInputInterface != null){
             if(operator.getOutputVariables().count() != 1) return null;
-            MgDatatype destinationDatatype = destinationInputInterface.get(replication).getDatatype();
+            MgDatatype destinationDatatype = destinationInputInterface.get(replication);
             MgDatatype sourceDatatype = operator.getOutputVariables().getFirst().getDatatype();
             if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
         }

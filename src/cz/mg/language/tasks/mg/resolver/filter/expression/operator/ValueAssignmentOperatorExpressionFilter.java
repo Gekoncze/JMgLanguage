@@ -5,6 +5,7 @@ import cz.mg.annotations.requirement.Optional;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgBinaryOperator;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
@@ -12,7 +13,7 @@ public class ValueAssignmentOperatorExpressionFilter extends BinaryOperatorExpre
     public ValueAssignmentOperatorExpressionFilter(
         @Optional Context context,
         @Mandatory ReadableText requiredName,
-        @Optional MgExpression destination,
+        @Optional ExpectedParentInput destination,
         @Optional MgExpression leftSource,
         @Optional MgExpression rightSource,
         @Mandatory int replication

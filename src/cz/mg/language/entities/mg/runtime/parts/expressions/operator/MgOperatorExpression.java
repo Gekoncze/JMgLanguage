@@ -59,7 +59,7 @@ public abstract class MgOperatorExpression extends MgExpression {
     private static List<MgInputConnector> gatherInputConnectors(List<? extends MgReplication> replications){
         List<MgInputConnector> inputConnectors = new List<>();
         for(MgReplication replication : replications){
-            inputConnectors.addCollectionLast(getInputConnectors(replication));
+            inputConnectors.addCollectionLast(replication.getInputConnectors());
         }
         return inputConnectors;
     }
@@ -67,7 +67,7 @@ public abstract class MgOperatorExpression extends MgExpression {
     private static List<MgOutputConnector> gatherOutputConnectors(List<? extends MgReplication> replications){
         List<MgOutputConnector> outputConnectors = new List<>();
         for(MgReplication replication : replications){
-            outputConnectors.addCollectionLast(getOutputConnectors(replication));
+            outputConnectors.addCollectionLast(replication.getOutputConnectors());
         }
         return outputConnectors;
     }

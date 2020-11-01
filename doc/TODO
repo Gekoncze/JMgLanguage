@@ -1,7 +1,5 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-changed constructor parameters for expression resolvers to be expected parent input
-fixed root expressions
-removed root expression resolvers
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
@@ -18,7 +16,7 @@ so, what we need to do now:
                 the constructors of all of these expressions should be examined
                     I couldn't think of an intuitive mechanism yet how to create those
 
-fix filters
+check filters if they are really correct
 
 fix command resovlers
     those will need to have connect method in constructor

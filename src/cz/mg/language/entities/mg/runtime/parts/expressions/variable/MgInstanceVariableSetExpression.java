@@ -51,8 +51,8 @@ public class MgInstanceVariableSetExpression extends MgVariableExpression implem
     }
 
     private void connect(){
-        DeclarationHelper.connect(targetConnector, getOutputConnectors(targetExpression).iterator().next());
-        DeclarationHelper.connect(inputConnector, getOutputConnectors(inputExpression).iterator().next());
+        DeclarationHelper.connect(targetConnector, targetExpression.getOutputConnectors().iterator().next());
+        DeclarationHelper.connect(inputConnector, inputExpression.getOutputConnectors().iterator().next());
     }
 
     @Override
@@ -61,17 +61,17 @@ public class MgInstanceVariableSetExpression extends MgVariableExpression implem
     }
 
     @Override
-    protected ReadableList<MgExpression> getExpressions() {
+    public ReadableList<MgExpression> getExpressions() {
         return new List<>(targetExpression, inputExpression);
     }
 
     @Override
-    protected ReadableList<MgInputConnector> getInputConnectors() {
+    public ReadableList<MgInputConnector> getInputConnectors() {
         return new List<>(targetConnector, inputConnector);
     }
 
     @Override
-    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+    public ReadableList<MgOutputConnector> getOutputConnectors() {
         return new List<>();
     }
 
