@@ -31,8 +31,10 @@ public abstract class FunctionExpressionFilter extends ExpressionFilter<MgFuncti
             if(destinationInputInterface.count() < function.getOutputVariables().count()) return null;
             for(int i = 0; i < function.getOutputVariables().count(); i++){
                 MgDatatype destinationDatatype = destinationInputInterface.get(i);
-                MgDatatype sourceDatatype = function.getOutputVariables().get(i).getDatatype();
-                if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
+                if(destinationDatatype != null){
+                    MgDatatype sourceDatatype = function.getOutputVariables().get(i).getDatatype();
+                    if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
+                }
             }
         }
 

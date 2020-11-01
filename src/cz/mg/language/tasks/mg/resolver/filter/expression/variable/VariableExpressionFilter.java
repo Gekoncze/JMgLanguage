@@ -30,8 +30,10 @@ public abstract class VariableExpressionFilter extends ExpressionFilter<MgVariab
         if(destinationInputInterface != null){
             if(destinationInputInterface.count() < 1) return null;
             MgDatatype destinationDatatype = destinationInputInterface.getFirst();
-            MgDatatype sourceDatatype = variable.getDatatype();
-            if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
+            if(destinationDatatype != null){
+                MgDatatype sourceDatatype = variable.getDatatype();
+                if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
+            }
         }
 
         return variable;

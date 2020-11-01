@@ -4,6 +4,7 @@ import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgLunaryOperator;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgLunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
@@ -49,8 +50,22 @@ public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperato
 
     private ExpectedParentInput getExpectedInput(){
         if(getParent() != null){
-            // todo - we might be able to locate only some of the operator candidates
-            // todo - what shall we do otherwise?
+            ExpectedParentInput expectedInput = new ExpectedParentInput();
+            for(int r = 0; r < getParent().getDatatypes().count(); r++){
+                MgLunaryOperator operator = new LunaryOperatorExpressionFilter(
+                    context,
+                    logicalExpression.getName(),
+                    getParent(),
+                    null,
+                    r
+                ).findOptional();
+                expectedInput.getDatatypes().addLast(
+                    operator != null
+                        ? operator.getInputVariables().getFirst().getDatatype()
+                        : null
+                );
+            }
+            return expectedInput;
         } else {
             return null;
         }

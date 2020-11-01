@@ -19,7 +19,7 @@ import cz.mg.language.tasks.mg.resolver.filter.Filter;
 
 public abstract class ExpressionFilter<C extends MgComponent> extends Filter<C> {
     @Optional @Link
-    protected final ReadableArray<@Mandatory @Value MgDatatype> destinationInputInterface;
+    protected final ReadableArray<@Optional @Value MgDatatype> destinationInputInterface;
 
     @Optional @Link
     protected final ReadableArray<@Mandatory @Link MgOutputConnector> leftSourceOutputInterface;

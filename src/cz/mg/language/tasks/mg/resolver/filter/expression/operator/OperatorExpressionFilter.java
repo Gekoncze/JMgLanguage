@@ -37,8 +37,10 @@ public abstract class OperatorExpressionFilter<O extends MgOperator> extends Exp
         if(destinationInputInterface != null){
             if(operator.getOutputVariables().count() != 1) return null;
             MgDatatype destinationDatatype = destinationInputInterface.get(replication);
-            MgDatatype sourceDatatype = operator.getOutputVariables().getFirst().getDatatype();
-            if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
+            if(destinationDatatype != null){
+                MgDatatype sourceDatatype = operator.getOutputVariables().getFirst().getDatatype();
+                if(!MgDatatype.isCompatible(destinationDatatype, sourceDatatype)) return null;
+            }
         }
 
         return operator;
