@@ -20,7 +20,6 @@ so, what we need to do now:
 
 fix all mg expression resolvers
     fix operator expressions
-    fix function expressions
     fix root expressions
 
     fix variable expression resolvers

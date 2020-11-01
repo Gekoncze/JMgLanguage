@@ -36,7 +36,7 @@ public abstract class MgOperatorExpression extends MgExpression {
     }
 
     @Override
-    protected void onRun(MgFunctionInstance functionInstance) {
+    public void run(MgFunctionInstance functionInstance) {
         for(MgReplication replication : replications){
             replication.run(functionInstance);
         }
