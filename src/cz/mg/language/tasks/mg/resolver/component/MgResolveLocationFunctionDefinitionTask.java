@@ -1,37 +1,18 @@
 package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.collections.list.List;
-import cz.mg.language.annotations.task.Input;
-import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.*;
-import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
-import cz.mg.language.entities.mg.runtime.components.types.functions.*;
-import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgBinaryOperator;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgGlobalFunction;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgLunaryOperator;
+import cz.mg.language.entities.mg.runtime.components.types.functions.MgRunaryOperator;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
 
 
-public class MgResolveLocationFunctionDefinitionTask extends MgResolveComponentDefinitionTask {
-    @Input
-    private final MgLogicalFunction logicalFunction;
-
-    @Output
-    private MgFunction function;
-
+public class MgResolveLocationFunctionDefinitionTask extends MgResolveFunctionDefinitionTask {
     public MgResolveLocationFunctionDefinitionTask(Context context, MgLogicalFunction logicalFunction) {
-        super(new FunctionContext(context), logicalFunction);
-        this.logicalFunction = logicalFunction;
-    }
-
-    @Override
-    protected FunctionContext getContext() {
-        return (FunctionContext) super.getContext();
-    }
-
-    public MgFunction getFunction() {
-        return function;
+        super(context, logicalFunction);
     }
 
     @Override
@@ -53,28 +34,6 @@ public class MgResolveLocationFunctionDefinitionTask extends MgResolveComponentD
         function.getStamps().addCollectionLast(globalStampOnly(stamps));
         getContext().setFunction(function);
 
-        for(MgLogicalVariable logicalInput : logicalFunction.getInput()){
-            postpone(MgResolveFunctionVariableDefinitionTask.class, () -> {
-                MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(getContext(), function, logicalInput);
-                task.run();
-                function.getInputVariables().addLast(task.getVariable());
-            });
-        }
-
-        for(MgLogicalVariable logicalOutput : logicalFunction.getOutput()){
-            postpone(MgResolveFunctionVariableDefinitionTask.class, () -> {
-                MgResolveFunctionVariableDefinitionTask task = new MgResolveFunctionVariableDefinitionTask(getContext(), function, logicalOutput);
-                task.run();
-                function.getOutputVariables().addLast(task.getVariable());
-            });
-        }
-
-        for(MgLogicalCommand logicalCommand : logicalFunction.getCommands()){
-            postpone(MgResolveCommandTask.class, () -> {
-                MgResolveCommandTask task = MgResolveCommandTask.create(new CommandContext(getContext()), logicalCommand);
-                task.run();
-                function.getCommands().addLast(task.getCommand());
-            });
-        }
+        onResolveComponentChildren();
     }
 }

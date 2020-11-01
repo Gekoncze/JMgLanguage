@@ -1,22 +1,39 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.variable;
 
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
+import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
-import cz.mg.language.entities.mg.runtime.MgObject;
+import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
+import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
 
 
 public class MgGlobalVariableSetExpression extends MgVariableExpression implements MgVariableSetExpression {
-    public MgGlobalVariableSetExpression(MgGlobalVariable variable) {
-        super(
-            new Array<>(
-                MgVariableSetExpression.createInputConnector(variable)
-            ),
-            new Array<>(),
-            variable
-        );
+    @Mandatory @Part
+    private final MgExpression inputExpression;
+
+    @Mandatory @Part
+    private final MgInputConnector inputConnector;
+
+    @Optional @Cache
+    private int inputVariableOffset = -1;
+
+    public MgGlobalVariableSetExpression(MgVariable variable, MgExpression inputExpression) {
+        super(variable);
+        this.inputExpression = inputExpression;
+        this.inputConnector = MgVariableSetExpression.createInputConnector(variable);
+        connect();
+    }
+
+    private void connect(){
+        DeclarationHelper.connect(inputConnector, getOutputConnectors(inputExpression).iterator().next());
     }
 
     @Override
@@ -25,11 +42,34 @@ public class MgGlobalVariableSetExpression extends MgVariableExpression implemen
     }
 
     @Override
-    protected void onRun(MgFunctionInstance functionInstance) {
-        MgInputConnector inputConnector = getInputConnectors().getLast();
-        MgInstanceVariable inputVariable = inputConnector.getConnection().getConnectionVariable();
-        MgObject inputObject = functionInstance.getObjects().get(inputVariable.getCache().getOffset());
+    protected @Mandatory ReadableCollection<MgExpression> getExpressions() {
+        return new Array<>(inputExpression);
+    }
 
-        getVariable().setObject(inputObject);
+    @Override
+    protected @Mandatory ReadableCollection<MgInputConnector> getInputConnectors() {
+        return new Array<>(inputConnector);
+    }
+
+    @Override
+    protected @Mandatory ReadableCollection<MgOutputConnector> getOutputConnectors() {
+        return new Array<>();
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        this.inputVariableOffset = inputConnector
+            .getConnection()
+            .getConnectionVariable()
+            .getCache()
+            .getOffset();
+    }
+
+    @Override
+    public void run(MgFunctionInstance functionInstance) {
+        getVariable().setObject(
+            functionInstance.getObjects().get(inputVariableOffset)
+        );
     }
 }

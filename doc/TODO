@@ -3,21 +3,25 @@
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+so, what we need to do now:
+    1) resolvers should only take care of the filtering
+    2) expressions should take care of connections
+        they should have a connect method, which will connect / connect left / connect right
+            those should take care of:
+                a) adding expressions to child expressions
+                b) do the wiring
+            I think child expressions and connectors should be individual again
+                the only thing different will be the output connector getter, it should be abstract
+                operator expressions might need some method for removal of unused replications
+                the constructors of all of these expressions should be examined
+                    I couldn't think of an intuitive mechanism yet how to create those
+    dont forget to do the connections in expression constructors !!!
+    change constructor parameter for expression resolvers to be something like parent expression input filter
+
 fix all mg expression resolvers
-    problem - I think we need to connect also to parent when ready
-        another problem - imagine the following expression:
-            FUNCTION foo INPUT Int32 a, Int32 b, Int32 c OUTPUT Int32 d
-                ...
-
-            BINARY OPERATOR * INPUT Int32 a, Int32 b OUTPUT Int32
-                ...
-
-            c $= foo(+(1, 2) * -(3, 4), 1)
-                how do we know how many replications are we getting on enter? (before children resovled)
-                well, we would need to find replications anyway for all inputs
-                some can be null!
-                and then drop unused ones?
-
+    fix operator expressions
+    fix function expressions
+    fix root expressions
 
     fix variable expression resolvers
     fix function expression resolvers

@@ -1,49 +1,21 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions;
 
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.annotations.storage.Part;
-import cz.mg.annotations.storage.Shared;
-import cz.mg.collections.array.ReadableArray;
-import cz.mg.collections.list.List;
+import cz.mg.collections.ReadableCollection;
 import cz.mg.language.entities.mg.runtime.MgRunnable;
-import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
 
 
 public abstract class MgExpression implements MgRunnable {
-    private static final boolean DEBUG = true;
-
-    @Mandatory @Part
-    private final List<@Mandatory @Part MgExpression> expressions = new List<>();
-
-    @Mandatory @Part
-    private final ReadableArray<@Mandatory @Shared MgInputConnector> inputConnectors;
-
-    @Mandatory @Part
-    private final ReadableArray<@Mandatory @Shared MgOutputConnector> outputConnectors;
-
-    public MgExpression(
-        ReadableArray<MgInputConnector> inputConnectors,
-        ReadableArray<MgOutputConnector> outputConnectors
-    ) {
-        this.inputConnectors = inputConnectors;
-        this.outputConnectors = outputConnectors;
-    }
-
-    public List<MgExpression> getExpressions() {
-        return expressions;
-    }
-
-    public ReadableArray<MgInputConnector> getInputConnectors() {
-        return inputConnectors;
-    }
-
-    public ReadableArray<MgOutputConnector> getOutputConnectors() {
-        return outputConnectors;
+    public MgExpression() {
     }
 
     public void validate(){
+        for(MgExpression expression : getExpressions()){
+            expression.validate();
+        }
+
         for(MgInputConnector inputConnector : getInputConnectors()){
             inputConnector.validate();
         }
@@ -53,18 +25,22 @@ public abstract class MgExpression implements MgRunnable {
         }
     }
 
-    @Override
-    public final void run(MgFunctionInstance functionInstance) {
-        if(DEBUG) validate();
-        onRunExpressions(functionInstance);
-        onRun(functionInstance);
+    protected abstract @Mandatory ReadableCollection<MgExpression> getExpressions();
+    protected abstract @Mandatory ReadableCollection<MgInputConnector> getInputConnectors();
+    protected abstract @Mandatory ReadableCollection<MgOutputConnector> getOutputConnectors();
+
+    // hack needed because of messed up java access rights
+    protected @Mandatory ReadableCollection<MgExpression> getExpressions(MgExpression expression){
+        return expression.getExpressions();
     }
 
-    protected void onRunExpressions(MgFunctionInstance functionInstance){
-        for(MgExpression expression : expressions){
-            expression.run(functionInstance);
-        }
+    // hack needed because of messed up java access rights
+    protected @Mandatory ReadableCollection<MgInputConnector> getInputConnectors(MgExpression expression){
+        return expression.getInputConnectors();
     }
 
-    protected abstract void onRun(MgFunctionInstance functionInstance);
+    // hack needed because of messed up java access rights
+    protected @Mandatory ReadableCollection<MgOutputConnector> getOutputConnectors(MgExpression expression){
+        return expression.getOutputConnectors();
+    }
 }

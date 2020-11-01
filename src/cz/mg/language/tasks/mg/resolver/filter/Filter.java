@@ -28,6 +28,14 @@ public abstract class Filter<C extends MgComponent> {
         this.requiredType = requiredType;
     }
 
+    public @Optional C find(boolean optional){
+        if(optional){
+            return findOptional();
+        } else {
+            return find();
+        }
+    }
+
     public @Mandatory C find(){
         ReadableList components = findAll();
         if(components.count() <= 0){

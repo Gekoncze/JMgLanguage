@@ -39,7 +39,7 @@ public abstract class ExpressionFilter<C extends MgComponent> extends Filter<C> 
         this.rightSourceOutputInterface = sourceInterface(rightSource);
     }
 
-    private static ReadableArray<MgInputConnector> destinationInterface(MgExpression parent){
+    public static ReadableArray<MgInputConnector> destinationInterface(MgExpression parent){
         if(parent != null){
             List<MgInputConnector> connectors = new List<>();
             for(MgInputConnector connector : parent.getInputConnectors()){

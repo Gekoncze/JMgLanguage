@@ -8,7 +8,6 @@ import cz.mg.collections.list.List;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
-import cz.mg.language.tasks.mg.resolver.command.utilities.VariableHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
 import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
 
@@ -52,10 +51,6 @@ public class CommandContext extends Context {
 
     public OperatorCache getOperatorCache() {
         return getFunctionContext().getOperatorCache();
-    }
-
-    public VariableHelper getVariableHelper(){
-        return getFunctionContext().getVariableHelper();
     }
 
     @Override

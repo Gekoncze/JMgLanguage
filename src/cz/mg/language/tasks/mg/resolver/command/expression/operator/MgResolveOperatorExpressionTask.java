@@ -5,20 +5,21 @@ import cz.mg.language.entities.mg.Operators;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.expression.operator.assignment.MgResolveReferenceAssignmentExpressionTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 
 
 public abstract class MgResolveOperatorExpressionTask extends MgResolveExpressionTask {
-    public MgResolveOperatorExpressionTask(CommandContext context, MgResolveExpressionTask parent) {
+    public MgResolveOperatorExpressionTask(CommandContext context, MgExpression parent) {
         super(context, parent);
     }
 
     public static MgResolveOperatorExpressionTask create(
         CommandContext context,
         MgLogicalOperatorCallExpression logicalExpression,
-        MgResolveExpressionTask parent
+        MgExpression parent
     ){
         if(logicalExpression instanceof MgLogicalBinaryOperatorCallExpression){
             if(logicalExpression.getName().equals(Operators.ASSIGNMENT)){

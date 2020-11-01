@@ -39,13 +39,4 @@ public class MgConnection {
         inputConnector.setConnection(connection);
         outputConnector.setConnection(connection);
     }
-
-    public static void disconnect(MgInputConnector inputConnector, MgOutputConnector outputConnector){
-        if(inputConnector.getConnection() != outputConnector.getConnection()){
-            throw new RuntimeException("Disconnect: Connectors are not connected.");
-        }
-
-        inputConnector.setConnection(null);
-        outputConnector.setConnection(null);
-    }
 }
