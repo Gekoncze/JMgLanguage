@@ -1,0 +1,43 @@
+multiple inheritance considerations
+    there are two options how to do this
+            1) physical multiple inheritance - using batches - IMPOSSIBLE :(
+                we can achieve this pretty easily actually without much overheat
+                    in C we could move the pointer to the correct batch each time it is casted
+                        and that's it
+                        for comparision:
+                            the only thing which needs to be kept in mind that it always HAS TO compare pointers of the same type
+                                it will do the necessary address recomputations during casting! that is the key!
+
+                    the only problem is that java does not support pointers
+                        we cannot just add offset to reference
+                        so we would need to get around this somehow
+                        at the very least, we could use jni
+                    also, we might need to store pointer to the type multiple times, so that should be considered
+
+                    actually, there might be a penalty
+                        because every time we would try to access a variable inside
+                        it would need to do a cast, or not???
+
+                    I think this will NOT WORK for following reason:
+                        Animal
+                        	Cat
+                        	Bird
+                        	Dog
+
+                        CatDog IS Cat, Dog
+
+                        CatBirdDog IS Cat, Bird, Dog, CatDog
+
+                        CatDog a = new CatBirdDog  # here we still know where to move properly!
+                        Cat c = a  # but here we would move by wrong offset!
+                        c.meowIntensity
+                        a.meowIntensity  # does this require cast?
+
+            2) virtual multiple inheritance - using hash maps - SIMPLE :)
+                we would pass mg variable object to the instance's type's hash map
+                and it would return us the offset in the instance
+
+        a thing to consider
+            how to deal with variable / function overriding
+            also, variable overriding could be supported only for readonly variables
+                otherwise if we wrote into it using base class, its type could get incorrect

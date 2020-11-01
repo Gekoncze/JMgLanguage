@@ -73,15 +73,12 @@ test
             either this might or might not create additional expressions
             or we might actually ignore the check for storage direct and indirect in matcher
 
-
-allow = operator
-    reference or value assignment can be automatically determined
-        for example by variable type
-            if left and right variable is reference, then it will be reference assignment
-            if left and right variable is value, then it will be value assignment
-            if left variable is value, then it can only be value assignment
-
 take into account access modifiers during resolve
+
+think if we can simplify mg expressions somehow
+    maybe split it into executable and non-executable classes?
+    or extract the executable part into an inner class?
+    I really dont know ...
 
 explicit casting
     add buildin as operators
@@ -98,17 +95,9 @@ mg builder - global variable object
 add support for mg @type variables and functions
     make mg class implement class instance
 
-add support for relative "../" usages ???
-
-implementation of the new simplified runtime model
-    we might need a context object being passed
-        passed in two ways:
-            implicitly - current function context will be used
-            explicitly - user provided context will be used
-
 think about new object creation
     there would be probably some default allocator
-    and default factory, which would automatically call function
+    and/or default factory, which would automatically call function
         with stamps like @create @destroy
 
 complete support for collections
@@ -135,19 +124,33 @@ mg stamps definitions
                 maybe its not a good idea, investigate
 
 
+
+
 ### LATER ### ----------------------------------------------------------------------------------------------------------
+add support for multiple inheritance
+add support for variable and function overriding
+add support for variable number of parameters of functions
+
+allow = operator
+    reference or value assignment can be automatically determined
+        for example by variable type
+            if left and right variable is reference, then it will be reference assignment
+            if left and right variable is value, then it will be value assignment
+            if left variable is value, then it can only be value assignment
+    this can be useful especially for replication
+
 add context for function execution
-add support for variable number of parameters of functions ?
+    it might work this way:
+        there will be places in code where we would enter/leave context
+            on enter, we will add context to current thread
+            on leave, we will remove context from current thread
+            no need for dependency injection :)
 
-change static create implementations
-    make it so the classes registers themselves in a static block
-
-calling of super method:
-    let class FooBar extend Bar and override print function
+calling of super method
+    if class FooBar extends Bar and overrides its print function
     instead of fooBar.print
-    call Foo.print: fooBar
+    we could call Foo.print: fooBar
 
-mg logic or runtime entity versioning ?
 mg global variable - add runtime validation for type?
 mg member variable - add runtime validation for type?
 mg function pointers - will be called interfaces
@@ -157,26 +160,6 @@ mg function pointers - will be called interfaces
     but then again !. would be considered as a single operator which might complicate stuff
     so wither ! would need to be separated, or not use it and have empty brackets as usual ()
     this would also solve the ambiguous function pointer call (as execution or as storage)
-
-mg roles (like java interfaces)
-
-write mg to c converter
-    decide if to convert from logical or runtime entities
-
-    c entities
-        add global variable element (dont forget modifiers)
-        add thread local modifier
-        add extern modifier
-        add (c language specific) static modifier
-        differentiate c number and text and character literals ???
-
-        bad design detected
-            lines should own tokens as a part
-            but actually, with static final variables, they cant own them, they just reference them
-            the right thing to do is to always create a new token instance!
-
-    c writer
-        optimize operator writer tasks to not always include brackets
 
 improve compiler exceptions
     add external (user) exception vs internal exception
@@ -210,6 +193,31 @@ make platform independent threads
 
 
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
+add support for relative ".." and "." usages ???
+
+write mg to c converter
+    decide if to convert from logical or runtime entities
+
+    c entities
+        add global variable element (dont forget modifiers)
+        add thread local modifier
+        add extern modifier
+        add (c language specific) static modifier
+        differentiate c number and text and character literals ???
+
+        bad design detected
+            lines should own tokens as a part
+            but actually, with static final variables, they cant own them, they just reference them
+            the right thing to do is to always create a new token instance!
+
+    c writer
+        optimize operator writer tasks to not always include brackets
+
+mg logic or runtime entity versioning ?
+
+change static create implementations
+    make it so the classes registers themselves in a static block
+
 allow static access to instance functions using special usages
     USING INSTANCE FUNCTION cz.mg.Foo.bar
     USING TYPE FUNCTION cz.mg.Foo.bar
@@ -245,6 +253,9 @@ move all subtasks to Task class ???
 
 
 ### IDEAS ### ----------------------------------------------------------------------------------------------------------
+mg roles (like java interfaces)
+    I think this can be already fully covered by multiple inheritance
+
 add support for builder like syntax using double dot ..
 
 add support for parents inside objects
