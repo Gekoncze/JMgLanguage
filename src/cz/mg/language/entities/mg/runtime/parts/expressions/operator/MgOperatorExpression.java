@@ -3,10 +3,8 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.operator;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
-import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.array.Array;
-import cz.mg.collections.array.ReadableArray;
 import cz.mg.collections.list.List;
+import cz.mg.collections.list.ReadableList;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
@@ -17,22 +15,32 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.function.MgFunctionE
 
 public abstract class MgOperatorExpression extends MgExpression {
     @Mandatory @Part
-    private final ReadableArray<@Mandatory @Link ? extends MgReplication> replications;
+    private final List<@Mandatory @Link ? extends MgReplication> replications;
 
-    public MgOperatorExpression(ReadableCollection<? extends MgReplication> replications) {
-        this(new Array<>(replications));
-    }
+    @Mandatory @Link
+    private final List<MgInputConnector> inputConnectors;
 
-    private MgOperatorExpression(ReadableArray<? extends MgReplication> replications){
-        super(
-            gatherInputConnectors(replications),
-            gatherOutputConnectors(replications)
-        );
+    @Mandatory @Link
+    private final List<MgOutputConnector> outputConnectors;
+
+    public MgOperatorExpression(List<? extends MgReplication> replications) {
         this.replications = replications;
+        this.inputConnectors = gatherInputConnectors(replications);
+        this.outputConnectors = gatherOutputConnectors(replications);
     }
 
-    public ReadableArray<? extends MgReplication> getReplications() {
+    public ReadableList<? extends MgReplication> getReplications() {
         return replications;
+    }
+
+    @Override
+    public ReadableList<MgInputConnector> getInputConnectors() {
+        return inputConnectors;
+    }
+
+    @Override
+    public ReadableList<MgOutputConnector> getOutputConnectors() {
+        return outputConnectors;
     }
 
     @Override
@@ -44,32 +52,23 @@ public abstract class MgOperatorExpression extends MgExpression {
 
     public static abstract class MgReplication extends MgFunctionExpression {
         public MgReplication(MgOperator operator) {
-            super(
-                MgFunctionExpression.createInputConnectors(operator),
-                MgFunctionExpression.createOutputConnectors(operator),
-                operator
-            );
-        }
-
-        @Override
-        public List<MgExpression> getExpressions() {
-            throw new RuntimeException();
+            super(operator, new List<>());
         }
     }
 
-    private static ReadableArray<MgInputConnector> gatherInputConnectors(ReadableArray<? extends MgReplication> replications){
+    private static List<MgInputConnector> gatherInputConnectors(List<? extends MgReplication> replications){
         List<MgInputConnector> inputConnectors = new List<>();
         for(MgReplication replication : replications){
-            inputConnectors.addCollectionLast(replication.getInputConnectors());
+            inputConnectors.addCollectionLast(getInputConnectors(replication));
         }
-        return new Array<>(inputConnectors);
+        return inputConnectors;
     }
 
-    private static ReadableArray<MgOutputConnector> gatherOutputConnectors(ReadableArray<? extends MgReplication> replications){
+    private static List<MgOutputConnector> gatherOutputConnectors(List<? extends MgReplication> replications){
         List<MgOutputConnector> outputConnectors = new List<>();
         for(MgReplication replication : replications){
-            outputConnectors.addCollectionLast(replication.getOutputConnectors());
+            outputConnectors.addCollectionLast(getOutputConnectors(replication));
         }
-        return new Array<>(outputConnectors);
+        return outputConnectors;
     }
 }

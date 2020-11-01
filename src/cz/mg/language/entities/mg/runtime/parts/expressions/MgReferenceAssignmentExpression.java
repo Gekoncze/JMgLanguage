@@ -6,6 +6,7 @@ import cz.mg.collections.Pass;
 import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
+import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
@@ -50,18 +51,18 @@ public class MgReferenceAssignmentExpression extends MgExpression {
     }
 
     @Override
-    protected ReadableCollection<MgExpression> getExpressions() {
-        return new Array<>(leftExpression, rightExpression);
+    protected ReadableList<MgExpression> getExpressions() {
+        return new List<>(leftExpression, rightExpression);
     }
 
     @Override
-    protected ReadableCollection<MgInputConnector> getInputConnectors() {
-        return new Array<>();
+    protected ReadableList<MgInputConnector> getInputConnectors() {
+        return new List<>();
     }
 
     @Override
-    protected ReadableCollection<MgOutputConnector> getOutputConnectors() {
-        return new Array<>();
+    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+        return new List<>();
     }
 
     @Override

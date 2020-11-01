@@ -3,8 +3,6 @@ package cz.mg.language.entities.mg.runtime.parts.expressions;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
-import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.array.Array;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -30,8 +28,8 @@ public class MgGroupExpression extends MgExpression {
     }
 
     @Override
-    protected ReadableCollection<MgInputConnector> getInputConnectors() {
-        return new Array<>();
+    protected ReadableList<MgInputConnector> getInputConnectors() {
+        return new List<>();
     }
 
     @Override

@@ -1,12 +1,12 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.operator;
 
-import cz.mg.collections.ReadableCollection;
+import cz.mg.collections.list.List;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgUnaryOperator;
 
 
 public abstract class MgUnaryOperatorExpression extends MgOperatorExpression {
-    public MgUnaryOperatorExpression(ReadableCollection<? extends MgReplication> replications) {
+    public MgUnaryOperatorExpression(List<? extends MgReplication> replications) {
         super(replications);
     }
 

@@ -43,7 +43,7 @@ public class MgResolveLunaryOperatorExpressionTask extends MgResolveUnaryOperato
             ).find(), r);
         }
 
-        expression = new MgLunaryOperatorExpression(operators);
+        expression = new MgLunaryOperatorExpression(operators, rightExpression);
         expression.getExpressions().addLast(rightChild);
 
         for(int r = 0; r < expression.getReplications().count(); r++){

@@ -19,7 +19,6 @@ so, what we need to do now:
     change constructor parameter for expression resolvers to be something like parent expression input filter
 
 fix all mg expression resolvers
-    fix operator expressions
     fix root expressions
 
     fix variable expression resolvers

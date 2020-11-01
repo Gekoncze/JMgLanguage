@@ -3,8 +3,8 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.variable;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Part;
-import cz.mg.collections.ReadableCollection;
-import cz.mg.collections.array.Array;
+import cz.mg.collections.list.List;
+import cz.mg.collections.list.ReadableList;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -61,18 +61,18 @@ public class MgInstanceVariableSetExpression extends MgVariableExpression implem
     }
 
     @Override
-    protected ReadableCollection<MgExpression> getExpressions() {
-        return new Array<>(targetExpression, inputExpression);
+    protected ReadableList<MgExpression> getExpressions() {
+        return new List<>(targetExpression, inputExpression);
     }
 
     @Override
-    protected ReadableCollection<MgInputConnector> getInputConnectors() {
-        return new Array<>(targetConnector, inputConnector);
+    protected ReadableList<MgInputConnector> getInputConnectors() {
+        return new List<>(targetConnector, inputConnector);
     }
 
     @Override
-    protected ReadableCollection<MgOutputConnector> getOutputConnectors() {
-        return new Array<>();
+    protected ReadableList<MgOutputConnector> getOutputConnectors() {
+        return new List<>();
     }
 
     @Override

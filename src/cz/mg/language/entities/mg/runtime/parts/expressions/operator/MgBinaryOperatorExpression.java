@@ -1,13 +1,72 @@
 package cz.mg.language.entities.mg.runtime.parts.expressions.operator;
 
-import cz.mg.collections.ReadableCollection;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Part;
+import cz.mg.collections.Pass;
+import cz.mg.collections.list.List;
+import cz.mg.collections.list.ReadableList;
+import cz.mg.collections.special.PartCollection;
 import cz.mg.language.LanguageException;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgBinaryOperator;
+import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
+import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
+import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
+import cz.mg.language.tasks.mg.resolver.command.utilities.DeclarationHelper;
 
 
 public class MgBinaryOperatorExpression extends MgOperatorExpression {
-    public MgBinaryOperatorExpression(ReadableCollection<MgReplication> replications) {
+    @Mandatory @Part
+    private final MgExpression leftExpression;
+
+    @Mandatory @Part
+    private final MgExpression rightExpression;
+
+    public MgBinaryOperatorExpression(
+        List<MgReplication> replications,
+        MgExpression leftExpression,
+        MgExpression rightExpression
+    ) {
         super(replications);
+        this.leftExpression = leftExpression;
+        this.rightExpression = rightExpression;
+        connect();
+    }
+
+    private void connect(){
+        Pass<MgInputConnector> leftInputConnectorPass = new PartCollection<>(
+            getReplications(),
+            replication -> getInputConnectors(replication).getFirst()
+        ).iterator();
+
+        Pass<MgOutputConnector> leftOutputConnectorPass = getOutputConnectors(leftExpression).iterator();
+
+        while(leftInputConnectorPass.hasNext() && leftOutputConnectorPass.hasNext()){
+            DeclarationHelper.connect(leftInputConnectorPass.next(), leftOutputConnectorPass.next());
+        }
+
+        Pass<MgInputConnector> rightInputConnectorPass = new PartCollection<>(
+            getReplications(),
+            replication -> getInputConnectors(replication).getLast()
+        ).iterator();
+
+        Pass<MgOutputConnector> rightOutputConnectorPass = getOutputConnectors(rightExpression).iterator();
+
+        while(rightInputConnectorPass.hasNext() && rightOutputConnectorPass.hasNext()){
+            DeclarationHelper.connect(rightInputConnectorPass.next(), rightOutputConnectorPass.next());
+        }
+    }
+
+    @Override
+    protected ReadableList<MgExpression> getExpressions() {
+        return new List<>(leftExpression, rightExpression);
+    }
+
+    @Override
+    public void run(MgFunctionInstance functionInstance) {
+        leftExpression.run(functionInstance);
+        rightExpression.run(functionInstance);
+        super.run(functionInstance);
     }
 
     public static class MgReplication extends MgOperatorExpression.MgReplication {
