@@ -2,6 +2,7 @@ package cz.mg.language.tasks.mg.resolver.component;
 
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
+import cz.mg.language.annotations.task.Utility;
 import cz.mg.language.entities.mg.logical.components.MgLogicalFunction;
 import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
@@ -9,6 +10,7 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
 import cz.mg.language.tasks.mg.resolver.context.Context;
+import cz.mg.language.tasks.mg.resolver.context.FunctionBodyContext;
 import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
 
 
@@ -19,9 +21,13 @@ public abstract class MgResolveFunctionDefinitionTask extends MgResolveComponent
     @Output
     protected MgFunction function;
 
+    @Utility
+    private FunctionBodyContext functionBodyContext;
+
     public MgResolveFunctionDefinitionTask(Context context, MgLogicalFunction logicalFunction) {
         super(new FunctionContext(context), logicalFunction);
         this.logicalFunction = logicalFunction;
+        this.functionBodyContext = new FunctionBodyContext(getContext());
     }
 
     @Override
@@ -52,7 +58,7 @@ public abstract class MgResolveFunctionDefinitionTask extends MgResolveComponent
 
         for(MgLogicalCommand logicalCommand : logicalFunction.getCommands()){
             postpone(MgResolveCommandTask.class, () -> {
-                MgResolveCommandTask task = MgResolveCommandTask.create(new CommandContext(getContext()), logicalCommand);
+                MgResolveCommandTask task = MgResolveCommandTask.create(new CommandContext(functionBodyContext), logicalCommand);
                 task.run();
                 function.getCommands().addLast(task.getCommand());
             });

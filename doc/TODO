@@ -1,13 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+fixed command context variable declaration logic
+for block commands, declarations are added to its context
+for non-block commands, declarations are added to the parent context
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
-fix command context variable declaration
-    need to check if command is block command or not
-    for block command add declarations to its context
-    for non-block commands add declarations to the parent context
-
 implement sources for all contexts
     global, type, instance and local
     when doing search, we need to know where we can search and where we cannot

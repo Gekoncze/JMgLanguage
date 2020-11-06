@@ -17,6 +17,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalLunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
+import cz.mg.language.entities.mg.runtime.parts.commands.MgBlockCommand;
 import cz.mg.language.tasks.mg.builder.part.MgBuildDeclarationTask;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
 import cz.mg.language.tasks.mg.resolver.command.utilities.CachedLogicalOperatorExpression;
@@ -89,9 +90,15 @@ public class MgResolveExpressionTreeTask extends MgResolveTask {
                             task.run();
                             MgDatatype datatype = task.getDatatype();
 
-                            context.getDeclaredVariables().addLast(
-                                DeclarationHelper.newVariable(name, datatype)
-                            );
+                            if(context.getCommand() instanceof MgBlockCommand){
+                                context.getDeclaredVariables().addLast(
+                                    DeclarationHelper.newVariable(name, datatype)
+                                );
+                            } else {
+                                context.getOuterContext().getDeclaredVariables().addLast(
+                                    DeclarationHelper.newVariable(name, datatype)
+                                );
+                            }
 
                             mergeBinary(
                                 item.getNextItem(),
