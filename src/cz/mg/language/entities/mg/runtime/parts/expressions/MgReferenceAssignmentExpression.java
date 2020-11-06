@@ -6,6 +6,7 @@ import cz.mg.collections.Pass;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.language.LanguageException;
+import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgInputConnector;
 import cz.mg.language.entities.mg.runtime.parts.connection.MgOutputConnector;
@@ -41,7 +42,8 @@ public class MgReferenceAssignmentExpression extends MgExpression {
                 getInputConnectors(expression, inputConnectors);
             }
         } else if(leftExpression instanceof MgVariableSetExpression){
-            inputConnectors.addLast(leftExpression.getInputConnectors().iterator().next());
+            // Note: first input can be target for instance variables
+            inputConnectors.addLast(leftExpression.getInputConnectors().getLast());
         } else {
             throw new LanguageException("Expected variable set expression for reference assignment, but got " + leftExpression.getClass().getSimpleName() + ".");
         }

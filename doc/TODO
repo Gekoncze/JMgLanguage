@@ -191,6 +191,11 @@ make platform independent threads
             a bunch of threads for bunch of cores
             ... the question there is, if scheduler should be inside of core or application ?
 
+contextual methods as syntactical sugar
+    normal global methods, but
+    there would be a syntactical sugar, which would add them as a pseudo-member methods
+    maybe we should find a better name for it to not collide with thread contexts
+
 
 ### MAYBE LATER ### ----------------------------------------------------------------------------------------------------
 add support for relative ".." and "." usages ???
