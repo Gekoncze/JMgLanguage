@@ -17,7 +17,7 @@ import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
-import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
+import cz.mg.language.tasks.mg.resolver.context.architecture.ApplicationContext;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 

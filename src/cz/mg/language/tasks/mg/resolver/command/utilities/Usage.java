@@ -15,6 +15,10 @@ public class Usage {
     @Mandatory @Value
     private final ReadableText localName;
 
+    public Usage(@Mandatory @Link MgComponent component) {
+        this(component, null);
+    }
+
     public Usage(@Mandatory @Link MgComponent component, @Optional @Value ReadableText localName) {
         this.component = component;
         this.localName = localName != null ? localName : component.getName();

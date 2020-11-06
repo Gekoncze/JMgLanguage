@@ -5,7 +5,7 @@ import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLog
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalUnaryOperatorCallExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public abstract class MgResolveUnaryOperatorExpressionTask extends MgResolveOperatorExpressionTask {

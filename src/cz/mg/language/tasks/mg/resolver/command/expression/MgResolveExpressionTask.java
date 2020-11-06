@@ -15,7 +15,7 @@ import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveGroupE
 import cz.mg.language.tasks.mg.resolver.command.expression.other.MgResolveValueExpressionTask;
 import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public abstract class MgResolveExpressionTask extends MgResolveTask {

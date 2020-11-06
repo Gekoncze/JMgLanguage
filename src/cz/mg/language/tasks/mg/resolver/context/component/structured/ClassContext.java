@@ -7,6 +7,7 @@ import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.context.Context;
+import cz.mg.language.tasks.mg.resolver.search.Source;
 
 
 public class ClassContext extends StructuredTypeContext {
@@ -28,5 +29,15 @@ public class ClassContext extends StructuredTypeContext {
 
     public void setClazz(MgClass clazz) {
         this.clazz = clazz;
+    }
+
+    @Override
+    public Source getTypeSource() {
+        return super.getTypeSource();
+    }
+
+    @Override
+    public Source getInstanceSource() {
+        return super.getInstanceSource();
     }
 }

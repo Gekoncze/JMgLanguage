@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.components.*;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.LocationContext;
+import cz.mg.language.tasks.mg.resolver.context.architecture.LocationContext;
 import cz.mg.language.tasks.mg.resolver.component.*;
 
 

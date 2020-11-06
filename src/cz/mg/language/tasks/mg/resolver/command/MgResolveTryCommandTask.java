@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalTryCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgTryCommand;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveTryCommandTask extends MgResolveCommandTask {

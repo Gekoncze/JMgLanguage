@@ -8,9 +8,9 @@ import cz.mg.language.entities.mg.logical.components.MgLogicalVariable;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.FunctionBodyContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.FunctionBodyContext;
 import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
 
 

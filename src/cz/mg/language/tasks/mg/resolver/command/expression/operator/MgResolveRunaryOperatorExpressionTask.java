@@ -1,17 +1,13 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
-import cz.mg.collections.list.List;
 import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalRunaryOperatorCallExpression;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgRunaryOperator;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgRunaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-import cz.mg.language.tasks.mg.resolver.search.operator.RunaryOperatorSearch;
-import static cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgRunaryOperatorExpression.MgReplication;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveRunaryOperatorExpressionTask extends MgResolveUnaryOperatorExpressionTask {

@@ -1,9 +1,9 @@
 package cz.mg.language.tasks.mg.resolver.search;
 
 import cz.mg.collections.Clump;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
 
 
 public interface Source {
-    public Clump<? extends MgComponent> getComponents();
+    public Clump<Usage> getComponents();
 }

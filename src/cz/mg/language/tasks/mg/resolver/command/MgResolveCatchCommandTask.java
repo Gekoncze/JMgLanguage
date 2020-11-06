@@ -1,12 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCatchCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCatchCommand;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 import cz.mg.language.tasks.mg.resolver.component.MgResolveFunctionVariableDefinitionTask;
 
 

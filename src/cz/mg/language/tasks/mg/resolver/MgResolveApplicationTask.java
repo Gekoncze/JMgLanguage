@@ -6,7 +6,7 @@ import cz.mg.language.entities.mg.logical.architecture.MgLogicalApplication;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.command.MgResolveCommandTask;
-import cz.mg.language.tasks.mg.resolver.context.ApplicationContext;
+import cz.mg.language.tasks.mg.resolver.context.architecture.ApplicationContext;
 import cz.mg.language.tasks.mg.resolver.component.*;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveBaseClassesTask;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveComponentStampTask;

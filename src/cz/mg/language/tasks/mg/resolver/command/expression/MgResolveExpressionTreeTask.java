@@ -24,7 +24,7 @@ import cz.mg.language.tasks.mg.resolver.command.utilities.CachedLogicalOperatorE
 import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorInfo;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 import cz.mg.language.tasks.mg.resolver.link.MgResolveVariableDatatypeTask;
 
 

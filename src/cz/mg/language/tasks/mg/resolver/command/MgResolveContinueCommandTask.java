@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.parts.commands.Continuable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgContinueCommand;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveContinueCommandTask extends MgResolveCommandTask {

@@ -3,7 +3,7 @@ package cz.mg.language.tasks.mg.resolver.command;
 import cz.mg.language.entities.mg.logical.parts.commands.*;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.MgResolveTask;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public abstract class MgResolveCommandTask extends MgResolveTask {

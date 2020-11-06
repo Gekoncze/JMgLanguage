@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.parts.commands.MgCatchCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCheckpointCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgFinallyCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgTryCommand;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveCheckpointCommandTask extends MgResolveCommandTask {

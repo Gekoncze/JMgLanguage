@@ -1,4 +1,4 @@
-package cz.mg.language.tasks.mg.resolver.context;
+package cz.mg.language.tasks.mg.resolver.context.executable;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;

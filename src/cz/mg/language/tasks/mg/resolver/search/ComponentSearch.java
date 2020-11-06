@@ -11,6 +11,7 @@ import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
+import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
 
 
 public class ComponentSearch<Component extends MgComponent> {
@@ -35,10 +36,6 @@ public class ComponentSearch<Component extends MgComponent> {
     ) {
         this.source = source;
         this.name = name;
-
-        if(name != null){
-            addFilter(this::filterByName);
-        }
     }
 
     protected Class getType(){
@@ -47,10 +44,6 @@ public class ComponentSearch<Component extends MgComponent> {
 
     protected final void addFilter(@Mandatory Filter<Component> filter){
         this.filters.addLast(filter);
-    }
-
-    private boolean filterByName(Component component){
-        return name.equals(component.getName());
     }
 
     public @Optional Component find(boolean optional){
@@ -84,13 +77,21 @@ public class ComponentSearch<Component extends MgComponent> {
     }
 
     public @Mandatory ReadableList<Component> findAll(){
-        Clump<? extends MgComponent> availableComponents = source.getComponents();
+        Clump<Usage> availableComponents = source.getComponents();
         List<Component> acceptedComponents = new List<>();
-        for(MgComponent mgComponent : availableComponents){
-            if(getType().isAssignableFrom(mgComponent.getClass())){
-                Component component = (Component) mgComponent;
-                if(isAcceptable(component)){
-                    acceptedComponents.addLast(component);
+        for(Usage usage : availableComponents){
+            if(getType().isAssignableFrom(usage.getComponent().getClass())){
+                Component component = (Component) usage.getComponent();
+                if(name != null){
+                    if(name.equals(usage.getLocalName())){
+                        if(isAcceptable(component)){
+                            acceptedComponents.addLast(component);
+                        }
+                    }
+                } else {
+                    if(isAcceptable(component)){
+                        acceptedComponents.addLast(component);
+                    }
                 }
             }
         }

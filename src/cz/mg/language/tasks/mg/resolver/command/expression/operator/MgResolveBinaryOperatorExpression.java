@@ -6,7 +6,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgBinaryOperatorExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressionTask {

@@ -1,11 +1,10 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-fixed command context variable declaration logic
-for block commands, declarations are added to its context
-for non-block commands, declarations are added to the parent context
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
 implement sources for all contexts
+    work in progress
     global, type, instance and local
     when doing search, we need to know where we can search and where we cannot
         based on that we will choose proper source form the context

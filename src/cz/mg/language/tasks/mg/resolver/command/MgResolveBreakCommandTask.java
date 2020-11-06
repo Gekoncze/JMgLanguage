@@ -9,7 +9,7 @@ import cz.mg.language.entities.mg.runtime.parts.commands.Breakable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgBreakCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveBreakCommandTask extends MgResolveCommandTask {

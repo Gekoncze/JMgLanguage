@@ -1,13 +1,11 @@
 package cz.mg.language.tasks.mg.resolver.command;
 
-import cz.mg.collections.list.List;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalCommand;
 import cz.mg.language.entities.mg.logical.parts.commands.MgLogicalElseCommand;
-import cz.mg.language.entities.mg.runtime.parts.commands.MgCaseCommand;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgElseCommand;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveElseCommandTask extends MgResolveCommandTask {

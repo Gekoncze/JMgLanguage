@@ -1,8 +1,9 @@
-package cz.mg.language.tasks.mg.resolver.context;
+package cz.mg.language.tasks.mg.resolver.context.architecture;
 
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.architecture.MgApplication;
+import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
 public class ApplicationContext extends Context {

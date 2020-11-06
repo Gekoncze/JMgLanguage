@@ -2,11 +2,11 @@ package cz.mg.language.tasks.mg.resolver.search;
 
 import cz.mg.collections.Clump;
 import cz.mg.collections.array.Array;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.tasks.mg.resolver.command.utilities.Usage;
 
 
 public class EmptySource implements Source {
-    private static final Array<MgComponent> EMPTY_ARRAY = new Array<>();
+    private static final Array<Usage> EMPTY_ARRAY = new Array<>();
     private static final EmptySource INSTANCE = new EmptySource();
 
     public static EmptySource getInstance() {
@@ -17,7 +17,7 @@ public class EmptySource implements Source {
     }
 
     @Override
-    public Clump<? extends MgComponent> getComponents() {
+    public Clump<Usage> getComponents() {
         return EMPTY_ARRAY;
     }
 }

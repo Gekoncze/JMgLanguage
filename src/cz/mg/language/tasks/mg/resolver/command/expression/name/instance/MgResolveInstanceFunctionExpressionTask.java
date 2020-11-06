@@ -4,7 +4,7 @@ import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.MgLogicalMemberNameCallExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
-import cz.mg.language.tasks.mg.resolver.context.CommandContext;
+import cz.mg.language.tasks.mg.resolver.context.executable.CommandContext;
 
 
 public class MgResolveInstanceFunctionExpressionTask extends MgResolveInstanceNameExpressionTask {
