@@ -1,12 +1,13 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-huge filter refactoring
-simplified filter a lot
-renamed filter to search
-contexts cannot be used directly for search
-in one context, there can be multiple sources ...
+
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+fix command context variable declaration
+    need to check if command is block command or not
+    for block command add declarations to its context
+    for non-block commands add declarations to the parent context
+
 implement sources for all contexts
     global, type, instance and local
     when doing search, we need to know where we can search and where we cannot
