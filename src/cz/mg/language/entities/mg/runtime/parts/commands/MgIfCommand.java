@@ -1,9 +1,8 @@
 package cz.mg.language.entities.mg.runtime.parts.commands;
 
-import cz.mg.annotations.storage.Link;
-import cz.mg.collections.list.List;
-import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Link;
+import cz.mg.annotations.storage.Part;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;
@@ -14,7 +13,7 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 
 
-public class MgIfCommand extends MgCommand {
+public class MgIfCommand extends MgBlockCommand {
     public static final MgDatatype DATATYPE = new MgDatatype(
         MgBoolType.getInstance(),
         MgDatatype.Storage.ANY,
@@ -26,9 +25,6 @@ public class MgIfCommand extends MgCommand {
 
     @Mandatory @Link
     private final MgInputConnector inputConnector = new MgInputConnector(DATATYPE);
-
-    @Mandatory @Part
-    private final List<@Mandatory @Part MgCommand> commands = new List<>();
 
     public MgIfCommand(MgExpression expression) {
         this.expression = expression;
@@ -48,19 +44,13 @@ public class MgIfCommand extends MgCommand {
         return inputConnector;
     }
 
-    public List<MgCommand> getCommands() {
-        return commands;
-    }
-
     @Override
     public void run(MgFunctionInstance functionInstance) {
         expression.run(functionInstance);
         MgInstanceVariable conditionVariable = inputConnector.getConnection().getConnectionVariable();
         MgBoolObject condition = (MgBoolObject) functionInstance.getObjects().get(conditionVariable.getCache().getOffset());
         if(condition.getValue()){
-            for(MgCommand command : commands){
-                command.run(functionInstance);
-            }
+            super.run(functionInstance);
         }
     }
 }

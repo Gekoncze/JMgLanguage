@@ -10,9 +10,7 @@ public abstract class MgVariableExpression extends MgExpression {
     @Mandatory @Link
     private final MgVariable variable;
 
-    public MgVariableExpression(
-        MgVariable variable
-    ) {
+    public MgVariableExpression(MgVariable variable) {
         this.variable = variable;
     }
 

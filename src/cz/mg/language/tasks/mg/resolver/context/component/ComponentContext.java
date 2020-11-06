@@ -21,12 +21,5 @@ public abstract class ComponentContext extends Context {
         return usages;
     }
 
-    @Override
-    public void forEachComponent(ComponentVisitor visitor) {
-        for(Usage usage : usages){
-            visitor.onVisitComponent(usage.getComponent(), usage.getLocalName());
-        }
-    }
-
     public abstract MgComponent getComponent();
 }

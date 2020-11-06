@@ -1,22 +1,33 @@
 ### DONE ### -----------------------------------------------------------------------------------------------------------
-
+huge filter refactoring
+simplified filter a lot
+renamed filter to search
+contexts cannot be used directly for search
+in one context, there can be multiple sources ...
 
 
 ### NOW ### ------------------------------------------------------------------------------------------------------------
+implement sources for all contexts
+    global, type, instance and local
+    when doing search, we need to know where we can search and where we cannot
+        based on that we will choose proper source form the context
+
 fix all mg expression resolvers
-    resolvers should only take care of the filtering
+    <base>
+    group
+    value
+    operator
+        binary
+        unary
+            lunary
+            runary
+        value assignment
+        reference assignment
+    name
+        variable + instance
+        function + instance
 
-    fix operator expression resolvers
-    fix variable expression resolvers
-    fix function expression resolvers
-
-    fix group expression resolvers
-        do group expression need to create connectors?
-                it might be necessary for resolve, but not for anything else ... investigate
-
-    fix value expression resolver
-
-    Note: make sure it handles different kinds of variables and functions correctly based on annotations
+    Note: make sure they handle different kinds of variables and functions correctly based on annotations
         variables
             global variable
             instance variable (annotated with @instance)

@@ -4,9 +4,6 @@ import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgCollection;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
-import cz.mg.language.entities.mg.runtime.parts.MgParameter;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
 
@@ -29,22 +26,5 @@ public class CollectionContext extends StructuredTypeContext {
 
     public void setCollection(MgCollection collection) {
         this.collection = collection;
-    }
-
-    @Override
-    public void forEachComponent(ComponentVisitor visitor) {
-        if(collection != null){
-            for(MgVariable variable : collection.getVariableDefinitions()){
-                visitor.onVisitComponent(variable, null);
-            }
-
-            for(MgFunction function : collection.getFunctionDefinitions()){
-                visitor.onVisitComponent(function, null);
-            }
-
-            for(MgParameter parameter : collection.getParameters()){
-                visitor.onVisitComponent(parameter.getType(), parameter.getName());
-            }
-        }
     }
 }

@@ -5,7 +5,7 @@ import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.stamps.MgStamp;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.filter.basic.StampFilter;
+import cz.mg.language.tasks.mg.resolver.search.StampSearch;
 import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
 
 
@@ -27,6 +27,6 @@ public class MgResolveComponentStampTask extends MgPostponeResolveTask {
 
     @Override
     protected void onRun() {
-        stamp = new StampFilter(getContext(), logicalStamp).find();
+        stamp = new StampSearch(getContext().getGlobalSource(), logicalStamp).find();
     }
 }

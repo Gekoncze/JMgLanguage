@@ -1,7 +1,7 @@
 package cz.mg.language.tasks.mg.resolver.context;
 
-import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Link;
 import cz.mg.language.entities.mg.runtime.components.MgLocation;
 
 
@@ -19,9 +19,5 @@ public class LocationContext extends Context {
 
     public void setLocation(MgLocation location) {
         this.location = location;
-    }
-
-    @Override
-    public void forEachComponent(ComponentVisitor visitor) {
     }
 }

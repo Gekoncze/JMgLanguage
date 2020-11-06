@@ -5,7 +5,6 @@ import cz.mg.annotations.storage.Link;
 import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.MgComponent;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgFunction;
-import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 
@@ -38,22 +37,5 @@ public class FunctionContext extends StructuredTypeContext {
     public OperatorCache getOperatorCache() {
         if(operatorCache == null) operatorCache = new OperatorCache(this);
         return operatorCache;
-    }
-
-    @Override
-    public void forEachComponent(ComponentVisitor visitor) {
-        if(function != null){
-            for(MgVariable object : function.getInputVariables()){
-                visitor.onVisitComponent(object, null);
-            }
-
-            for(MgVariable object : function.getOutputVariables()){
-                visitor.onVisitComponent(object, null);
-            }
-
-            for(MgVariable object : function.getLocalVariables()){
-                visitor.onVisitComponent(object, null);
-            }
-        }
     }
 }

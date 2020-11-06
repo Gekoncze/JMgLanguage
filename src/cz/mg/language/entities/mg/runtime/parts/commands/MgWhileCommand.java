@@ -4,7 +4,6 @@ import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
-import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgBoolType;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
@@ -18,7 +17,7 @@ import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.utilities.DeclarationHelper;
 
 
-public class MgWhileCommand extends MgCommand implements Breakable, Continuable {
+public class MgWhileCommand extends MgBlockCommand implements Breakable, Continuable {
     public static final MgDatatype DATATYPE = new MgDatatype(
         MgBoolType.getInstance(),
         MgDatatype.Storage.ANY,
@@ -33,9 +32,6 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
 
     @Mandatory @Link
     private final MgInputConnector inputConnector = new MgInputConnector(DATATYPE);
-
-    @Mandatory @Part
-    private final List<MgCommand> commands = new List<>();
 
     public MgWhileCommand(ReadableText name, MgExpression expression) {
         this.name = name;
@@ -61,17 +57,11 @@ public class MgWhileCommand extends MgCommand implements Breakable, Continuable 
         return inputConnector;
     }
 
-    public List<MgCommand> getCommands() {
-        return commands;
-    }
-
     @Override
     public void run(MgFunctionInstance functionInstance) {
         while(evaluateExpression(functionInstance)){
             try {
-                for(MgCommand command : commands){
-                    command.run(functionInstance);
-                }
+                super.run(functionInstance);
             } catch (BreakException e){
                 if(e.getTarget() == this){
                     break;

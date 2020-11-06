@@ -1,18 +1,13 @@
 package cz.mg.language.tasks.mg.resolver.command.expression.operator;
 
-import cz.mg.collections.array.Array;
-import cz.mg.language.LanguageException;
 import cz.mg.language.Todo;
 import cz.mg.language.annotations.task.Input;
 import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.logical.parts.expressions.calls.operator.MgLogicalBinaryOperatorCallExpression;
-import cz.mg.language.entities.mg.runtime.components.types.functions.MgBinaryOperator;
 import cz.mg.language.entities.mg.runtime.parts.expressions.MgExpression;
 import cz.mg.language.entities.mg.runtime.parts.expressions.operator.MgValueAssignmentOperatorExpression;
-import cz.mg.language.tasks.mg.resolver.command.expression.MgResolveExpressionTask;
 import cz.mg.language.tasks.mg.resolver.command.utilities.ExpectedParentInput;
 import cz.mg.language.tasks.mg.resolver.context.CommandContext;
-import cz.mg.language.tasks.mg.resolver.filter.expression.operator.ValueAssignmentOperatorExpressionFilter;
 
 
 public class MgResolveValueAssignmentExpressionTask extends MgResolveOperatorExpressionTask {

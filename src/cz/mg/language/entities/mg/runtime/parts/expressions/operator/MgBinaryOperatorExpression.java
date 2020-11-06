@@ -3,6 +3,7 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.operator;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.storage.Part;
 import cz.mg.collections.Pass;
+import cz.mg.collections.ReadableCollection;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
 import cz.mg.collections.special.PartCollection;
@@ -23,11 +24,11 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
     private final MgExpression rightExpression;
 
     public MgBinaryOperatorExpression(
-        List<MgReplication> replications,
+        List<MgBinaryOperator> operators,
         MgExpression leftExpression,
         MgExpression rightExpression
     ) {
-        super(replications);
+        super(createReplications(operators));
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         connect();
@@ -89,5 +90,13 @@ public class MgBinaryOperatorExpression extends MgOperatorExpression {
                 return operator;
             }
         }
+    }
+
+    private static List<MgReplication> createReplications(ReadableCollection<MgBinaryOperator> operators){
+        List<MgReplication> replications = new List<>();
+        for(MgBinaryOperator operator : operators){
+            replications.addLast(new MgReplication(operator));
+        }
+        return replications;
     }
 }

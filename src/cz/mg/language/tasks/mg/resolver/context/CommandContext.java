@@ -1,12 +1,12 @@
 package cz.mg.language.tasks.mg.resolver.context;
 
-import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
 import cz.mg.collections.list.List;
+import cz.mg.language.Todo;
 import cz.mg.language.entities.mg.runtime.components.variables.MgInstanceVariable;
-import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.parts.commands.MgCommand;
 import cz.mg.language.tasks.mg.resolver.command.utilities.OperatorCache;
 import cz.mg.language.tasks.mg.resolver.context.component.structured.FunctionContext;
@@ -36,6 +36,10 @@ public class CommandContext extends Context {
     }
 
     public List<MgInstanceVariable> getDeclaredVariables() {
+        // todo - this is not correct
+        // todo - in some cases indeed we do add declarations only to current bock, for example if and while command
+        // todo - but in some cases we add declarations to parent block, for example plain expression command
+        new Todo();
         return declaredVariables;
     }
 
@@ -51,12 +55,5 @@ public class CommandContext extends Context {
 
     public OperatorCache getOperatorCache() {
         return getFunctionContext().getOperatorCache();
-    }
-
-    @Override
-    public void forEachComponent(ComponentVisitor visitor) {
-        for(MgVariable variable : declaredVariables){
-            visitor.onVisitComponent(variable, null);
-        }
     }
 }

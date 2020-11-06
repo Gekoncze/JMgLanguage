@@ -12,7 +12,7 @@ import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.storage.Value;
 import cz.mg.language.entities.mg.runtime.components.types.functions.MgOperator;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.filter.basic.OperatorFilter;
+import cz.mg.language.tasks.mg.resolver.search.operator.OperatorSearch;
 
 
 public class OperatorCache {
@@ -31,7 +31,7 @@ public class OperatorCache {
     public OperatorCache(Context context) {
         if(context != null){
             // find all functions available in this context
-            OperatorFilter filter = new OperatorFilter(context, null);
+            OperatorSearch filter = new OperatorSearch(context.getGlobalSource(), null);
             ReadableList<MgOperator> availableOperators = filter.findAll();
 
             // fund the min and max priority of the available functions

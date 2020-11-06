@@ -88,10 +88,12 @@ public abstract class MgResolveNameExpressionTask extends MgResolveExpressionTas
         MgLogicalNameCallExpression logicalExpression,
         ExpectedParentInput parent
     ){
-        if(logicalExpression.getExpression() == null){
-            return new MgResolveVariableExpressionTask(context, logicalExpression, parent);
-        } else {
-            return new MgResolveFunctionExpressionTask(context, logicalExpression, parent);
-        }
+        new Todo();
+        return null;
+//        if(logicalExpression.getExpression() == null){
+//            return new MgResolveVariableExpressionTask(context, logicalExpression, parent);
+//        } else {
+//            return new MgResolveFunctionExpressionTask(context, logicalExpression, parent);
+//        }
     }
 }

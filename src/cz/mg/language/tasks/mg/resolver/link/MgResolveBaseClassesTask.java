@@ -8,7 +8,7 @@ import cz.mg.language.annotations.task.Output;
 import cz.mg.language.entities.mg.runtime.components.types.classes.MgClass;
 import cz.mg.language.tasks.mg.resolver.context.Context;
 import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
-import cz.mg.language.tasks.mg.resolver.filter.basic.ClassFilter;
+import cz.mg.language.tasks.mg.resolver.search.ClassSearch;
 
 
 public class MgResolveBaseClassesTask extends MgPostponeResolveTask {
@@ -32,6 +32,6 @@ public class MgResolveBaseClassesTask extends MgPostponeResolveTask {
         if(logicalClasses.count() < 1) return;
         if(logicalClasses.count() > 1) throw new LanguageException("Multiple inheritance is not supported (yet?).");
         ReadableText logicalClass = logicalClasses.getFirst();
-        baseClass = new ClassFilter(getContext(), logicalClass).find();
+        baseClass = new ClassSearch(getContext().getGlobalSource(), logicalClass).find();
     }
 }

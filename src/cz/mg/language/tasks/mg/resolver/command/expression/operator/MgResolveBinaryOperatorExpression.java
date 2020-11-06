@@ -30,38 +30,60 @@ public class MgResolveBinaryOperatorExpression extends MgResolveOperatorExpressi
         return expression;
     }
 
+//    private ExpectedParentInput[] preResolve(){
+//        if(getParent() != null){
+//            ExpectedParentInput expectedLeftInput = new ExpectedParentInput();
+//            ExpectedParentInput expectedRightInput = new ExpectedParentInput();
+//            for(int r = 0; r < getParent().getDatatypes().count(); r++){
+//                MgBinaryOperator operator = new BinaryOperatorExpressionSearch(
+//                    context,
+//                    logicalExpression.getName(),
+//                    getParent(),
+//                    null,
+//                    null,
+//                    r
+//                ).findOptional();
+//
+//                if(operator != null){
+//                    expectedLeftInput.getDatatypes().addLast(operator.getInputVariables().getFirst().getDatatype());
+//                    expectedRightInput.getDatatypes().addLast(operator.getInputVariables().getLast().getDatatype());
+//                } else {
+//                    break;
+//                }
+//            }
+//            return new ExpectedParentInput[]{
+//                expectedLeftInput,
+//                expectedRightInput
+//            };
+//        } else {
+//            return new ExpectedParentInput[]{
+//                null, null
+//            };
+//        }
+//    }
+
     @Override
     protected void onResolve() {
         new Todo();
-//        List<MgReplication> replications = null;
-//
-//        if(getParent() != null){
-//            replications = createReplications(getParent(), null, null, true);
-//        }
-//
-//        MgExpression leftChild = resolveChild(
-//            logicalExpression.getLeft(),
-//            replications == null ? null : new MgLeftExpression(replications)
-//        );
-//
-//        MgExpression rightChild = resolveChild(
-//            logicalExpression.getRight(),
-//            replications == null ? null : new MgRightExpression(replications)
-//        );
+//        ExpectedParentInput[] expectedInput = preResolve();
+//        MgExpression leftChild = resolveChild(logicalExpression.getLeft(), expectedInput[0]);
+//        MgExpression rightChild = resolveChild(logicalExpression.getRight(), expectedInput[1]);
 //
 //        if(leftChild.getOutputConnectors().count() != rightChild.getOutputConnectors().count()){
 //            throw new LanguageException("Unbalanced binary operator expression.");
 //        }
 //
-//        if(replications == null){
-//            replications = createReplications(getParent(), leftChild, rightChild, false);
-//        } else {
-//            while(replications.count() > leftChild.getOutputConnectors().count()){
-//                replications.removeLast();
-//            }
+//        int count = leftChild.getOutputConnectors().count();
+//
+//        if(getParent() != null){
+//            if(getParent().)
 //        }
 //
-//        expression = new MgBinaryOperatorExpression(replications);
+//        List<MgBinaryOperator> operators = new List<>();
+//        for(int r = 0; r < ){
+//
+//        }
+//        expression = new MgBinaryOperatorExpression(operators);
 //        expression.getExpressions().addLast(leftChild);
 //        expression.getExpressions().addLast(rightChild);
 //

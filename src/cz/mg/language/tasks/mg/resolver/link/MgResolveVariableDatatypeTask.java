@@ -6,7 +6,7 @@ import cz.mg.language.entities.mg.logical.parts.MgLogicalDatatype;
 import cz.mg.language.entities.mg.runtime.parts.MgDatatype;
 import cz.mg.language.tasks.mg.resolver.MgPostponeResolveTask;
 import cz.mg.language.tasks.mg.resolver.context.Context;
-import cz.mg.language.tasks.mg.resolver.filter.basic.TypeFilter;
+import cz.mg.language.tasks.mg.resolver.search.TypeSearch;
 
 
 public class MgResolveVariableDatatypeTask extends MgPostponeResolveTask {
@@ -27,9 +27,9 @@ public class MgResolveVariableDatatypeTask extends MgPostponeResolveTask {
 
     @Override
     protected void onRun() {
-        TypeFilter filter = new TypeFilter(getContext(), logicalDatatype.getName());
+        TypeSearch search = new TypeSearch(getContext().getGlobalSource(), logicalDatatype.getName());
         this.datatype = new MgDatatype(
-            filter.find(),
+            search.find(),
             MgDatatype.Storage.valueOf(logicalDatatype.getStorage().name()),
             MgDatatype.Requirement.valueOf(logicalDatatype.getRequirement().name())
         );

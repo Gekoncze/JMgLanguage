@@ -1,9 +1,9 @@
 package cz.mg.language.tasks.mg.resolver.context;
 
-import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Part;
-import cz.mg.language.entities.mg.runtime.components.MgComponent;
+import cz.mg.language.tasks.mg.resolver.search.EmptySource;
+import cz.mg.language.tasks.mg.resolver.search.Source;
 
 
 public abstract class Context {
@@ -18,9 +18,19 @@ public abstract class Context {
         return outerContext;
     }
 
-    public abstract void forEachComponent(ComponentVisitor visitor);
+    public Source getGlobalSource() {
+        return EmptySource.getInstance();
+    }
 
-    public interface ComponentVisitor {
-        void onVisitComponent(MgComponent component, ReadableText alias);
+    public Source getTypeSource() {
+        return EmptySource.getInstance();
+    }
+
+    public Source getInstanceSource() {
+        return EmptySource.getInstance();
+    }
+
+    public Source getLocalSource() {
+        return EmptySource.getInstance();
     }
 }

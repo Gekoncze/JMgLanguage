@@ -30,7 +30,7 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
         this.parent = parent;
     }
 
-    public @Optional ExpectedParentInput getParent() {
+    public ExpectedParentInput getParent() {
         return parent;
     }
 

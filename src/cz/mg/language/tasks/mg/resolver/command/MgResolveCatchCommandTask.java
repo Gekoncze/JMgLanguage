@@ -37,7 +37,7 @@ public class MgResolveCatchCommandTask extends MgResolveCommandTask {
         );
         task.run();
 
-        command = new MgCatchCommand(task.getVariable(), new List<>());
+        command = new MgCatchCommand(task.getVariable());
         context.setCommand(command);
 
         for(MgLogicalCommand logicalCommand : logicalCommand.getCommands()){
