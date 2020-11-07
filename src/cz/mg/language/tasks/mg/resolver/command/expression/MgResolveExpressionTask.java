@@ -42,10 +42,20 @@ public abstract class MgResolveExpressionTask extends MgResolveTask {
 
         onResolve();
 
+        updateRemainingParentSlots();
+
         DeclarationHelper.raise();
     }
 
     protected abstract void onResolve();
+
+    private void updateRemainingParentSlots(){
+        if(getParent() != null){
+            for(int i = 0; i < getExpression().getOutputConnectors().count(); i++){
+                getParent().getDatatypes().removeFirst();
+            }
+        }
+    }
 
     protected MgExpression resolveChild(MgLogicalCallExpression logicalExpression, ExpectedParentInput parent){
         MgResolveExpressionTask task = MgResolveExpressionTask.create(context, logicalExpression, parent);
