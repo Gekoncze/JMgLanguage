@@ -1,22 +1,24 @@
 package cz.mg.language.entities.mg.unresolved.components;
 
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
+import cz.mg.annotations.storage.Shared;
 import cz.mg.collections.list.List;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.language.Named;
-import cz.mg.annotations.storage.Shared;
-import cz.mg.annotations.storage.Value;
 import cz.mg.language.entities.mg.unresolved.MgUnresolvedEntity;
 import cz.mg.language.entities.mg.unresolved.Stampable;
 
 
 public class MgUnresolvedComponent extends MgUnresolvedEntity implements Named, Stampable {
-    @Value
+    @Mandatory @Part
     private ReadableText name;
 
-    @Value
-    private final List<ReadableText> stamps = new List<>();
+    @Mandatory @Part
+    private final List<@Mandatory @Part ReadableText> stamps = new List<>();
 
-    @Shared
+    @Optional @Shared
     private MgUnresolvedWorkspace workspace;
 
     public MgUnresolvedComponent() {

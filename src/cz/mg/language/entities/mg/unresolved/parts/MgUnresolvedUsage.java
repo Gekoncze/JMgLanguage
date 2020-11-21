@@ -43,6 +43,7 @@ public class MgUnresolvedUsage extends MgUnresolvedPart {
         CLASS,
         FUNCTION,
         OPERATOR,
-        VARIABLE
+        VARIABLE,
+        WORKSPACE
     }
 }
