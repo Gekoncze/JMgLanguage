@@ -24,6 +24,10 @@ public class Operators {
     public static final ReadableText GREATER_THAN = new ReadonlyText(">");
     public static final ReadableText GREATER_THAN_OR_EQUAL = new ReadonlyText(">=");
 
+    public static final ReadableText PATH = new ReadonlyText("/"); // only for usages
+    public static final ReadableText PATH_ANY = new ReadonlyText("*"); // only for usages
+    public static final ReadableText PATH_PARENT = new ReadonlyText(".."); // only for usages
+
     public static final ReadableText MEMBER_ACCESS = new ReadonlyText("."); // always 2nd highest priority, 1st is function call
     public static final ReadableText GROUP = new ReadonlyText(","); // always smallest priority
 

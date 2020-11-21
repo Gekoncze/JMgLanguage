@@ -1,23 +1,24 @@
 package cz.mg.language.entities.mg.unresolved.parts;
 
-import cz.mg.collections.list.List;
-import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Part;
 import cz.mg.annotations.storage.Value;
+import cz.mg.collections.text.ReadableText;
+import cz.mg.language.entities.mg.unresolved.parts.path.MgUnresolvedPath;
 
 
 public class MgUnresolvedUsage extends MgUnresolvedPart {
     @Mandatory @Value
     private Filter filter;
 
-    @Mandatory @Value
-    private final List<ReadableText> path;
+    @Mandatory @Part
+    private final MgUnresolvedPath path;
 
     @Optional @Value
     private ReadableText alias;
 
-    public MgUnresolvedUsage(Filter filter, List<ReadableText> path) {
+    public MgUnresolvedUsage(Filter filter, MgUnresolvedPath path) {
         this.filter = filter;
         this.path = path;
     }
@@ -26,7 +27,7 @@ public class MgUnresolvedUsage extends MgUnresolvedPart {
         return filter;
     }
 
-    public List<ReadableText> getPath() {
+    public MgUnresolvedPath getPath() {
         return path;
     }
 
