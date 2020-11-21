@@ -1,11 +1,11 @@
 package cz.mg.language.entities.mg.runtime.components.variables;
 
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Cache;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Value;
 import cz.mg.collections.text.ReadableText;
 import cz.mg.annotations.requirement.Mandatory;
-import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.types.MgStructuredType;
 
 

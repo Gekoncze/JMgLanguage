@@ -2,10 +2,10 @@ package cz.mg.language.entities.mg.runtime.parts.expressions.variable;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
+import cz.mg.annotations.storage.Cache;
 import cz.mg.annotations.storage.Part;
 import cz.mg.collections.list.List;
 import cz.mg.collections.list.ReadableList;
-import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.variables.MgGlobalVariable;
 import cz.mg.language.entities.mg.runtime.components.variables.MgVariable;
 import cz.mg.language.entities.mg.runtime.instances.MgFunctionInstance;

@@ -1,5 +1,6 @@
 package cz.mg.language.entities.mg.runtime.components.types.classes;
 
+import cz.mg.annotations.storage.Cache;
 import cz.mg.annotations.storage.Value;
 import cz.mg.collections.Clump;
 import cz.mg.collections.list.ArrayList;
@@ -9,7 +10,6 @@ import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.annotations.requirement.Optional;
 import cz.mg.annotations.storage.Link;
 import cz.mg.annotations.storage.Part;
-import cz.mg.language.annotations.task.Cache;
 import cz.mg.language.entities.mg.runtime.components.types.MgStructuredType;
 import cz.mg.language.entities.mg.runtime.components.types.MgType;
 import cz.mg.language.entities.mg.runtime.components.types.buildin.MgObjectType;
